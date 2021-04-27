@@ -1,6 +1,6 @@
 package ai.promoted.metrics
 
-object NoOpMetricsLogger : MetricsLogger {
+internal object NoOpMetricsLogger : MetricsLogger {
     override fun log() {
 
     }

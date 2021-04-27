@@ -4,7 +4,7 @@ import ai.promoted.ClientConfig
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
-class DefaultMetricsLogger internal constructor(
+internal class DefaultMetricsLogger constructor(
     config: ClientConfig
 ) : MetricsLogger {
     private val timer = fixedRateTimer(
