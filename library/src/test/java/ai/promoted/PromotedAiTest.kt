@@ -3,14 +3,13 @@ package ai.promoted
 import ai.promoted.metrics.DefaultMetricsLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.NoOpMetricsLogger
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.CoreMatchers.not
+import org.hamcrest.CoreMatchers.*
 import org.junit.Assert.assertThat
 import org.junit.Assert.fail
 import org.junit.Test
 
 class PromotedAiTest {
-    private var metricsLoggerProvider: (config: ClientConfig) -> MetricsLogger = {
+    private val metricsLoggerProvider: (config: ClientConfig) -> MetricsLogger = {
         DefaultMetricsLogger(it)
     }
 
@@ -41,16 +40,31 @@ class PromotedAiTest {
     }
 
     @Test
-    fun `Existing metrics logger is shut down upon reconfigure`() {
-        // Given
-        promotedAi.start { loggingEnabled = true}
-        val initialMetricsLogger = promotedAi.metricsLogger
+    fun `Existing metrics logger is shut down and re-set upon reconfigure`() {
+        // Given a PromotedAi instance that starts with an observable metrics logger
+        val observableMetricsLogger = object : MetricsLogger {
+            var didShutdown = false
+            override fun log() {}
 
-        // When
+            override fun shutdown() {
+                didShutdown = true
+            }
+        }
+
+        val promotedAi = object : PromotedAi({
+            if(!observableMetricsLogger.didShutdown) observableMetricsLogger
+            else DefaultMetricsLogger(it)
+        }) {}
+
+        promotedAi.start { loggingEnabled = true }
+
+        // When reconfigured
         promotedAi.reconfigure { }
         val reconfiguredMetricsLogger = promotedAi.metricsLogger
 
-        // Then
-        assertThat(reconfiguredMetricsLogger, not(initialMetricsLogger))
+        // Then shutdown was called on the first metrics logger
+        // And another metrics logger was instantiated
+        assertThat(observableMetricsLogger.didShutdown, equalTo(true))
+        assertThat(reconfiguredMetricsLogger, not(observableMetricsLogger))
     }
 }
