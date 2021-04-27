@@ -4,7 +4,15 @@ import ai.promoted.metrics.DefaultMetricsLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.NoOpMetricsLogger
 
-object PromotedAi {
+private val defaultMetricsLoggerProvider: (config: ClientConfig) -> MetricsLogger
+    get() = { config ->
+        if (config.loggingEnabled) DefaultMetricsLogger(config)
+        else NoOpMetricsLogger
+    }
+
+abstract class PromotedAi internal constructor(
+    private val metricsLoggerProvider: (config: ClientConfig) -> MetricsLogger = defaultMetricsLoggerProvider
+) {
     lateinit var metricsLogger: MetricsLogger
         private set
 
@@ -20,7 +28,10 @@ object PromotedAi {
     }
 
     private fun start(config: ClientConfig) {
-        metricsLogger = if (config.loggingEnabled) DefaultMetricsLogger(config)
+        metricsLogger = if (config.loggingEnabled) metricsLoggerProvider.invoke(config)
         else NoOpMetricsLogger
     }
+
+    // Default singleton instance provided for ease of API usage
+    companion object : PromotedAi()
 }
