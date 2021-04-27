@@ -1,6 +1,8 @@
 package ai.promoted
 
+import ai.promoted.networking.RetrofitNetworkConnection
 import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Assert.assertThat
 import org.junit.Test
 
@@ -13,7 +15,14 @@ class ClientConfigTest {
         val config = ClientConfig.Builder().build()
 
         assertThat(config.loggingEnabled, equalTo(true))
-        assertThat(config.metricsLoggingWireFormat, equalTo(ClientConfig.MetricsLoggingWireFormat.Binary))
+        assertThat(
+            config.metricsLoggingWireFormat,
+            equalTo(ClientConfig.MetricsLoggingWireFormat.Binary)
+        )
         assertThat(config.loggingFlushInterval, equalTo(10))
+        assertThat(
+            config.networkConnectionProvider.invoke(),
+            instanceOf(RetrofitNetworkConnection::class.java)
+        )
     }
 }
