@@ -1,11 +1,12 @@
-package ai.promoted
+package ai.promoted.metrics
 
+import ai.promoted.ClientConfig
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
-class MetricsLogger internal constructor(
+class DefaultMetricsLogger internal constructor(
     config: ClientConfig
-) {
+) : MetricsLogger {
     private val timer = fixedRateTimer(
         name = "promoted_metrics_logger",
         daemon = true,
@@ -17,11 +18,11 @@ class MetricsLogger internal constructor(
     private var logMessages = mutableListOf<Any>()
 
     // TODO
-    fun log() {
+    override fun log() {
         logMessages.add(Unit)
     }
 
-    internal fun shutdown() {
+    override fun shutdown() {
         timer.cancel()
     }
 

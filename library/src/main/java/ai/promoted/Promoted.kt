@@ -1,5 +1,9 @@
 package ai.promoted
 
+import ai.promoted.metrics.DefaultMetricsLogger
+import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.NoOpMetricsLogger
+
 object Promoted {
     lateinit var metricsLogger: MetricsLogger
         private set
@@ -11,11 +15,12 @@ object Promoted {
     }
 
     fun reconfigure(block: ClientConfig.Builder.() -> Unit) {
-        if(this::metricsLogger.isInitialized) metricsLogger.shutdown()
+        if (this::metricsLogger.isInitialized) metricsLogger.shutdown()
         start(block)
     }
 
     private fun start(config: ClientConfig) {
-        metricsLogger = MetricsLogger(config)
+        metricsLogger = if (config.loggingEnabled) DefaultMetricsLogger(config)
+        else NoOpMetricsLogger
     }
 }
