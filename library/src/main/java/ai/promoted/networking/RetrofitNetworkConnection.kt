@@ -19,24 +19,42 @@ internal interface PromotedApi {
     )
 }
 
-internal class RetrofitNetworkConnection: NetworkConnection {
-    // TODO - add custom OkHttpClient w/ interceptors for telemetry
-    private val api: PromotedApi =
-        Retrofit.Builder()
-            .build()
-            .create()
+// TODO - add custom OkHttpClient w/ interceptors for telemetry
+internal class RetrofitNetworkConnection : NetworkConnection {
+    private var apiUrlPair: Pair<String, PromotedApi>? = null
 
     override suspend fun send(request: PromotedApiRequest): Completable {
         return try {
-            api.postData(
-                request.url,
-                request.headers,
-                request.bodyData
-            )
+            getApiForUrl(request.url)
+                .postData(
+                    request.url,
+                    request.headers,
+                    request.bodyData
+                )
 
             Success()
         } catch (e: Throwable) {
             Failure(e)
         }
+    }
+
+    private fun getApiForUrl(url: String): PromotedApi {
+        val lastUrlAndApi = apiUrlPair
+        return when {
+            lastUrlAndApi == null -> buildAndSetNewApi(url)
+            lastUrlAndApi.first != url -> buildAndSetNewApi(url)
+            else -> lastUrlAndApi.second
+        }
+    }
+
+    private fun buildAndSetNewApi(url: String): PromotedApi {
+        val api = Retrofit.Builder()
+            .baseUrl(url)
+            .build()
+            .create<PromotedApi>()
+
+        apiUrlPair = url to api
+
+        return api
     }
 }

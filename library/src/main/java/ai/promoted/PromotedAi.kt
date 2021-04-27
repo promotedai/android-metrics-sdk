@@ -4,7 +4,7 @@ import ai.promoted.metrics.DefaultMetricsLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.NoOpMetricsLogger
 
-object Promoted {
+object PromotedAi {
     lateinit var metricsLogger: MetricsLogger
         private set
 
