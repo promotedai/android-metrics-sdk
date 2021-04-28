@@ -1,6 +1,5 @@
 package ai.promoted.metrics
 
-import kotlinx.coroutines.*
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -12,8 +11,6 @@ internal class OperationScheduler(
     private val intervalMillis: Long,
     private val operation: () -> Unit
 ) {
-    private var job: Job? = null
-
     private var scheduled = false
     private val timer = Timer()
 
@@ -21,31 +18,23 @@ internal class OperationScheduler(
      * If the provided operation has not yet been scheduled, schedule it
      */
     fun maybeSchedule() {
-//        if (job != null) return
-//        else job = scheduleOperation()
-        if(scheduled) return
-        timer.schedule(
-            delay = intervalMillis,
-            action = {
-                operation.invoke()
-                scheduled = false
-            }
-        )
+        if (scheduled) return
+         scheduleOperation()
     }
 
     /**
      * If the provided operation has been scheduled, cancel the pending execution of the operation
      */
     fun cancel() {
-//        job?.cancel()
-//        job = null
         timer.cancel()
         scheduled = false
     }
 
-    private fun scheduleOperation() = GlobalScope.launch {
-        delay(intervalMillis)
-        if (isActive) operation.invoke()
-        job = null
-    }
+    private fun scheduleOperation() = timer.schedule(
+        delay = intervalMillis,
+        action = {
+            operation.invoke()
+            scheduled = false
+        }
+    ).let { scheduled = true }
 }

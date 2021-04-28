@@ -44,6 +44,30 @@ class OperationSchedulerTest {
     }
 
     @Test
+    fun `Should invoke operation only once when multiple schedules before interval`() = runBlocking {
+        // Given that an operation has been scheduled to execute after the interval below
+        val interval = 100L
+        val scheduler = OperationScheduler(
+            intervalMillis = interval,
+            operation = observableOperation::doOperation
+        )
+        scheduler.maybeSchedule()
+
+        // When a small amount of time has passed
+        // and the operation was scheduled again
+        // and then operation is scheduled after another small amount of time
+        // and then finally the full interval has elapsed
+        delay(10L)
+        scheduler.maybeSchedule()
+        delay(10L)
+        scheduler.maybeSchedule()
+        delay((80L).withTimeForExecution)
+
+        // Then the operation is still only invoked once
+        assertThat("Execution count after multiple early schedules was ${observableOperation.executionCount}",  observableOperation.executionCount, equalTo(1))
+    }
+
+    @Test
     fun `Should not invoke operation at all when canceled before interval reached`() = runBlocking {
         // Given that an operation has been scheduled to execute after the interval below
         val interval = 100L
