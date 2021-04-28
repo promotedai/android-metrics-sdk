@@ -10,7 +10,7 @@ data class ClientConfig(
     val metricsLoggingAPIKey: String,
     val metricsLoggingWireFormat: MetricsLoggingWireFormat,
     val loggingFlushInterval: Long,
-    val networkConnectionProvider: () -> NetworkConnection
+    val networkConnectionProvider: () -> NetworkConnection,
 ) {
     data class Builder(
         var loggingEnabled: Boolean = true,

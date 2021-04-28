@@ -1,8 +1,12 @@
 package ai.promoted.metrics
 
+import com.google.protobuf.Message
+
 interface MetricsLogger {
-    // TODO - define metrics logger API
-    fun log()
+    fun startSessionAndLogUser(userId: String)
+    fun startSessionAndLogSignedOutUser()
+
+    fun logUser(properties: Message? = null)
 
     fun shutdown()
 }
