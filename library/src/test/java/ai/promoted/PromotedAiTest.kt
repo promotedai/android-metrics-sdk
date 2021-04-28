@@ -3,6 +3,7 @@ package ai.promoted
 import ai.promoted.metrics.DefaultMetricsLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.NoOpMetricsLogger
+import ai.promoted.test.ObservableNoOpMetricsLogger
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert.assertThat
 import org.junit.Assert.fail
@@ -18,7 +19,7 @@ class PromotedAiTest {
     @Test
     fun `Throws error if start() or reconfigure() not called`() {
         try {
-            promotedAi.metricsLogger.log()
+            promotedAi.metricsLogger.logUser()
             fail("Cannot have a logger without start() being called")
         } catch (error: Exception) {
             // success
@@ -42,14 +43,7 @@ class PromotedAiTest {
     @Test
     fun `Existing metrics logger is shut down and re-set upon reconfigure`() {
         // Given a PromotedAi instance that starts with an observable metrics logger
-        val observableMetricsLogger = object : MetricsLogger {
-            var didShutdown = false
-            override fun log() {}
-
-            override fun shutdown() {
-                didShutdown = true
-            }
-        }
+        val observableMetricsLogger = ObservableNoOpMetricsLogger()
 
         val promotedAi = object : PromotedAi({
             if(!observableMetricsLogger.didShutdown) observableMetricsLogger

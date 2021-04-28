@@ -1,37 +1,36 @@
 package ai.promoted.metrics
 
 import ai.promoted.ClientConfig
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
+import com.google.protobuf.Message
+import java.util.concurrent.TimeUnit
 
 internal class DefaultMetricsLogger constructor(
     config: ClientConfig
 ) : MetricsLogger {
-    private val timer = fixedRateTimer(
-        name = "promoted_metrics_logger",
-        daemon = true,
-        initialDelay = config.loggingFlushInterval,
-        period = config.loggingFlushInterval,
-        action = this::onInterval
+    private val scheduler = OperationScheduler(
+        intervalMillis = TimeUnit.SECONDS.toMillis(config.loggingFlushInterval),
+        operation = this::flush
     )
 
-    private var logMessages = mutableListOf<Any>()
+    private var logMessages = mutableListOf<Message>()
 
-    // TODO
-    override fun log() {
-        logMessages.add(Unit)
+    override fun startSessionAndLogUser(userId: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun startSessionAndLogSignedOutUser() {
+        TODO("Not yet implemented")
+    }
+
+    override fun logUser(properties: Message?) {
+        TODO("Not yet implemented")
     }
 
     override fun shutdown() {
-        timer.cancel()
+        scheduler.cancel()
     }
 
-    private fun onInterval(timerTask: TimerTask) {
-        /*
-            TODO:
-            - Send current list
-            - Reset list to new mutableList
-            -
-         */
+    private fun flush() {
+        // TODO
     }
 }
