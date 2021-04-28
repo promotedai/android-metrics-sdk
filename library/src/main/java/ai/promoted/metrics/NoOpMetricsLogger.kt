@@ -1,11 +1,12 @@
 package ai.promoted.metrics
 
-internal object NoOpMetricsLogger : MetricsLogger {
-    override fun log() {
+import com.google.protobuf.Message
 
-    }
+internal abstract class NoOpMetricsLogger : MetricsLogger {
+    override fun shutdown() {}
+    override fun startSessionAndLogUser(userId: String) {}
+    override fun startSessionAndLogSignedOutUser() {}
+    override fun logUser(properties: Message?) {}
 
-    override fun shutdown() {
-
-    }
+    companion object : NoOpMetricsLogger()
 }
