@@ -6,7 +6,7 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        PromotedAi.configure {
+        PromotedAi.configure(this) {
             metricsLoggingUrl = ""
             metricsLoggingAPIKey = ""
         }

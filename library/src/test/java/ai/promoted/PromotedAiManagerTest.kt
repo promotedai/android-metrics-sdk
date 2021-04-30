@@ -1,6 +1,7 @@
 package ai.promoted
 
 import ai.promoted.internal.ConfigurableKoinComponent
+import android.app.Application
 import io.mockk.called
 import io.mockk.mockk
 import io.mockk.verify
@@ -14,6 +15,8 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 class PromotedAiManagerTest {
+    private val application: Application = mockk()
+
     // Using this to ensure no Koin instances are living longer than each test
     @After
     fun tearDown() {
@@ -50,10 +53,10 @@ class PromotedAiManagerTest {
                 }
             )
         }) {}
-        manager.configure { loggingEnabled = true }
+        manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured to disable logging
-        manager.configure { loggingEnabled = false}
+        manager.configure(application) { loggingEnabled = false}
 
         // Then the second promtoed ai is never called
         // and the actual instance is a NoOp (it's not even the second PromotedAi that DI provided)
@@ -82,10 +85,10 @@ class PromotedAiManagerTest {
                 }
             )
         }) {}
-        manager.configure { loggingEnabled = true }
+        manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured
-        manager.configure { loggingEnabled = false}
+        manager.configure(application) { loggingEnabled = false}
 
         // Then the initial PromotedAi was shutdown
         verify(exactly = 1) { firstPromotedAi.shutdown() }

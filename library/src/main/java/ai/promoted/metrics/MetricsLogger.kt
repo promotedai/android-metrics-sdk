@@ -23,13 +23,14 @@ internal class MetricsLogger(private val config: ClientConfig) {
         logMessages.add(message)
     }
 
-    fun cancelPendingQueue() {
+    fun cancelAndDiscardPendingQueue() {
         scheduler.cancel()
         logMessages.clear()
     }
 
-    fun ignoreScheduleAndSendNow() {
-        TODO("Not yet implemented")
+    fun cancelAndSendPendingQueue() {
+        scheduler.cancel()
+        sendCurrentMessages()
     }
 
     private fun sendCurrentMessages() {

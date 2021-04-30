@@ -3,7 +3,8 @@ package ai.promoted
 import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
 import ai.promoted.metrics.MetricsLogger
-import ai.promoted.metrics.StartSessionUseCase
+import ai.promoted.metrics.usecases.StartSessionUseCase
+import android.app.Application
 import org.koin.core.component.get
 
 abstract class PromotedAiManager internal constructor(
@@ -30,13 +31,14 @@ abstract class PromotedAiManager internal constructor(
      * you might call this function, [initialize] in your application onCreate(), but if you want
      * to reconfigure at a later point, it would be clearer if you called [configure].
      */
-    fun initialize(block: ClientConfig.Builder.() -> Unit) = configure(block)
+    fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
+        configure(application, block)
 
     /**
      * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls
      * after the initial call will simply reconfigure & restart Promoted.Ai
      */
-    fun configure(block: ClientConfig.Builder.() -> Unit) {
+    fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) {
         // Shut down the current PromotedAi instance, if there is one running / we're in a ready
         // state
         when (val currentState = state) {
@@ -45,7 +47,7 @@ abstract class PromotedAiManager internal constructor(
 
         // Reconfigure Koin to provide dependencies based on the current ClientConfig
         val config = ClientConfig.Builder().apply(block).build()
-        configurableKoinComponent.configure(config)
+        configurableKoinComponent.configure(application, config)
 
         // Regardless of what PromotedAi type Koin might return, we'll always override that with a
         // no-op version if logging is disabled via config. This is to prevent such critical
@@ -84,5 +86,5 @@ internal class DefaultPromotedAi(
     private val startSessionUseCase: StartSessionUseCase
 ) : PromotedAi {
     override fun startSession(userId: String) = startSessionUseCase.startSession(userId)
-    override fun shutdown() = logger.cancelPendingQueue()
+    override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

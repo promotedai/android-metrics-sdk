@@ -1,4 +1,4 @@
 package ai.promoted.metrics
 
-class ImpressionLogger {
+internal class ImpressionLogger {
 }
