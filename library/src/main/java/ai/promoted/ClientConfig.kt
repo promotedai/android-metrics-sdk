@@ -7,7 +7,7 @@ data class ClientConfig(
     val loggingEnabled: Boolean,
     val metricsLoggingUrl: String,
     val devMetricsLoggingUrl: String,
-    val metricsLoggingAPIKey: String,
+    val metricsLoggingApiKey: String,
     val metricsLoggingWireFormat: MetricsLoggingWireFormat,
     val loggingFlushIntervalSeconds: Long,
     val networkConnectionProvider: () -> NetworkConnection,

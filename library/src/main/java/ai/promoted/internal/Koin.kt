@@ -56,7 +56,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
 
             factory { LogUserUseCase(get(), get()) }
             factory { LogSessionUseCase(get()) }
-            factory { FinalizeLogsUseCase() }
+            factory { FinalizeLogsUseCase(get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<IdStorage> { PrefsIdStorage(get()) }

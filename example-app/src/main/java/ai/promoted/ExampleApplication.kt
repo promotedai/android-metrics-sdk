@@ -7,8 +7,8 @@ class ExampleApplication : Application() {
         super.onCreate()
 
         PromotedAi.configure(this) {
-            metricsLoggingUrl = ""
-            metricsLoggingAPIKey = ""
+            metricsLoggingUrl = "https://5tbepnh11h.execute-api.us-east-2.amazonaws.com/dev/main"
+            metricsLoggingAPIKey = "OLpsrVSd565IQmOAR62dO9GkXUJngNo5ZUdCMV70"
         }
     }
 }
