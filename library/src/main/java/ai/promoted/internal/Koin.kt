@@ -8,10 +8,7 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.metrics.storage.IdStorage
 import ai.promoted.metrics.storage.PrefsIdStorage
-import ai.promoted.metrics.usecases.IdStorageUseCase
-import ai.promoted.metrics.usecases.LogSessionUseCase
-import ai.promoted.metrics.usecases.LogUserUseCase
-import ai.promoted.metrics.usecases.StartSessionUseCase
+import ai.promoted.metrics.usecases.*
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -19,7 +16,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
+import java.util.concurrent.TimeUnit
 
 internal abstract class ConfigurableKoinComponent : KoinComponent {
     protected var startedKoinApplication: KoinApplication? = null
@@ -37,7 +36,8 @@ internal abstract class ConfigurableKoinComponent : KoinComponent {
     fun shutdown() = stopKoinIfStarted()
 
     private fun stopKoinIfStarted() = when (startedKoinApplication) {
-        null -> { }
+        null -> {
+        }
         else -> {
             stopKoin()
             startedKoinApplication = null
@@ -50,15 +50,27 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
         module {
             single { config }
             single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
-            single { MetricsLogger(get()) }
+            single { createMetricsLoggerForConfig() }
             single { StartSessionUseCase(get(), get(), get(), get()) }
             single { IdStorageUseCase(get()) }
-            factory { LogUserUseCase(get()) }
+
+            factory { LogUserUseCase(get(), get()) }
             factory { LogSessionUseCase(get()) }
+            factory { FinalizeLogsUseCase() }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<IdStorage> { PrefsIdStorage(get()) }
             factory { SharedPreferencesProvider.default(get()) }
+
+            factory<Clock> { SystemClock() }
         }
     )
+
+    private fun Scope.createMetricsLoggerForConfig(): MetricsLogger {
+        val config: ClientConfig = get()
+        val flushIntervalMillis =
+            TimeUnit.SECONDS.toMillis(config.loggingFlushIntervalSeconds)
+        val networkConnection = config.networkConnectionProvider()
+        return MetricsLogger(flushIntervalMillis, networkConnection, get())
+    }
 }

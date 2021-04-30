@@ -9,7 +9,7 @@ data class ClientConfig(
     val devMetricsLoggingUrl: String,
     val metricsLoggingAPIKey: String,
     val metricsLoggingWireFormat: MetricsLoggingWireFormat,
-    val loggingFlushInterval: Long,
+    val loggingFlushIntervalSeconds: Long,
     val networkConnectionProvider: () -> NetworkConnection,
 ) {
     data class Builder(

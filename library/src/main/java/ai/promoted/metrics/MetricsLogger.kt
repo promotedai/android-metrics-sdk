@@ -1,19 +1,22 @@
 package ai.promoted.metrics
 
-import ai.promoted.ClientConfig
+import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.networking.NetworkConnection
 import ai.promoted.networking.PromotedApiRequest
 import com.google.protobuf.Message
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
-internal class MetricsLogger(private val config: ClientConfig) {
+internal class MetricsLogger(
+    flushIntervalMillis: Long,
+    private val networkConnection: NetworkConnection,
+    private val finalizeLogsUseCase: FinalizeLogsUseCase
+) {
     private val coroutineScope = CoroutineScope(context = Dispatchers.Main)
 
     private val scheduler = OperationScheduler(
-        intervalMillis = TimeUnit.SECONDS.toMillis(config.loggingFlushInterval),
+        intervalMillis = flushIntervalMillis,
         operation = this::sendCurrentMessages
     )
 
@@ -21,6 +24,7 @@ internal class MetricsLogger(private val config: ClientConfig) {
 
     fun enqueueMessage(message: Message) {
         logMessages.add(message)
+        scheduler.maybeSchedule()
     }
 
     fun cancelAndDiscardPendingQueue() {
@@ -34,17 +38,12 @@ internal class MetricsLogger(private val config: ClientConfig) {
     }
 
     private fun sendCurrentMessages() {
-        val current = logMessages
+        val logMessagesCopy = logMessages
         logMessages = mutableListOf()
 
-        val request = buildApiRequest(current)
-        val connection = config.networkConnectionProvider()
+        val request = finalizeLogsUseCase.finalizeLogs(logMessagesCopy)
 
-        connection.trySend(request)
-    }
-
-    private fun buildApiRequest(messages: List<Message>): PromotedApiRequest {
-        TODO()
+        networkConnection.trySend(request)
     }
 
     private fun NetworkConnection.trySend(request: PromotedApiRequest) {
