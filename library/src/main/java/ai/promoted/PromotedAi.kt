@@ -60,8 +60,13 @@ abstract class PromotedAiManager internal constructor(
         this.state = State.Ready(promotedAi = newPromotedAi)
     }
 
+    /**
+     * Cancels any pending metrics that have yet to be sent, and puts the library in a dormant
+     * state.
+     */
     fun shutdown() {
         instance.shutdown()
+        configurableKoinComponent.shutdown()
         state = State.Shutdown
     }
 }

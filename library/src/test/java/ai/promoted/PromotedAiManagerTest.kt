@@ -6,6 +6,7 @@ import io.mockk.called
 import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Assert.fail
@@ -56,7 +57,7 @@ class PromotedAiManagerTest {
         manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured to disable logging
-        manager.configure(application) { loggingEnabled = false}
+        manager.configure(application) { loggingEnabled = false }
 
         // Then the second promtoed ai is never called
         // and the actual instance is a NoOp (it's not even the second PromotedAi that DI provided)
@@ -88,9 +89,34 @@ class PromotedAiManagerTest {
         manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured
-        manager.configure(application) { loggingEnabled = false}
+        manager.configure(application) { loggingEnabled = false }
 
         // Then the initial PromotedAi was shutdown
         verify(exactly = 1) { firstPromotedAi.shutdown() }
+    }
+
+    @Test
+    fun `All components shut down when call shutdown()`() {
+        // Given a PromotedAiManager that is configured to return one PromotedAi initially,
+        // but will always return a second one on subsequent injects,
+        // and that the PromotedAiManager has been configured once
+        val promotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val koin = object : ConfigurableKoinComponent() {
+            fun startedKoinApp() = super.startedKoinApplication
+            override fun buildModules(config: ClientConfig): List<Module> = listOf(
+                module {
+                    factory<PromotedAi> { promotedAi }
+                }
+            )
+        }
+        val manager = object : PromotedAiManager(koin) {}
+        manager.configure(application) { loggingEnabled = true }
+
+        // When it is shut down
+        manager.shutdown()
+
+        // Then all components are shut down
+        verify(exactly = 1) { promotedAi.shutdown() }
+        assertThat(koin.startedKoinApp(), nullValue())
     }
 }

@@ -14,6 +14,7 @@ import ai.promoted.metrics.usecases.LogUserUseCase
 import ai.promoted.metrics.usecases.StartSessionUseCase
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -21,17 +22,26 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 internal abstract class ConfigurableKoinComponent : KoinComponent {
-    private var alreadyInitialized = false
+    protected var startedKoinApplication: KoinApplication? = null
 
     protected abstract fun buildModules(config: ClientConfig): List<Module>
 
     fun configure(application: Application, config: ClientConfig) {
-        if (alreadyInitialized) stopKoin()
-        startKoin {
+        stopKoinIfStarted()
+        startedKoinApplication = startKoin {
             androidContext(application)
             modules(buildModules(config))
         }
-        alreadyInitialized = true
+    }
+
+    fun shutdown() = stopKoinIfStarted()
+
+    private fun stopKoinIfStarted() = when (startedKoinApplication) {
+        null -> { }
+        else -> {
+            stopKoin()
+            startedKoinApplication = null
+        }
     }
 }
 
