@@ -1,30 +1,30 @@
-package ai.promoted.arch
+package ai.promoted.internal
 
 /**
  * Represents the returned result from a suspendable function
  */
-sealed class Return<out T : Any>
+internal sealed class Return<out T : Any>
 
 /**
  * Short-hand for a [Return] of type [Unit]
  */
-typealias Completable = Return<Unit>
+internal typealias Completable = Return<Unit>
 
 /**
  * A successful [Return] with the returned data, of type T
  */
-data class Success<out T : Any>(val data: T) : Return<T>()
+internal data class Success<out T : Any>(val data: T) : Return<T>()
 
 /**
  * A successful [Return] with no associated data
  */
 @Suppress("FunctionName")
-fun Success(): Success<Unit> = Success(Unit)
+internal fun Success(): Success<Unit> = Success(Unit)
 
 /**
  * A failure [Return] with an associated [Throwable]
  */
-data class Failure(val throwable: Throwable) : Return<Nothing>()
+internal data class Failure(val throwable: Throwable) : Return<Nothing>()
 
 /**
  * Extension function allowing for chained definition of logic on a [Return].
@@ -38,7 +38,7 @@ data class Failure(val throwable: Throwable) : Return<Nothing>()
  *          throwable.printStackTrace()
  *      }
  */
-inline fun <T : Any> Return<T>.onSuccess(action: (T) -> Unit): Return<T> {
+internal inline fun <T : Any> Return<T>.onSuccess(action: (T) -> Unit): Return<T> {
     if (this is Success) action(data)
     return this
 }
@@ -46,17 +46,17 @@ inline fun <T : Any> Return<T>.onSuccess(action: (T) -> Unit): Return<T> {
 /**
  * Same use as [onSuccess], but for handling a return of type [Failure]
  */
-inline fun <T : Any> Return<T>.onFailure(action: (Failure) -> Unit): Return<T> {
+internal inline fun <T : Any> Return<T>.onFailure(action: (Failure) -> Unit): Return<T> {
     if (this is Failure) action(this)
     return this
 }
 
-inline fun <T : Any> Return<T>.unwrapOrThrow(): T = when (this) {
+internal fun <T : Any> Return<T>.unwrapOrThrow(): T = when (this) {
     is Success -> data
     is Failure -> throw throwable
 }
 
-inline fun <T : Any> Return<T>.unwrapOrDefault(defaultValue: T): T = when (this) {
+internal fun <T : Any> Return<T>.unwrapOrDefault(defaultValue: T): T = when (this) {
     is Success -> data
     is Failure -> {
         throwable.printStackTrace()
@@ -64,7 +64,7 @@ inline fun <T : Any> Return<T>.unwrapOrDefault(defaultValue: T): T = when (this)
     }
 }
 
-inline fun <T : Any> Return<T>.unwrapOrNull(): T? = when (this) {
+internal fun <T : Any> Return<T>.unwrapOrNull(): T? = when (this) {
     is Success -> data
     is Failure -> {
         throwable.printStackTrace()
@@ -72,7 +72,7 @@ inline fun <T : Any> Return<T>.unwrapOrNull(): T? = when (this) {
     }
 }
 
-inline fun Return<Unit>.unwrapOrIgnore() =
+internal fun Return<Unit>.unwrapOrIgnore() =
     when (this) {
         is Success -> {
         }

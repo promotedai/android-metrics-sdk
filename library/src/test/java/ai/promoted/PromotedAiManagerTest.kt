@@ -1,0 +1,93 @@
+package ai.promoted
+
+import ai.promoted.internal.ConfigurableKoinComponent
+import io.mockk.called
+import io.mockk.mockk
+import io.mockk.verify
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
+import org.junit.Assert.fail
+import org.junit.Test
+import org.koin.core.context.stopKoin
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+class PromotedAiManagerTest {
+    // Using this to ensure no Koin instances are living longer than each test
+    @After
+    fun tearDown() {
+        stopKoin()
+    }
+
+    @Test
+    fun `Throws error if start() or reconfigure() not called`() {
+        try {
+            PromotedAi.startSession()
+            fail("Cannot start session without initializing PromotedAi")
+        } catch (error: IllegalStateException) {
+            // success
+            error.printStackTrace()
+        }
+    }
+
+    @Test
+    fun `PromotedAi is no longer called after logging is disabled, and a no-op instance is being used`() {
+        // Given a PromotedAiManager that is configured to return one PromotedAi initially,
+        // but will always return a second one on subsequent injects,
+        // and that the PromotedAiManager has been configured once
+        var creationCount = 0
+        val firstPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val secondPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
+            override fun buildModules(config: ClientConfig): List<Module> = listOf(
+                module {
+                    factory<PromotedAi> {
+                        creationCount++
+                        if (creationCount == 1) firstPromotedAi
+                        else secondPromotedAi
+                    }
+                }
+            )
+        }) {}
+        manager.configure { loggingEnabled = true }
+
+        // When it is re-configured to disable logging
+        manager.configure { loggingEnabled = false}
+
+        // Then the second promtoed ai is never called
+        // and the actual instance is a NoOp (it's not even the second PromotedAi that DI provided)
+        verify {
+            secondPromotedAi wasNot called
+        }
+        assertThat(manager.instance, instanceOf(NoOpPromotedAi::class.java))
+    }
+
+    @Test
+    fun `Existing PromtoedAi is shut down upon reconfigure`() {
+        // Given a PromotedAiManager that is configured to return one PromotedAi initially,
+        // but will always return a second one on subsequent injects,
+        // and that the PromotedAiManager has been configured once
+        var creationCount = 0
+        val firstPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val secondPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
+            override fun buildModules(config: ClientConfig): List<Module> = listOf(
+                module {
+                    factory<PromotedAi> {
+                        creationCount++
+                        if (creationCount == 1) firstPromotedAi
+                        else secondPromotedAi
+                    }
+                }
+            )
+        }) {}
+        manager.configure { loggingEnabled = true }
+
+        // When it is re-configured
+        manager.configure { loggingEnabled = false}
+
+        // Then the initial PromotedAi was shutdown
+        verify(exactly = 1) { firstPromotedAi.shutdown() }
+    }
+}
