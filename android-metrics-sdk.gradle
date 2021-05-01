@@ -1,0 +1,11 @@
+afterEvaluate {
+  project.repositories {
+    maven {
+      url "https://maven.pkg.github.com/promotedai/android-metrics-sdk"
+      credentials {
+        username = "dtdennis28"
+        password = "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"
+      }
+    }
+  }
+}
