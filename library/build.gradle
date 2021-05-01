@@ -6,7 +6,7 @@ plugins {
 
 
 ext {
-    version = "0.0.0"
+    version = "0.0.1"
 }
 
 android {
@@ -62,6 +62,19 @@ afterEvaluate {
                 groupId "ai.promoted"
                 artifactId "android-metrics-sdk"
                 version "${project.ext.version}-SNAPSHOT"
+
+                from components.release
+
+                pom {
+                    name = "android-metrics-sdk"
+                    description = "Promoted.Ai's Android SDK snapshot"
+                }
+            }
+
+            release(MavenPublication) {
+                groupId "ai.promoted"
+                artifactId "android-metrics-sdk"
+                version project.ext.version
 
                 from components.release
 
