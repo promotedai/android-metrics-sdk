@@ -49,7 +49,7 @@ internal abstract class ConfigurableKoinComponent : KoinComponent {
 internal object DefaultKoin : ConfigurableKoinComponent() {
     override fun buildModules(config: ClientConfig): List<Module> = listOf(
         module {
-            single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG)}
+            single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
             single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
@@ -57,7 +57,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
             single { IdStorageUseCase(get()) }
 
             factory { LogUserUseCase(get(), get()) }
-            factory { LogSessionUseCase(get()) }
+            factory { LogSessionUseCase(get(), get()) }
             factory { FinalizeLogsUseCase(get(), get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
