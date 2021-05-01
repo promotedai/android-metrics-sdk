@@ -14,6 +14,8 @@ import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
@@ -24,11 +26,19 @@ import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
+/**
+ * Allows you to dynamically configure your Koin DI/service location based on the provided
+ * [ClientConfig]. For example, dependencies my need to be re-constructed with new values if the
+ * [ClientConfig] has changed.
+ */
 internal abstract class ConfigurableKoinComponent : KoinComponent {
     protected var startedKoinApplication: KoinApplication? = null
 
     protected abstract fun buildModules(config: ClientConfig): List<Module>
 
+    /**
+     * Stops any existing Koin instances and re-starts it based on the new [ClientConfig]
+     */
     fun configure(application: Application, config: ClientConfig) {
         stopKoinIfStarted()
         startedKoinApplication = startKoin {
@@ -37,6 +47,9 @@ internal abstract class ConfigurableKoinComponent : KoinComponent {
         }
     }
 
+    /**
+     * Stops Koin if it is running
+     */
     fun shutdown() = stopKoinIfStarted()
 
     private fun stopKoinIfStarted() = when (startedKoinApplication) {
@@ -49,6 +62,10 @@ internal abstract class ConfigurableKoinComponent : KoinComponent {
     }
 }
 
+/**
+ * The default [ConfigurableKoinComponent] used at runtime of the library. Knows how to provide
+ * all library dependencies taking the [ClientConfig] into account.
+ */
 internal object DefaultKoin : ConfigurableKoinComponent() {
     override fun buildModules(config: ClientConfig): List<Module> = listOf(
         module {
@@ -64,7 +81,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
 
             factory<IdGenerator> { UuidGenerator() }
             factory<UserIdStorage> { PrefsUserIdStorage(get()) }
-            factory { SharedPreferencesProvider.default(get()) }
+            factory { getPromotedAiPrefs(get()) }
 
             factory<Clock> { SystemClock() }
             factory<DeviceInfoProvider> { AndroidDeviceInfoProvider() }
@@ -78,4 +95,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
         val networkConnection = config.networkConnectionProvider()
         return MetricsLogger(flushIntervalMillis, networkConnection, get())
     }
+
+    private fun getPromotedAiPrefs(context: Context): SharedPreferences =
+        context.getSharedPreferences("ai.promoted.prefs", Context.MODE_PRIVATE)
 }
