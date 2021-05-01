@@ -12,7 +12,6 @@ import com.google.protobuf.util.JsonFormat
 private const val HEADER_API_KEY = "x-api-key"
 private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 
-// TODO - unit tests
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,

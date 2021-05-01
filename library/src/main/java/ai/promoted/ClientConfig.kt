@@ -16,7 +16,7 @@ data class ClientConfig(
         var loggingEnabled: Boolean = true,
         var metricsLoggingUrl: String = "",
         var devMetricsLoggingUrl: String = "",
-        var metricsLoggingAPIKey: String = "",
+        var metricsLoggingApiKey: String = "",
         var metricsLoggingWireFormat: MetricsLoggingWireFormat = MetricsLoggingWireFormat.Binary,
         var loggingFlushInterval: Long = 10,
         var networkConnectionProvider: () -> NetworkConnection = { RetrofitNetworkConnection() }
@@ -25,7 +25,7 @@ data class ClientConfig(
             loggingEnabled,
             metricsLoggingUrl,
             devMetricsLoggingUrl,
-            metricsLoggingAPIKey,
+            metricsLoggingApiKey,
             metricsLoggingWireFormat,
             loggingFlushInterval,
             networkConnectionProvider
