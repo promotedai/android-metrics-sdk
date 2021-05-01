@@ -19,7 +19,7 @@ class ClientConfigTest {
             config.metricsLoggingWireFormat,
             equalTo(ClientConfig.MetricsLoggingWireFormat.Binary)
         )
-        assertThat(config.loggingFlushInterval, equalTo(10))
+        assertThat(config.loggingFlushIntervalSeconds, equalTo(10))
         assertThat(
             config.networkConnectionProvider.invoke(),
             instanceOf(RetrofitNetworkConnection::class.java)

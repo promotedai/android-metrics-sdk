@@ -7,16 +7,16 @@ data class ClientConfig(
     val loggingEnabled: Boolean,
     val metricsLoggingUrl: String,
     val devMetricsLoggingUrl: String,
-    val metricsLoggingAPIKey: String,
+    val metricsLoggingApiKey: String,
     val metricsLoggingWireFormat: MetricsLoggingWireFormat,
-    val loggingFlushInterval: Long,
+    val loggingFlushIntervalSeconds: Long,
     val networkConnectionProvider: () -> NetworkConnection,
 ) {
     data class Builder(
         var loggingEnabled: Boolean = true,
         var metricsLoggingUrl: String = "",
         var devMetricsLoggingUrl: String = "",
-        var metricsLoggingAPIKey: String = "",
+        var metricsLoggingApiKey: String = "",
         var metricsLoggingWireFormat: MetricsLoggingWireFormat = MetricsLoggingWireFormat.Binary,
         var loggingFlushInterval: Long = 10,
         var networkConnectionProvider: () -> NetworkConnection = { RetrofitNetworkConnection() }
@@ -25,7 +25,7 @@ data class ClientConfig(
             loggingEnabled,
             metricsLoggingUrl,
             devMetricsLoggingUrl,
-            metricsLoggingAPIKey,
+            metricsLoggingApiKey,
             metricsLoggingWireFormat,
             loggingFlushInterval,
             networkConnectionProvider
