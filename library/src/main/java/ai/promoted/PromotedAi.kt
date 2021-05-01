@@ -3,7 +3,7 @@ package ai.promoted
 import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
 import ai.promoted.metrics.MetricsLogger
-import ai.promoted.metrics.usecases.StartSessionUseCase
+import ai.promoted.metrics.usecases.TrackSessionUseCase
 import android.app.Application
 import org.koin.core.component.get
 
@@ -28,7 +28,7 @@ abstract class PromotedAiManager internal constructor(
 
     /**
      * Simply calls [configure], but provides semantic clarity for users of Promoted.Ai. For example,
-     * you might call this function, [initialize] in your application onCreate(), but if you want
+     * you might call this function, [initialize], in your application onCreate(), but if you want
      * to reconfigure at a later point, it would be clearer if you called [configure].
      */
     fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
@@ -88,8 +88,8 @@ internal class NoOpPromotedAi : PromotedAi {
 internal class DefaultPromotedAi(
     private val config: ClientConfig,
     private val logger: MetricsLogger,
-    private val startSessionUseCase: StartSessionUseCase
+    private val trackSessionUseCase: TrackSessionUseCase
 ) : PromotedAi {
-    override fun startSession(userId: String) = startSessionUseCase.startSession(userId)
+    override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

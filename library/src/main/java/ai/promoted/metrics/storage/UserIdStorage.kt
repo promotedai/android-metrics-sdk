@@ -1,6 +1,6 @@
 package ai.promoted.metrics.storage
 
-internal interface IdStorage {
+internal interface UserIdStorage {
     var userId: String
     var logUserId: String
 }

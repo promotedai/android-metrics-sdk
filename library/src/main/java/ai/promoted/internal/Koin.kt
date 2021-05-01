@@ -7,9 +7,12 @@ import ai.promoted.PromotedAi
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.metrics.id.UuidGenerator
-import ai.promoted.metrics.storage.IdStorage
-import ai.promoted.metrics.storage.PrefsIdStorage
-import ai.promoted.metrics.usecases.*
+import ai.promoted.metrics.storage.PrefsUserIdStorage
+import ai.promoted.metrics.storage.UserIdStorage
+import ai.promoted.metrics.usecases.CurrentUserIdsUseCase
+import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.metrics.usecases.TrackSessionUseCase
+import ai.promoted.metrics.usecases.TrackViewUseCase
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -53,15 +56,14 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
             single { config }
             single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
-            single { StartSessionUseCase(get(), get(), get(), get()) }
-            single { IdStorageUseCase(get()) }
+            single { TrackSessionUseCase(get(), get(), get(), get()) }
+            single { TrackViewUseCase(get(), get(), get(), get()) }
+            single { CurrentUserIdsUseCase(get()) }
 
-            factory { LogUserUseCase(get(), get()) }
-            factory { LogSessionUseCase(get(), get()) }
             factory { FinalizeLogsUseCase(get(), get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
-            factory<IdStorage> { PrefsIdStorage(get()) }
+            factory<UserIdStorage> { PrefsUserIdStorage(get()) }
             factory { SharedPreferencesProvider.default(get()) }
 
             factory<Clock> { SystemClock() }

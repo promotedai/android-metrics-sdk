@@ -11,4 +11,13 @@ class MainActivity : AppCompatActivity() {
         val userId = "User-${System.currentTimeMillis()}"
         PromotedAi.startSession(userId)
     }
+
+    override fun onResume() {
+        super.onResume()
+        // PromotedAi.trackView
+        // PromotedAi.trackActivityLifecycle(this)
+        // PromtoedAi.trackFragmentLifecycle(this)
+        // PromtoedAi.onActivityResume(thsi)
+
+    }
 }

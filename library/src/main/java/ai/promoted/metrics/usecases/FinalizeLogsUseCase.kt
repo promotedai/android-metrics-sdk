@@ -15,7 +15,7 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
-    private val idStorageUseCase: IdStorageUseCase
+    private val idStorageUseCase: CurrentUserIdsUseCase
 ) {
     // TODO - dev version
     private val url = config.metricsLoggingUrl
