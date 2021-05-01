@@ -1,8 +1,7 @@
 package ai.promoted.networking
 
-import ai.promoted.arch.Completable
-import ai.promoted.arch.Failure
-import ai.promoted.arch.Success
+import okhttp3.HttpUrl
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.Body
@@ -15,31 +14,24 @@ internal interface PromotedApi {
     suspend fun postData(
         @Url url: String,
         @HeaderMap headers: Map<String, String>,
-        @Body data: ByteArray
+        @Body data: RequestBody
     )
 }
 
 // TODO - add custom OkHttpClient w/ interceptors for telemetry
 internal class RetrofitNetworkConnection : NetworkConnection {
-    private var apiUrlPair: Pair<String, PromotedApi>? = null
+    private var urlApiPair: Pair<String, PromotedApi>? = null
 
-    override suspend fun send(request: PromotedApiRequest): Completable {
-        return try {
-            getApiForUrl(request.url)
-                .postData(
-                    request.url,
-                    request.headers,
-                    request.bodyData
-                )
-
-            Success()
-        } catch (e: Throwable) {
-            Failure(e)
-        }
-    }
+    override suspend fun send(request: PromotedApiRequest) =
+        getApiForUrl(request.url)
+            .postData(
+                request.url,
+                request.headers,
+                RequestBody.create(null, request.bodyData)
+            )
 
     private fun getApiForUrl(url: String): PromotedApi {
-        val lastUrlAndApi = apiUrlPair
+        val lastUrlAndApi = urlApiPair
         return when {
             lastUrlAndApi == null -> buildAndSetNewApi(url)
             lastUrlAndApi.first != url -> buildAndSetNewApi(url)
@@ -49,12 +41,27 @@ internal class RetrofitNetworkConnection : NetworkConnection {
 
     private fun buildAndSetNewApi(url: String): PromotedApi {
         val api = Retrofit.Builder()
-            .baseUrl(url)
+            .baseUrl(url.requireCorrectBaseUrl())
             .build()
             .create<PromotedApi>()
 
-        apiUrlPair = url to api
+        urlApiPair = url to api
 
         return api
+    }
+
+    private fun String.requireCorrectBaseUrl(): String {
+        if(this.isBlank()) throw IllegalArgumentException("No URL provided")
+        if(!this.startsWith("http")) throw IllegalArgumentException("Non-HTTP URL provided: $this")
+
+        val httpUrl = HttpUrl.get(this)
+
+        if(httpUrl.querySize() > 0) throw IllegalArgumentException("Logging URLs with queries not yet supported")
+
+        // Retrofit requires that the URL end in "/"; rather than requiring this for our users,
+        // we will attempt to add Retrofit's required "/" by doing the same check they do, but
+        // appending the URL's path instead of throwing an exception
+        return if(this.last() != '/') "$this/"
+        else this
     }
 }
