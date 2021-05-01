@@ -19,10 +19,13 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew :library:lint :library:assembleRelease :library:testReleaseUnitTest
+      run: ./gradlew :library:lint :library:assembleRelease :library:testReleaseUnitTest --stacktrace
 
-    - name: Publish release artifact to artifact repo
-      run: echo "TODO"
+    - name: Publish release package
+      run: ./gradlew :library:publishReleasePublicationToGithubPackagesRepository
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
     - name: Create GitHub release (tag?)
       run: echo "TODO"
