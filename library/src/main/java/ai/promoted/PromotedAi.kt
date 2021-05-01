@@ -4,6 +4,7 @@ import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackSessionUseCase
+import ai.promoted.metrics.usecases.TrackViewUseCase
 import android.app.Application
 import org.koin.core.component.get
 
@@ -73,23 +74,27 @@ abstract class PromotedAiManager internal constructor(
 
 interface PromotedAi {
     fun startSession(userId: String = "")
+    fun onViewVisible(key: String)
     fun shutdown()
 
     companion object : PromotedAiManager(), PromotedAi {
         override fun startSession(userId: String) = instance.startSession(userId)
+        override fun onViewVisible(key: String) = instance.onViewVisible(key)
     }
 }
 
 internal class NoOpPromotedAi : PromotedAi {
     override fun startSession(userId: String) {}
+    override fun onViewVisible(key: String) {}
     override fun shutdown() {}
 }
 
 internal class DefaultPromotedAi(
-    private val config: ClientConfig,
     private val logger: MetricsLogger,
-    private val trackSessionUseCase: TrackSessionUseCase
+    private val trackSessionUseCase: TrackSessionUseCase,
+    private val trackViewUseCase: TrackViewUseCase
 ) : PromotedAi {
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
+    override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

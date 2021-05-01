@@ -57,7 +57,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
             single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get()) }
-            single { TrackViewUseCase(get(), get(), get(), get()) }
+            single { TrackViewUseCase(get(), get(), get(), get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
 
             factory { FinalizeLogsUseCase(get(), get(), get()) }
@@ -67,6 +67,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
             factory { SharedPreferencesProvider.default(get()) }
 
             factory<Clock> { SystemClock() }
+            factory<DeviceInfoProvider> { AndroidDeviceInfoProvider() }
         }
     )
 

@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // PromotedAi.trackView
-        // PromotedAi.trackActivityLifecycle(this)
-        // PromtoedAi.trackFragmentLifecycle(this)
-        // PromtoedAi.onActivityResume(thsi)
-
+        PromotedAi.onViewVisible("MainActivity")
     }
 }
