@@ -1,5 +1,6 @@
 package ai.promoted.internal
 
+import ai.promoted.BuildConfig
 import ai.promoted.ClientConfig
 import ai.promoted.DefaultPromotedAi
 import ai.promoted.PromotedAi
@@ -48,6 +49,7 @@ internal abstract class ConfigurableKoinComponent : KoinComponent {
 internal object DefaultKoin : ConfigurableKoinComponent() {
     override fun buildModules(config: ClientConfig): List<Module> = listOf(
         module {
+            single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG)}
             single { config }
             single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
@@ -56,7 +58,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
 
             factory { LogUserUseCase(get(), get()) }
             factory { LogSessionUseCase(get()) }
-            factory { FinalizeLogsUseCase(get()) }
+            factory { FinalizeLogsUseCase(get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<IdStorage> { PrefsIdStorage(get()) }

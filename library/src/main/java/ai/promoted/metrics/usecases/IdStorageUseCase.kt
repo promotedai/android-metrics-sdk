@@ -2,6 +2,7 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.storage.IdStorage
 
+// TODO - unit tests
 internal class IdStorageUseCase(private val idStorage: IdStorage) {
     private var _lastUsedUserId: String? = null
     val currentUserId: String
