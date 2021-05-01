@@ -15,7 +15,8 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 // TODO - unit tests
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
-    private val systemLogger: SystemLogger
+    private val systemLogger: SystemLogger,
+    private val idStorageUseCase: IdStorageUseCase
 ) {
     // TODO - dev version
     private val url = config.metricsLoggingUrl
@@ -39,7 +40,10 @@ internal class FinalizeLogsUseCase(
 
     private fun prepareLogs(logMessages: List<Message>): LogRequest {
         val logRequestBuilder = LogRequest.newBuilder()
-        logRequestBuilder.userInfo = createUserInfoMessage()
+        logRequestBuilder.userInfo = createUserInfoMessage(
+            userId = idStorageUseCase.currentUserId,
+            logUserId = idStorageUseCase.currentLogUserId
+        )
         logMessages.forEach { logRequestBuilder.addMessage(it) }
         return logRequestBuilder.build()
     }

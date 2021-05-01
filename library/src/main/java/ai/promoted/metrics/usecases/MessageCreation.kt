@@ -17,8 +17,10 @@ internal fun createUserMessage(clock: Clock) =
         .setTiming(createTimingMessage(clock))
         .build()
 
-internal fun createUserInfoMessage() =
+// TODO - when Kotlin 1.5 comes out, use inline/value classes to ensure type-safety
+internal fun createUserInfoMessage(userId: String, logUserId: String) =
     UserInfo
         .newBuilder()
-        // TODO
+        .setUserId(userId)
+        .setLogUserId(logUserId)
         .build()
