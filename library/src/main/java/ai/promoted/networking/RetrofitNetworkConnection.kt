@@ -18,8 +18,36 @@ internal interface PromotedApi {
     )
 }
 
-// TODO - add custom OkHttpClient w/ interceptors for telemetry
-internal class RetrofitNetworkConnection : NetworkConnection {
+internal class RetrofitProvider {
+    fun provide(url: String): Retrofit {
+        // TODO - add custom OkHttpClient w/ interceptors for telemetry
+        return Retrofit.Builder()
+            .baseUrl(url.requireCorrectBaseUrl())
+            .build()
+    }
+
+    private fun String.requireCorrectBaseUrl(): String {
+        when {
+            this.isBlank() -> "No URL provided"
+            !this.startsWith("http") -> "Non-HTTP URL provided: $this"
+            else -> null
+        }?.let { message -> throw IllegalArgumentException(message) }
+
+        val httpUrl = HttpUrl.get(this)
+
+        if(httpUrl.querySize() > 0) throw IllegalArgumentException("Logging URLs with queries not yet supported")
+
+        // Retrofit requires that the URL end in "/"; rather than requiring this for our users,
+        // we will attempt to add Retrofit's required "/" by doing the same check they do, but
+        // appending the URL's path instead of throwing an exception
+        return if(this.last() != '/') "$this/"
+        else this
+    }
+}
+
+internal class RetrofitNetworkConnection(
+    private val retrofitProvider: RetrofitProvider
+) : NetworkConnection {
     private var urlApiPair: Pair<String, PromotedApi>? = null
 
     override suspend fun send(request: PromotedApiRequest) =
@@ -40,31 +68,10 @@ internal class RetrofitNetworkConnection : NetworkConnection {
     }
 
     private fun buildAndSetNewApi(url: String): PromotedApi {
-        val api = Retrofit.Builder()
-            .baseUrl(url.requireCorrectBaseUrl())
-            .build()
-            .create<PromotedApi>()
+        val api = retrofitProvider.provide(url).create<PromotedApi>()
 
         urlApiPair = url to api
 
         return api
-    }
-
-    private fun String.requireCorrectBaseUrl(): String {
-        when {
-            this.isBlank() -> "No URL provided"
-            !this.startsWith("http") -> "Non-HTTP URL provided: $this"
-            else -> null
-        }?.let { message -> throw IllegalArgumentException(message) }
-
-        val httpUrl = HttpUrl.get(this)
-
-        if(httpUrl.querySize() > 0) throw IllegalArgumentException("Logging URLs with queries not yet supported")
-
-        // Retrofit requires that the URL end in "/"; rather than requiring this for our users,
-        // we will attempt to add Retrofit's required "/" by doing the same check they do, but
-        // appending the URL's path instead of throwing an exception
-        return if(this.last() != '/') "$this/"
-        else this
     }
 }
