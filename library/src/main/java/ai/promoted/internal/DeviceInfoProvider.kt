@@ -28,7 +28,7 @@ internal interface DeviceInfoProvider {
  */
 internal class AndroidDeviceInfoProvider : DeviceInfoProvider {
     private val systemLocale = SystemLocale.getDefault() ?: SystemLocale.ROOT
-    private val displayMetrics = Resources.getSystem().displayMetrics ?: DisplayMetrics()
+    private val displayMetrics = Resources.getSystem()?.displayMetrics ?: DisplayMetrics()
 
     override val brand: String
         get() = Build.BRAND
