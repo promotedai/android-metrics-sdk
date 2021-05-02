@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 private const val KEY_USER_ID = "ai.promoted.user_id"
 private const val KEY_LOG_USER_ID = "ai.promoted.log_user_id"
 
-internal class PrefsIdStorage(
+internal class PrefsUserIdStorage(
     private val sharedPreferences: SharedPreferences
-) : IdStorage {
+) : UserIdStorage {
     private val editor: SharedPreferences.Editor
         get() = sharedPreferences.edit()
 
