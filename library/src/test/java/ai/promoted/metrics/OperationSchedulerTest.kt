@@ -114,4 +114,27 @@ class OperationSchedulerTest {
 
         assertThat("Execution count after 3 schedules/3 delays was ${observableOperation.executionCount}", observableOperation.executionCount, equalTo(3))
     }
+
+    @Test
+    fun `Should invoke second operation even after first one had been canceled`() = runBlocking {
+        // Given that an operation has been scheduled to execute after the interval below
+        // and then half-way through had been canceled
+        val interval = 100L
+        val scheduler = OperationScheduler(
+            intervalMillis = interval,
+            operation = observableOperation::doOperation
+        )
+        scheduler.maybeSchedule()
+        delay(interval / 2)
+        scheduler.cancel()
+
+        // When the operation is re-scheduled at a later point, after the original execution window
+        // and interval for the *second* schedule elapses
+        delay(interval.withTimeForExecution)
+        scheduler.maybeSchedule()
+        delay(interval.withTimeForExecution)
+
+        // Then the operation is invoked only once
+        assertThat(observableOperation.executionCount, equalTo(1))
+    }
 }

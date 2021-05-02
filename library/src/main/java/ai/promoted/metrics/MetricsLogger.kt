@@ -13,7 +13,7 @@ internal class MetricsLogger(
     private val networkConnection: NetworkConnection,
     private val finalizeLogsUseCase: FinalizeLogsUseCase
 ) {
-    private val coroutineScope = CoroutineScope(context = Dispatchers.Main)
+    private val networkConnectionScope = CoroutineScope(context = Dispatchers.IO)
 
     private val scheduler = OperationScheduler(
         intervalMillis = flushIntervalMillis,
@@ -43,15 +43,15 @@ internal class MetricsLogger(
 
         val request = finalizeLogsUseCase.finalizeLogs(logMessagesCopy)
 
-        networkConnection.trySend(request)
+        trySend(request)
     }
 
     // TODO - handle error
     @Suppress("TooGenericExceptionCaught")
-    private fun NetworkConnection.trySend(request: PromotedApiRequest) {
-        coroutineScope.launch {
+    private fun trySend(request: PromotedApiRequest) {
+        networkConnectionScope.launch {
             try {
-                send(request)
+                networkConnection.send(request)
             } catch (error: Throwable) {
                 // TODO
                 error.printStackTrace()
