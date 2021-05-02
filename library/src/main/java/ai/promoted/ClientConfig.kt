@@ -2,6 +2,7 @@ package ai.promoted
 
 import ai.promoted.networking.NetworkConnection
 import ai.promoted.networking.RetrofitNetworkConnection
+import ai.promoted.networking.RetrofitProvider
 
 data class ClientConfig(
     val loggingEnabled: Boolean,
@@ -19,7 +20,11 @@ data class ClientConfig(
         var metricsLoggingApiKey: String = "",
         var metricsLoggingWireFormat: MetricsLoggingWireFormat = MetricsLoggingWireFormat.Binary,
         var loggingFlushInterval: Long = 10,
-        var networkConnectionProvider: () -> NetworkConnection = { RetrofitNetworkConnection() }
+        var networkConnectionProvider: () -> NetworkConnection = {
+            RetrofitNetworkConnection(
+                RetrofitProvider()
+            )
+        }
     ) {
         fun build() = ClientConfig(
             loggingEnabled,
