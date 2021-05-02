@@ -71,7 +71,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAi> { DefaultPromotedAi(get(), get()) }
+            single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get()) }

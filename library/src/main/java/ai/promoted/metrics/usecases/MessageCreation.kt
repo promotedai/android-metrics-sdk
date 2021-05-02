@@ -5,7 +5,13 @@ import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.internal.PromotedAiLocale
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
-import ai.promoted.proto.event.*
+import ai.promoted.proto.event.AppScreenView
+import ai.promoted.proto.event.Device
+import ai.promoted.proto.event.Screen
+import ai.promoted.proto.event.Session
+import ai.promoted.proto.event.Size
+import ai.promoted.proto.event.User
+import ai.promoted.proto.event.View
 
 internal fun createTimingMessage(clock: Clock) =
     Timing
@@ -74,7 +80,7 @@ internal fun createViewMessage(
     .setSessionId(sessionId)
     .setName(name)
     .setDevice(deviceMessage)
-    // TODO: Fill out AppScreenView.
+    // TODO - Fill out AppScreenView.
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 
