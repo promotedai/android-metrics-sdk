@@ -11,4 +11,9 @@ class MainActivity : AppCompatActivity() {
         val userId = "User-${System.currentTimeMillis()}"
         PromotedAi.startSession(userId)
     }
+
+    override fun onResume() {
+        super.onResume()
+        PromotedAi.onViewVisible("MainActivity")
+    }
 }

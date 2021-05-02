@@ -1,17 +1,17 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.metrics.storage.IdStorage
+import ai.promoted.metrics.storage.UserIdStorage
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class IdStorageUseCaseTest {
-    private val dummyDiskStorage = object : IdStorage {
+    private val dummyDiskStorage = object : UserIdStorage {
         override var userId: String = ""
         override var logUserId: String = ""
     }
 
-    private val useCase = IdStorageUseCase(dummyDiskStorage)
+    private val useCase = CurrentUserIdsUseCase(dummyDiskStorage)
 
     @Test
     fun `User ID is updated in memory & stored to disk`() {

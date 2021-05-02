@@ -6,7 +6,7 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        PromotedAi.configure(this) {
+        PromotedAi.initialize(this) {
             metricsLoggingUrl = "https://5tbepnh11h.execute-api.us-east-2.amazonaws.com/dev/main"
             metricsLoggingApiKey = "OLpsrVSd565IQmOAR62dO9GkXUJngNo5ZUdCMV70"
         }

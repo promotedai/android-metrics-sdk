@@ -3,10 +3,20 @@ package ai.promoted
 import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
 import ai.promoted.metrics.MetricsLogger
-import ai.promoted.metrics.usecases.StartSessionUseCase
+import ai.promoted.metrics.usecases.TrackSessionUseCase
+import ai.promoted.metrics.usecases.TrackViewUseCase
 import android.app.Application
 import org.koin.core.component.get
 
+/**
+ * Allows for the proper creation, configuration, and termination of a [PromotedAi]
+ * instance. This class ensures that an instance of [PromotedAi] is able to be initialized with
+ * a [ClientConfig], reconfigured at any point, and also shut down at any point by the user of
+ * [PromotedAi]. It ensures that when a [PromotedAi] is initialized or reconfigured, its
+ * corresponding objects/dependencies are re-created per the new [ClientConfig]. It also ensures
+ * that when [PromotedAi] is shut down, its corresponding objects/dependencies are released for
+ * garbage collection.
+ */
 abstract class PromotedAiManager internal constructor(
     private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoin
 ) {
@@ -28,7 +38,7 @@ abstract class PromotedAiManager internal constructor(
 
     /**
      * Simply calls [configure], but provides semantic clarity for users of Promoted.Ai. For example,
-     * you might call this function, [initialize] in your application onCreate(), but if you want
+     * you might call this function, [initialize], in your application onCreate(), but if you want
      * to reconfigure at a later point, it would be clearer if you called [configure].
      */
     fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
@@ -71,25 +81,55 @@ abstract class PromotedAiManager internal constructor(
     }
 }
 
+/**
+ * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
+ * the SDK.
+ */
 interface PromotedAi {
     fun startSession(userId: String = "")
+    fun onViewVisible(key: String)
     fun shutdown()
 
+    /*
+        Note: This object extends PromotedAiManager while also implementing PromotedAi. This is to
+        allow for a simple API for the library users, so that they can jointly execute management
+        functions (i.e. initialize(), configure(), shutdown()) along with PromotedAi logging
+        functions (i.e. startSession()) all from one single interface (this companion object, a.k.a.
+        referenced in code as PromotedAi.initialize(), PromotedAi.startSession(), etc.).
+
+        Because this object extends the manager and also implements the main interface, that means
+        that the shutdown() function of PromotedAiManager(), which is final, prevents this
+        object overriding the PromotedAi.shutdown() interface function. While it might be cause for
+        confusion upon first inspection, this is actually a benefit because it ensures that the
+        user can't shut down merely the PromotedAi instance on accident, but is only ever calling
+        the PromotedAiManager.shutdown() function when calling this companion object's inherited
+        shutdown() function. This will ensure Koin and any other supporting classes are
+        stopped/cleaned up.
+
+        So, one can consider the PromotedAi interface's shutdown() function as merely there to
+        serve as a gateway to the PromotedAiManager.shutdown() function, via this companion object's
+        extension of both of those abstract classes. And since this companion object extends from
+        both, that means the user gets a simple and single entry point for shutting down the
+        library, e.g. by calling the statically available PromotedAi.shutdown().
+     */
     companion object : PromotedAiManager(), PromotedAi {
         override fun startSession(userId: String) = instance.startSession(userId)
+        override fun onViewVisible(key: String) = instance.onViewVisible(key)
     }
 }
 
 internal class NoOpPromotedAi : PromotedAi {
     override fun startSession(userId: String) {}
+    override fun onViewVisible(key: String) {}
     override fun shutdown() {}
 }
 
 internal class DefaultPromotedAi(
-    private val config: ClientConfig,
     private val logger: MetricsLogger,
-    private val startSessionUseCase: StartSessionUseCase
+    private val trackSessionUseCase: TrackSessionUseCase,
+    private val trackViewUseCase: TrackViewUseCase
 ) : PromotedAi {
-    override fun startSession(userId: String) = startSessionUseCase.startSession(userId)
+    override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
+    override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }
