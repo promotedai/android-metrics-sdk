@@ -19,10 +19,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build & verify with Gradle
-        run: ./gradlew :library:detekt :library:lint :library:assembleRelease :library:testDebugUnitTest :library:jacocoTestReport :library:generateJacocoBadge --stacktrace
+        run: ./gradlew :library:detekt :library:lint :library:assembleRelease :library:testDebugUnitTest :library:jacocoTestReport --stacktrace
         # run: ./gradlew :library:detekt :library:lint :library:assembleRelease :library:testDebugUnitTest :library:jacocoTestReport --stacktrace
       - name: Check project dir
         run: ls -a && ls library/build/reports/jacoco/jacocoTestReport
+      - name: Generate Jacoco badge
+        run: ./gradlew :library:generateJacocoBadge --stacktrace
 
       - name: Publish snapshot
         run: ./gradlew :library:publishSnapshotPublicationToGithubPackagesRepository
