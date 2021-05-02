@@ -1,3 +1,9 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
 include ':library'
 include ':example-app'
 rootProject.name = "android-metrics-sdk"
