@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'maven-publish'
     id 'jacoco'
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 ext {

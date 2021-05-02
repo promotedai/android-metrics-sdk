@@ -17,7 +17,7 @@ import org.koin.core.component.get
  * that when [PromotedAi] is shut down, its corresponding objects/dependencies are released for
  * garbage collection.
  */
-abstract class PromotedAiManager internal constructor(
+open class PromotedAiManager internal constructor(
     private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoin
 ) {
     internal sealed class State {
@@ -31,7 +31,9 @@ abstract class PromotedAiManager internal constructor(
     internal val instance: PromotedAi
         get() = when (val currentState = state) {
             is State.NotConfigured -> throw IllegalStateException("Please configure PromotedAi before use")
-            State.Shutdown -> throw IllegalStateException("PromotedAi was shut down. Please ensure it is configured before usage again.")
+            State.Shutdown -> throw IllegalStateException(
+                "PromotedAi was shut down. Please ensure it is configured before usage again."
+            )
             is State.Ready -> currentState.promotedAi
         }
 
@@ -118,6 +120,7 @@ interface PromotedAi {
     }
 }
 
+@Suppress("EmptyFunctionBlock")
 internal class NoOpPromotedAi : PromotedAi {
     override fun startSession(userId: String) {}
     override fun onViewVisible(key: String) {}

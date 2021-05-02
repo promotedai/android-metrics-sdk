@@ -46,6 +46,8 @@ internal class MetricsLogger(
         networkConnection.trySend(request)
     }
 
+    // TODO - handle error
+    @Suppress("TooGenericExceptionCaught")
     private fun NetworkConnection.trySend(request: PromotedApiRequest) {
         coroutineScope.launch {
             try {
