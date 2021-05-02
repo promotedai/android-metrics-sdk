@@ -51,8 +51,11 @@ internal class RetrofitNetworkConnection : NetworkConnection {
     }
 
     private fun String.requireCorrectBaseUrl(): String {
-        if(this.isBlank()) throw IllegalArgumentException("No URL provided")
-        if(!this.startsWith("http")) throw IllegalArgumentException("Non-HTTP URL provided: $this")
+        when {
+            this.isBlank() -> "No URL provided"
+            !this.startsWith("http") -> "Non-HTTP URL provided: $this"
+            else -> null
+        }?.let { message -> throw IllegalArgumentException(message) }
 
         val httpUrl = HttpUrl.get(this)
 

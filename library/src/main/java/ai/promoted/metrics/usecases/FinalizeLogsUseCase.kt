@@ -5,7 +5,13 @@ import ai.promoted.internal.SystemLogger
 import ai.promoted.networking.PromotedApiRequest
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
-import ai.promoted.proto.event.*
+import ai.promoted.proto.event.Action
+import ai.promoted.proto.event.Impression
+import ai.promoted.proto.event.LogRequest
+import ai.promoted.proto.event.Session
+import ai.promoted.proto.event.SessionProfile
+import ai.promoted.proto.event.User
+import ai.promoted.proto.event.View
 import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat
 
@@ -15,7 +21,7 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
-    private val idStorageUseCase: IdStorageUseCase
+    private val idStorageUseCase: CurrentUserIdsUseCase
 ) {
     // TODO - dev version
     private val url = config.metricsLoggingUrl
