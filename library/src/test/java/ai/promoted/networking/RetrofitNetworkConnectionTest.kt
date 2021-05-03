@@ -39,7 +39,7 @@ class RetrofitNetworkConnectionTest {
         // When we send the PromotedApiRequest
         connection.send(
             PromotedApiRequest(
-                url = "https://test.com/",
+                url = "https://test.com/?someParam=someValue",
                 headers = mapOf("header1" to "value1"),
                 bodyData = "test".toByteArray()
             )
@@ -49,7 +49,7 @@ class RetrofitNetworkConnectionTest {
         // by the PromotedApiRequest
         coVerify(exactly = 1) {
             api.postData(
-                url = "https://test.com/",
+                url = "https://test.com/?someParam=someValue",
                 headers = mapOf("header1" to "value1"),
                 data = any()
             )

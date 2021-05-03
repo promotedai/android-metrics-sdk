@@ -1,3 +1,10 @@
+/*
+    This file purely contains utility functions that map various data into corresponding protobuf
+    Message objects. The purpose is to keep classes interested in reporting these messages free
+    from the builder-pattern clutter, and only focus on providing the data necessary to generate
+    the message.
+ */
+
 package ai.promoted.metrics.usecases
 
 import ai.promoted.internal.Clock

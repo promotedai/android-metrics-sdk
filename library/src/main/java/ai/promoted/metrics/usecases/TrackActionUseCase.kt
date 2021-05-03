@@ -5,6 +5,9 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.proto.event.ActionType
 
+/**
+ * Allows you to track a user's action and all associated metadata.
+ */
 internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
