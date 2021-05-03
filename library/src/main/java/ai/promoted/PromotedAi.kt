@@ -2,9 +2,12 @@ package ai.promoted
 
 import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
+import ai.promoted.metrics.ActionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
+import ai.promoted.proto.event.ActionType
 import android.app.Application
 import org.koin.core.component.get
 
@@ -90,6 +93,12 @@ open class PromotedAiManager internal constructor(
 interface PromotedAi {
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
+    fun onAction(
+        name: String,
+        type: ActionType,
+        dataBlock: (ActionData.Builder.() -> Unit)? = null
+    )
+
     fun shutdown()
 
     /*
@@ -117,6 +126,11 @@ interface PromotedAi {
     companion object : PromotedAiManager(), PromotedAi {
         override fun startSession(userId: String) = instance.startSession(userId)
         override fun onViewVisible(key: String) = instance.onViewVisible(key)
+        override fun onAction(
+            name: String,
+            type: ActionType,
+            dataBlock: (ActionData.Builder.() -> Unit)?
+        ) = instance.onAction(name, type, dataBlock)
     }
 }
 
@@ -124,15 +138,29 @@ interface PromotedAi {
 internal class NoOpPromotedAi : PromotedAi {
     override fun startSession(userId: String) {}
     override fun onViewVisible(key: String) {}
+    override fun onAction(
+        name: String,
+        type: ActionType,
+        dataBlock: (ActionData.Builder.() -> Unit)?
+    ) {
+    }
+
     override fun shutdown() {}
 }
 
 internal class DefaultPromotedAi(
     private val logger: MetricsLogger,
     private val trackSessionUseCase: TrackSessionUseCase,
-    private val trackViewUseCase: TrackViewUseCase
+    private val trackViewUseCase: TrackViewUseCase,
+    private val trackActionUseCase: TrackActionUseCase
 ) : PromotedAi {
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
+    override fun onAction(
+        name: String,
+        type: ActionType,
+        dataBlock: (ActionData.Builder.() -> Unit)?
+    ) = trackActionUseCase.onAction(name, type, dataBlock)
+
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

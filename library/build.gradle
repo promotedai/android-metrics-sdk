@@ -58,8 +58,11 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.3.2'
 
-    implementation 'com.google.protobuf:protobuf-java:3.10.0'
+    // Protobuf is defined as api/transitive because the Promoted.Ai API allows passing of custom
+    // protobuf objects
+    api 'com.google.protobuf:protobuf-java:3.10.0'
     implementation 'com.google.protobuf:protobuf-java-util:3.10.0'
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     testImplementation 'junit:junit:4.+'

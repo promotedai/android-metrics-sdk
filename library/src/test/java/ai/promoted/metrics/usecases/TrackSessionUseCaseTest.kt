@@ -6,6 +6,7 @@ import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Session
 import ai.promoted.proto.event.User
 import com.google.protobuf.Message
+import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -17,16 +18,20 @@ import org.junit.Test
 class TrackSessionUseCaseTest {
     private val enqueuedMessages = mutableListOf<Message>()
     private val logger = mockkRelaxedUnit<MetricsLogger> {
-        every { enqueueMessage(capture(enqueuedMessages))} returns Unit
+        every { enqueueMessage(capture(enqueuedMessages)) } returns Unit
+    }
+
+    private val generatedLogUserIdSlot = CapturingSlot<String>()
+    private val currentUserIdsUseCase = mockkRelaxedUnit<CurrentUserIdsUseCase> {
+        every { currentUserId } returns ""
+        every { updateLogUserId(capture(generatedLogUserIdSlot)) } returns Unit
     }
 
     private val useCase = TrackSessionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = UuidGenerator(),
-        idStorageUseCase = mockkRelaxedUnit {
-            every { currentUserId } returns ""
-        }
+        currentUserIdsUseCase = currentUserIdsUseCase
     )
 
     @Test
@@ -74,6 +79,19 @@ class TrackSessionUseCaseTest {
         // Then
         verify(exactly = 1) {
             logger.enqueueMessage(ofType(Session::class))
+        }
+    }
+
+    @Test
+    fun `User ID and logUserId are updated if user ID has changed`() {
+        // When a session is started with a new user ID
+        val newUserId = "${System.currentTimeMillis()}"
+        useCase.startSession(newUserId)
+
+        // Then
+        verify(exactly = 1) {
+            currentUserIdsUseCase.updateUserId(newUserId)
+            currentUserIdsUseCase.updateLogUserId(generatedLogUserIdSlot.captured)
         }
     }
 }
