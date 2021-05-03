@@ -106,16 +106,16 @@ internal fun createActionMessage(
         .newBuilder()
         .setTiming(createTimingMessage(clock))
         .setActionId(internalActionData.actionId)
-        .setName(actionData.name)
+        .setName(internalActionData.name)
         .setSessionId(internalActionData.sessionId)
         .setViewId(internalActionData.viewId)
-        .setActionType(actionData.type)
+        .setActionType(internalActionData.type)
         .apply {
             internalActionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
             elementId = actionData.elementId ?: name
-            if (actionData.type == ActionType.NAVIGATE) {
+            if (internalActionData.type == ActionType.NAVIGATE) {
                 navigateAction = createNavigationMessage(actionData.targetUrl)
             }
         }

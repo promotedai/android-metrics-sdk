@@ -1,6 +1,5 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.metrics.ActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
@@ -47,19 +46,14 @@ class TrackActionUseCaseTest {
 
     @Test
     fun `Impression ID is based on insertion ID when it is available`() {
-        // Given
-        val actionData = ActionData(
-            name = "test",
-            type = ActionType.CUSTOM_ACTION_TYPE,
-            insertionId = "test-insertion-id",
-            contentId = "test-content-id",
-            requestId = "test-request-id",
-            elementId = "test-element-id",
-            targetUrl = null
-        )
-
         // When
-        useCase.onAction(actionData)
+        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+            insertionId = "test-insertion-id"
+            contentId = "test-content-id"
+            requestId = "test-request-id"
+            elementId = "test-element-id"
+            targetUrl = null
+        }
 
         // Then
         val action = enqueuedMessage.captured as? Action
@@ -70,19 +64,14 @@ class TrackActionUseCaseTest {
 
     @Test
     fun `Impression ID is based on combination of content ID and logUserId when content ID is available`() {
-        // Given
-        val actionData = ActionData(
-            name = "test",
-            type = ActionType.CUSTOM_ACTION_TYPE,
-            insertionId = null,
-            contentId = "test-content-id",
-            requestId = "test-request-id",
-            elementId = "test-element-id",
-            targetUrl = null
-        )
-
         // When
-        useCase.onAction(actionData)
+        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+            insertionId = null
+            contentId = "test-content-id"
+            requestId = "test-request-id"
+            elementId = "test-element-id"
+            targetUrl = null
+        }
 
         // Then
         val action = enqueuedMessage.captured as? Action
@@ -93,19 +82,14 @@ class TrackActionUseCaseTest {
 
     @Test
     fun `Impression ID is null or empty if both insertion ID and content ID are null`() {
-        // Given
-        val actionData = ActionData(
-            name = "test",
-            type = ActionType.CUSTOM_ACTION_TYPE,
-            insertionId = null,
-            contentId = null,
-            requestId = "test-request-id",
-            elementId = "test-element-id",
-            targetUrl = null
-        )
-
         // When
-        useCase.onAction(actionData)
+        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+            insertionId = null
+            contentId = null
+            requestId = "test-request-id"
+            elementId = "test-element-id"
+            targetUrl = null
+        }
 
         // Then
         val action = enqueuedMessage.captured as? Action
@@ -116,19 +100,14 @@ class TrackActionUseCaseTest {
 
     @Test
     fun `Correct session ID and view ID are used in message`() {
-        // Given
-        val actionData = ActionData(
-            name = "test",
-            type = ActionType.CUSTOM_ACTION_TYPE,
-            insertionId = null,
-            contentId = null,
-            requestId = "test-request-id",
-            elementId = "test-element-id",
-            targetUrl = null
-        )
-
         // When
-        useCase.onAction(actionData)
+        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+            insertionId = null
+            contentId = null
+            requestId = "test-request-id"
+            elementId = "test-element-id"
+            targetUrl = null
+        }
 
         // Then
         val action = enqueuedMessage.captured as? Action

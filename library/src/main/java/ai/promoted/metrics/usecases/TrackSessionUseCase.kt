@@ -18,7 +18,7 @@ internal class TrackSessionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val idStorageUseCase: CurrentUserIdsUseCase
+    private val currentUserIdsUseCase: CurrentUserIdsUseCase
 ) {
     private val advanceableSessionId = AdvanceableId(
         skipFirstAdvancement = true,
@@ -48,11 +48,11 @@ internal class TrackSessionUseCase(
     private fun syncCurrentUserId(userId: String) {
         // if it's a new user ID (different value than what's in the store), store it in memory
         // & persist it.
-        if (idStorageUseCase.currentUserId != userId) {
-            idStorageUseCase.updateUserId(userId)
+        if (currentUserIdsUseCase.currentUserId != userId) {
+            currentUserIdsUseCase.updateUserId(userId)
 
             // Now that a new user ID exists, a new logUserId needs to be generated & then stored
-            idStorageUseCase.updateLogUserId(idGenerator.newId())
+            currentUserIdsUseCase.updateLogUserId(idGenerator.newId())
         }
     }
 

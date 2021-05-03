@@ -11,6 +11,7 @@ import ai.promoted.metrics.storage.PrefsUserIdStorage
 import ai.promoted.metrics.storage.UserIdStorage
 import ai.promoted.metrics.usecases.CurrentUserIdsUseCase
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import android.app.Application
@@ -71,13 +72,14 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAi> { DefaultPromotedAi(get(), get(), get()) }
+            single<PromotedAi> { DefaultPromotedAi(get(), get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
 
             factory { FinalizeLogsUseCase(get(), get(), get()) }
+            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<UserIdStorage> { PrefsUserIdStorage(get()) }
