@@ -10,6 +10,8 @@ package ai.promoted.metrics.usecases
 import ai.promoted.internal.Clock
 import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.internal.PromotedAiLocale
+import ai.promoted.metrics.ActionData
+import ai.promoted.metrics.InternalActionData
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
 import ai.promoted.proto.event.Action
@@ -94,34 +96,27 @@ internal fun createViewMessage(
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 
+@Suppress("LongParameterList")
 internal fun createActionMessage(
     clock: Clock,
-    name: String,
-    actionId: String,
-    sessionId: String,
-    viewId: String,
-    type: ActionType,
-    impressionId: String?,
-    insertionId: String?,
-    requestId: String?,
-    elementId: String?,
-    targetUrl: String?
+    internalActionData: InternalActionData,
+    actionData: ActionData
 ) =
     Action
         .newBuilder()
         .setTiming(createTimingMessage(clock))
-        .setActionId(actionId)
-        .setName(name)
-        .setSessionId(sessionId)
-        .setViewId(viewId)
-        .setActionType(type)
+        .setActionId(internalActionData.actionId)
+        .setName(actionData.name)
+        .setSessionId(internalActionData.sessionId)
+        .setViewId(internalActionData.viewId)
+        .setActionType(actionData.type)
         .apply {
-            impressionId?.let { setImpressionId(it) }
-            insertionId?.let { setInsertionId(it) }
-            requestId?.let { setRequestId(it) }
-            setElementId(elementId ?: name)
-            if (type == ActionType.NAVIGATE) {
-                navigateAction = createNavigationMessage(targetUrl)
+            internalActionData.impressionId?.let { setImpressionId(it) }
+            actionData.insertionId?.let { setInsertionId(it) }
+            actionData.requestId?.let { setRequestId(it) }
+            elementId = actionData.elementId ?: name
+            if (actionData.type == ActionType.NAVIGATE) {
+                navigateAction = createNavigationMessage(actionData.targetUrl)
             }
         }
         .build()
