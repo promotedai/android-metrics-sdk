@@ -7,6 +7,15 @@ import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.proto.event.Device
 
+/**
+ * Allows you to track when a view has become visible/focused.
+ *
+ * This class makes use of [AdvanceableId], which means that you can query [viewId] prior to calling
+ * [onViewVisible] in order to track events associated to the soon-to-be-opened view, and when you
+ * eventually do call [onViewVisible], that original [viewId] value will be used/associated to the
+ * view that opens. All subsequent calls to [onViewVisible] will result in a new [viewId]
+ * being generated.
+ */
 internal class TrackViewUseCase(
     private val logger: MetricsLogger,
     private val clock: Clock,
@@ -28,6 +37,10 @@ internal class TrackViewUseCase(
         createDeviceMessage(deviceInfoProvider)
     }
 
+    /**
+     * If needed (if this [key] is different than the last visible key), generates a new view ID.
+     * Then logs a view message via [MetricsLogger].
+     */
     fun onViewVisible(key: String) {
         if (key != currentKey) {
             advanceableViewId.advance()

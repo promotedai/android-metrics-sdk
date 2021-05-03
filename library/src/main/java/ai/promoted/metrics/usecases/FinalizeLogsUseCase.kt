@@ -18,6 +18,11 @@ import com.google.protobuf.util.JsonFormat
 private const val HEADER_API_KEY = "x-api-key"
 private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 
+/**
+ * Responsible for taking a list of log messages, preparing them to be sent to the API, and finally
+ * returning those prepared log messages in the form of an abstract object that any networking
+ * stack can use (the [PromotedApiRequest]).
+ */
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
@@ -28,6 +33,11 @@ internal class FinalizeLogsUseCase(
     private val apiKey = config.metricsLoggingApiKey
     private val wireFormat = config.metricsLoggingWireFormat
 
+    /**
+     * Transform the list of [Message]s into a [PromotedApiRequest] with the proper API request
+     * info. This will inspect the [ClientConfig.metricsLoggingWireFormat] to ensure the ByteArray
+     * representing the POST body data is congruent with the library user's wire-format setting.
+     */
     fun finalizeLogs(logMessages: List<Message>): PromotedApiRequest {
         val finalizedMessage = prepareLogs(logMessages)
         val bodyData = if (wireFormat == ClientConfig.MetricsLoggingWireFormat.Binary) {
