@@ -12,6 +12,7 @@ import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.internal.PromotedAiLocale
 import ai.promoted.metrics.ActionData
 import ai.promoted.metrics.InternalActionData
+import ai.promoted.proto.common.Properties
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
 import ai.promoted.proto.event.Action
@@ -24,6 +25,7 @@ import ai.promoted.proto.event.Session
 import ai.promoted.proto.event.Size
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
+import com.google.protobuf.Message
 
 internal fun createTimingMessage(clock: Clock) =
     Timing
@@ -118,6 +120,10 @@ internal fun createActionMessage(
             if (internalActionData.type == ActionType.NAVIGATE) {
                 navigateAction = createNavigationMessage(actionData.targetUrl)
             }
+
+            createPropertiesMessage(actionData.customProperties)?.let {
+                properties = it
+            }
         }
         .build()
 
@@ -128,6 +134,22 @@ private fun createNavigationMessage(targetUrl: String?) =
             targetUrl?.let { setTargetUrl(it) }
         }
         .build()
+
+@Suppress("TooGenericExceptionCaught", "PrintStackTrace")
+internal fun createPropertiesMessage(properties: Message?): Properties? {
+    if (properties == null) return null
+    return try {
+        Properties
+            .newBuilder()
+            .setStructBytes(properties.toByteString())
+            .build()
+    } catch (e: Throwable) {
+        // Currently catching any type of Throwable here, because we want the library to be
+        // particularly safe at runtime, even if the custom properties message was malformed
+        e.printStackTrace()
+        null
+    }
+}
 
 // TODO - when Kotlin 1.5 comes out, use inline/value classes to ensure type-safety
 internal fun createUserInfoMessage(userId: String, logUserId: String) =
