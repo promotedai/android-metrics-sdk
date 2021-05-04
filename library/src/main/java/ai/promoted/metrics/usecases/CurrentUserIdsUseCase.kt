@@ -8,6 +8,9 @@ import ai.promoted.metrics.storage.UserIdStorage
  * This class will prefer in-memory storage unless reading from disk is required (i.e. upon app
  * launch). Updating the current value of a given user ID will result in both writing to the disk
  * (for future use) and to the in-memory reference (so as to avoid needing another read from disk).
+ *
+ * This class should be retained as a singleton in order to preserve the current user IDs across
+ * other use cases, without the need for reading from disk every time.
  */
 internal class CurrentUserIdsUseCase(private val idStorage: UserIdStorage) {
     private var _lastUsedUserId: String? = null

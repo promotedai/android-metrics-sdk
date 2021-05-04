@@ -9,12 +9,16 @@ import ai.promoted.proto.event.ActionType
 
 /**
  * Allows you to track a user's action and all associated metadata.
+ *
+ * This class can be constructed as needed and does not need to be a singleton; it is purely
+ * functional. It does depend on a global viewId and sessionId, but those are provided by
+ * the session & view use cases that should themselves be singletons.
  */
 internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val currentUserIdsUseCase: CurrentUserIdsUseCase,
+    private val impressionIdProvider: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase
 ) {
@@ -43,7 +47,8 @@ internal class TrackActionUseCase(
 
     private fun onAction(name: String, type: ActionType, data: ActionData) {
         val actionId = idGenerator.newId()
-        val impressionId = generateImpressionId(data)
+        val impressionId =
+            impressionIdProvider.generateImpressionId(data.insertionId, data.contentId)
 
         val internalActionData = InternalActionData(
             name = name,
@@ -61,13 +66,5 @@ internal class TrackActionUseCase(
                 actionData = data
             )
         )
-    }
-
-    private fun generateImpressionId(metadata: ActionData): String? = when {
-        metadata.insertionId != null -> idGenerator.newId(basedOn = metadata.insertionId)
-        metadata.contentId != null -> idGenerator.newId(
-            basedOn = (metadata.contentId + currentUserIdsUseCase.currentLogUserId)
-        )
-        else -> null
     }
 }

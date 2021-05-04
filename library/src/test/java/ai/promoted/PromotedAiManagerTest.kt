@@ -9,7 +9,6 @@ import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
-import org.junit.Assert.fail
 import org.junit.Test
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
@@ -25,14 +24,16 @@ class PromotedAiManagerTest {
     }
 
     @Test
-    fun `Throws error if start() or reconfigure() not called`() {
-        try {
-            PromotedAi.startSession()
-            fail("Cannot start session without initializing PromotedAi")
-        } catch (error: IllegalStateException) {
-            // success
-            error.printStackTrace()
-        }
+    fun `Uses no-op if initialize() or configure() not called`() {
+        // Given a default PromotedAiManager (using prod/runtime Koin and everything)
+        val manager = object : PromotedAiManager(){}
+
+        // When we access the instance
+        // or try to call some function on the default PromotedAi interface
+        // Then the PromotedAi instance is a NoOp
+        assertThat(manager.instance, instanceOf(NoOpPromotedAi::class.java))
+        PromotedAi.startSession()
+        assertThat(manager.instance, instanceOf(NoOpPromotedAi::class.java))
     }
 
     @Test
@@ -59,7 +60,7 @@ class PromotedAiManagerTest {
         // When it is re-configured to disable logging
         manager.configure(application) { loggingEnabled = false }
 
-        // Then the second promtoed ai is never called
+        // Then the second promoted ai is never called
         // and the actual instance is a NoOp (it's not even the second PromotedAi that DI provided)
         verify {
             secondPromotedAi wasNot called

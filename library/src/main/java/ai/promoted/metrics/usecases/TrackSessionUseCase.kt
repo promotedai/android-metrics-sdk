@@ -13,6 +13,9 @@ import ai.promoted.metrics.id.IdGenerator
  * when you eventually do call [startSession], that original [sessionId] value will be
  * used/associated to the session that starts. All subsequent calls to [startSession] will result in
  * a new [sessionId] being generated.
+ *
+ * This class should be retained as a singleton in order to preserve the current [sessionId] across
+ * other use cases.
  */
 internal class TrackSessionUseCase(
     private val clock: Clock,

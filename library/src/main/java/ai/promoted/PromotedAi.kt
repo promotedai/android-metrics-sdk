@@ -2,9 +2,11 @@ package ai.promoted
 
 import ai.promoted.internal.ConfigurableKoinComponent
 import ai.promoted.internal.DefaultKoin
+import ai.promoted.metrics.AbstractContent
 import ai.promoted.metrics.ActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
+import ai.promoted.metrics.usecases.TrackImpressionsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
@@ -33,10 +35,15 @@ open class PromotedAiManager internal constructor(
 
     internal val instance: PromotedAi
         get() = when (val currentState = state) {
-            is State.NotConfigured -> throw IllegalStateException("Please configure PromotedAi before use")
-            State.Shutdown -> throw IllegalStateException(
-                "PromotedAi was shut down. Please ensure it is configured before usage again."
-            )
+            is State.NotConfigured,
+            State.Shutdown -> {
+                // Rather than throwing an IllegalStateException here, we'll just return a no-op
+                // instance. That way, if the library user has called shutdown() for some reason at
+                // runtime, it won't be up to them to ensure all the places in their code where
+                // they access Promoted.Ai are wrapped with logic to ensure initialize/configure
+                // has been called.
+                NoOpPromotedAi()
+            }
             is State.Ready -> currentState.promotedAi
         }
 
@@ -99,6 +106,9 @@ interface PromotedAi {
         dataBlock: (ActionData.Builder.() -> Unit)? = null
     )
 
+    fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
+    fun onCollectionHidden(collectionViewKey: String)
+
     fun shutdown()
 
     /*
@@ -131,9 +141,20 @@ interface PromotedAi {
             type: ActionType,
             dataBlock: (ActionData.Builder.() -> Unit)?
         ) = instance.onAction(name, type, dataBlock)
+
+        override fun onCollectionVisible(
+            collectionViewKey: String,
+            content: List<AbstractContent>
+        ) = instance.onCollectionVisible(collectionViewKey, content)
+
+        override fun onCollectionHidden(collectionViewKey: String) =
+            instance.onCollectionHidden(collectionViewKey)
     }
 }
 
+/**
+ * Non-operational implementation of the [PromotedAi] interface; used when
+ */
 @Suppress("EmptyFunctionBlock")
 internal class NoOpPromotedAi : PromotedAi {
     override fun startSession(userId: String) {}
@@ -145,14 +166,22 @@ internal class NoOpPromotedAi : PromotedAi {
     ) {
     }
 
+    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) {}
+    override fun onCollectionHidden(collectionViewKey: String) {}
+
     override fun shutdown() {}
 }
 
+/**
+ * Default implementation of the [PromotedAi] interface, which delegates each call to its
+ * appropriate underlying use case. Calls to [shutdown] are delegated directly to the [logger].
+ */
 internal class DefaultPromotedAi(
     private val logger: MetricsLogger,
     private val trackSessionUseCase: TrackSessionUseCase,
     private val trackViewUseCase: TrackViewUseCase,
-    private val trackActionUseCase: TrackActionUseCase
+    private val trackActionUseCase: TrackActionUseCase,
+    private val trackImpressionsUseCase: TrackImpressionsUseCase
 ) : PromotedAi {
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
@@ -161,6 +190,12 @@ internal class DefaultPromotedAi(
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
     ) = trackActionUseCase.onAction(name, type, dataBlock)
+
+    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
+        trackImpressionsUseCase.onCollectionVisible(collectionViewKey, content)
+
+    override fun onCollectionHidden(collectionViewKey: String) =
+        trackImpressionsUseCase.onCollectionHidden(collectionViewKey)
 
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

@@ -11,6 +11,7 @@ import ai.promoted.internal.Clock
 import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.internal.PromotedAiLocale
 import ai.promoted.metrics.ActionData
+import ai.promoted.metrics.ImpressionData
 import ai.promoted.metrics.InternalActionData
 import ai.promoted.proto.common.Properties
 import ai.promoted.proto.common.Timing
@@ -19,6 +20,7 @@ import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import ai.promoted.proto.event.AppScreenView
 import ai.promoted.proto.event.Device
+import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.NavigateAction
 import ai.promoted.proto.event.Screen
 import ai.promoted.proto.event.Session
@@ -133,6 +135,14 @@ private fun createNavigationMessage(targetUrl: String?) =
         .apply {
             targetUrl?.let { setTargetUrl(it) }
         }
+        .build()
+
+internal fun createImpressionMessage(
+    impressionData: ImpressionData
+) =
+    Impression
+        .newBuilder()
+
         .build()
 
 @Suppress("TooGenericExceptionCaught", "PrintStackTrace")
