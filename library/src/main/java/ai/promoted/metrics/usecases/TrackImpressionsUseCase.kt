@@ -19,19 +19,19 @@ internal class TrackImpressionsUseCase(
     private val collectionsAndImpressions = mutableMapOf<String, List<ImpressionData>>()
 
     fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) {
-        val identifiableContent
-
-        content
-            .asSequence()
-            .map {
-                it to impressionIdProvider.generateImpressionId(it.insertionId, it.contentId)
-            }
-            .mapNotNull {
-                it.second?.let { ImpressionData()}
-            }
-            .filter {
-
-            }
+//        val identifiableContent
+//
+//        content
+//            .asSequence()
+//            .map {
+//                it to impressionIdProvider.generateImpressionId(it.insertionId, it.contentId)
+//            }
+//            .mapNotNull {
+//                it.second?.let { ImpressionData()}
+//            }
+//            .filter {
+//
+//            }
 
 
         /*
