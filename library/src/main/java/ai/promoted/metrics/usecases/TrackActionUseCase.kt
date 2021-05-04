@@ -18,7 +18,7 @@ internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val impressionIdProvider: ImpressionIdGenerator,
+    private val impressionIdGenerator: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase
 ) {
@@ -48,7 +48,7 @@ internal class TrackActionUseCase(
     private fun onAction(name: String, type: ActionType, data: ActionData) {
         val actionId = idGenerator.newId()
         val impressionId =
-            impressionIdProvider.generateImpressionId(data.insertionId, data.contentId)
+            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
 
         val internalActionData = InternalActionData(
             name = name,

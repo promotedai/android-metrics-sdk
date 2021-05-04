@@ -1,6 +1,7 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import com.google.protobuf.Message
@@ -24,18 +25,20 @@ class TrackActionUseCaseTest {
     private val logger = mockk<MetricsLogger> {
         every { enqueueMessage(capture(enqueuedMessage)) } returns Unit
     }
+    private val idGenerator = mockk<IdGenerator> {
+        every { newId() } returns randomUuid
+        every { newId(basedOn = capture(basedOnUuid)) } answers {
+            firstArg()
+        }
+    }
+    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+        every { currentLogUserId } returns logUserId
+    }
     private val useCase = TrackActionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
-        idGenerator = mockk {
-            every { newId() } returns randomUuid
-            every { newId(basedOn = capture(basedOnUuid)) } answers {
-                firstArg()
-            }
-        },
-        currentUserIdsUseCase = mockk {
-            every { currentLogUserId } returns logUserId
-        },
+        idGenerator = idGenerator,
+        impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
