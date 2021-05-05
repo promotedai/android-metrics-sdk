@@ -7,11 +7,12 @@
 
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.internal.DeviceInfoProvider
-import ai.promoted.internal.PromotedAiLocale
-import ai.promoted.metrics.ActionData
+import ai.promoted.ActionData
 import ai.promoted.metrics.InternalActionData
+import ai.promoted.metrics.InternalImpressionData
+import ai.promoted.platform.Clock
+import ai.promoted.platform.DeviceInfoProvider
+import ai.promoted.platform.PromotedAiLocale
 import ai.promoted.proto.common.Properties
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
@@ -19,6 +20,7 @@ import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import ai.promoted.proto.event.AppScreenView
 import ai.promoted.proto.event.Device
+import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.NavigateAction
 import ai.promoted.proto.event.Screen
 import ai.promoted.proto.event.Session
@@ -132,6 +134,16 @@ private fun createNavigationMessage(targetUrl: String?) =
         .newBuilder()
         .apply {
             targetUrl?.let { setTargetUrl(it) }
+        }
+        .build()
+
+internal fun createImpressionMessage(
+    impressionData: InternalImpressionData
+) =
+    Impression
+        .newBuilder()
+        .apply {
+            this.impressionId = impressionData.impressionId
         }
         .build()
 

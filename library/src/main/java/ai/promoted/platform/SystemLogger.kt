@@ -1,4 +1,4 @@
-package ai.promoted.internal
+package ai.promoted.platform
 
 import android.util.Log
 

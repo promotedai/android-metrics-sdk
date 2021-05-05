@@ -1,8 +1,8 @@
 package ai.promoted.metrics
 
+import ai.promoted.NetworkConnection
+import ai.promoted.PromotedApiRequest
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
-import ai.promoted.networking.NetworkConnection
-import ai.promoted.networking.PromotedApiRequest
 import com.google.protobuf.Message
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +14,9 @@ import kotlinx.coroutines.launch
  *
  * Logs will be sent using [PromotedApiRequest] + [NetworkConnection], and that request will be
  * executed using Kotlin coroutines, on the IO dispatcher.
+ *
+ * This class should be retained as a singleton to ensure all log messages are being placed onto
+ * a single batch.
  */
 internal class MetricsLogger(
     flushIntervalMillis: Long,

@@ -1,4 +1,4 @@
-package ai.promoted.networking
+package ai.promoted
 
 /**
  * Represents an abstract networking interface that can receive a [PromotedApiRequest] and execute

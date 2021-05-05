@@ -1,20 +1,24 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.metrics.ActionData
+import ai.promoted.ActionData
 import ai.promoted.metrics.InternalActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
 
 /**
  * Allows you to track a user's action and all associated metadata.
+ *
+ * This class can be constructed as needed and does not need to be a singleton; it is purely
+ * functional. It does depend on a global viewId and sessionId, but those are provided by
+ * the session & view use cases that should themselves be singletons.
  */
 internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val currentUserIdsUseCase: CurrentUserIdsUseCase,
+    private val impressionIdGenerator: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase
 ) {
@@ -41,9 +45,13 @@ internal class TrackActionUseCase(
         onAction(name, type, data)
     }
 
-    private fun onAction(name: String, type: ActionType, data: ActionData) {
+    /**
+     * Logs the given action, along with any additional data associated to it.
+     */
+    fun onAction(name: String, type: ActionType, data: ActionData) {
         val actionId = idGenerator.newId()
-        val impressionId = generateImpressionId(data)
+        val impressionId =
+            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
 
         val internalActionData = InternalActionData(
             name = name,
@@ -61,13 +69,5 @@ internal class TrackActionUseCase(
                 actionData = data
             )
         )
-    }
-
-    private fun generateImpressionId(metadata: ActionData): String? = when {
-        metadata.insertionId != null -> idGenerator.newId(basedOn = metadata.insertionId)
-        metadata.contentId != null -> idGenerator.newId(
-            basedOn = (metadata.contentId + currentUserIdsUseCase.currentLogUserId)
-        )
-        else -> null
     }
 }

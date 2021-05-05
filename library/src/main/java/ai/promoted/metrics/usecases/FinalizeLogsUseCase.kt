@@ -1,8 +1,8 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.ClientConfig
-import ai.promoted.internal.SystemLogger
-import ai.promoted.networking.PromotedApiRequest
+import ai.promoted.PromotedApiRequest
+import ai.promoted.platform.SystemLogger
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
 import ai.promoted.proto.event.Action
@@ -22,13 +22,15 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
  * Responsible for taking a list of log messages, preparing them to be sent to the API, and finally
  * returning those prepared log messages in the form of an abstract object that any networking
  * stack can use (the [PromotedApiRequest]).
+ *
+ * This class can be constructed as needed and does not need to be a singleton; it is purely
+ * functional.
  */
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
     private val idStorageUseCase: CurrentUserIdsUseCase
 ) {
-    // TODO - dev version
     private val url = config.metricsLoggingUrl
     private val apiKey = config.metricsLoggingApiKey
     private val wireFormat = config.metricsLoggingWireFormat
