@@ -11,6 +11,7 @@ import ai.promoted.metrics.storage.PrefsUserIdStorage
 import ai.promoted.metrics.storage.UserIdStorage
 import ai.promoted.metrics.usecases.CurrentUserIdsUseCase
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.metrics.usecases.ImpressionIdGenerator
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
@@ -82,6 +83,8 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
 
             factory { FinalizeLogsUseCase(get(), get(), get()) }
             factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
+
+            factory { ImpressionIdGenerator(get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<UserIdStorage> { PrefsUserIdStorage(get()) }
