@@ -1,8 +1,8 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.ClientConfig
-import ai.promoted.internal.SystemLogger
-import ai.promoted.networking.PromotedApiRequest
+import ai.promoted.PromotedApiRequest
+import ai.promoted.platform.SystemLogger
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
 import ai.promoted.proto.event.Action

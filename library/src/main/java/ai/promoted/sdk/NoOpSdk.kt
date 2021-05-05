@@ -1,7 +1,7 @@
-package ai.promoted
+package ai.promoted.sdk
 
-import ai.promoted.metrics.AbstractContent
-import ai.promoted.metrics.ActionData
+import ai.promoted.AbstractContent
+import ai.promoted.ActionData
 import ai.promoted.proto.event.ActionType
 
 /**
@@ -9,7 +9,7 @@ import ai.promoted.proto.event.ActionType
  * [ClientConfig.loggingEnabled] is set to false, or when the SDK has not yet been initialized.
  */
 @Suppress("EmptyFunctionBlock")
-internal class NoOpPromotedAi : PromotedAiSdk {
+internal class NoOpSdk : PromotedAiSdk {
     override fun startSession(userId: String) {}
     override fun onViewVisible(key: String) {}
     override fun onAction(

@@ -1,9 +1,9 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
 
 /**
  * Allows you to track the start of an app session.

@@ -1,48 +1,48 @@
 package ai.promoted
 
-import ai.promoted.metrics.AbstractContent
-import ai.promoted.metrics.ActionData
 import ai.promoted.proto.event.ActionType
+import ai.promoted.sdk.SdkManager
 import android.app.Application
 
 /**
  * Single entry-point for the Promoted.Ai SDK. All SDK operations can be safely executed through
  * here without worrying about underlying dependencies / classes / object management.
  */
+@Suppress("TooManyFunctions")
 object PromotedAi {
-    private val manager = PromotedAiManager()
-    private val sdk get() = manager.promotedAiInstance
+    private val manager = SdkManager()
+    private val sdk get() = manager.sdkInstance
 
     /**
-     * @see [PromotedAiManager.initialize]
+     * @see [SdkManager.initialize]
      */
     @JvmStatic
     fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
         manager.initialize(application, block)
 
     /**
-     * @see [PromotedAiManager.initialize]
+     * @see [SdkManager.initialize]
      */
     @JvmStatic
     fun initialize(application: Application, config: ClientConfig) =
         manager.initialize(application, config)
 
     /**
-     * @see [PromotedAiManager.configure]
+     * @see [SdkManager.configure]
      */
     @JvmStatic
     fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) =
         manager.configure(application, block)
 
     /**
-     * @see [PromotedAiManager.configure]
+     * @see [SdkManager.configure]
      */
     @JvmStatic
     fun configure(application: Application, config: ClientConfig) =
         manager.configure(application, config)
 
     /**
-     * @see [PromotedAiManager.shutdown]
+     * @see [SdkManager.shutdown]
      */
     @JvmStatic
     fun shutdown() = manager.shutdown()

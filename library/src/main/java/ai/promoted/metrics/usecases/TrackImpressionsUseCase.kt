@@ -1,9 +1,9 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.metrics.AbstractContent
-import ai.promoted.metrics.ImpressionData
+import ai.promoted.AbstractContent
+import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.platform.Clock
 
 /**
  * Allows you to track impressions based on a collection of [AbstractContent] (i.e. from a
@@ -19,7 +19,8 @@ internal class TrackImpressionsUseCase(
     private val viewUseCase: TrackViewUseCase,
     private val impressionIdGenerator: ImpressionIdGenerator
 ) {
-    private val collectionDiffers = mutableMapOf<String, AsyncContentDiffer>()
+    private val collectionDiffers =
+        mutableMapOf<String, AsyncCollectionDiffCalculator<AbstractContent>>()
 
     /**
      * To be called when the collection view with the given [collectionViewKey] has a
@@ -38,15 +39,15 @@ internal class TrackImpressionsUseCase(
      * rather, it should be a list representing the content/rows currently within the viewport.
      */
     fun onCollectionVisible(collectionViewKey: String, visibleContent: List<AbstractContent>) {
-        val differ = collectionDiffers.getOrPut(collectionViewKey, ::AsyncContentDiffer)
+        val differ = collectionDiffers.getOrPut(collectionViewKey, ::AsyncCollectionDiffCalculator)
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId
         val viewId = viewUseCase.viewId
-        differ.diffContent(
+        differ.calculateDiff(
             newBaseline = visibleContent,
-            onNewContent = { newContent -> onStartImpression(now, sessionId, viewId, newContent) },
+            onNewItem = { newItem -> onStartImpression(now, sessionId, viewId, newItem) },
             // Currently not handling end impressions
-            onDroppedContent = null
+            onDroppedItem = null
         )
     }
 
@@ -66,13 +67,13 @@ internal class TrackImpressionsUseCase(
         sessionId: String,
         viewId: String,
         content: AbstractContent
-    ): Boolean {
+    ) {
         val impressionId = impressionIdGenerator.generateImpressionId(
             insertionId = content.insertionId,
             contentId = content.contentId
-        ) ?: return false
+        ) ?: return
 
-        val impressionData = ImpressionData(
+        val impressionData = InternalImpressionData(
             time = time,
             sessionId = sessionId,
             viewId = viewId,
@@ -80,7 +81,5 @@ internal class TrackImpressionsUseCase(
         )
 
         logger.enqueueMessage(createImpressionMessage(impressionData))
-
-        return true
     }
 }

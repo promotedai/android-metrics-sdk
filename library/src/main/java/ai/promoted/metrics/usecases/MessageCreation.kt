@@ -7,12 +7,12 @@
 
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.internal.DeviceInfoProvider
-import ai.promoted.internal.PromotedAiLocale
-import ai.promoted.metrics.ActionData
-import ai.promoted.metrics.ImpressionData
+import ai.promoted.ActionData
 import ai.promoted.metrics.InternalActionData
+import ai.promoted.metrics.InternalImpressionData
+import ai.promoted.platform.Clock
+import ai.promoted.platform.DeviceInfoProvider
+import ai.promoted.platform.PromotedAiLocale
 import ai.promoted.proto.common.Properties
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
@@ -138,7 +138,7 @@ private fun createNavigationMessage(targetUrl: String?) =
         .build()
 
 internal fun createImpressionMessage(
-    impressionData: ImpressionData
+    impressionData: InternalImpressionData
 ) =
     Impression
         .newBuilder()

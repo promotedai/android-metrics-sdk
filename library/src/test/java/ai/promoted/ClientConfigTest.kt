@@ -1,6 +1,6 @@
 package ai.promoted
 
-import ai.promoted.networking.RetrofitNetworkConnection
+import ai.promoted.http.RetrofitNetworkConnection
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Assert.assertThat

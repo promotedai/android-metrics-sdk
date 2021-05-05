@@ -1,4 +1,4 @@
-package ai.promoted.internal
+package ai.promoted.platform
 
 /**
  * Avoid confusion between java.util.Locale and ai.promoted protobuf Locale

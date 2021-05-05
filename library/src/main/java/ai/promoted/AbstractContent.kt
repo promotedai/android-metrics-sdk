@@ -1,4 +1,4 @@
-package ai.promoted.metrics
+package ai.promoted
 
 /**
  * Represents a unit of trackable content in your marketplace. For better conceptualization in your

@@ -1,10 +1,10 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
+import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.proto.event.Device
 
 /**

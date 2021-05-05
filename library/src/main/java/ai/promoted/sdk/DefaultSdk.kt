@@ -1,7 +1,7 @@
-package ai.promoted
+package ai.promoted.sdk
 
-import ai.promoted.metrics.AbstractContent
-import ai.promoted.metrics.ActionData
+import ai.promoted.AbstractContent
+import ai.promoted.ActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
@@ -13,7 +13,7 @@ import ai.promoted.proto.event.ActionType
  * Default implementation of the [PromotedAiSdk] interface, which delegates each call to its
  * appropriate underlying use case. Calls to [shutdown] are delegated directly to the [logger].
  */
-internal class DefaultPromotedAi(
+internal class DefaultSdk(
     private val logger: MetricsLogger,
     private val trackSessionUseCase: TrackSessionUseCase,
     private val trackViewUseCase: TrackViewUseCase,

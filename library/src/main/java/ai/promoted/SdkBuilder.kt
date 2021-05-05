@@ -1,18 +1,18 @@
 package ai.promoted
 
-import ai.promoted.networking.NetworkConnection
+import ai.promoted.sdk.SdkManager
 import android.app.Application
 
 /**
- * This class is primarily to provide an easy-to-use Java API, via [PromotedAiSdk.buildConfiguration],
+ * This class is primarily to provide an easy-to-use Java API, via [PromotedAi.buildConfiguration],
  * so that users of the library can dynamically set whichever [ClientConfig] options they want to
  * set.
  *
- * While this is supported for Kotlin users, the [PromotedAiSdk.initialize]/[PromotedAiSdk.configure]
+ * While this is supported for Kotlin users, the [PromotedAi.initialize]/[PromotedAi.configure]
  * with the [ClientConfig.Builder] configuration block is recommended.
  */
 class SdkBuilder internal constructor(
-    private val promotedAiManager: PromotedAiManager
+    private val promotedAiManager: SdkManager
 ) {
     interface NetworkConnectionProvider {
         /**

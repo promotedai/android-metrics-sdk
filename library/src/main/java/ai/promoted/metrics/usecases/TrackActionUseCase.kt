@@ -1,10 +1,10 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.metrics.ActionData
+import ai.promoted.ActionData
 import ai.promoted.metrics.InternalActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
 
 /**

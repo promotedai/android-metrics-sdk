@@ -1,14 +1,14 @@
-package ai.promoted
+package ai.promoted.sdk
 
-import ai.promoted.metrics.AbstractContent
-import ai.promoted.metrics.ActionData
+import ai.promoted.AbstractContent
+import ai.promoted.ActionData
 import ai.promoted.proto.event.ActionType
 
 /**
  * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
  * the SDK.
  */
-interface PromotedAiSdk {
+internal interface PromotedAiSdk {
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
 

@@ -1,7 +1,7 @@
 package ai.promoted
 
-import ai.promoted.metrics.ActionData
 import ai.promoted.proto.event.ActionType
+import ai.promoted.sdk.PromotedAiSdk
 import com.google.protobuf.Message
 
 /**

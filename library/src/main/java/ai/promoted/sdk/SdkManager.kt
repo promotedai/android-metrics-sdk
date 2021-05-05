@@ -1,7 +1,8 @@
-package ai.promoted
+package ai.promoted.sdk
 
-import ai.promoted.internal.ConfigurableKoinComponent
-import ai.promoted.internal.DefaultKoin
+import ai.promoted.ClientConfig
+import ai.promoted.di.ConfigurableKoinComponent
+import ai.promoted.di.DefaultKoinComponent
 import android.app.Application
 import org.koin.core.component.get
 
@@ -14,18 +15,18 @@ import org.koin.core.component.get
  * that when [PromotedAiSdk] is shut down, its corresponding objects/dependencies are released for
  * garbage collection.
  */
-open class PromotedAiManager internal constructor(
-    private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoin
+internal open class SdkManager internal constructor(
+    private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoinComponent
 ) {
     internal sealed class SdkState {
         object NotConfigured : SdkState()
-        data class Ready(val promotedAi: PromotedAiSdk) : SdkState()
+        data class Ready(val sdk: PromotedAiSdk) : SdkState()
         object Shutdown : SdkState()
     }
 
     private var sdkState: SdkState = SdkState.NotConfigured
 
-    internal val promotedAiInstance: PromotedAiSdk
+    internal val sdkInstance: PromotedAiSdk
         get() = when (val currentState = sdkState) {
             is SdkState.NotConfigured,
             SdkState.Shutdown -> {
@@ -34,9 +35,9 @@ open class PromotedAiManager internal constructor(
                 // runtime, it won't be up to them to ensure all the places in their code where
                 // they access Promoted.Ai are wrapped with logic to ensure initialize/configure
                 // has been called.
-                NoOpPromotedAi()
+                NoOpSdk()
             }
-            is SdkState.Ready -> currentState.promotedAi
+            is SdkState.Ready -> currentState.sdk
         }
 
 
@@ -87,7 +88,7 @@ open class PromotedAiManager internal constructor(
         // Shut down the current PromotedAi instance, if there is one running / we're in a ready
         // state
         when (val currentState = sdkState) {
-            is SdkState.Ready -> currentState.promotedAi.shutdown()
+            is SdkState.Ready -> currentState.sdk.shutdown()
         }
 
         // Reconfigure Koin to provide dependencies based on the current ClientConfig
@@ -98,10 +99,10 @@ open class PromotedAiManager internal constructor(
         // business logic from residing in the DI configuration
         val newPromotedAi: PromotedAiSdk = when (config.loggingEnabled) {
             true -> configurableKoinComponent.get()
-            else -> NoOpPromotedAi()
+            else -> NoOpSdk()
         }
 
-        this.sdkState = SdkState.Ready(promotedAi = newPromotedAi)
+        this.sdkState = SdkState.Ready(sdk = newPromotedAi)
     }
 
     /**
@@ -109,7 +110,7 @@ open class PromotedAiManager internal constructor(
      * state.
      */
     fun shutdown() {
-        promotedAiInstance.shutdown()
+        sdkInstance.shutdown()
         configurableKoinComponent.shutdown()
         sdkState = SdkState.Shutdown
     }

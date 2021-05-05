@@ -1,6 +1,9 @@
 package ai.promoted
 
-import ai.promoted.internal.ConfigurableKoinComponent
+import ai.promoted.di.ConfigurableKoinComponent
+import ai.promoted.sdk.NoOpSdk
+import ai.promoted.sdk.PromotedAiSdk
+import ai.promoted.sdk.SdkManager
 import android.app.Application
 import io.mockk.called
 import io.mockk.mockk
@@ -26,14 +29,14 @@ class PromotedAiManagerTest {
     @Test
     fun `Uses no-op if initialize() or configure() not called`() {
         // Given a default PromotedAiManager (using prod/runtime Koin and everything)
-        val manager = object : PromotedAiManager(){}
+        val manager = object : SdkManager(){}
 
         // When we access the instance
         // or try to call some function on the default PromotedAi interface
         // Then the PromotedAi instance is a NoOp
-        assertThat(manager.promotedAiInstance, instanceOf(NoOpPromotedAi::class.java))
+        assertThat(manager.sdkInstance, instanceOf(NoOpSdk::class.java))
         PromotedAi.startSession()
-        assertThat(manager.promotedAiInstance, instanceOf(NoOpPromotedAi::class.java))
+        assertThat(manager.sdkInstance, instanceOf(NoOpSdk::class.java))
     }
 
     @Test
@@ -44,7 +47,7 @@ class PromotedAiManagerTest {
         var creationCount = 0
         val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
-        val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
+        val manager = object : SdkManager(object : ConfigurableKoinComponent() {
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
                     factory<PromotedAiSdk> {
@@ -65,7 +68,7 @@ class PromotedAiManagerTest {
         verify {
             secondPromotedAi wasNot called
         }
-        assertThat(manager.promotedAiInstance, instanceOf(NoOpPromotedAi::class.java))
+        assertThat(manager.sdkInstance, instanceOf(NoOpSdk::class.java))
     }
 
     @Test
@@ -76,7 +79,7 @@ class PromotedAiManagerTest {
         var creationCount = 0
         val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
-        val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
+        val manager = object : SdkManager(object : ConfigurableKoinComponent() {
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
                     factory<PromotedAiSdk> {
@@ -110,7 +113,7 @@ class PromotedAiManagerTest {
                 }
             )
         }
-        val manager = object : PromotedAiManager(koin) {}
+        val manager = object : SdkManager(koin) {}
         manager.configure(application) { loggingEnabled = true }
 
         // When it is shut down

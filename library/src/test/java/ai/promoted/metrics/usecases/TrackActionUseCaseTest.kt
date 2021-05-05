@@ -2,6 +2,7 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.proto.common.Timing
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import com.google.protobuf.Message
@@ -48,6 +49,17 @@ class TrackActionUseCaseTest {
     )
 
     @Test
+    fun `Simple action is logged when no data block`() {
+        // When
+        useCase.onAction("test", ActionType.ADD_TO_CART, dataBlock = null)
+
+        // Then
+        val action = enqueuedMessage.captured as? Action
+        verify(exactly = 1) { logger.enqueueMessage(any()) }
+        assertThat(action, notNullValue())
+    }
+
+    @Test
     fun `Impression ID is based on insertion ID when it is available`() {
         // When
         useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
@@ -56,6 +68,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -74,6 +89,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -92,6 +110,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -110,6 +131,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then

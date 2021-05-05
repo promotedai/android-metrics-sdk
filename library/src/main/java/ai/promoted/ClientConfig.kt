@@ -1,8 +1,7 @@
 package ai.promoted
 
-import ai.promoted.networking.NetworkConnection
-import ai.promoted.networking.RetrofitNetworkConnection
-import ai.promoted.networking.RetrofitProvider
+import ai.promoted.http.RetrofitNetworkConnection
+import ai.promoted.http.RetrofitProvider
 
 /**
  * Represents all of the options a library user has to customize the behavior of the Promoted.Ai

@@ -1,5 +1,6 @@
 package ai.promoted.networking
 
+import ai.promoted.http.RetrofitProvider
 import junit.framework.Assert.fail
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
