@@ -5,11 +5,11 @@ import ai.promoted.metrics.ActionData
 import ai.promoted.proto.event.ActionType
 
 /**
- * Non-operational implementation of the [PromotedAi] interface; used when
+ * Non-operational implementation of the [PromotedAiSdk] interface; used when
  * [ClientConfig.loggingEnabled] is set to false, or when the SDK has not yet been initialized.
  */
 @Suppress("EmptyFunctionBlock")
-internal class NoOpPromotedAi : PromotedAi {
+internal class NoOpPromotedAi : PromotedAiSdk {
     override fun startSession(userId: String) {}
     override fun onViewVisible(key: String) {}
     override fun onAction(

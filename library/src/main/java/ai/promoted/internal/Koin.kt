@@ -3,7 +3,7 @@ package ai.promoted.internal
 import ai.promoted.BuildConfig
 import ai.promoted.ClientConfig
 import ai.promoted.DefaultPromotedAi
-import ai.promoted.PromotedAi
+import ai.promoted.PromotedAiSdk
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.metrics.id.UuidGenerator
@@ -74,7 +74,7 @@ internal object DefaultKoin : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAi> { DefaultPromotedAi(get(), get(), get(), get(), get()) }
+            single<PromotedAiSdk> { DefaultPromotedAi(get(), get(), get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get()) }

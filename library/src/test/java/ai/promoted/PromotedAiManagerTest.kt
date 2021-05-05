@@ -42,12 +42,12 @@ class PromotedAiManagerTest {
         // but will always return a second one on subsequent injects,
         // and that the PromotedAiManager has been configured once
         var creationCount = 0
-        val firstPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
-        val secondPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
+        val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
-                    factory<PromotedAi> {
+                    factory<PromotedAiSdk> {
                         creationCount++
                         if (creationCount == 1) firstPromotedAi
                         else secondPromotedAi
@@ -74,12 +74,12 @@ class PromotedAiManagerTest {
         // but will always return a second one on subsequent injects,
         // and that the PromotedAiManager has been configured once
         var creationCount = 0
-        val firstPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
-        val secondPromotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
+        val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val manager = object : PromotedAiManager(object : ConfigurableKoinComponent() {
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
-                    factory<PromotedAi> {
+                    factory<PromotedAiSdk> {
                         creationCount++
                         if (creationCount == 1) firstPromotedAi
                         else secondPromotedAi
@@ -101,12 +101,12 @@ class PromotedAiManagerTest {
         // Given a PromotedAiManager that is configured to return one PromotedAi initially,
         // but will always return a second one on subsequent injects,
         // and that the PromotedAiManager has been configured once
-        val promotedAi: PromotedAi = mockk(relaxUnitFun = true)
+        val promotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val koin = object : ConfigurableKoinComponent() {
             fun startedKoinApp() = super.startedKoinApplication
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
-                    factory<PromotedAi> { promotedAi }
+                    factory<PromotedAiSdk> { promotedAi }
                 }
             )
         }

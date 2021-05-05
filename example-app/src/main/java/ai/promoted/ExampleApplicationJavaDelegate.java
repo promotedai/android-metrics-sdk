@@ -8,7 +8,7 @@ public class ExampleApplicationJavaDelegate {
             "https://5tbepnh11h.execute-api.us-east-2.amazonaws.com/dev/main";
 
     public void onCreate(Application application) {
-        PromotedAi.instance
+        PromotedAi
                 .buildConfiguration()
                 .withMetricsLoggingUrl(LOGGING_URL)
                 .withMetricsLoggingApiKey(LOGGING_API_KEY)

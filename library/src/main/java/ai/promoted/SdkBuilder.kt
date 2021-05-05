@@ -4,11 +4,11 @@ import ai.promoted.networking.NetworkConnection
 import android.app.Application
 
 /**
- * This class is primarily to provide an easy-to-use Java API, via [PromotedAi.buildConfiguration],
+ * This class is primarily to provide an easy-to-use Java API, via [PromotedAiSdk.buildConfiguration],
  * so that users of the library can dynamically set whichever [ClientConfig] options they want to
  * set.
  *
- * While this is supported for Kotlin users, the [PromotedAi.initialize]/[PromotedAi.configure]
+ * While this is supported for Kotlin users, the [PromotedAiSdk.initialize]/[PromotedAiSdk.configure]
  * with the [ClientConfig.Builder] configuration block is recommended.
  */
 class SdkBuilder internal constructor(
@@ -60,12 +60,12 @@ class SdkBuilder internal constructor(
         apply { clientConfigBuilder.networkConnectionProvider = provider::provide }
 
     /**
-     * @see [PromotedAi.initialize]
+     * @see [PromotedAiSdk.initialize]
      */
     fun initialize(application: Application) = configure(application)
 
     /**
-     * @see [PromotedAi.configure]
+     * @see [PromotedAiSdk.configure]
      */
     @Suppress("MemberVisibilityCanBePrivate")
     fun configure(application: Application) =

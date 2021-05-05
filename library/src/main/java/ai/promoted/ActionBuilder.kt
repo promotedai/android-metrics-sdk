@@ -5,13 +5,13 @@ import ai.promoted.proto.event.ActionType
 import com.google.protobuf.Message
 
 /**
- * This class is primarily to provide an easy-to-use Java API, via [PromotedAi.buildAction], so that
+ * This class is primarily to provide an easy-to-use Java API, via [PromotedAiSdk.buildAction], so that
  * users of the library can dynamically set whichever action components they want to set.
  *
- * While this is supported for Kotlin users, the [PromotedAi.onAction] with the [ActionData.Builder]
+ * While this is supported for Kotlin users, the [PromotedAiSdk.onAction] with the [ActionData.Builder]
  * configuration block is recommended.
  */
-class ActionBuilder internal constructor(private val promotedAi: PromotedAi) {
+class ActionBuilder internal constructor(private val promotedAi: PromotedAiSdk) {
     private var name: String = ""
     private var type: ActionType = ActionType.UNKNOWN_ACTION_TYPE
     private val dataBuilder = ActionData.Builder()

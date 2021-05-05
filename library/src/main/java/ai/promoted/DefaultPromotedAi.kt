@@ -10,7 +10,7 @@ import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
 
 /**
- * Default implementation of the [PromotedAi] interface, which delegates each call to its
+ * Default implementation of the [PromotedAiSdk] interface, which delegates each call to its
  * appropriate underlying use case. Calls to [shutdown] are delegated directly to the [logger].
  */
 internal class DefaultPromotedAi(
@@ -19,7 +19,7 @@ internal class DefaultPromotedAi(
     private val trackViewUseCase: TrackViewUseCase,
     private val trackActionUseCase: TrackActionUseCase,
     private val trackImpressionsUseCase: TrackImpressionsUseCase
-) : PromotedAi {
+) : PromotedAiSdk {
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
     override fun onAction(
