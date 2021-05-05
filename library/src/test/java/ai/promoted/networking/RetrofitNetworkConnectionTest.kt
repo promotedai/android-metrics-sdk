@@ -1,5 +1,9 @@
 package ai.promoted.networking
 
+import ai.promoted.PromotedApiRequest
+import ai.promoted.http.RetrofitNetworkConnection
+import ai.promoted.http.RetrofitPromotedApi
+import ai.promoted.http.RetrofitProvider
 import ai.promoted.mockkRelaxedUnit
 import io.mockk.CapturingSlot
 import io.mockk.coEvery
@@ -19,12 +23,12 @@ class RetrofitNetworkConnectionTest {
     private val urlSlot = CapturingSlot<String>()
     private val headersSlot = CapturingSlot<Map<String, String>>()
     private val bodySlot = CapturingSlot<RequestBody>()
-    private val api: PromotedApi = mockkRelaxedUnit {
+    private val api: RetrofitPromotedApi = mockkRelaxedUnit {
         coEvery { postData(capture(urlSlot), capture(headersSlot), capture(bodySlot)) } returns Unit
     }
 
     private val retrofit: Retrofit = mockkRelaxedUnit {
-        every { create<PromotedApi>() } returns api
+        every { create<RetrofitPromotedApi>() } returns api
     }
 
     private val retrofitProvider: RetrofitProvider = mockkRelaxedUnit {
@@ -83,7 +87,7 @@ class RetrofitNetworkConnectionTest {
         // Then Retrofit was only provided once,
         // and the PromotedApi object was only created once
         verify(exactly = 1) { retrofitProvider.provide("https://test.com/") }
-        verify(exactly = 1) { retrofit.create<PromotedApi>() }
+        verify(exactly = 1) { retrofit.create<RetrofitPromotedApi>() }
     }
 
     @Test
@@ -111,6 +115,6 @@ class RetrofitNetworkConnectionTest {
         // And a new PromotedApi is created (create() is called twice)
         verify(exactly = 1) { retrofitProvider.provide("https://test.com/") }
         verify(exactly = 1) { retrofitProvider.provide("https://test2.com/") }
-        verify(exactly = 2) { retrofit.create<PromotedApi>() }
+        verify(exactly = 2) { retrofit.create<RetrofitPromotedApi>() }
     }
 }

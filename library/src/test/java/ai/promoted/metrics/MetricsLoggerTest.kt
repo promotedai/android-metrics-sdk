@@ -1,9 +1,9 @@
 package ai.promoted.metrics
 
+import ai.promoted.NetworkConnection
+import ai.promoted.PromotedApiRequest
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.mockkRelaxedUnit
-import ai.promoted.networking.NetworkConnection
-import ai.promoted.networking.PromotedApiRequest
 import ai.promoted.proto.event.Device
 import ai.promoted.proto.event.User
 import com.google.protobuf.Message

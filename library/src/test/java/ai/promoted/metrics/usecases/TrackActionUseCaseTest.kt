@@ -1,6 +1,8 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.proto.common.Timing
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import com.google.protobuf.Message
@@ -24,18 +26,20 @@ class TrackActionUseCaseTest {
     private val logger = mockk<MetricsLogger> {
         every { enqueueMessage(capture(enqueuedMessage)) } returns Unit
     }
+    private val idGenerator = mockk<IdGenerator> {
+        every { newId() } returns randomUuid
+        every { newId(basedOn = capture(basedOnUuid)) } answers {
+            firstArg()
+        }
+    }
+    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+        every { currentLogUserId } returns logUserId
+    }
     private val useCase = TrackActionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
-        idGenerator = mockk {
-            every { newId() } returns randomUuid
-            every { newId(basedOn = capture(basedOnUuid)) } answers {
-                firstArg()
-            }
-        },
-        currentUserIdsUseCase = mockk {
-            every { currentLogUserId } returns logUserId
-        },
+        idGenerator = idGenerator,
+        impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
@@ -43,6 +47,17 @@ class TrackActionUseCaseTest {
             every { viewId } returns testViewId
         }
     )
+
+    @Test
+    fun `Simple action is logged when no data block`() {
+        // When
+        useCase.onAction("test", ActionType.ADD_TO_CART, dataBlock = null)
+
+        // Then
+        val action = enqueuedMessage.captured as? Action
+        verify(exactly = 1) { logger.enqueueMessage(any()) }
+        assertThat(action, notNullValue())
+    }
 
     @Test
     fun `Impression ID is based on insertion ID when it is available`() {
@@ -53,6 +68,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -71,6 +89,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -89,6 +110,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then
@@ -107,6 +131,9 @@ class TrackActionUseCaseTest {
             requestId = "test-request-id"
             elementId = "test-element-id"
             targetUrl = null
+
+            // Fake custom properties
+            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
         }
 
         // Then

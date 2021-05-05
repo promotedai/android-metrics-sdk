@@ -1,6 +1,5 @@
-package ai.promoted.metrics
+package ai.promoted
 
-import ai.promoted.proto.event.ActionType
 import com.google.protobuf.Message
 
 /**
@@ -28,14 +27,3 @@ data class ActionData(
     }
 }
 
-/**
- * Represents all data associated to an action that is generated internally in the library.
- */
-internal data class InternalActionData(
-    val name: String,
-    val type: ActionType,
-    val actionId: String,
-    val sessionId: String,
-    val viewId: String,
-    val impressionId: String?
-)

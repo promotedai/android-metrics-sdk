@@ -1,8 +1,8 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.metrics.ActionData
+import ai.promoted.ActionData
 import ai.promoted.metrics.InternalActionData
+import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
 import io.mockk.every
 import io.mockk.mockk

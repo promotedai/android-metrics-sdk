@@ -1,25 +1,7 @@
-package ai.promoted.networking
+package ai.promoted.http
 
 import okhttp3.HttpUrl
-import okhttp3.RequestBody
 import retrofit2.Retrofit
-import retrofit2.create
-import retrofit2.http.Body
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
-import retrofit2.http.Url
-
-/**
- * API interface definition for Retrofit.
- */
-internal interface PromotedApi {
-    @POST
-    suspend fun postData(
-        @Url url: String,
-        @HeaderMap headers: Map<String, String>,
-        @Body data: RequestBody
-    )
-}
 
 /**
  * Retrofit has some stringent requirements regarding what you use for your base URL when building
@@ -28,7 +10,7 @@ internal interface PromotedApi {
  * being built with the provided URL as its base URL.
  *
  * One should also note that the URL itself is dynamic anyway, as defined by the @Url parameter in
- * [PromotedApi.postData]; however, Retrofit still requires a base URL to be provided when being
+ * [RetrofitPromotedApi.postData]; however, Retrofit still requires a base URL to be provided when being
  * built.
  */
 internal class RetrofitProvider {
@@ -65,44 +47,5 @@ internal class RetrofitProvider {
         // appending the URL's path instead of throwing an exception
         return if (stringToFormat.last() != '/') "$stringToFormat/"
         else stringToFormat
-    }
-}
-
-/**
- * An implementation of [NetworkConnection] that executes the [PromotedApiRequest] using Retrofit.
- *
- * This class will only build a [Retrofit] instance & create a [PromotedApi] instance when the
- * URL in [PromotedApiRequest] has changed since the last call to [send] (or on the first call to
- * [send]). Otherwise, it will retain its reference to the originally create [PromotedApi] object
- * so as to preserve memory.
- */
-internal class RetrofitNetworkConnection(
-    private val retrofitProvider: RetrofitProvider
-) : NetworkConnection {
-    private var urlApiPair: Pair<String, PromotedApi>? = null
-
-    override suspend fun send(request: PromotedApiRequest) =
-        getApiForUrl(request.url)
-            .postData(
-                request.url,
-                request.headers,
-                RequestBody.create(null, request.bodyData)
-            )
-
-    private fun getApiForUrl(url: String): PromotedApi {
-        val lastUrlAndApi = urlApiPair
-        return when {
-            lastUrlAndApi == null -> buildAndSetNewApi(url)
-            lastUrlAndApi.first != url -> buildAndSetNewApi(url)
-            else -> lastUrlAndApi.second
-        }
-    }
-
-    private fun buildAndSetNewApi(url: String): PromotedApi {
-        val api = retrofitProvider.provide(url).create<PromotedApi>()
-
-        urlApiPair = url to api
-
-        return api
     }
 }

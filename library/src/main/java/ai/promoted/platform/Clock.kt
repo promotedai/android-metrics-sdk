@@ -1,4 +1,4 @@
-package ai.promoted.internal
+package ai.promoted.platform
 
 /**
  * Clock interface to allow for DI/testability

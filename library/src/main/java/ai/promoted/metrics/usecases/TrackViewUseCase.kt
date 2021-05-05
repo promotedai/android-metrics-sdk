@@ -1,10 +1,10 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
-import ai.promoted.internal.DeviceInfoProvider
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
+import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.proto.event.Device
 
 /**
@@ -15,6 +15,9 @@ import ai.promoted.proto.event.Device
  * eventually do call [onViewVisible], that original [viewId] value will be used/associated to the
  * view that opens. All subsequent calls to [onViewVisible] will result in a new [viewId]
  * being generated.
+ *
+ * This class should be retained as a singleton in order to preserve the current [viewId] across
+ * other use cases.
  */
 internal class TrackViewUseCase(
     private val logger: MetricsLogger,
