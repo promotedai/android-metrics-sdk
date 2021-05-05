@@ -1,6 +1,7 @@
 package ai.promoted
 
 import ai.promoted.proto.event.ActionType
+import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
 import android.app.Application
 
