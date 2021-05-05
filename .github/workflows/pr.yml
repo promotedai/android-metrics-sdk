@@ -18,5 +18,5 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew :library:lint :library:assembleRelease :library:testReleaseUnitTest --stacktrace
+    - name: Build & verify with Gradle
+      run: ./gradlew :library:detekt :library:lint :library:assembleRelease :library:testDebugUnitTest --stacktrace

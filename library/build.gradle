@@ -8,7 +8,7 @@ plugins {
 }
 
 ext {
-    version = "0.0.2"
+    version = "0.0.3"
 }
 
 android {
@@ -58,8 +58,11 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.3.2'
 
-    implementation 'com.google.protobuf:protobuf-java:3.10.0'
-    implementation 'com.google.protobuf:protobuf-java-util:3.10.0'
+    // Protobuf is defined as api/transitive because the Promoted.Ai API allows passing of custom
+    // protobuf objects
+    api 'com.google.protobuf:protobuf-java:3.11.0'
+    implementation 'com.google.protobuf:protobuf-java-util:3.11.0'
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     testImplementation 'junit:junit:4.+'
@@ -86,7 +89,26 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             '**/Manifest*.*',
             '**/*Test*.*',
             'android/**/*.*',
-            'ai/promoted/internal/**/*.*'
+
+            // Exclude all no-operational classes that follow this convention
+            'ai/promoted/**/NoOp*.*',
+
+            // Exclude all classes that match the name "Internal*Data", as they are data
+            // classes with no logic
+            'ai/promoted/**/Internal*Data.*',
+
+            // Exclude all top-level classes belonging to the ai.promoted package.
+            // This is because these represent the public facing API and are intended to be
+            // entirely delegating to internal classes, thus testing would have diminishing returns.
+            'ai/promoted/*.class',
+
+            // Exclude DI/Koin classes because testing factory-based logic is better verified via
+            // integration/instrumented tests
+            'ai/promoted/di/**/*.*',
+
+            // Exclude classes in the "platform" package because they are primarily interfaces with
+            // default implementations in order to aid in testability / DI
+            'ai/promoted/platform/**/*.*'
     ]
     def debugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"

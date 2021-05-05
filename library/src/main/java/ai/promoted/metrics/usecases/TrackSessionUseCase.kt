@@ -1,15 +1,27 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.internal.Clock
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.platform.Clock
 
+/**
+ * Allows you to track the start of an app session.
+ *
+ * This class makes use of [AdvanceableId], which means that you can query [sessionId] prior to
+ * calling [startSession] in order to track events associated to the soon-to-be-started session, and
+ * when you eventually do call [startSession], that original [sessionId] value will be
+ * used/associated to the session that starts. All subsequent calls to [startSession] will result in
+ * a new [sessionId] being generated.
+ *
+ * This class should be retained as a singleton in order to preserve the current [sessionId] across
+ * other use cases.
+ */
 internal class TrackSessionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val idStorageUseCase: CurrentUserIdsUseCase
+    private val currentUserIdsUseCase: CurrentUserIdsUseCase
 ) {
     private val advanceableSessionId = AdvanceableId(
         skipFirstAdvancement = true,
@@ -19,6 +31,10 @@ internal class TrackSessionUseCase(
     val sessionId: String
         get() = advanceableSessionId.currentValue
 
+    /**
+     * If needed, generates a new session ID, then ensures that the logUserId is in sync with the
+     * user ID, and then logs both a user message and a session message using [MetricsLogger].
+     */
     fun startSession(userId: String) {
         // Typically, we would generate a new session ID every time startSession is called;
         // however, there are cases where metrics need to be logged prior to a session starting.
@@ -33,11 +49,13 @@ internal class TrackSessionUseCase(
     }
 
     private fun syncCurrentUserId(userId: String) {
-        // if it's a new user ID (different value than what's in the store), store it locally & persistence
-        // Now that a new user ID exists, a new logUserId needs to be generated & then stored
-        if (idStorageUseCase.currentUserId != userId) {
-            idStorageUseCase.updateUserId(userId)
-            idStorageUseCase.updateLogUserId(idGenerator.newId())
+        // if it's a new user ID (different value than what's in the store), store it in memory
+        // & persist it.
+        if (currentUserIdsUseCase.currentUserId != userId) {
+            currentUserIdsUseCase.updateUserId(userId)
+
+            // Now that a new user ID exists, a new logUserId needs to be generated & then stored
+            currentUserIdsUseCase.updateLogUserId(idGenerator.newId())
         }
     }
 

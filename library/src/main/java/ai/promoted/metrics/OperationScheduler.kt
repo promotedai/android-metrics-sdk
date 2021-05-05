@@ -4,8 +4,11 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 /**
- * Given an interval, uses a privately managed coroutine scope & job to schedule future execution
- * of the provided operation.
+ * Given an interval, uses a privately managed [Timer] to schedule future execution of the provided
+ * operation.
+ *
+ * This class shouldn't need to be provided directly by DI because it is just a wrapper around
+ * [Timer], and thus has no other dependencies apart from the [intervalMillis] and callback.
  */
 internal class OperationScheduler(
     private val intervalMillis: Long,
