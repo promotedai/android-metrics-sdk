@@ -1,97 +1,8 @@
 package ai.promoted
 
-import ai.promoted.internal.ConfigurableKoinComponent
-import ai.promoted.internal.DefaultKoin
 import ai.promoted.metrics.AbstractContent
 import ai.promoted.metrics.ActionData
-import ai.promoted.metrics.MetricsLogger
-import ai.promoted.metrics.usecases.TrackActionUseCase
-import ai.promoted.metrics.usecases.TrackImpressionsUseCase
-import ai.promoted.metrics.usecases.TrackSessionUseCase
-import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
-import android.app.Application
-import org.koin.core.component.get
-
-/**
- * Allows for the proper creation, configuration, and termination of a [PromotedAi]
- * instance. This class ensures that an instance of [PromotedAi] is able to be initialized with
- * a [ClientConfig], reconfigured at any point, and also shut down at any point by the user of
- * [PromotedAi]. It ensures that when a [PromotedAi] is initialized or reconfigured, its
- * corresponding objects/dependencies are re-created per the new [ClientConfig]. It also ensures
- * that when [PromotedAi] is shut down, its corresponding objects/dependencies are released for
- * garbage collection.
- */
-open class PromotedAiManager internal constructor(
-    private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoin
-) {
-    internal sealed class State {
-        object NotConfigured : State()
-        data class Ready(val promotedAi: PromotedAi) : State()
-        object Shutdown : State()
-    }
-
-    private var state: State = State.NotConfigured
-
-    internal val instance: PromotedAi
-        get() = when (val currentState = state) {
-            is State.NotConfigured,
-            State.Shutdown -> {
-                // Rather than throwing an IllegalStateException here, we'll just return a no-op
-                // instance. That way, if the library user has called shutdown() for some reason at
-                // runtime, it won't be up to them to ensure all the places in their code where
-                // they access Promoted.Ai are wrapped with logic to ensure initialize/configure
-                // has been called.
-                NoOpPromotedAi()
-            }
-            is State.Ready -> currentState.promotedAi
-        }
-
-
-    /**
-     * Simply calls [configure], but provides semantic clarity for users of Promoted.Ai. For example,
-     * you might call this function, [initialize], in your application onCreate(), but if you want
-     * to reconfigure at a later point, it would be clearer if you called [configure].
-     */
-    fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
-        configure(application, block)
-
-    /**
-     * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls
-     * after the initial call will simply reconfigure & restart Promoted.Ai
-     */
-    fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) {
-        // Shut down the current PromotedAi instance, if there is one running / we're in a ready
-        // state
-        when (val currentState = state) {
-            is State.Ready -> currentState.promotedAi.shutdown()
-        }
-
-        // Reconfigure Koin to provide dependencies based on the current ClientConfig
-        val config = ClientConfig.Builder().apply(block).build()
-        configurableKoinComponent.configure(application, config)
-
-        // Regardless of what PromotedAi type Koin might return, we'll always override that with a
-        // no-op version if logging is disabled via config. This is to prevent such critical
-        // business logic from residing in the DI configuration
-        val newPromotedAi: PromotedAi = when (config.loggingEnabled) {
-            true -> configurableKoinComponent.get()
-            else -> NoOpPromotedAi()
-        }
-
-        this.state = State.Ready(promotedAi = newPromotedAi)
-    }
-
-    /**
-     * Cancels any pending metrics that have yet to be sent, and puts the library in a dormant
-     * state.
-     */
-    fun shutdown() {
-        instance.shutdown()
-        configurableKoinComponent.shutdown()
-        state = State.Shutdown
-    }
-}
 
 /**
  * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
@@ -100,10 +11,17 @@ open class PromotedAiManager internal constructor(
 interface PromotedAi {
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
+
     fun onAction(
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null
+    )
+
+    fun onAction(
+        name: String,
+        type: ActionType,
+        data: ActionData
     )
 
     fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
@@ -133,69 +51,36 @@ interface PromotedAi {
         both, that means the user gets a simple and single entry point for shutting down the
         library, e.g. by calling the statically available PromotedAi.shutdown().
      */
-    companion object : PromotedAiManager(), PromotedAi {
-        override fun startSession(userId: String) = instance.startSession(userId)
-        override fun onViewVisible(key: String) = instance.onViewVisible(key)
+    @Suppress("ClassName")
+    companion object instance : PromotedAiManager(), PromotedAi {
+        override fun startSession(userId: String) = super.promotedAiInstance.startSession(userId)
+        override fun onViewVisible(key: String) = super.promotedAiInstance.onViewVisible(key)
         override fun onAction(
             name: String,
             type: ActionType,
             dataBlock: (ActionData.Builder.() -> Unit)?
-        ) = instance.onAction(name, type, dataBlock)
+        ) = super.promotedAiInstance.onAction(name, type, dataBlock)
+
+        override fun onAction(name: String, type: ActionType, data: ActionData) =
+            super.promotedAiInstance.onAction(name, type, data)
 
         override fun onCollectionVisible(
             collectionViewKey: String,
             content: List<AbstractContent>
-        ) = instance.onCollectionVisible(collectionViewKey, content)
+        ) = super.promotedAiInstance.onCollectionVisible(collectionViewKey, content)
 
         override fun onCollectionHidden(collectionViewKey: String) =
-            instance.onCollectionHidden(collectionViewKey)
+            super.promotedAiInstance.onCollectionHidden(collectionViewKey)
+
+        //region JAVA INTER-OP
+        /* Java-idiomatic initialization of the SDK */
+        fun buildConfiguration() = SdkBuilder(this)
+
+        /* Default parameter / signed out user */
+        fun startSession() = super.promotedAiInstance.startSession()
+
+        /* Java-idiomatic building of action/action data*/
+        fun buildAction() = ActionBuilder(super.promotedAiInstance)
+        //endregion
     }
-}
-
-/**
- * Non-operational implementation of the [PromotedAi] interface; used when
- */
-@Suppress("EmptyFunctionBlock")
-internal class NoOpPromotedAi : PromotedAi {
-    override fun startSession(userId: String) {}
-    override fun onViewVisible(key: String) {}
-    override fun onAction(
-        name: String,
-        type: ActionType,
-        dataBlock: (ActionData.Builder.() -> Unit)?
-    ) {
-    }
-
-    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) {}
-    override fun onCollectionHidden(collectionViewKey: String) {}
-
-    override fun shutdown() {}
-}
-
-/**
- * Default implementation of the [PromotedAi] interface, which delegates each call to its
- * appropriate underlying use case. Calls to [shutdown] are delegated directly to the [logger].
- */
-internal class DefaultPromotedAi(
-    private val logger: MetricsLogger,
-    private val trackSessionUseCase: TrackSessionUseCase,
-    private val trackViewUseCase: TrackViewUseCase,
-    private val trackActionUseCase: TrackActionUseCase,
-    private val trackImpressionsUseCase: TrackImpressionsUseCase
-) : PromotedAi {
-    override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
-    override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
-    override fun onAction(
-        name: String,
-        type: ActionType,
-        dataBlock: (ActionData.Builder.() -> Unit)?
-    ) = trackActionUseCase.onAction(name, type, dataBlock)
-
-    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
-        trackImpressionsUseCase.onCollectionVisible(collectionViewKey, content)
-
-    override fun onCollectionHidden(collectionViewKey: String) =
-        trackImpressionsUseCase.onCollectionHidden(collectionViewKey)
-
-    override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }

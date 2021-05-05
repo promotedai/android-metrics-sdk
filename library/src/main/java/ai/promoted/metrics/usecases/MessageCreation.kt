@@ -142,7 +142,9 @@ internal fun createImpressionMessage(
 ) =
     Impression
         .newBuilder()
-
+        .apply {
+            this.impressionId = impressionData.impressionId
+        }
         .build()
 
 @Suppress("TooGenericExceptionCaught", "PrintStackTrace")

@@ -45,7 +45,10 @@ internal class TrackActionUseCase(
         onAction(name, type, data)
     }
 
-    private fun onAction(name: String, type: ActionType, data: ActionData) {
+    /**
+     * Logs the given action, along with any additional data associated to it.
+     */
+    fun onAction(name: String, type: ActionType, data: ActionData) {
         val actionId = idGenerator.newId()
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)

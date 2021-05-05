@@ -5,6 +5,11 @@ import android.content.SharedPreferences
 private const val KEY_USER_ID = "ai.promoted.user_id"
 private const val KEY_LOG_USER_ID = "ai.promoted.log_user_id"
 
+/**
+ * Implementation of [UserIdStorage] via [SharedPreferences].
+ *
+ * In the future this could perhaps use something like AndroidX's DataStore (currently alpha).
+ */
 internal class PrefsUserIdStorage(
     private val sharedPreferences: SharedPreferences
 ) : UserIdStorage {

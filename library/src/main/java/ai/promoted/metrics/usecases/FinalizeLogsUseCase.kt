@@ -31,7 +31,6 @@ internal class FinalizeLogsUseCase(
     private val systemLogger: SystemLogger,
     private val idStorageUseCase: CurrentUserIdsUseCase
 ) {
-    // TODO - dev version
     private val url = config.metricsLoggingUrl
     private val apiKey = config.metricsLoggingApiKey
     private val wireFormat = config.metricsLoggingWireFormat
