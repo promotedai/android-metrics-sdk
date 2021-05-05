@@ -90,10 +90,24 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             '**/*Test*.*',
             'android/**/*.*',
 
+            // Exclude all no-operational classes that follow this convention
             'ai/promoted/**/NoOp*.*',
-            'ai/promoted/**/Internal*.*',
+
+            // Exclude all classes that match the name "Internal*Data", as they are data
+            // classes with no logic
+            'ai/promoted/**/Internal*Data.*',
+
+            // Exclude all top-level classes belonging to the ai.promoted package.
+            // This is because these represent the public facing API and are intended to be
+            // entirely delegating to internal classes, thus testing would have diminishing returns.
             'ai/promoted/*.class',
+
+            // Exclude DI/Koin classes because testing factory-based logic is better verified via
+            // integration/instrumented tests
             'ai/promoted/di/**/*.*',
+
+            // Exclude classes in the "platform" package because they are primarily interfaces with
+            // default implementations in order to aid in testability / DI
             'ai/promoted/platform/**/*.*'
     ]
     def debugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)

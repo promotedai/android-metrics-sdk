@@ -65,7 +65,7 @@ class AsyncCollectionDiffCalculatorTest {
         val newContent = originalContent.dropLast(1) + AbstractContent.Content("4")
         val verifiedContent = mutableListOf<AbstractContent>()
         differ.calculateDiff(
-            newBaseline = originalContent,
+            newBaseline = newContent,
             onNewItem = {
                 verifiedContent.add(it)
             }
@@ -73,7 +73,46 @@ class AsyncCollectionDiffCalculatorTest {
         delay(100L)
 
         // Then
-        assertThat(newContent.last(), equalTo(AbstractContent.Content("4")))
+        assertThat(verifiedContent.size, equalTo(1))
+        assertThat(verifiedContent.first(), equalTo(AbstractContent.Content("4")))
+    }
+
+    @Test
+    fun `Should be notified of dropped content after subsequent diff`() = runBlocking {
+        // Given
+        val differ = AsyncCollectionDiffCalculator<AbstractContent>()
+        val contentToDrop = AbstractContent.Content(
+            "3", "", ""
+        )
+        val originalContent = listOf(
+            AbstractContent.Content(
+                "1", "", ""
+            ),
+            AbstractContent.Content(
+                "2", "", ""
+            ),
+            contentToDrop
+        )
+        differ.calculateDiff(
+            newBaseline = originalContent,
+            onNewItem = {}
+        )
+        // Crude delay because computation time should be short
+        delay(100L)
+
+        // When
+        val newContent = originalContent.dropLast(1) + AbstractContent.Content("4")
+        val droppedContent = mutableListOf<AbstractContent>()
+        differ.calculateDiff(
+            newBaseline = newContent,
+            onNewItem = {},
+            onDroppedItem = { droppedContent.add(it) }
+        )
+        delay(100L)
+
+        // Then
+        assertThat(droppedContent.size, equalTo(1))
+        assertThat(droppedContent.first(), equalTo(contentToDrop))
     }
 
     /*
