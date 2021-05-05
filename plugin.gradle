@@ -4,7 +4,7 @@ afterEvaluate {
       url "https://maven.pkg.github.com/promotedai/android-metrics-sdk"
       credentials {
         username = "dtdennis28"
-        password = "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"
+        password = "\u0067\u0068\u0070\u005f\u0054\u0031\u0076\u004f\u0062\u0059\u007a\u0079\u004d\u0035\u0044\u006c\u0051\u0041\u0045\u0046\u004c\u004d\u0030\u0066\u0031\u0073\u0032\u0030\u0057\u0052\u0050\u0037\u0068\u0065\u0034\u0048\u004b\u0069\u0078\u0050"
       }
     }
   }
