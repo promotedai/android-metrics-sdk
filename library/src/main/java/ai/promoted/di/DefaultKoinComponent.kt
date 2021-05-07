@@ -10,6 +10,7 @@ import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.metrics.usecases.ImpressionIdGenerator
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
+import ai.promoted.metrics.usecases.TrackRVImpressionsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.platform.AndroidDeviceInfoProvider
@@ -38,11 +39,12 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get()) }
+            single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get()) }
             single { TrackImpressionsUseCase(get(), get(), get(), get(), get()) }
+            single { TrackRVImpressionsUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
 
             factory { FinalizeLogsUseCase(get(), get(), get()) }

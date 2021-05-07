@@ -4,6 +4,7 @@ import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
 import android.app.Application
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Single entry-point for the Promoted.Ai SDK. All SDK operations can be safely executed through
@@ -78,20 +79,33 @@ object PromotedAi {
         sdk.onAction(name, type, data)
 
     /**
-     * @see [PromotedAiSdk.onCollectionVisible]
+     * @see [PromotedAiSdk.onCollectionUpdated]
      */
     @JvmStatic
-    fun onCollectionVisible(
+    fun onCollectionUpdated(
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionVisible(collectionViewKey, content)
+    ) = sdk.onCollectionUpdated(collectionViewKey, content)
 
     /**
-     * @see [PromotedAiSdk.onCollectionHidden]
+     * @see [PromotedAiSdk.trackRecyclerView]
      */
     @JvmStatic
-    fun onCollectionHidden(collectionViewKey: String) =
-        sdk.onCollectionHidden(collectionViewKey)
+    fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        contentProvider: RecyclerViewTracking.ContentProvider,
+        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)? = null
+    ) = sdk.trackRecyclerView(recyclerView, contentProvider, thresholdBlock)
+
+    /**
+     * @see [PromotedAiSdk.trackRecyclerView]
+     */
+    @JvmStatic
+    fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        contentProvider: RecyclerViewTracking.ContentProvider,
+        threshold: RecyclerViewTracking.VisibilityThreshold
+    ) = sdk.trackRecyclerView(recyclerView, contentProvider, threshold)
 
     //region JAVA INTER-OP
     /* Java-idiomatic initialization of the SDK */
@@ -138,5 +152,20 @@ object PromotedAi {
     /* Java-idiomatic building of action/action data*/
     @JvmStatic
     fun buildAction() = ActionBuilder(sdk)
+
+    /**
+     * Begin building a [RecyclerViewTracking] configuration in a chained fashion, finally resulting
+     * in a startTracking() call.
+     *
+     * Example usage:
+     *
+     *     PromotedAi
+     *         .buildRecyclerViewTracking()
+     *         .withTimeThreshold(1000L)
+     *         .startTracking(recyclerView, recyclerViewContentProvider)
+     */
+    /* */
+    @JvmStatic
+    fun buildRecyclerViewTracking() = RecyclerViewTrackingBuilder(sdk)
     //endregion
 }

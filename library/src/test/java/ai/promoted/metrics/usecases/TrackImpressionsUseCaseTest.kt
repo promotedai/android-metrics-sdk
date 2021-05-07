@@ -9,10 +9,14 @@ import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.setMain
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Before
 import org.junit.Test
 
 class TrackImpressionsUseCaseTest {
@@ -46,6 +50,12 @@ class TrackImpressionsUseCaseTest {
             every { viewId } returns testViewId
         }
     )
+
+    @ExperimentalCoroutinesApi
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(Dispatchers.Default)
+    }
 
     @Test
     fun `Impressions logged for new content`() = runBlocking {

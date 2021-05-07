@@ -5,6 +5,7 @@ import ai.promoted.ActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
+import ai.promoted.metrics.usecases.TrackRVImpressionsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.mockkRelaxedUnit
@@ -18,13 +19,15 @@ class DefaultSdkTest {
     private val viewUseCase: TrackViewUseCase = mockkRelaxedUnit()
     private val actionUseCase: TrackActionUseCase = mockkRelaxedUnit()
     private val impressionUseCase: TrackImpressionsUseCase = mockkRelaxedUnit()
+    private val rvImpressionsUseCase: TrackRVImpressionsUseCase = mockkRelaxedUnit()
 
     private val sdk = DefaultSdk(
         logger,
         sessionUseCase,
         viewUseCase,
         actionUseCase,
-        impressionUseCase
+        impressionUseCase,
+        rvImpressionsUseCase
     )
 
     @Test
@@ -71,16 +74,10 @@ class DefaultSdkTest {
     }
 
     @Test
-    fun onCollectionVisible() {
+    fun onCollectionUpdated() {
         val collection = listOf(AbstractContent.Content("1"), AbstractContent.Content("2"))
-        sdk.onCollectionVisible("collection-key", collection)
+        sdk.onCollectionUpdated("collection-key", collection)
         verify(exactly = 1) { impressionUseCase.onCollectionVisible("collection-key", collection) }
-    }
-
-    @Test
-    fun onCollectionHidden() {
-        sdk.onCollectionHidden("collection-key")
-        verify(exactly = 1) { impressionUseCase.onCollectionHidden("collection-key") }
     }
 
     @Test
