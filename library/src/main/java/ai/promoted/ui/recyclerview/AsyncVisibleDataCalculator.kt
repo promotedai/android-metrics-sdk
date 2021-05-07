@@ -3,7 +3,6 @@ package ai.promoted.ui.recyclerview
 import ai.promoted.RecyclerViewTracking
 import ai.promoted.calculation.AsyncCalculationRunner
 import ai.promoted.platform.Clock
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
@@ -45,14 +44,8 @@ internal class AsyncVisibleDataCalculator<RowData : Any>(
     private fun onExecuteVisibleDataCalculation(latestData: List<RowData>): List<RowData> {
         val rowVisibilities = rowVisibilityCalculator.calculateVisibleRows()
 
-        Log.v("RV", "Row visibilities = $rowVisibilities")
-
-        val visibleData = rowVisibilities
+        return rowVisibilities
             .filter { it.position in latestData.indices }
             .map { latestData[it.position] }
-
-        Log.v("RV", "Visible data: $visibleData")
-
-        return visibleData
     }
 }

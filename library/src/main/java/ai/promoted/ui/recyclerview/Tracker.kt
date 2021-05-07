@@ -2,6 +2,8 @@ package ai.promoted.ui.recyclerview
 
 import ai.promoted.RecyclerViewTracking
 import ai.promoted.platform.Clock
+import androidx.core.view.doOnDetach
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,7 +28,9 @@ internal class Tracker<RowData : Any>(
     }
 
     fun stopTracking() {
-        scrollListener?.let { recyclerView.removeOnScrollListener(it) }
+        scrollListener?.let { scrollListener ->
+            recyclerView.post { recyclerView.removeOnScrollListener(scrollListener) }
+        }
     }
 
     private fun trackRecyclerView(recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
@@ -40,17 +44,24 @@ internal class Tracker<RowData : Any>(
         )
 
         val scrollListener = createScrollListener(visibleDataCalculator)
-        recyclerView.addOnScrollListener(scrollListener)
-        visibleDataCalculator.calculateVisibleData()
+        postListeners(scrollListener, visibleDataCalculator)
+    }
 
-//        recyclerView.doOnLayout { visibleDataCalculator.calculateVisibleData() }
-//        recyclerView.doOnDetach {
-//            recyclerView.removeOnScrollListener(scrollListener)
-//            this.scrollListener = null
-//            onRecyclerViewDetached.invoke()
-//        }
+    private fun postListeners(
+        scrollListener: RecyclerView.OnScrollListener,
+        visibleDataCalculator: AsyncVisibleDataCalculator<RowData>
+    ) {
+        recyclerView.post {
+            recyclerView.addOnScrollListener(scrollListener)
+            this.scrollListener = scrollListener
 
-        this.scrollListener = scrollListener
+            recyclerView.doOnLayout { visibleDataCalculator.calculateVisibleData() }
+            recyclerView.doOnDetach {
+                recyclerView.removeOnScrollListener(scrollListener)
+                this.scrollListener = null
+                onRecyclerViewDetached.invoke()
+            }
+        }
     }
 
     private fun createScrollListener(visibleDataCalculator: AsyncVisibleDataCalculator<RowData>) =

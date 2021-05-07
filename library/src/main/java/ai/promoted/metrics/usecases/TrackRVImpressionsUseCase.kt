@@ -4,7 +4,6 @@ import ai.promoted.AbstractContent
 import ai.promoted.RecyclerViewTracking
 import ai.promoted.platform.Clock
 import ai.promoted.ui.recyclerview.Tracker
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -51,7 +50,6 @@ internal class TrackRVImpressionsUseCase(
     }
 
     private fun onVisibleRowsChanged(rvKey: String, data: List<AbstractContent>) {
-        Log.v("RV", "On visible rows changed: $data")
         coreImpressionsUseCase.onCollectionUpdated(rvKey, data)
     }
 

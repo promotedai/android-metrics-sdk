@@ -5,7 +5,6 @@ import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.platform.Clock
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -127,8 +126,6 @@ internal class TrackImpressionsUseCase(
             viewId = viewId,
             impressionId = impressionId
         )
-
-        Log.v("RV", "Logging impression: $impressionData")
 
         logger.enqueueMessage(createImpressionMessage(impressionData))
     }

@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         ) {
-
+            percentageThreshold = 50.0
+//            timeThresholdMillis = 3000L
         }
     }
 

@@ -34,15 +34,12 @@ class RecyclerViewTracking {
         val percentageThreshold: Double
     ) {
         data class Builder(
-            var timeThresholdMillis: Long = 1L,
+            var timeThresholdMillis: Long = 0L,
             var percentageThreshold: Double = FULL_VISIBILITY
         ) {
             fun build() = VisibilityThreshold(
                 timeThresholdMillis, percentageThreshold
             )
         }
-
-        internal val allowsPartial: Boolean
-            get() = percentageThreshold < FULL_VISIBILITY
     }
 }
