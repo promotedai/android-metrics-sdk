@@ -79,6 +79,15 @@ object PromotedAi {
         sdk.onAction(name, type, data)
 
     /**
+     * @see [PromotedAiSdk.onCollectionVisible]
+     */
+    @JvmStatic
+    fun onCollectionVisible(
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    ) = sdk.onCollectionVisible(collectionViewKey, content)
+
+    /**
      * @see [PromotedAiSdk.onCollectionUpdated]
      */
     @JvmStatic
@@ -86,6 +95,12 @@ object PromotedAi {
         collectionViewKey: String,
         content: List<AbstractContent>
     ) = sdk.onCollectionUpdated(collectionViewKey, content)
+
+    /**
+     * @see [PromotedAiSdk.onCollectionHidden]
+     */
+    @JvmStatic
+    fun onCollectionHidden(collectionViewKey: String) = sdk.onCollectionHidden(collectionViewKey)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]

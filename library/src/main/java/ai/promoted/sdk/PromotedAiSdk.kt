@@ -26,7 +26,9 @@ internal interface PromotedAiSdk {
         data: ActionData
     )
 
+    fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
     fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>)
+    fun onCollectionHidden(collectionViewKey: String)
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,

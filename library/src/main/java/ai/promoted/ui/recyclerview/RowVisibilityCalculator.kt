@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.min
 
 /**
  * Allows you to determine the indices of all visible rows in a [RecyclerView]. You can either get
@@ -25,34 +26,38 @@ internal class RowVisibilityCalculator(
         val visibleRange = getVisiblePositionIntRange() ?: return emptyList()
 
         // Required before calculating visibility of any child view of the RecyclerView
-        recyclerView.getGlobalVisibleRect(Rect())
+        val globalVisibleRect = Rect()
+        recyclerView.getGlobalVisibleRect(globalVisibleRect)
 
         val updatedExistingVisibilities =
-            getUpdatedExistingVisibilities(visibleRange).toMutableMap()
+            getUpdatedExistingVisibilities(globalVisibleRect, visibleRange).toMutableMap()
 
-        addNewVisibilities(updatedExistingVisibilities, visibleRange)
+        addNewVisibilities(updatedExistingVisibilities, globalVisibleRect, visibleRange)
 
         rowVisibilities = updatedExistingVisibilities
 
         return rowVisibilities.values.toList()
     }
 
-    private fun getUpdatedExistingVisibilities(visibleRange: IntRange) =
+    private fun getUpdatedExistingVisibilities(
+        globalVisibleRect: Rect,
+        visibleRange: IntRange
+    ) =
         rowVisibilities
             .filterKeys { position -> position in visibleRange }
             .mapValues { (position, visibility) ->
-                val percentageVisible = getVisiblePercentageForPosition(position)
+                val percentageVisible = getVisiblePercentageForPosition(globalVisibleRect, position)
                 return@mapValues visibility.copy(percentageVisible = percentageVisible)
             }
 
-    private fun addNewVisibilities(toMap: MutableMap<Int, RowVisibility>, visibleRange: IntRange) {
+    private fun addNewVisibilities(toMap: MutableMap<Int, RowVisibility>, globalVisibleRect: Rect, visibleRange: IntRange) {
         visibleRange.forEach { position ->
             toMap.putIfAbsent(
                 position,
                 RowVisibility(
                     position = position,
                     visibleSinceMillis = clock.currentTimeMillis,
-                    percentageVisible = getVisiblePercentageForPosition(position)
+                    percentageVisible = getVisiblePercentageForPosition(globalVisibleRect, position)
                 )
             )
         }
@@ -67,23 +72,42 @@ internal class RowVisibilityCalculator(
         } else null
     }
 
-    private fun getVisiblePercentageForPosition(position: Int): Double {
+    private fun getVisiblePercentageForPosition(
+        globalVisibleRect: Rect,
+        position: Int
+    ): Double {
         val view = layoutManager.findViewByPosition(position) ?: return 0.0
-        return getVisibleHeightPercentage(view)
+        val itemVisibleRect = Rect()
+        view.getGlobalVisibleRect(itemVisibleRect)
+        return getVisibleHeightPercentage(globalVisibleRect, itemVisibleRect, view)
     }
 
-    private fun getVisibleHeightPercentage(view: View): Double {
-        val itemRect = Rect()
-        val isParentViewEmpty = view.getLocalVisibleRect(itemRect)
+    private fun getVisibleHeightPercentage(
+        globalVisibleRect: Rect,
+        itemVisibleRect: Rect,
+        view: View
+    ): Double {
+        val visibilityExtent = if (itemVisibleRect.bottom >= globalVisibleRect.bottom) {
+            val visibleHeight = globalVisibleRect.bottom - itemVisibleRect.top
+            min(visibleHeight.toFloat() / view.height, 1f)
+        } else {
+            val visibleHeight = itemVisibleRect.bottom - globalVisibleRect.top
+            min(visibleHeight.toFloat() / view.height, 1f)
+        }
 
-        // Find the height of the item.
-        val visibleHeight = itemRect.height().toDouble()
-        val height = view.measuredHeight.toDouble()
+        return (visibilityExtent * 100).toDouble()
 
-        val viewVisibleHeightPercentage = visibleHeight.percentageOf(height)
-
-        return if (isParentViewEmpty) viewVisibleHeightPercentage
-        else 0.0
+//        val itemRect = Rect()
+//        val isParentViewEmpty = view.getLocalVisibleRect(itemRect)
+//
+//        // Find the height of the item.
+//        val visibleHeight = itemRect.height().toDouble()
+//        val height = view.measuredHeight.toDouble()
+//
+//        val viewVisibleHeightPercentage = visibleHeight.percentageOf(height)
+//
+//        return if (isParentViewEmpty) viewVisibleHeightPercentage
+//        else 0.0
     }
 
     @Suppress("MagicNumber")

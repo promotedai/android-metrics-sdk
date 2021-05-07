@@ -3,11 +3,17 @@ package ai.promoted.ui.recyclerview
 import ai.promoted.RecyclerViewTracking
 import ai.promoted.calculation.AsyncCalculationRunner
 import ai.promoted.platform.Clock
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 
-internal class VisibleDataCalculator<RowData : Any>(
+/**
+ * Uses a [ConstrainedRowVisibilityCalculator] and an [AsyncCalculationRunner] to provide
+ * asynchronous calculation of what data/content represented by a [RecyclerView] is currently
+ * visible to the user.
+ */
+internal class AsyncVisibleDataCalculator<RowData : Any>(
     clock: Clock,
     recyclerView: RecyclerView,
     layoutManager: LinearLayoutManager,
@@ -38,8 +44,15 @@ internal class VisibleDataCalculator<RowData : Any>(
 
     private fun onExecuteVisibleDataCalculation(latestData: List<RowData>): List<RowData> {
         val rowVisibilities = rowVisibilityCalculator.calculateVisibleRows()
-        return rowVisibilities
+
+        Log.v("RV", "Row visibilities = $rowVisibilities")
+
+        val visibleData = rowVisibilities
             .filter { it.position in latestData.indices }
-            .mapIndexed { index, _ -> latestData[index] }
+            .map { latestData[it.position] }
+
+        Log.v("RV", "Visible data: $visibleData")
+
+        return visibleData
     }
 }

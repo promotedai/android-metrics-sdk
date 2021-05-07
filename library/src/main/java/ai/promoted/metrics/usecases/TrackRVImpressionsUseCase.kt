@@ -4,6 +4,7 @@ import ai.promoted.AbstractContent
 import ai.promoted.RecyclerViewTracking
 import ai.promoted.platform.Clock
 import ai.promoted.ui.recyclerview.Tracker
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -36,7 +37,7 @@ internal class TrackRVImpressionsUseCase(
         val rvKey = "RV-${recyclerView.id}"
 
         // Cancel & remove any existing trackers for this RV
-        removeTracking(rvKey)
+        stopAndRemoveTracking(rvKey)
 
         // Re-add a tracker (begins tracking automatically)
         currentRecyclerViews[rvKey] = Tracker(
@@ -44,15 +45,21 @@ internal class TrackRVImpressionsUseCase(
             recyclerView = recyclerView,
             threshold = threshold,
             latestDataProvider = contentProvider::provideLatestData,
-            onVisibleRowsChanged = { onVisibleRowsChanged(rvKey, it) }
+            onVisibleRowsChanged = { onVisibleRowsChanged(rvKey, it) },
+            onRecyclerViewDetached = { onRVDetached(rvKey) }
         )
     }
 
     private fun onVisibleRowsChanged(rvKey: String, data: List<AbstractContent>) {
-        coreImpressionsUseCase.onCollectionVisible(rvKey, data)
-        if (data.isEmpty()) removeTracking(rvKey)
+        Log.v("RV", "On visible rows changed: $data")
+        coreImpressionsUseCase.onCollectionUpdated(rvKey, data)
     }
 
-    private fun removeTracking(recyclerViewKey: String) =
+    private fun onRVDetached(rvKey: String) {
+        stopAndRemoveTracking(rvKey)
+        coreImpressionsUseCase.onCollectionHidden(rvKey)
+    }
+
+    private fun stopAndRemoveTracking(recyclerViewKey: String) =
         currentRecyclerViews.remove(recyclerViewKey)?.stopTracking()
 }

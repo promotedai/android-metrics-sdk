@@ -23,7 +23,10 @@ internal class NoOpSdk : PromotedAiSdk {
 
     override fun onAction(name: String, type: ActionType, data: ActionData) {}
 
+    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) {}
     override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) {}
+    override fun onCollectionHidden(collectionViewKey: String) {}
+
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
         contentProvider: RecyclerViewTracking.ContentProvider,

@@ -35,8 +35,14 @@ internal class DefaultSdk(
     override fun onAction(name: String, type: ActionType, data: ActionData) =
         trackActionUseCase.onAction(name, type, data)
 
-    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) =
+    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
         trackImpressionsUseCase.onCollectionVisible(collectionViewKey, content)
+
+    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) =
+        trackImpressionsUseCase.onCollectionUpdated(collectionViewKey, content)
+
+    override fun onCollectionHidden(collectionViewKey: String) =
+        trackImpressionsUseCase.onCollectionHidden(collectionViewKey)
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
