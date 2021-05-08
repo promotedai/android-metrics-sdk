@@ -2,11 +2,6 @@ package ai.promoted
 
 import ai.promoted.proto.event.ActionType
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
@@ -46,46 +41,18 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        rv.adapter = Adapter(fakeContent)
+        rv.adapter = Adapter(fakeContent) {
+            PromotedAi.onAction("click-item-${it.name}", ActionType.CUSTOM_ACTION_TYPE) {
+                insertionId = "click-item-insertion-${it.name}"
+            }
+        }
 
         PromotedAi.trackRecyclerView(
             recyclerView = rv,
-            contentProvider = object : RecyclerViewTracking.ContentProvider {
-                override fun provideLatestData(): List<AbstractContent> {
-                    return fakeContent
-                }
-            }
+            currentDataProvider = { fakeContent }
         ) {
             percentageThreshold = 50.0
 //            timeThresholdMillis = 3000L
-        }
-    }
-
-    private class Adapter(private val content: List<AbstractContent>) :
-        RecyclerView.Adapter<Adapter.VH>() {
-        private class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-            val view =
-                LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.fake_content, parent, false)
-
-            return VH(view)
-        }
-
-        override fun onBindViewHolder(holder: VH, position: Int) {
-            val content = content[position]
-            holder.itemView.findViewById<TextView>(R.id.name).text = content.name
-            holder.itemView.findViewById<Button>(R.id.open).setOnClickListener {
-                PromotedAi.onAction("click-${content.name}", ActionType.CUSTOM_ACTION_TYPE) {
-                    insertionId = content.insertionId
-                }
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return content.size
         }
     }
 }

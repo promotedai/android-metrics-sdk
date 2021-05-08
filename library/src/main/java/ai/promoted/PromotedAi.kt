@@ -108,9 +108,9 @@ object PromotedAi {
     @JvmStatic
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)? = null
-    ) = sdk.trackRecyclerView(recyclerView, contentProvider, thresholdBlock)
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)? = null
+    ) = sdk.trackRecyclerView(recyclerView, currentDataProvider, impressionThresholdBlock)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]
@@ -118,9 +118,9 @@ object PromotedAi {
     @JvmStatic
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        threshold: RecyclerViewTracking.VisibilityThreshold
-    ) = sdk.trackRecyclerView(recyclerView, contentProvider, threshold)
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
+    ) = sdk.trackRecyclerView(recyclerView, currentDataProvider, impressionThreshold)
 
     //region JAVA INTER-OP
     /* Java-idiomatic initialization of the SDK */

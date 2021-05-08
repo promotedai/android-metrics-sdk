@@ -2,7 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
-import ai.promoted.RecyclerViewTracking
+import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
 import androidx.recyclerview.widget.RecyclerView
 
@@ -29,15 +29,15 @@ internal class NoOpSdk : PromotedAiSdk {
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)?
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)?
     ) {
     }
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        threshold: RecyclerViewTracking.VisibilityThreshold
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
     ) {
     }
 

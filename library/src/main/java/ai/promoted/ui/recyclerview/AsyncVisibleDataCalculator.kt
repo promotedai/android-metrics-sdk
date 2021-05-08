@@ -1,6 +1,5 @@
 package ai.promoted.ui.recyclerview
 
-import ai.promoted.RecyclerViewTracking
 import ai.promoted.calculation.AsyncCalculationRunner
 import ai.promoted.platform.Clock
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +15,8 @@ internal class AsyncVisibleDataCalculator<RowData : Any>(
     clock: Clock,
     recyclerView: RecyclerView,
     layoutManager: LinearLayoutManager,
-    threshold: RecyclerViewTracking.VisibilityThreshold,
-    private val latestDataProvider: () -> List<RowData>,
+    threshold: VisibilityThreshold,
+    private val currentDataProvider: () -> List<RowData>,
     private val onVisibleRowsChanged: (rows: List<RowData>) -> Unit,
 ) {
     private val rowVisibilityCalculator = ConstrainedRowVisibilityCalculator(
@@ -33,7 +32,7 @@ internal class AsyncVisibleDataCalculator<RowData : Any>(
     )
 
     fun calculateVisibleData() {
-        val latestData = latestDataProvider.invoke()
+        val latestData = currentDataProvider.invoke()
         calculationRunner.scheduleCalculation(
             input = latestData,
             calculation = this::onExecuteVisibleDataCalculation,

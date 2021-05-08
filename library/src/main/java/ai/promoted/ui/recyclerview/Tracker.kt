@@ -1,6 +1,5 @@
 package ai.promoted.ui.recyclerview
 
-import ai.promoted.RecyclerViewTracking
 import ai.promoted.platform.Clock
 import androidx.core.view.doOnDetach
 import androidx.core.view.doOnLayout
@@ -15,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 internal class Tracker<RowData : Any>(
     private val clock: Clock,
     private val recyclerView: RecyclerView,
-    private val threshold: RecyclerViewTracking.VisibilityThreshold,
-    private val latestDataProvider: () -> List<RowData>,
+    private val visibilityThreshold: VisibilityThreshold,
+    private val currentDataProvider: () -> List<RowData>,
     private val onVisibleRowsChanged: (rows: List<RowData>) -> Unit,
     private val onRecyclerViewDetached: () -> Unit
 ) {
@@ -38,8 +37,8 @@ internal class Tracker<RowData : Any>(
             clock = clock,
             recyclerView = recyclerView,
             layoutManager = layoutManager,
-            threshold = threshold,
-            latestDataProvider = latestDataProvider,
+            threshold = visibilityThreshold,
+            currentDataProvider = currentDataProvider,
             onVisibleRowsChanged = onVisibleRowsChanged
         )
 

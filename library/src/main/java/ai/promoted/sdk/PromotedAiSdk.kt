@@ -2,7 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
-import ai.promoted.RecyclerViewTracking
+import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
 import androidx.recyclerview.widget.RecyclerView
 
@@ -32,14 +32,14 @@ internal interface PromotedAiSdk {
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)? = null
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)? = null
     )
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        threshold: RecyclerViewTracking.VisibilityThreshold
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
     )
 
     fun shutdown()

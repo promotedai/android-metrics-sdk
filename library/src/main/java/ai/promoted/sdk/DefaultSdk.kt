@@ -2,7 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
-import ai.promoted.RecyclerViewTracking
+import ai.promoted.ImpressionThreshold
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
@@ -46,18 +46,18 @@ internal class DefaultSdk(
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)?
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)?
     ) = trackRVImpressionsUseCase.trackRecyclerView(
-        recyclerView, contentProvider, thresholdBlock
+        recyclerView, currentDataProvider, impressionThresholdBlock
     )
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        threshold: RecyclerViewTracking.VisibilityThreshold
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
     ) = trackRVImpressionsUseCase.trackRecyclerView(
-        recyclerView, contentProvider, threshold
+        recyclerView, currentDataProvider, impressionThreshold
     )
 
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()

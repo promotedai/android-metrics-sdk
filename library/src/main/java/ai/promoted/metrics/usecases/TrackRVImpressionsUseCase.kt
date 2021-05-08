@@ -1,7 +1,7 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.AbstractContent
-import ai.promoted.RecyclerViewTracking
+import ai.promoted.ImpressionThreshold
 import ai.promoted.platform.Clock
 import ai.promoted.ui.recyclerview.Tracker
 import androidx.recyclerview.widget.RecyclerView
@@ -18,20 +18,20 @@ internal class TrackRVImpressionsUseCase(
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        thresholdBlock: (RecyclerViewTracking.VisibilityThreshold.Builder.() -> Unit)?
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)?
     ) {
-        val threshold = if (thresholdBlock != null)
-            RecyclerViewTracking.VisibilityThreshold.Builder().apply(thresholdBlock).build()
-        else RecyclerViewTracking.VisibilityThreshold.Builder().build()
+        val threshold = if (impressionThresholdBlock != null)
+            ImpressionThreshold.Builder().apply(impressionThresholdBlock).build()
+        else ImpressionThreshold.Builder().build()
 
-        trackRecyclerView(recyclerView, contentProvider, threshold)
+        trackRecyclerView(recyclerView, currentDataProvider, threshold)
     }
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,
-        contentProvider: RecyclerViewTracking.ContentProvider,
-        threshold: RecyclerViewTracking.VisibilityThreshold
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
     ) {
         val rvKey = "RV-${recyclerView.id}"
 
@@ -42,8 +42,8 @@ internal class TrackRVImpressionsUseCase(
         currentRecyclerViews[rvKey] = Tracker(
             clock = clock,
             recyclerView = recyclerView,
-            threshold = threshold,
-            latestDataProvider = contentProvider::provideLatestData,
+            visibilityThreshold = impressionThreshold,
+            currentDataProvider = currentDataProvider,
             onVisibleRowsChanged = { onVisibleRowsChanged(rvKey, it) },
             onRecyclerViewDetached = { onRVDetached(rvKey) }
         )
