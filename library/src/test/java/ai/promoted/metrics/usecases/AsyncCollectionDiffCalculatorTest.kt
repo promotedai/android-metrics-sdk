@@ -2,8 +2,6 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.AbstractContent
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -25,7 +23,7 @@ class AsyncCollectionDiffCalculatorTest {
     private val differ = AsyncCollectionDiffCalculator<AbstractContent>()
 
     @Test
-    fun `Should be notified of new content after first diff`() = runBlocking {
+    fun `Should be notified of new content after first diff`() {
         // Given
         val newBaseline = listOf(
             AbstractContent.Content(
@@ -45,14 +43,14 @@ class AsyncCollectionDiffCalculatorTest {
             onResult = onResultListener::onResult
         )
         // Crude delay because computation time should be short
-        delay(100L)
+        Thread.sleep(100L)
 
         // Then
         assertThat(onResultListener.lastResult.newItems, equalTo(newBaseline))
     }
 
     @Test
-    fun `Should not be notified of repeated content after subsequent diff`() = runBlocking {
+    fun `Should not be notified of repeated content after subsequent diff`() {
         // Given
         val originalContent = listOf(
             AbstractContent.Content(
@@ -70,7 +68,7 @@ class AsyncCollectionDiffCalculatorTest {
             onResult = onResultListener::onResult
         )
         // Crude delay because computation time should be short
-        delay(100L)
+        Thread.sleep(100L)
 
         // When
         val newContent = originalContent.dropLast(1) + AbstractContent.Content("4")
@@ -78,7 +76,7 @@ class AsyncCollectionDiffCalculatorTest {
             newBaseline = newContent,
             onResult = onResultListener::onResult
         )
-        delay(100L)
+        Thread.sleep(100L)
 
         // Then
         assertThat(onResultListener.lastResult.newItems.size, equalTo(1))
@@ -89,7 +87,7 @@ class AsyncCollectionDiffCalculatorTest {
     }
 
     @Test
-    fun `Should be notified of dropped content after subsequent diff`() = runBlocking {
+    fun `Should be notified of dropped content after subsequent diff`() {
         // Given
         val contentToDrop = AbstractContent.Content(
             "3", "", ""
@@ -108,7 +106,7 @@ class AsyncCollectionDiffCalculatorTest {
             onResult = onResultListener::onResult
         )
         // Crude delay because computation time should be short
-        delay(100L)
+        Thread.sleep(100L)
 
         // When
         val newContent = originalContent.dropLast(1) + AbstractContent.Content("4")
@@ -116,7 +114,7 @@ class AsyncCollectionDiffCalculatorTest {
             newBaseline = newContent,
             onResult = onResultListener::onResult
         )
-        delay(100L)
+        Thread.sleep(100L)
 
         // Then
         assertThat(onResultListener.lastResult.droppedItems.size, equalTo(1))
@@ -129,7 +127,7 @@ class AsyncCollectionDiffCalculatorTest {
         guaranteeing execution order.
      */
     @Test
-    fun `Should perform diffs sequentially and not concurrently`() = runBlocking {
+    fun `Should perform diffs sequentially and not concurrently`() {
         // Given
         val listOfContent = mutableListOf<AbstractContent>()
         repeat(1000) {
@@ -143,7 +141,7 @@ class AsyncCollectionDiffCalculatorTest {
                 onResult = onResultListener::onResult
             )
         }
-        delay(100L)
+        Thread.sleep(100L)
 
         // Then order is preserved
         assertThat(onResultListener.results.size, equalTo(listOfContent.size))
