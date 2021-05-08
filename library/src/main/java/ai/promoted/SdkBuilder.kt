@@ -12,7 +12,7 @@ import android.app.Application
  * with the [ClientConfig.Builder] configuration block is recommended.
  */
 class SdkBuilder internal constructor(
-    private val promotedAiManager: SdkManager
+    private val sdkManager: SdkManager
 ) {
     interface NetworkConnectionProvider {
         /**
@@ -60,14 +60,14 @@ class SdkBuilder internal constructor(
         apply { clientConfigBuilder.networkConnectionProvider = provider::provide }
 
     /**
-     * @see [PromotedAiSdk.initialize]
+     * @see [PromotedAi.initialize]
      */
     fun initialize(application: Application) = configure(application)
 
     /**
-     * @see [PromotedAiSdk.configure]
+     * @see [PromotedAi.configure]
      */
     @Suppress("MemberVisibilityCanBePrivate")
     fun configure(application: Application) =
-        promotedAiManager.configure(application, clientConfigBuilder.build())
+        sdkManager.configure(application, clientConfigBuilder.build())
 }
