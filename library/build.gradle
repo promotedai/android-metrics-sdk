@@ -8,7 +8,7 @@ plugins {
 }
 
 ext {
-    version = "0.0.3"
+    version = "0.0.4"
 }
 
 android {
@@ -63,10 +63,17 @@ dependencies {
     api 'com.google.protobuf:protobuf-java:3.11.0'
     implementation 'com.google.protobuf:protobuf-java-util:3.11.0'
 
+    // Provided to allow for scroll tracking of collections
+    // Exclude this if scroll tracking is not needed
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+
+    // Provided to allow for default network stack
+    // Exclude this if providing custom network stack
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     testImplementation 'junit:junit:4.+'
     testImplementation "io.mockk:mockk:1.11.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
@@ -108,7 +115,15 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 
             // Exclude classes in the "platform" package because they are primarily interfaces with
             // default implementations in order to aid in testability / DI
-            'ai/promoted/platform/**/*.*'
+            'ai/promoted/platform/**/*.*',
+
+            // This package is for SDK-related classes that are tightly coupled to the Android
+            // View layer, which means unit testing is not feasible/valuable but rather UI tests
+            // are
+            'ai/promoted/ui/**/*.*',
+
+            // This package represents protobuf-generated classes that should not be unit tested
+            'ai/promoted/proto/**/*.*'
     ]
     def debugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"

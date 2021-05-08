@@ -2,7 +2,9 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
@@ -25,7 +27,20 @@ internal interface PromotedAiSdk {
     )
 
     fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
+    fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>)
     fun onCollectionHidden(collectionViewKey: String)
+
+    fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)? = null
+    )
+
+    fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
+    )
 
     fun shutdown()
 }

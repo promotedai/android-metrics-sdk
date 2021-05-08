@@ -5,13 +5,13 @@ import ai.promoted.sdk.PromotedAiSdk
 import com.google.protobuf.Message
 
 /**
- * This class is primarily to provide an easy-to-use Java API, via [PromotedAiSdk.buildAction], so that
+ * This class is primarily to provide an easy-to-use Java API, via [PromotedAi.buildAction], so that
  * users of the library can dynamically set whichever action components they want to set.
  *
  * While this is supported for Kotlin users, the [PromotedAiSdk.onAction] with the [ActionData.Builder]
  * configuration block is recommended.
  */
-class ActionBuilder internal constructor(private val promotedAi: PromotedAiSdk) {
+class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     private var name: String = ""
     private var type: ActionType = ActionType.UNKNOWN_ACTION_TYPE
     private val dataBuilder = ActionData.Builder()
@@ -26,5 +26,5 @@ class ActionBuilder internal constructor(private val promotedAi: PromotedAiSdk) 
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
 
-    fun log() = promotedAi.onAction(name, type, dataBuilder.build())
+    fun log() = sdk.onAction(name, type, dataBuilder.build())
 }

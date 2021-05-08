@@ -2,12 +2,15 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.ImpressionThreshold
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackImpressionsUseCase
+import ai.promoted.metrics.usecases.TrackRVImpressionsUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Default implementation of the [PromotedAiSdk] interface, which delegates each call to its
@@ -18,7 +21,8 @@ internal class DefaultSdk(
     private val trackSessionUseCase: TrackSessionUseCase,
     private val trackViewUseCase: TrackViewUseCase,
     private val trackActionUseCase: TrackActionUseCase,
-    private val trackImpressionsUseCase: TrackImpressionsUseCase
+    private val trackImpressionsUseCase: TrackImpressionsUseCase,
+    private val trackRVImpressionsUseCase: TrackRVImpressionsUseCase
 ) : PromotedAiSdk {
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
@@ -34,8 +38,27 @@ internal class DefaultSdk(
     override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
         trackImpressionsUseCase.onCollectionVisible(collectionViewKey, content)
 
+    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) =
+        trackImpressionsUseCase.onCollectionUpdated(collectionViewKey, content)
+
     override fun onCollectionHidden(collectionViewKey: String) =
         trackImpressionsUseCase.onCollectionHidden(collectionViewKey)
+
+    override fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThresholdBlock: (ImpressionThreshold.Builder.() -> Unit)?
+    ) = trackRVImpressionsUseCase.trackRecyclerView(
+        recyclerView, currentDataProvider, impressionThresholdBlock
+    )
+
+    override fun trackRecyclerView(
+        recyclerView: RecyclerView,
+        currentDataProvider: () -> List<AbstractContent>,
+        impressionThreshold: ImpressionThreshold
+    ) = trackRVImpressionsUseCase.trackRecyclerView(
+        recyclerView, currentDataProvider, impressionThreshold
+    )
 
     override fun shutdown() = logger.cancelAndDiscardPendingQueue()
 }
