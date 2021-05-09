@@ -5,6 +5,7 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
 import io.mockk.every
@@ -45,7 +46,8 @@ class TrackActionUseCaseTest {
         },
         viewUseCase = mockk {
             every { viewId } returns testViewId
-        }
+        },
+        NoOpXray()
     )
 
     @Test

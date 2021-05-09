@@ -6,6 +6,7 @@ import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Device
 import ai.promoted.proto.event.User
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
 import io.mockk.coVerify
@@ -34,7 +35,8 @@ class MetricsLoggerTest {
     private val logger = MetricsLogger(
         testFlushIntervalMillis,
         connection,
-        finalizeUseCase
+        finalizeUseCase,
+        NoOpXray()
     )
 
     @Test

@@ -4,7 +4,14 @@ import ai.promoted.ClientConfig
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
-import ai.promoted.proto.event.*
+import ai.promoted.proto.event.Action
+import ai.promoted.proto.event.Impression
+import ai.promoted.proto.event.LogRequest
+import ai.promoted.proto.event.Session
+import ai.promoted.proto.event.SessionProfile
+import ai.promoted.proto.event.User
+import ai.promoted.proto.event.View
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.every
 import org.hamcrest.CoreMatchers.equalTo
@@ -24,7 +31,8 @@ class FinalizeLogsUseCaseTest {
         idStorageUseCase = mockkRelaxedUnit {
             every { currentUserId } returns testUserId
             every { currentLogUserId } returns testLogUserId
-        }
+        },
+        NoOpXray()
     )
 
     @Test
@@ -55,7 +63,8 @@ class FinalizeLogsUseCaseTest {
             idStorageUseCase = mockkRelaxedUnit {
                 every { currentUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
-            }
+            },
+            NoOpXray()
         )
 
         // When
@@ -76,7 +85,8 @@ class FinalizeLogsUseCaseTest {
             idStorageUseCase = mockkRelaxedUnit {
                 every { currentUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
-            }
+            },
+            NoOpXray()
         )
 
         // When

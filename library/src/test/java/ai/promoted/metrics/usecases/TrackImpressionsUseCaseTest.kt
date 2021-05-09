@@ -4,6 +4,7 @@ import ai.promoted.AbstractContent
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.proto.event.Impression
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
 import io.mockk.every
@@ -48,7 +49,8 @@ class TrackImpressionsUseCaseTest {
         },
         viewUseCase = mockk {
             every { viewId } returns testViewId
-        }
+        },
+        xray = NoOpXray()
     )
 
     @ExperimentalCoroutinesApi

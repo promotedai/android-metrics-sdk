@@ -54,6 +54,12 @@ class SdkBuilder internal constructor(
         apply { clientConfigBuilder.loggingFlushIntervalSeconds = intervalSeconds }
 
     /**
+     * @see [ClientConfig.xrayEnabled]
+     */
+    fun withXrayEnabled(enabled: Boolean) =
+        apply { clientConfigBuilder.xrayEnabled = enabled }
+
+    /**
      * @see [ClientConfig.networkConnectionProvider]
      */
     fun withNetworkConnectionProvider(provider: NetworkConnectionProvider) =

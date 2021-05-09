@@ -23,6 +23,8 @@ import ai.promoted.platform.SystemClock
 import ai.promoted.platform.SystemLogger
 import ai.promoted.sdk.DefaultSdk
 import ai.promoted.sdk.PromotedAiSdk
+import ai.promoted.xray.DefaultXray
+import ai.promoted.xray.Xray
 import android.content.Context
 import android.content.SharedPreferences
 import org.koin.core.module.Module
@@ -41,14 +43,15 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { config }
             single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
-            single { TrackSessionUseCase(get(), get(), get(), get()) }
-            single { TrackViewUseCase(get(), get(), get(), get(), get()) }
-            single { TrackImpressionsUseCase(get(), get(), get(), get(), get()) }
+            single { TrackSessionUseCase(get(), get(), get(), get(), get()) }
+            single { TrackViewUseCase(get(), get(), get(), get(), get(), get()) }
+            single { TrackImpressionsUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackRVImpressionsUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
+            single<Xray> { DefaultXray(get(), get()) }
 
-            factory { FinalizeLogsUseCase(get(), get(), get()) }
-            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
+            factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
+            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get(), get()) }
 
             factory { ImpressionIdGenerator(get(), get()) }
 
@@ -66,7 +69,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         val flushIntervalMillis =
             TimeUnit.SECONDS.toMillis(config.loggingFlushIntervalSeconds)
         val networkConnection = config.networkConnectionProvider()
-        return MetricsLogger(flushIntervalMillis, networkConnection, get())
+        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get())
     }
 
     private fun getPromotedAiPrefs(context: Context): SharedPreferences =
