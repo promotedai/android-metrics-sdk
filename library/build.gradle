@@ -122,6 +122,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             // are
             'ai/promoted/ui/**/*.*',
 
+            // We don't need to unit test logging functionality
+            'ai/promoted/xray/**/*.*',
+
             // This package represents protobuf-generated classes that should not be unit tested
             'ai/promoted/proto/**/*.*'
     ]
