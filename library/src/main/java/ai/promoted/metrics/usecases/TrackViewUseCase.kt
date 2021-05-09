@@ -6,6 +6,7 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.proto.event.Device
+import ai.promoted.xray.Xray
 
 /**
  * Allows you to track when a view has become visible/focused.
@@ -24,7 +25,8 @@ internal class TrackViewUseCase(
     private val clock: Clock,
     private val deviceInfoProvider: DeviceInfoProvider,
     idGenerator: IdGenerator,
-    private val sessionUseCase: TrackSessionUseCase
+    private val sessionUseCase: TrackSessionUseCase,
+    private val xray: Xray
 ) {
     private val advanceableViewId = AdvanceableId(
         skipFirstAdvancement = true,
@@ -44,7 +46,7 @@ internal class TrackViewUseCase(
      * If needed (if this [key] is different than the last visible key), generates a new view ID.
      * Then logs a view message via [MetricsLogger].
      */
-    fun onViewVisible(key: String) {
+    fun onViewVisible(key: String) = xray.monitored {
         if (key != currentKey) {
             advanceableViewId.advance()
             currentKey = key

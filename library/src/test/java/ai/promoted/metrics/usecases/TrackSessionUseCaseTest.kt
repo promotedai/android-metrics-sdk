@@ -5,6 +5,7 @@ import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Session
 import ai.promoted.proto.event.User
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
 import io.mockk.every
@@ -31,7 +32,8 @@ class TrackSessionUseCaseTest {
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = UuidGenerator(),
-        currentUserIdsUseCase = currentUserIdsUseCase
+        currentUserIdsUseCase = currentUserIdsUseCase,
+        NoOpXray()
     )
 
     @Test

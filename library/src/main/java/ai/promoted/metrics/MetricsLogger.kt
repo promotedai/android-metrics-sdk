@@ -3,6 +3,7 @@ package ai.promoted.metrics
 import ai.promoted.NetworkConnection
 import ai.promoted.PromotedApiRequest
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.xray.Xray
 import com.google.protobuf.Message
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
 internal class MetricsLogger(
     flushIntervalMillis: Long,
     private val networkConnection: NetworkConnection,
-    private val finalizeLogsUseCase: FinalizeLogsUseCase
+    private val finalizeLogsUseCase: FinalizeLogsUseCase,
+    private val xray: Xray
 ) {
     private val networkConnectionScope = CoroutineScope(context = Dispatchers.IO)
 
@@ -72,7 +74,7 @@ internal class MetricsLogger(
     private fun trySend(request: PromotedApiRequest) {
         networkConnectionScope.launch {
             try {
-                networkConnection.send(request)
+                xray.monitoredSuspend {  networkConnection.send(request) }
             } catch (error: Throwable) {
                 // TODO
                 error.printStackTrace()

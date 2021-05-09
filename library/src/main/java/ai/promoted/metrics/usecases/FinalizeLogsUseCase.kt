@@ -12,6 +12,7 @@ import ai.promoted.proto.event.Session
 import ai.promoted.proto.event.SessionProfile
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
+import ai.promoted.xray.Xray
 import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat
 
@@ -29,7 +30,8 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
-    private val idStorageUseCase: CurrentUserIdsUseCase
+    private val idStorageUseCase: CurrentUserIdsUseCase,
+    private val xray: Xray
 ) {
     private val url = config.metricsLoggingUrl
     private val apiKey = config.metricsLoggingApiKey
@@ -40,7 +42,7 @@ internal class FinalizeLogsUseCase(
      * info. This will inspect the [ClientConfig.metricsLoggingWireFormat] to ensure the ByteArray
      * representing the POST body data is congruent with the library user's wire-format setting.
      */
-    fun finalizeLogs(logMessages: List<Message>): PromotedApiRequest {
+    fun finalizeLogs(logMessages: List<Message>): PromotedApiRequest = xray.monitored {
         val finalizedMessage = prepareLogs(logMessages)
         val bodyData = if (wireFormat == ClientConfig.MetricsLoggingWireFormat.Binary) {
             finalizedMessage.toByteArray()
@@ -48,7 +50,7 @@ internal class FinalizeLogsUseCase(
             JsonFormat.printer().print(finalizedMessage).encodeToByteArray()
         }
 
-        return PromotedApiRequest(
+        return@monitored PromotedApiRequest(
             url = url,
             headers = buildHeaders(),
             bodyData = bodyData
