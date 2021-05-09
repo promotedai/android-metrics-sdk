@@ -6,6 +6,7 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
+import ai.promoted.xray.Xray
 
 /**
  * Allows you to track a user's action and all associated metadata.
@@ -14,13 +15,15 @@ import ai.promoted.proto.event.ActionType
  * functional. It does depend on a global viewId and sessionId, but those are provided by
  * the session & view use cases that should themselves be singletons.
  */
+@Suppress("LongParameterList")
 internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
     private val impressionIdGenerator: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
-    private val viewUseCase: TrackViewUseCase
+    private val viewUseCase: TrackViewUseCase,
+    private val xray: Xray
 ) {
     /**
      * Logs the given action, along with any additional data associated to it (as provided by the
@@ -48,7 +51,7 @@ internal class TrackActionUseCase(
     /**
      * Logs the given action, along with any additional data associated to it.
      */
-    fun onAction(name: String, type: ActionType, data: ActionData) {
+    fun onAction(name: String, type: ActionType, data: ActionData) = xray.monitored {
         val actionId = idGenerator.newId()
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)

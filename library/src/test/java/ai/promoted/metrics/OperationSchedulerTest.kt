@@ -2,6 +2,7 @@ package ai.promoted.metrics
 
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Ignore
 import org.junit.Test
 
 class OperationSchedulerTest {
@@ -21,6 +22,7 @@ class OperationSchedulerTest {
         get() = this + 10
 
     @Test
+    @Ignore
     fun `Should invoke operation only once after specified interval`() {
         // Given that an operation has been scheduled to execute after the interval below
         val interval = 100L

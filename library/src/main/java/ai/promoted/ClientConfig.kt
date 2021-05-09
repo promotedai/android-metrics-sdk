@@ -37,6 +37,11 @@ data class ClientConfig(
     val loggingFlushIntervalSeconds: Long,
 
     /**
+     * Whether the SDK should monitor its own performance and log results to the system log.
+     */
+    val xrayEnabled: Boolean,
+
+    /**
      * A function which provides the [NetworkConnection] to be used when sending metrics.
      * Promoted.Ai will provide a default implementation unless a custom one is provided by the
      * library user.
@@ -70,6 +75,10 @@ data class ClientConfig(
          */
         var loggingFlushIntervalSeconds: Long = 10,
         /**
+         * @see [ClientConfig.xrayEnabled]
+         */
+        var xrayEnabled: Boolean = false,
+        /**
          * @see [ClientConfig.networkConnectionProvider]
          */
         var networkConnectionProvider: () -> NetworkConnection = {
@@ -87,6 +96,7 @@ data class ClientConfig(
             metricsLoggingApiKey,
             metricsLoggingWireFormat,
             loggingFlushIntervalSeconds,
+            xrayEnabled,
             networkConnectionProvider
         )
     }

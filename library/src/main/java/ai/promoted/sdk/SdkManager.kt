@@ -3,6 +3,9 @@ package ai.promoted.sdk
 import ai.promoted.ClientConfig
 import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.di.DefaultKoinComponent
+import ai.promoted.platform.LogcatLogger
+import ai.promoted.platform.SystemClock
+import ai.promoted.xray.DefaultXray
 import android.app.Application
 import org.koin.core.component.get
 
@@ -39,7 +42,6 @@ internal open class SdkManager internal constructor(
             }
             is SdkState.Ready -> currentState.sdk
         }
-
 
     /**
      * Same functionality as [initialize] with a [ClientConfig], except this makes use of
@@ -84,7 +86,26 @@ internal open class SdkManager internal constructor(
      * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls
      * after the initial call will simply reconfigure & restart Promoted.Ai
      */
-    fun configure(application: Application, config: ClientConfig) {
+    fun configure(application: Application, config: ClientConfig) =
+        if (config.xrayEnabled) monitoredConfiguration(application, config)
+        else runConfiguration(application, config)
+
+
+    private fun monitoredConfiguration(
+        application: Application,
+        config: ClientConfig
+    ) {
+        // Must construct our own local Xray instance since Koin will be managing the singleton/
+        // library-wide instance
+        val xray = DefaultXray(
+            clock = SystemClock(),
+            systemLogger = LogcatLogger(tag = "Xray", verbose = false)
+        )
+
+        xray.monitored { runConfiguration(application, config) }
+    }
+
+    private fun runConfiguration(application: Application, config: ClientConfig) {
         // Shut down the current PromotedAi instance, if there is one running / we're in a ready
         // state
         when (val currentState = sdkState) {

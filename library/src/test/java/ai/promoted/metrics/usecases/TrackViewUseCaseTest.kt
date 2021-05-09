@@ -4,6 +4,7 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.View
+import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.every
 import io.mockk.mockk
@@ -29,7 +30,8 @@ class TrackViewUseCaseTest {
         idGenerator = UuidGenerator(),
         sessionUseCase = mockkRelaxedUnit {
             every { sessionId } returns testSessionId
-        }
+        },
+        xray = NoOpXray()
     )
 
     @Test

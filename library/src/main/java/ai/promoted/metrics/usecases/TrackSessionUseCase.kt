@@ -4,6 +4,7 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
+import ai.promoted.xray.Xray
 
 /**
  * Allows you to track the start of an app session.
@@ -21,7 +22,8 @@ internal class TrackSessionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val currentUserIdsUseCase: CurrentUserIdsUseCase
+    private val currentUserIdsUseCase: CurrentUserIdsUseCase,
+    private val xray: Xray
 ) {
     private val advanceableSessionId = AdvanceableId(
         skipFirstAdvancement = true,
@@ -35,7 +37,7 @@ internal class TrackSessionUseCase(
      * If needed, generates a new session ID, then ensures that the logUserId is in sync with the
      * user ID, and then logs both a user message and a session message using [MetricsLogger].
      */
-    fun startSession(userId: String) {
+    fun startSession(userId: String) = xray.monitored {
         // Typically, we would generate a new session ID every time startSession is called;
         // however, there are cases where metrics need to be logged prior to a session starting.
         // For this case, we allow the initial value of sessionId to be retained on the first

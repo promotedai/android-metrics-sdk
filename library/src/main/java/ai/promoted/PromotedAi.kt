@@ -150,6 +150,7 @@ object PromotedAi {
     @JvmStatic
     fun startSession() = sdk.startSession()
 
+    /* Java-idiomatic building of action/action data*/
     /**
      * Begin building an action in a chained fashion, finally resulting in a log() call.
      *
@@ -164,13 +165,13 @@ object PromotedAi {
      *
      * @see [PromotedAiSdk.onAction]
      */
-    /* Java-idiomatic building of action/action data*/
     @JvmStatic
     fun buildAction() = ActionBuilder(sdk)
 
+    /* Java-idiomatic way of tracking a RecyclerView */
     /**
-     * Begin building a [RecyclerViewTracking] configuration in a chained fashion, finally resulting
-     * in a startTracking() call.
+     * Begin building a [RecyclerViewTrackingBuilder] configuration in a chained fashion,
+     * finally resulting in a startTracking() call.
      *
      * Example usage:
      *
@@ -179,7 +180,6 @@ object PromotedAi {
      *         .withTimeThreshold(1000L)
      *         .startTracking(recyclerView, recyclerViewContentProvider)
      */
-    /* */
     @JvmStatic
     fun buildRecyclerViewTracking() = RecyclerViewTrackingBuilder(sdk)
     //endregion

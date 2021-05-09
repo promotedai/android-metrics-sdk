@@ -8,7 +8,7 @@ plugins {
 }
 
 ext {
-    version = "0.0.5"
+    version = "0.0.6"
 }
 
 android {
@@ -121,6 +121,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             // View layer, which means unit testing is not feasible/valuable but rather UI tests
             // are
             'ai/promoted/ui/**/*.*',
+
+            // We don't need to unit test logging functionality
+            'ai/promoted/xray/**/*.*',
 
             // This package represents protobuf-generated classes that should not be unit tested
             'ai/promoted/proto/**/*.*'

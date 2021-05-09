@@ -5,6 +5,7 @@ import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.platform.Clock
+import ai.promoted.xray.Xray
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -19,7 +20,8 @@ internal class TrackImpressionsUseCase(
     private val logger: MetricsLogger,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
-    private val impressionIdGenerator: ImpressionIdGenerator
+    private val impressionIdGenerator: ImpressionIdGenerator,
+    private val xray: Xray
 ) {
     private val collectionDiffers =
         mutableMapOf<String, AsyncCollectionDiffCalculator<AbstractContent>>()
@@ -58,32 +60,33 @@ internal class TrackImpressionsUseCase(
      * view; rather, it should be a list representing the content/rows currently within the
      * viewport.
      */
-    fun onCollectionUpdated(collectionViewKey: String, visibleContent: List<AbstractContent>) {
-        if (visibleContent.isEmpty()) return onNoContent(collectionViewKey)
+    fun onCollectionUpdated(collectionViewKey: String, visibleContent: List<AbstractContent>) =
+        xray.monitored {
+            if (visibleContent.isEmpty()) return@monitored onNoContent(collectionViewKey)
 
-        val now = clock.currentTimeMillis
-        val sessionId = sessionUseCase.sessionId
-        val viewId = viewUseCase.viewId
+            val now = clock.currentTimeMillis
+            val sessionId = sessionUseCase.sessionId
+            val viewId = viewUseCase.viewId
 
-        val differ = collectionDiffers.getOrPut(collectionViewKey) {
-            AsyncCollectionDiffCalculator(
-                calculationContext = Dispatchers.Default,
-                notificationContext = Dispatchers.Main
-            )
-        }
-
-        differ.scheduleDiffCalculation(
-            newBaseline = visibleContent,
-            onResult = { newDiff ->
-                onNewDiff(
-                    originalImpressionTime = now,
-                    originalImpressionSessionId = sessionId,
-                    originalImpressionViewId = viewId,
-                    result = newDiff
+            val differ = collectionDiffers.getOrPut(collectionViewKey) {
+                AsyncCollectionDiffCalculator(
+                    calculationContext = Dispatchers.Default,
+                    notificationContext = Dispatchers.Main
                 )
             }
-        )
-    }
+
+            differ.scheduleDiffCalculation(
+                newBaseline = visibleContent,
+                onResult = { newDiff ->
+                    onNewDiff(
+                        originalImpressionTime = now,
+                        originalImpressionSessionId = sessionId,
+                        originalImpressionViewId = viewId,
+                        result = newDiff
+                    )
+                }
+            )
+        }
 
     private fun onNoContent(collectionViewKey: String) {
         // If we begin logging end impressions, they would need to be handled from both the callback
@@ -114,11 +117,11 @@ internal class TrackImpressionsUseCase(
         sessionId: String,
         viewId: String,
         content: AbstractContent
-    ) {
+    ) = xray.monitored {
         val impressionId = impressionIdGenerator.generateImpressionId(
             insertionId = content.insertionId,
             contentId = content.contentId
-        ) ?: return
+        ) ?: return@monitored
 
         val impressionData = InternalImpressionData(
             time = time,
