@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
  * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
  * the SDK.
  */
+@Suppress("TooManyFunctions")
 internal interface PromotedAiSdk {
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
@@ -41,6 +42,8 @@ internal interface PromotedAiSdk {
         currentDataProvider: () -> List<AbstractContent>,
         impressionThreshold: ImpressionThreshold
     )
+
+    fun inspectCaughtThrowables(): List<Throwable>
 
     fun shutdown()
 }

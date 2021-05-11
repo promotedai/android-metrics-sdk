@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
  * Non-operational implementation of the [PromotedAiSdk] interface; used when
  * [ClientConfig.loggingEnabled] is set to false, or when the SDK has not yet been initialized.
  */
-@Suppress("EmptyFunctionBlock")
+@Suppress("TooManyFunctions", "EmptyFunctionBlock")
 internal class NoOpSdk : PromotedAiSdk {
     override fun startSession(userId: String) {}
     override fun onViewVisible(key: String) {}
@@ -40,6 +40,8 @@ internal class NoOpSdk : PromotedAiSdk {
         impressionThreshold: ImpressionThreshold
     ) {
     }
+
+    override fun inspectCaughtThrowables(): List<Throwable> = emptyList()
 
     override fun shutdown() {}
 }

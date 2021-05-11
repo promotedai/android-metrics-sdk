@@ -42,7 +42,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get(), get()) }
+            single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get(), get(), get()) }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get(), get()) }

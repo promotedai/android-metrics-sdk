@@ -27,7 +27,8 @@ class DefaultSdkTest {
         viewUseCase,
         actionUseCase,
         impressionUseCase,
-        rvImpressionsUseCase
+        rvImpressionsUseCase,
+        mockkRelaxedUnit()
     )
 
     @Test

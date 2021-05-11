@@ -16,30 +16,32 @@ internal class DefaultXray(
     private val functionMonitor = FunctionMonitor(clock)
 
     private var _caughtThrowables = mutableListOf<Throwable>()
-    val caughtThrowables: List<Throwable>
+    override val caughtThrowables: List<Throwable>
         get() {
             val copy = _caughtThrowables
             _caughtThrowables = mutableListOf()
             return copy
         }
 
-    override fun <T : Any> monitored(block: () -> T): T =
-        handleMonitorResult(
-            functionMonitor.monitored(
-                stackElementsToExclude = listOf(DefaultXray::class),
-                block = block
-            )
+    override fun <T : Any> monitored(block: () -> T): T {
+        val monitorResult = functionMonitor.monitored(
+            stackElementsToExclude = listOf(DefaultXray::class),
+            block = block
         )
 
-    override suspend fun <T : Any> monitoredSuspend(block: suspend () -> T): T =
-        handleMonitorResult(
-            functionMonitor.monitoredSuspend(
-                stackElementsToExclude = listOf(DefaultXray::class),
-                block = block
-            )
+        return logMonitorResult(monitorResult)
+    }
+
+    override suspend fun <T : Any> monitoredSuspend(block: suspend () -> T): T {
+        val monitorResult = functionMonitor.monitoredSuspend(
+            stackElementsToExclude = listOf(DefaultXray::class),
+            block = block
         )
 
-    private fun <T : Any> handleMonitorResult(result: MonitorResult<T>): T =
+        return logMonitorResult(monitorResult)
+    }
+
+    private fun <T : Any> logMonitorResult(result: MonitorResult<T>): T =
         when (result.functionReturn) {
             is FunctionReturn.Failure -> {
                 _caughtThrowables.add(result.functionReturn.throwable)
