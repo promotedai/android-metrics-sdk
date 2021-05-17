@@ -35,7 +35,7 @@ internal class FunctionMonitor(
         stackElementsToExclude: List<KClass<*>> = emptyList(),
         block: suspend () -> T
     ): MonitorResult<T> {
-        val blockTag = generateMonitorTag(stackElementsToExclude)
+        val blockTag = "Async_" + generateMonitorTag(stackElementsToExclude)
         val start = clock.currentTimeMillis
 
         val functionReturn = try {
