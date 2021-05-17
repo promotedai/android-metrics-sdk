@@ -69,6 +69,22 @@ object PromotedAi {
     fun onViewVisible(key: String) = sdk.onViewVisible(key)
 
     /**
+     * @see [PromotedAiSdk.onImpression]
+     */
+    @JvmStatic
+    fun onImpression(
+        dataBlock: ImpressionData.Builder.() -> Unit
+    ) = sdk.onImpression(dataBlock)
+
+    /**
+     * @see [PromotedAiSdk.onImpression]
+     */
+    @JvmStatic
+    fun onImpression(
+        data: ImpressionData
+    ) = sdk.onImpression(data)
+
+    /**
      * @see [PromotedAiSdk.onAction]
      */
     @JvmStatic
