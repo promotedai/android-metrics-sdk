@@ -4,10 +4,11 @@
     from the builder-pattern clutter, and only focus on providing the data necessary to generate
     the message.
  */
-
+@file:Suppress("TooManyFunctions")
 package ai.promoted.metrics.usecases
 
 import ai.promoted.ActionData
+import ai.promoted.ImpressionData
 import ai.promoted.metrics.InternalActionData
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.platform.Clock
@@ -33,6 +34,12 @@ internal fun createTimingMessage(clock: Clock) =
     Timing
         .newBuilder()
         .setClientLogTimestamp(clock.currentTimeMillis)
+        .build()
+
+internal fun createTimingMessage(time: Long) =
+    Timing
+        .newBuilder()
+        .setClientLogTimestamp(time)
         .build()
 
 internal fun createUserMessage(clock: Clock) =
@@ -124,7 +131,7 @@ internal fun createActionMessage(
             }
 
             createPropertiesMessage(actionData.customProperties)?.let {
-                properties = it
+                this.properties = it
             }
         }
         .build()
@@ -138,12 +145,22 @@ private fun createNavigationMessage(targetUrl: String?) =
         .build()
 
 internal fun createImpressionMessage(
-    impressionData: InternalImpressionData
+    impressionData: ImpressionData,
+    internalImpressionData: InternalImpressionData,
 ) =
     Impression
         .newBuilder()
+        .setTiming(createTimingMessage(internalImpressionData.time))
+        .setSessionId(internalImpressionData.sessionId)
+        .setViewId(internalImpressionData.viewId)
+        .setImpressionId(internalImpressionData.impressionId)
         .apply {
-            this.impressionId = impressionData.impressionId
+            impressionData.insertionId?.let { setInsertionId(it) }
+            impressionData.requestId?.let { setRequestId(it) }
+            impressionData.contentId?.let { setContentId(it) }
+            createPropertiesMessage(impressionData.customProperties)?.let {
+                this.properties = it
+            }
         }
         .build()
 

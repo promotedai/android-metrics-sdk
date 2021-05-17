@@ -109,6 +109,7 @@ class PromotedAiManagerTest {
             fun startedKoinApp() = super.startedKoinApplication
             override fun buildModules(config: ClientConfig): List<Module> = listOf(
                 module {
+                    single { config }
                     factory<PromotedAiSdk> { promotedAi }
                 }
             )

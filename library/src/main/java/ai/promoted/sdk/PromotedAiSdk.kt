@@ -2,7 +2,9 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
+import ai.promoted.SessionInfo
 import ai.promoted.proto.event.ActionType
 import androidx.recyclerview.widget.RecyclerView
 
@@ -10,9 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
  * The public-facing API for interacting with Promoted.Ai. Instances are managed internally by
  * the SDK.
  */
+@Suppress("TooManyFunctions")
 internal interface PromotedAiSdk {
+    val currentSessionInfo: SessionInfo
+
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
+
+    fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
+    fun onImpression(data: ImpressionData)
 
     fun onAction(
         name: String,
@@ -41,6 +49,8 @@ internal interface PromotedAiSdk {
         currentDataProvider: () -> List<AbstractContent>,
         impressionThreshold: ImpressionThreshold
     )
+
+    fun inspectCaughtThrowables(): List<Throwable>
 
     fun shutdown()
 }

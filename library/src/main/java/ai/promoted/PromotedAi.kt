@@ -16,6 +16,13 @@ object PromotedAi {
     private val sdk get() = manager.sdkInstance
 
     /**
+     * @see [PromotedAiSdk.currentSessionInfo]
+     */
+    @JvmStatic
+    val currentSessionInfo: SessionInfo
+        get() = sdk.currentSessionInfo
+
+    /**
      * @see [SdkManager.initialize]
      */
     @JvmStatic
@@ -68,7 +75,7 @@ object PromotedAi {
     fun onAction(
         name: String,
         type: ActionType,
-        dataBlock: (ActionData.Builder.() -> Unit)?
+        dataBlock: (ActionData.Builder.() -> Unit)? = null
     ) = sdk.onAction(name, type, dataBlock)
 
     /**
@@ -149,6 +156,23 @@ object PromotedAi {
     /* Default parameter / signed out user */
     @JvmStatic
     fun startSession() = sdk.startSession()
+
+    /* Java-idiomatic building of impression/impression data*/
+    /**
+     * Begin building an impression in a chained fashion, finally resulting in a log() call.
+     *
+     * Example usage:
+     *
+     *     PromotedAi
+     *         .buildImpression()
+     *         .withInsertionId("insertion-id")
+     *         .withCustomProperties(MyCustomProperties())
+     *         .log()
+     *
+     * @see [PromotedAiSdk.onImpression]
+     */
+    @JvmStatic
+    fun buildImpression() = ImpressionBuilder(sdk)
 
     /* Java-idiomatic building of action/action data*/
     /**

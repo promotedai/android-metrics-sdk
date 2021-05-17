@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Given a [RecyclerView], allows you to track impressions of [AbstractContent] based on which
  * rows are currently visible to the user. Will update impressions as the user scrolls.
+ *
+ * This class should be retained as a singleton to ensure the RecyclerView view keys are properly
+ * tracked across their lifecycle.
  */
-internal class TrackRVImpressionsUseCase(
+internal class TrackRecyclerViewUseCase(
     private val clock: Clock,
-    private val coreImpressionsUseCase: TrackImpressionsUseCase
+    private val coreImpressionsUseCase: TrackCollectionsUseCase
 ) {
     private val currentRecyclerViews = mutableMapOf<String, Tracker<AbstractContent>>()
 

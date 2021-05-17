@@ -16,7 +16,7 @@ internal class AsyncCalculationRunner(
     private val calculationContext: CoroutineContext = Dispatchers.Default,
     private val notificationContext: CoroutineContext = calculationContext
 ) {
-    private val scope = CoroutineScope(Dispatchers.Default)
+    private val scope = CoroutineScope(calculationContext)
     private val mutex = Mutex()
 
     fun <Input, Output> scheduleCalculation(

@@ -96,14 +96,15 @@ internal open class SdkManager internal constructor(
         config: ClientConfig
     ) {
         // Must construct our own local Xray instance since Koin will be managing the singleton/
-        // library-wide instance
-        val xray = DefaultXray(
-            clock = SystemClock(),
-            systemLogger = LogcatLogger(tag = "Xray", verbose = false)
-        )
-
-        xray.monitored { runConfiguration(application, config) }
+        // library-wide instance, but we cannot rely on Koin since we are monitoring the Koin
+        // configuration/startup itself
+        createOneOffXray().monitored { runConfiguration(application, config) }
     }
+
+    private fun createOneOffXray() = DefaultXray(
+        clock = SystemClock(),
+        systemLogger = LogcatLogger(tag = "Xray", verbose = false)
+    )
 
     private fun runConfiguration(application: Application, config: ClientConfig) {
         // Shut down the current PromotedAi instance, if there is one running / we're in a ready
@@ -131,6 +132,13 @@ internal open class SdkManager internal constructor(
      * state.
      */
     fun shutdown() {
+        if(sdkState !is SdkState.Ready) return
+        val config: ClientConfig = configurableKoinComponent.get()
+        if(config.xrayEnabled) createOneOffXray().monitored { runShutdown() }
+        else runShutdown()
+    }
+
+    private fun runShutdown() {
         sdkInstance.shutdown()
         configurableKoinComponent.shutdown()
         sdkState = SdkState.Shutdown
