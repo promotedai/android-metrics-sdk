@@ -40,7 +40,7 @@ class TrackImpressionsUseCaseTest {
     private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
         every { currentLogUserId } returns logUserId
     }
-    private val useCase = TrackImpressionsUseCase(
+    private val useCase = TrackCollectionsUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),

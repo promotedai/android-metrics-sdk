@@ -2,7 +2,9 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
+import ai.promoted.SessionInfo
 import ai.promoted.proto.event.ActionType
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,8 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
  */
 @Suppress("TooManyFunctions")
 internal interface PromotedAiSdk {
+    val currentSessionInfo: SessionInfo
+
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
+
+    fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
+    fun onImpression(data: ImpressionData)
 
     fun onAction(
         name: String,

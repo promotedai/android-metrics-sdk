@@ -34,7 +34,7 @@ internal class TrackActionUseCase(
      *     customProprties = SomeProps()
      * }
      *
-     * All that [dataBlock] is a lambda which receives an [ActionData.Builder] as its context,
+     * The [dataBlock] simply is a lambda which receives an [ActionData.Builder] as its context,
      * so that you can granularly choose which additional data you want to be tied to this action.
      */
     fun onAction(

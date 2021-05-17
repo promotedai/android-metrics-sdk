@@ -1,6 +1,7 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.AbstractContent
+import ai.promoted.ImpressionData
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
@@ -15,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
  * This class should be retained as a singleton to ensure the collection view keys are properly
  * tracked across their lifecycle.
  */
-internal class TrackImpressionsUseCase(
+internal class TrackCollectionsUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val sessionUseCase: TrackSessionUseCase,
@@ -123,13 +124,18 @@ internal class TrackImpressionsUseCase(
             contentId = content.contentId
         ) ?: return@monitored
 
-        val impressionData = InternalImpressionData(
+        val impressionData = ImpressionData.Builder().apply {
+            insertionId = content.insertionId
+            contentId = content.contentId
+        }.build()
+
+        val internalImpressionData = InternalImpressionData(
             time = time,
             sessionId = sessionId,
             viewId = viewId,
             impressionId = impressionId
         )
 
-        logger.enqueueMessage(createImpressionMessage(impressionData))
+        logger.enqueueMessage(createImpressionMessage(impressionData, internalImpressionData))
     }
 }

@@ -4,8 +4,8 @@ import ai.promoted.AbstractContent
 import ai.promoted.ActionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.usecases.TrackActionUseCase
-import ai.promoted.metrics.usecases.TrackImpressionsUseCase
-import ai.promoted.metrics.usecases.TrackRVImpressionsUseCase
+import ai.promoted.metrics.usecases.TrackCollectionsUseCase
+import ai.promoted.metrics.usecases.TrackRecyclerViewUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.mockkRelaxedUnit
@@ -18,12 +18,14 @@ class DefaultSdkTest {
     private val sessionUseCase: TrackSessionUseCase = mockkRelaxedUnit()
     private val viewUseCase: TrackViewUseCase = mockkRelaxedUnit()
     private val actionUseCase: TrackActionUseCase = mockkRelaxedUnit()
-    private val impressionUseCase: TrackImpressionsUseCase = mockkRelaxedUnit()
-    private val rvImpressionsUseCase: TrackRVImpressionsUseCase = mockkRelaxedUnit()
+    private val impressionUseCase: TrackCollectionsUseCase = mockkRelaxedUnit()
+    private val rvImpressionsUseCase: TrackRecyclerViewUseCase = mockkRelaxedUnit()
 
     private val sdk = DefaultSdk(
         logger,
+        mockkRelaxedUnit(),
         sessionUseCase,
+        mockkRelaxedUnit(),
         viewUseCase,
         actionUseCase,
         impressionUseCase,

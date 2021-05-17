@@ -9,8 +9,9 @@ import ai.promoted.metrics.usecases.CurrentUserIdsUseCase
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.metrics.usecases.ImpressionIdGenerator
 import ai.promoted.metrics.usecases.TrackActionUseCase
-import ai.promoted.metrics.usecases.TrackImpressionsUseCase
-import ai.promoted.metrics.usecases.TrackRVImpressionsUseCase
+import ai.promoted.metrics.usecases.TrackCollectionsUseCase
+import ai.promoted.metrics.usecases.TrackImpressionUseCase
+import ai.promoted.metrics.usecases.TrackRecyclerViewUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.platform.AndroidDeviceInfoProvider
@@ -42,16 +43,29 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         module {
             single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
             single { config }
-            single<PromotedAiSdk> { DefaultSdk(get(), get(), get(), get(), get(), get(), get()) }
+            single<PromotedAiSdk> {
+                DefaultSdk(
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get()
+                )
+            }
             single { createMetricsLoggerForConfig() }
             single { TrackSessionUseCase(get(), get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get(), get()) }
-            single { TrackImpressionsUseCase(get(), get(), get(), get(), get(), get()) }
-            single { TrackRVImpressionsUseCase(get(), get()) }
+            single { TrackCollectionsUseCase(get(), get(), get(), get(), get(), get()) }
+            single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
             single { createXrayForConfig() }
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
+            factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
             factory { TrackActionUseCase(get(), get(), get(), get(), get(), get(), get()) }
 
             factory { ImpressionIdGenerator(get(), get()) }
@@ -75,7 +89,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
     private fun Scope.createXrayForConfig(): Xray {
         val config: ClientConfig = get()
-        return if(config.xrayEnabled) DefaultXray(get(), get())
+        return if (config.xrayEnabled) DefaultXray(get(), get())
         else NoOpXray()
     }
 
