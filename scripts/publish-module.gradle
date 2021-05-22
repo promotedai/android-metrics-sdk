@@ -60,7 +60,7 @@ afterEvaluate {
                         }
                     }
 
-                scm {
+                    scm {
                         connection = 'scm:git:github.com/promotedai/android-metrics-sdk.git'
                         developerConnection = 'scm:git:ssh://github.com/promotedai/android-metrics-sdk.git'
                         url = 'https://github.com/promotedai/android-metrics-sdk/tree/main'
