@@ -1,0 +1,80 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        // For Android libraries
+        from android.sourceSets.main.java.srcDirs
+        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        // For pure Kotlin libraries
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    artifact("$buildDir/libs/${project.getName()}-${version}.jar")
+                }
+
+                artifact androidSourcesJar
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = 'Promoted.Ai Android SDK'
+                    url = 'https://github.com/promotedai/android-metrics-sdk'
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://github.com/promotedai/android-metrics-sdk/blob/main/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                          id = 'dtdennis28'
+                          name = 'Drew Dennis'
+                          email = 'drewdennis@promoted.ai'
+                        }
+                        developer {
+                          id = 'rockapot'
+                          name = 'Yu-Hong Wang'
+                          email = 'yu-hong@promoted.ai'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:github.com/promotedai/android-metrics-sdk.git'
+                        developerConnection = 'scm:git:ssh://github.com/promotedai/android-metrics-sdk.git'
+                        url = 'https://github.com/promotedai/android-metrics-sdk/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+ext["signing.keyId"] = rootProject.ext["signing.keyId"]
+ext["signing.password"] = rootProject.ext["signing.password"]
+ext["signing.secretKeyRingFile"] = rootProject.ext["signing.secretKeyRingFile"]
+
+signing {
+    sign publishing.publications
+}
