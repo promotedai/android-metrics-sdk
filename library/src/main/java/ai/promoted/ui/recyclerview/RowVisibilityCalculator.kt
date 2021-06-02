@@ -47,14 +47,13 @@ internal class RowVisibilityCalculator(
 
     private fun addNewVisibilities(toMap: MutableMap<Int, RowVisibility>, visibleRange: IntRange) {
         visibleRange.forEach { position ->
-            toMap.putIfAbsent(
-                position,
-                RowVisibility(
+            if (!toMap.containsKey(position)) {
+                toMap[position] = RowVisibility(
                     position = position,
                     visibleSinceMillis = clock.currentTimeMillis,
                     percentageVisible = getVisiblePercentageForPosition(position)
                 )
-            )
+            }
         }
     }
 
