@@ -33,7 +33,8 @@ jobs:
         fi
 
     - name: Publish release package
-      run: ./gradlew :library:publishReleasePublicationToGithubPackagesRepository
+      run: echo "TODO"
+      #./gradlew :library:publishReleasePublicationToGithubPackagesRepository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

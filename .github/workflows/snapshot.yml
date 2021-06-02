@@ -33,6 +33,7 @@ jobs:
           fi
 
       - name: Publish snapshot
-        run: ./gradlew :library:publishSnapshotPublicationToGithubPackagesRepository
+        run: echo "TODO"
+        #./gradlew :library:publishSnapshotPublicationToGithubPackagesRepository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
