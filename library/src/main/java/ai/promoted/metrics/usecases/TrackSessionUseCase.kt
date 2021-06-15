@@ -2,6 +2,7 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
+import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
@@ -25,13 +26,7 @@ internal class TrackSessionUseCase(
     private val currentUserIdsUseCase: CurrentUserIdsUseCase,
     private val xray: Xray
 ) {
-    private val advanceableSessionId = AdvanceableId(
-        skipFirstAdvancement = true,
-        idGenerator = idGenerator
-    )
-
-    val sessionId: String
-        get() = advanceableSessionId.currentValue
+    val sessionId = AncestorId(idGenerator)
 
     /**
      * If needed, generates a new session ID, then ensures that the logUserId is in sync with the
@@ -43,7 +38,7 @@ internal class TrackSessionUseCase(
         // For this case, we allow the initial value of sessionId to be retained on the first
         // startSession() call, so that metrics between the pre-session and session can be
         // properly associated
-        advanceableSessionId.advance()
+        sessionId.advance()
 
         syncCurrentUserId(userId)
         logUser()
