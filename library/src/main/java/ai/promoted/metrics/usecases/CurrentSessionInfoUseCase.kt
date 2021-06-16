@@ -12,7 +12,7 @@ internal class CurrentSessionInfoUseCase(
 ) {
     fun getCurrentSessionInfo() = SessionInfo(
         logUserId = currentUserIdsUseCase.currentLogUserId,
-        sessionId = trackSessionUseCase.sessionId,
+        sessionId = trackSessionUseCase.sessionId.pendingOrCurrentValue,
         viewId = trackViewUseCase.viewId
     )
 }

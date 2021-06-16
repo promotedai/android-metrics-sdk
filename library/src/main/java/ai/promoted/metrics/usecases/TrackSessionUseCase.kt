@@ -5,6 +5,7 @@ import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
+import ai.promoted.platform.SystemLogger
 import ai.promoted.xray.Xray
 
 /**
@@ -20,6 +21,7 @@ import ai.promoted.xray.Xray
  * other use cases.
  */
 internal class TrackSessionUseCase(
+    private val systemLogger: SystemLogger,
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
@@ -33,11 +35,12 @@ internal class TrackSessionUseCase(
      * user ID, and then logs both a user message and a session message using [MetricsLogger].
      */
     fun startSession(userId: String) = xray.monitored {
-        // Typically, we would generate a new session ID every time startSession is called;
-        // however, there are cases where metrics need to be logged prior to a session starting.
-        // For this case, we allow the initial value of sessionId to be retained on the first
-        // startSession() call, so that metrics between the pre-session and session can be
-        // properly associated
+        if(sessionId.isOverridden) {
+            systemLogger.e(IllegalStateException("Attempted to start a new session after " +
+                    "overriding session ID"))
+            return@monitored
+        }
+
         sessionId.advance()
 
         syncCurrentUserId(userId)

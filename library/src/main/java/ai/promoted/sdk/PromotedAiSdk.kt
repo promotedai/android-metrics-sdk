@@ -16,10 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 internal interface PromotedAiSdk {
     val currentSessionInfo: SessionInfo
 
-    var logUserId: String
-    var sessionId: String
-    var viewId: String
-
     fun startSession(userId: String = "")
     fun onViewVisible(key: String)
 

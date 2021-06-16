@@ -12,15 +12,24 @@ internal class AncestorId(
         idGenerator
     )
 
-    val pendingImplicitValue = advanceableId.currentValue
+    private val pendingImplicitValue = advanceableId.currentValue
+
+    var isOverridden = false
+        private set
 
     var currentValue = ""
         private set
+
+    val pendingOrCurrentValue
+        get() = if (currentValue.isEmpty()) pendingImplicitValue
+        else currentValue
 
     /**
      * Move to the next implicit / internally-generated ID value
      */
     fun advance() {
+        if (isOverridden) return
+
         advanceableId.advance()
         this.currentValue = advanceableId.currentValue
     }
@@ -30,5 +39,6 @@ internal class AncestorId(
      */
     fun override(explicitValue: String) {
         this.currentValue = explicitValue
+        this.isOverridden = true
     }
 }
