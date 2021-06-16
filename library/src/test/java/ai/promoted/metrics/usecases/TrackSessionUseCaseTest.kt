@@ -1,5 +1,6 @@
 package ai.promoted.metrics.usecases
 
+import ai.promoted.SystemOutLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
@@ -29,6 +30,7 @@ class TrackSessionUseCaseTest {
     }
 
     private val useCase = TrackSessionUseCase(
+        systemLogger = SystemOutLogger(),
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = UuidGenerator(),
@@ -52,11 +54,11 @@ class TrackSessionUseCaseTest {
     fun `New session ID is generated after second startSession`() {
         // Given a session already started
         useCase.startSession("")
-        val firstSessionId = useCase.sessionId
+        val firstSessionId = useCase.sessionId.currentValue
 
         // When a second session is started
         useCase.startSession("")
-        val secondSessionId = useCase.sessionId
+        val secondSessionId = useCase.sessionId.currentValue
 
         // Then
         assertThat(secondSessionId, not(firstSessionId))

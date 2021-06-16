@@ -9,7 +9,7 @@ internal data class InternalActionData(
     val name: String,
     val type: ActionType,
     val actionId: String,
-    val sessionId: String,
-    val viewId: String,
+    val sessionId: String?,
+    val viewId: String?,
     val impressionId: String?
 )

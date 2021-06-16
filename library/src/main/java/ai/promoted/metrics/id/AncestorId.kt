@@ -24,6 +24,10 @@ internal class AncestorId(
         get() = if (currentValue.isEmpty()) pendingImplicitValue
         else currentValue
 
+    val currentValueOrNull
+        get() = if (currentValue.isEmpty()) null
+        else currentValue
+
     /**
      * Move to the next implicit / internally-generated ID value
      */

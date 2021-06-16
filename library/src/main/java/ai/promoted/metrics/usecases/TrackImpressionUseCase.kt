@@ -55,7 +55,7 @@ internal class TrackImpressionUseCase(
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
-            sessionId = sessionUseCase.sessionId,
+            sessionId = sessionUseCase.sessionId.currentValueOrNull,
             viewId = viewUseCase.viewId
         )
 

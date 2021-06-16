@@ -1,6 +1,8 @@
 package ai.promoted.metrics.usecases
 
+import ai.promoted.SystemOutLogger
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.View
@@ -21,9 +23,13 @@ class TrackViewUseCaseTest {
     }
 
     private val testTime = 100L
-    private val testSessionId = "test-session-id"
+    private val testSessionId =
+        AncestorId(UuidGenerator()).apply {
+            override("test-session-id")
+        }
 
     private val useCase = TrackViewUseCase(
+        systemLogger = SystemOutLogger(),
         clock = mockk { every { currentTimeMillis } returns testTime },
         deviceInfoProvider = mockk(relaxed = true),
         logger = logger,

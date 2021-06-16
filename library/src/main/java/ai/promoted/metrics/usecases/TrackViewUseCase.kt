@@ -2,9 +2,11 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
+import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
+import ai.promoted.platform.SystemLogger
 import ai.promoted.proto.event.Device
 import ai.promoted.xray.Xray
 
@@ -21,6 +23,7 @@ import ai.promoted.xray.Xray
  * other use cases.
  */
 internal class TrackViewUseCase(
+    private val systemLogger: SystemLogger,
     private val logger: MetricsLogger,
     private val clock: Clock,
     private val deviceInfoProvider: DeviceInfoProvider,
@@ -28,13 +31,7 @@ internal class TrackViewUseCase(
     private val sessionUseCase: TrackSessionUseCase,
     private val xray: Xray
 ) {
-    private val advanceableViewId = AdvanceableId(
-        skipFirstAdvancement = true,
-        idGenerator = idGenerator
-    )
-
-    val viewId: String
-        get() = advanceableViewId.currentValue
+    val viewId = AncestorId(idGenerator)
 
     private var currentKey: String = ""
 
@@ -47,16 +44,22 @@ internal class TrackViewUseCase(
      * Then logs a view message via [MetricsLogger].
      */
     fun onViewVisible(key: String) = xray.monitored {
+        if(viewId.isOverridden) {
+            systemLogger.e(IllegalStateException("Attempted to start a new session after " +
+                    "overriding session ID"))
+            return@monitored
+        }
+
         if (key != currentKey) {
-            advanceableViewId.advance()
+            viewId.advance()
             currentKey = key
         }
 
         logger.enqueueMessage(
             createViewMessage(
                 clock = clock,
-                viewId = viewId,
-                sessionId = sessionUseCase.sessionId,
+                viewId = viewId.currentValueOrNull,
+                sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key,
                 deviceMessage = deviceMessage
             )
