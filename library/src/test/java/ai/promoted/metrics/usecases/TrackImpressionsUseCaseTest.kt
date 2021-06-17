@@ -29,7 +29,9 @@ class TrackImpressionsUseCaseTest {
         AncestorId(UuidGenerator()).apply {
             override("session-id")
         }
-    private val testViewId = "view-id"
+    private val testViewId = AncestorId(UuidGenerator()).apply {
+        override("view-id")
+    }
 
     private val enqueuedMessages = mutableListOf<Message>()
     private val basedOnUuid = CapturingSlot<String>()

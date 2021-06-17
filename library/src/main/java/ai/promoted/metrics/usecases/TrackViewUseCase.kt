@@ -22,6 +22,7 @@ import ai.promoted.xray.Xray
  * This class should be retained as a singleton in order to preserve the current [viewId] across
  * other use cases.
  */
+@Suppress("LongParameterList")
 internal class TrackViewUseCase(
     private val systemLogger: SystemLogger,
     private val logger: MetricsLogger,

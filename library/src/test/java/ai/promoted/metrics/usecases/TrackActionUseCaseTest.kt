@@ -26,7 +26,9 @@ class TrackActionUseCaseTest {
             override("session-id")
         }
 
-    private val testViewId = "view-id"
+    private val testViewId = AncestorId(UuidGenerator()).apply {
+        override("view-id")
+    }
 
     private val enqueuedMessage = CapturingSlot<Message>()
     private val basedOnUuid = CapturingSlot<String>()
@@ -149,6 +151,6 @@ class TrackActionUseCaseTest {
         verify(exactly = 1) { logger.enqueueMessage(any()) }
         assertThat(action, notNullValue())
         assertThat(action?.sessionId, equalTo(testSessionId.currentValue))
-        assertThat(action?.viewId, equalTo(testViewId))
+        assertThat(action?.viewId, equalTo(testViewId.currentValue))
     }
 }
