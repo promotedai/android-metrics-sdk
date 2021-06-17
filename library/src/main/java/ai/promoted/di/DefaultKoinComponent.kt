@@ -1,6 +1,5 @@
 package ai.promoted.di
 
-import ai.promoted.BuildConfig
 import ai.promoted.ClientConfig
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.IdGenerator
@@ -41,7 +40,7 @@ import java.util.concurrent.TimeUnit
 internal object DefaultKoinComponent : ConfigurableKoinComponent() {
     override fun buildModules(config: ClientConfig): List<Module> = listOf(
         module {
-            single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = BuildConfig.DEBUG) }
+            single<SystemLogger> { LogcatLogger(tag = "Promoted.Ai", verbose = false) }
             single { config }
             single<PromotedAiSdk> {
                 DefaultSdk(
