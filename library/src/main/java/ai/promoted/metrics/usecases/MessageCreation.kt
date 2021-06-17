@@ -123,8 +123,8 @@ internal fun createActionMessage(
         .setName(internalActionData.name)
         .setActionType(internalActionData.type)
         .apply {
-            internalActionData.sessionId?.let { setSessionId(it)}
-            internalActionData.viewId?.let { setViewId(it)}
+            internalActionData.sessionId?.let { setSessionId(it) }
+            internalActionData.viewId?.let { setViewId(it) }
             internalActionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -184,9 +184,11 @@ internal fun createPropertiesMessage(properties: Message?): Properties? {
 }
 
 // TODO - when Kotlin 1.5 comes out, use inline/value classes to ensure type-safety
-internal fun createUserInfoMessage(userId: String, logUserId: String) =
+internal fun createUserInfoMessage(userId: String?, logUserId: String?) =
     UserInfo
         .newBuilder()
-        .setUserId(userId)
-        .setLogUserId(logUserId)
+        .apply {
+            userId?.let { setUserId(it) }
+            logUserId?.let { setLogUserId(it) }
+        }
         .build()

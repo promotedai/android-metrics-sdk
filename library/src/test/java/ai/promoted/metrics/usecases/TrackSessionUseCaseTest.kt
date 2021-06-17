@@ -5,7 +5,6 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Session
-import ai.promoted.proto.event.User
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
@@ -24,9 +23,9 @@ class TrackSessionUseCaseTest {
     }
 
     private val generatedLogUserIdSlot = CapturingSlot<String>()
-    private val currentUserIdsUseCase = mockkRelaxedUnit<CurrentUserIdsUseCase> {
-        every { currentUserId } returns ""
-        every { updateLogUserId(capture(generatedLogUserIdSlot)) } returns Unit
+    private val trackUserUseCase = mockkRelaxedUnit<TrackUserUseCase> {
+        every { currentOrNullUserId } returns ""
+//        every { updateLogUserId(capture(generatedLogUserIdSlot)) } returns Unit
     }
 
     private val useCase = TrackSessionUseCase(
@@ -34,7 +33,7 @@ class TrackSessionUseCaseTest {
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = UuidGenerator(),
-        currentUserIdsUseCase = currentUserIdsUseCase,
+        trackUserUseCase = trackUserUseCase,
         NoOpXray()
     )
 
@@ -65,17 +64,6 @@ class TrackSessionUseCaseTest {
     }
 
     @Test
-    fun `User is logged after start session`() {
-        // When a session is started
-        useCase.startSession("")
-
-        // Then
-        verify(exactly = 1) {
-            logger.enqueueMessage(ofType(User::class))
-        }
-    }
-
-    @Test
     fun `Session is logged after start session`() {
         // When a session is started
         useCase.startSession("")
@@ -94,8 +82,8 @@ class TrackSessionUseCaseTest {
 
         // Then
         verify(exactly = 1) {
-            currentUserIdsUseCase.updateUserId(newUserId)
-            currentUserIdsUseCase.updateLogUserId(generatedLogUserIdSlot.captured)
+            trackUserUseCase.setUserId(newUserId)
+//            trackUserUseCase.updateLogUserId(generatedLogUserIdSlot.captured)
         }
     }
 }

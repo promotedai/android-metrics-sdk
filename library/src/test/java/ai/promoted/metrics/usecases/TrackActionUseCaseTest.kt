@@ -41,14 +41,14 @@ class TrackActionUseCaseTest {
             firstArg()
         }
     }
-    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+    private val trackUserUseCase = mockk<TrackUserUseCase> {
         every { currentLogUserId } returns logUserId
     }
     private val useCase = TrackActionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = idGenerator,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),
+        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },

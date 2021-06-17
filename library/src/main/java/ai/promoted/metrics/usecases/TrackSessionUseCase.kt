@@ -24,8 +24,8 @@ internal class TrackSessionUseCase(
     private val systemLogger: SystemLogger,
     private val clock: Clock,
     private val logger: MetricsLogger,
-    private val idGenerator: IdGenerator,
-    private val currentUserIdsUseCase: CurrentUserIdsUseCase,
+    idGenerator: IdGenerator,
+    private val trackUserUseCase: TrackUserUseCase,
     private val xray: Xray
 ) {
     val sessionId = AncestorId(idGenerator)
@@ -35,30 +35,22 @@ internal class TrackSessionUseCase(
      * user ID, and then logs both a user message and a session message using [MetricsLogger].
      */
     fun startSession(userId: String) = xray.monitored {
-        if(sessionId.isOverridden) {
-            systemLogger.e(IllegalStateException("Attempted to start a new session after " +
-                    "overriding session ID"))
+        if (sessionId.isOverridden) {
+            systemLogger.e(
+                IllegalStateException(
+                    "Attempted to start a new session after " +
+                            "overriding session ID"
+                )
+            )
             return@monitored
         }
 
-        sessionId.advance()
+        trackUserUseCase.setUserId(userId)
 
-        syncCurrentUserId(userId)
-        logUser()
+        sessionId.advance()
         logSession()
     }
 
-    private fun syncCurrentUserId(userId: String) {
-        // if it's a new user ID (different value than what's in the store), store it in memory
-        // & persist it.
-        if (currentUserIdsUseCase.currentUserId != userId) {
-            currentUserIdsUseCase.updateUserId(userId)
 
-            // Now that a new user ID exists, a new logUserId needs to be generated & then stored
-            currentUserIdsUseCase.updateLogUserId(idGenerator.newId())
-        }
-    }
-
-    private fun logUser() = logger.enqueueMessage(createUserMessage(clock))
     private fun logSession() = logger.enqueueMessage(createSessionMessage(clock))
 }
