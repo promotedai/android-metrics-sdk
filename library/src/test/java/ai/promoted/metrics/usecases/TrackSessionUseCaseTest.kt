@@ -7,7 +7,6 @@ import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Session
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
-import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -22,10 +21,8 @@ class TrackSessionUseCaseTest {
         every { enqueueMessage(capture(enqueuedMessages)) } returns Unit
     }
 
-    private val generatedLogUserIdSlot = CapturingSlot<String>()
     private val trackUserUseCase = mockkRelaxedUnit<TrackUserUseCase> {
         every { currentOrNullUserId } returns ""
-//        every { updateLogUserId(capture(generatedLogUserIdSlot)) } returns Unit
     }
 
     private val useCase = TrackSessionUseCase(
@@ -66,7 +63,7 @@ class TrackSessionUseCaseTest {
     @Test
     fun `Session is logged after start session`() {
         // When a session is started
-        useCase.startSession("")
+        useCase.startSession("a-user-id")
 
         // Then
         verify(exactly = 1) {
@@ -83,7 +80,6 @@ class TrackSessionUseCaseTest {
         // Then
         verify(exactly = 1) {
             trackUserUseCase.setUserId(newUserId)
-//            trackUserUseCase.updateLogUserId(generatedLogUserIdSlot.captured)
         }
     }
 }
