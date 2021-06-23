@@ -23,6 +23,8 @@ jobs:
         run: |
           git fetch --unshallow
           sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Release build
         run: ./gradlew :library:detekt :library:lint :library:assembleRelease :library:testDebugUnitTest :library:jacocoTestReport --stacktrace
       - name: Generate Jacoco badge
