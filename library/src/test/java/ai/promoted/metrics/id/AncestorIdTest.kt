@@ -29,14 +29,14 @@ class AncestorIdTest {
         // When we get the current or pending value
         // Then the current value is empty, but the pendingOrCurrentValue is a valid ID
         assertThat(ancestorId.currentValue, equalTo(""))
-        assertThat(ancestorId.pendingOrCurrentValue, equalTo(generatedId))
+        assertThat(ancestorId.currentOrPendingValue, equalTo(generatedId))
     }
 
     @Test
     fun `Current value reflects override`() {
         // When
         ancestorId.override("overridden-id")
-        //Then
+        // Then
         assertThat(ancestorId.isOverridden, equalTo(true))
         assertThat(ancestorId.currentValue, equalTo("overridden-id"))
     }
@@ -49,7 +49,7 @@ class AncestorIdTest {
         // When
         ancestorId.advance()
 
-        //Then
+        // Then
         assertThat(ancestorId.isOverridden, equalTo(true))
         assertThat(ancestorId.currentValue, equalTo("overridden-id"))
     }

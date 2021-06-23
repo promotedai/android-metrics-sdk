@@ -37,7 +37,7 @@ class TrackSessionUseCaseTest {
     @Test
     fun `Pre-emptive session ID is preserved after startSession`() {
         // Given
-        val sessionIdBeforeStartSession = useCase.sessionId.pendingOrCurrentValue
+        val sessionIdBeforeStartSession = useCase.sessionId.currentOrPendingValue
 
         // When
         useCase.startSession("")

@@ -28,7 +28,7 @@ internal class TrackUserUseCase(
     val currentOrPendingLogUserId: String
         get() {
             val currentLogUserId = this.currentLogUserId
-            return if (currentLogUserId.isEmpty()) logUserAncestorId.pendingOrCurrentValue
+            return if (currentLogUserId.isEmpty()) logUserAncestorId.currentOrPendingValue
             else currentLogUserId
         }
 

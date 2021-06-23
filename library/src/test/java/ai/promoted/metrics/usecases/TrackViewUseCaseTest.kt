@@ -43,7 +43,7 @@ class TrackViewUseCaseTest {
     @Test
     fun `Pre-emptive view ID is preserved after first view becomes visible`() {
         // Given
-        val viewIdBeforeViewVisible = useCase.viewId.pendingOrCurrentValue
+        val viewIdBeforeViewVisible = useCase.viewId.currentOrPendingValue
 
         // When
         useCase.onViewVisible("view-key")

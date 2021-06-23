@@ -14,16 +14,31 @@ internal class AncestorId(
 
     private val pendingImplicitValue = advanceableId.currentValue
 
+    /**
+     * Whether a call to [override] has been made. This is useful if you want to modify or ignore
+     * behavior based on whether the ancestor ID was overridden by a library user.
+     */
     var isOverridden = false
         private set
 
+    /**
+     * The current value of the ID, whether it was set by [override] or [advance]. Will return an
+     * empty string if neither [advance] nor [override] have been called.
+     */
     var currentValue = ""
         private set
 
-    val pendingOrCurrentValue
+    /**
+     * The current value of the ID, or (if no current value exists), the value that will be applied
+     * to [currentValue] after the first call to [advance]
+     */
+    val currentOrPendingValue
         get() = if (currentValue.isEmpty()) pendingImplicitValue
         else currentValue
 
+    /**
+     * The current value of the ID, or null if it has not yet been set by [advance] or [override].
+     */
     val currentValueOrNull
         get() = if (currentValue.isEmpty()) null
         else currentValue
