@@ -8,7 +8,7 @@ plugins {
 }
 
 ext {
-    version = "0.1.4"
+    version = "0.1.5"
     PUBLISH_GROUP_ID = 'ai.promoted'
     PUBLISH_VERSION = version
     PUBLISH_ARTIFACT_ID = 'android-metrics-sdk'
@@ -36,6 +36,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        buildConfig false
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

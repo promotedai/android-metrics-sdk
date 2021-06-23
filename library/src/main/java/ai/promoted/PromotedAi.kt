@@ -16,11 +16,34 @@ object PromotedAi {
     private val sdk get() = manager.sdkInstance
 
     /**
-     * @see [PromotedAiSdk.currentSessionInfo]
+     * @see [PromotedAiSdk.logUserId]
      */
     @JvmStatic
-    val currentSessionInfo: SessionInfo
-        get() = sdk.currentSessionInfo
+    var logUserId: String
+        get() = sdk.logUserId
+        set(value) {
+            sdk.logUserId = value
+        }
+
+    /**
+     * @see [PromotedAiSdk.sessionId]
+     */
+    @JvmStatic
+    var sessionId: String
+        get() = sdk.sessionId
+        set(value) {
+            sdk.sessionId = value
+        }
+
+    /**
+     * @see [PromotedAiSdk.viewId]
+     */
+    @JvmStatic
+    var viewId: String
+        get() = sdk.viewId
+        set(value) {
+            sdk.viewId = value
+        }
 
     /**
      * @see [SdkManager.initialize]

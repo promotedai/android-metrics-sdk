@@ -4,6 +4,7 @@ import ai.promoted.AbstractContent
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
+import org.junit.Ignore
 import org.junit.Test
 
 class AsyncCollectionDiffCalculatorTest {
@@ -127,6 +128,7 @@ class AsyncCollectionDiffCalculatorTest {
         guaranteeing execution order.
      */
     @Test
+    @Ignore("Flaky")
     fun `Should perform diffs sequentially and not concurrently`() {
         // Given
         val listOfContent = mutableListOf<AbstractContent>()
