@@ -5,6 +5,7 @@
     the message.
  */
 @file:Suppress("TooManyFunctions")
+
 package ai.promoted.metrics.usecases
 
 import ai.promoted.ActionData
@@ -90,8 +91,8 @@ internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device
 
 internal fun createViewMessage(
     clock: Clock,
-    viewId: String,
-    sessionId: String,
+    viewId: String?,
+    sessionId: String?,
     name: String,
     // The Device message should be cached in memory elsewhere, so we will not construct it
     // ourselves as part of this function, but rather it should be passed in.
@@ -99,8 +100,10 @@ internal fun createViewMessage(
 ) = View
     .newBuilder()
     .setTiming(createTimingMessage(clock))
-    .setViewId(viewId)
-    .setSessionId(sessionId)
+    .apply {
+        sessionId?.let { setSessionId(it) }
+        viewId?.let { setViewId(it) }
+    }
     .setName(name)
     .setDevice(deviceMessage)
     // TODO - Fill out AppScreenView.
@@ -118,10 +121,10 @@ internal fun createActionMessage(
         .setTiming(createTimingMessage(clock))
         .setActionId(internalActionData.actionId)
         .setName(internalActionData.name)
-        .setSessionId(internalActionData.sessionId)
-        .setViewId(internalActionData.viewId)
         .setActionType(internalActionData.type)
         .apply {
+            internalActionData.sessionId?.let { setSessionId(it) }
+            internalActionData.viewId?.let { setViewId(it) }
             internalActionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -151,10 +154,10 @@ internal fun createImpressionMessage(
     Impression
         .newBuilder()
         .setTiming(createTimingMessage(internalImpressionData.time))
-        .setSessionId(internalImpressionData.sessionId)
-        .setViewId(internalImpressionData.viewId)
         .setImpressionId(internalImpressionData.impressionId)
         .apply {
+            internalImpressionData.sessionId?.let { setSessionId(it) }
+            internalImpressionData.viewId?.let { setViewId(it) }
             impressionData.insertionId?.let { setInsertionId(it) }
             impressionData.requestId?.let { setRequestId(it) }
             impressionData.contentId?.let { setContentId(it) }
@@ -181,9 +184,11 @@ internal fun createPropertiesMessage(properties: Message?): Properties? {
 }
 
 // TODO - when Kotlin 1.5 comes out, use inline/value classes to ensure type-safety
-internal fun createUserInfoMessage(userId: String, logUserId: String) =
+internal fun createUserInfoMessage(userId: String?, logUserId: String?) =
     UserInfo
         .newBuilder()
-        .setUserId(userId)
-        .setLogUserId(logUserId)
+        .apply {
+            userId?.let { setUserId(it) }
+            logUserId?.let { setLogUserId(it) }
+        }
         .build()

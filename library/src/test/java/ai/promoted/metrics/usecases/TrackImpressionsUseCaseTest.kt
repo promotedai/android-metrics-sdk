@@ -2,7 +2,9 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.AbstractContent
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.proto.event.Impression
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
@@ -23,8 +25,13 @@ import org.junit.Test
 class TrackImpressionsUseCaseTest {
     private val randomUuid = "random-uuid"
     private val logUserId = "log-user-id"
-    private val testSessionId = "session-id"
-    private val testViewId = "view-id"
+    private val testSessionId =
+        AncestorId(UuidGenerator()).apply {
+            override("session-id")
+        }
+    private val testViewId = AncestorId(UuidGenerator()).apply {
+        override("view-id")
+    }
 
     private val enqueuedMessages = mutableListOf<Message>()
     private val basedOnUuid = CapturingSlot<String>()
@@ -37,13 +44,13 @@ class TrackImpressionsUseCaseTest {
             firstArg()
         }
     }
-    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+    private val trackUserUseCase = mockk<TrackUserUseCase> {
         every { currentLogUserId } returns logUserId
     }
     private val useCase = TrackCollectionsUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),
+        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },

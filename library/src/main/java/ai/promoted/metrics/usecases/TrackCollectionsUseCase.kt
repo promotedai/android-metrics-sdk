@@ -66,8 +66,8 @@ internal class TrackCollectionsUseCase(
             if (visibleContent.isEmpty()) return@monitored onNoContent(collectionViewKey)
 
             val now = clock.currentTimeMillis
-            val sessionId = sessionUseCase.sessionId
-            val viewId = viewUseCase.viewId
+            val sessionId = sessionUseCase.sessionId.currentValueOrNull
+            val viewId = viewUseCase.viewId.currentValueOrNull
 
             val differ = collectionDiffers.getOrPut(collectionViewKey) {
                 AsyncCollectionDiffCalculator(
@@ -97,8 +97,8 @@ internal class TrackCollectionsUseCase(
 
     private fun onNewDiff(
         originalImpressionTime: Long,
-        originalImpressionSessionId: String,
-        originalImpressionViewId: String,
+        originalImpressionSessionId: String?,
+        originalImpressionViewId: String?,
         result: AsyncCollectionDiffCalculator.DiffResult<AbstractContent>
     ) {
         result.newItems.forEach { newContent ->
@@ -115,8 +115,8 @@ internal class TrackCollectionsUseCase(
 
     private fun onStartImpression(
         time: Long,
-        sessionId: String,
-        viewId: String,
+        sessionId: String?,
+        viewId: String?,
         content: AbstractContent
     ) = xray.monitored {
         val impressionId = impressionIdGenerator.generateImpressionId(

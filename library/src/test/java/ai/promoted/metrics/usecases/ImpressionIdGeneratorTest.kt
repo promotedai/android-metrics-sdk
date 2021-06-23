@@ -18,11 +18,11 @@ class ImpressionIdGeneratorTest {
             firstArg()
         }
     }
-    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+    private val trackUserUseCase = mockk<TrackUserUseCase> {
         every { currentLogUserId } returns logUserId
     }
 
-    private val impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase)
+    private val impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase)
 
     @Test
     fun `Impression ID is based on insertion ID when it is available`() {

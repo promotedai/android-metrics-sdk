@@ -1,7 +1,9 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
+import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
@@ -19,8 +21,14 @@ import org.junit.Test
 class TrackActionUseCaseTest {
     private val randomUuid = "random-uuid"
     private val logUserId = "log-user-id"
-    private val testSessionId = "session-id"
-    private val testViewId = "view-id"
+    private val testSessionId =
+        AncestorId(UuidGenerator()).apply {
+            override("session-id")
+        }
+
+    private val testViewId = AncestorId(UuidGenerator()).apply {
+        override("view-id")
+    }
 
     private val enqueuedMessage = CapturingSlot<Message>()
     private val basedOnUuid = CapturingSlot<String>()
@@ -33,14 +41,14 @@ class TrackActionUseCaseTest {
             firstArg()
         }
     }
-    private val currentUserIdsUseCase = mockk<CurrentUserIdsUseCase> {
+    private val trackUserUseCase = mockk<TrackUserUseCase> {
         every { currentLogUserId } returns logUserId
     }
     private val useCase = TrackActionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = idGenerator,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, currentUserIdsUseCase),
+        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
@@ -142,7 +150,7 @@ class TrackActionUseCaseTest {
         val action = enqueuedMessage.captured as? Action
         verify(exactly = 1) { logger.enqueueMessage(any()) }
         assertThat(action, notNullValue())
-        assertThat(action?.sessionId, equalTo(testSessionId))
-        assertThat(action?.viewId, equalTo(testViewId))
+        assertThat(action?.sessionId, equalTo(testSessionId.currentValue))
+        assertThat(action?.viewId, equalTo(testViewId.currentValue))
     }
 }
