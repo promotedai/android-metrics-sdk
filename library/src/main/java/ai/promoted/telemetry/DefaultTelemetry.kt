@@ -32,6 +32,9 @@ internal class DefaultTelemetry(
         // Suppressing this Lint message because it will be up to library users to have pulled in
         // Firebase and declared the necessary permissions
         @SuppressLint("MissingPermission")
+        // Suppressing this Detekt check because if we run into *any* issues accessing the Firebase
+        // classes, we cannot safely assume they are available.
+        @Suppress("TooGenericExceptionCaught", "SwallowedException")
         fun createInstanceIfAvailable(context: Context): DefaultTelemetry? {
             return try {
                 Class.forName("com.google.firebase.analytics.FirebaseAnalytics")

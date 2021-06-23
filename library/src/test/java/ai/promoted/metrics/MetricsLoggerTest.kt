@@ -36,7 +36,10 @@ class MetricsLoggerTest {
         testFlushIntervalMillis,
         connection,
         finalizeUseCase,
-        NoOpXray()
+        NoOpXray(),
+
+        // TODO - test telemetry interaction
+        mockkRelaxedUnit()
     )
 
     @Test
