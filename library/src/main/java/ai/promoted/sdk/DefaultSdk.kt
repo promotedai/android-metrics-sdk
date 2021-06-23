@@ -34,7 +34,7 @@ internal class DefaultSdk(
 ) : PromotedAiSdk {
     override var logUserId: String
         get() = trackUserUseCase.currentOrPendingLogUserId
-        set(value) = trackUserUseCase.overrideLogUserId(value)
+        set(value) = trackUserUseCase.overrideLogUserId(logger, value)
 
     override var sessionId: String
         get() = trackSessionUseCase.sessionId.currentOrPendingValue
