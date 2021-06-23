@@ -24,6 +24,9 @@ import ai.promoted.platform.SystemClock
 import ai.promoted.platform.SystemLogger
 import ai.promoted.sdk.DefaultSdk
 import ai.promoted.sdk.PromotedAiSdk
+import ai.promoted.telemetry.DefaultTelemetry
+import ai.promoted.telemetry.NoOpTelemetry
+import ai.promoted.telemetry.Telemetry
 import ai.promoted.xray.DefaultXray
 import ai.promoted.xray.NoOpXray
 import ai.promoted.xray.Xray
@@ -64,6 +67,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
             single { createXrayForConfig() }
+            single { createTelemetryBasedOnAvailability() }
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
@@ -85,7 +89,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         val flushIntervalMillis =
             TimeUnit.SECONDS.toMillis(config.loggingFlushIntervalSeconds)
         val networkConnection = config.networkConnectionProvider()
-        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get())
+        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get(), get())
     }
 
     private fun Scope.createXrayForConfig(): Xray {
@@ -93,6 +97,9 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         return if (config.xrayEnabled) DefaultXray(get(), get())
         else NoOpXray()
     }
+
+    private fun Scope.createTelemetryBasedOnAvailability(): Telemetry =
+        DefaultTelemetry.createInstanceIfAvailable(get()) ?: NoOpTelemetry()
 
     private fun getPromotedAiPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences("ai.promoted.prefs", Context.MODE_PRIVATE)
