@@ -22,7 +22,7 @@ class OperationSchedulerTest {
         get() = this + 10
 
     @Test
-    @Ignore
+    @Ignore("Flaky")
     fun `Should invoke operation only once after specified interval`() {
         // Given that an operation has been scheduled to execute after the interval below
         val interval = 100L
