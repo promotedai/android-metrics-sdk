@@ -28,9 +28,10 @@ class FinalizeLogsUseCaseTest {
             metricsLoggingApiKey = testApiKey
         }.build(),
         systemLogger = mockkRelaxedUnit(),
-        idStorageUseCase = mockkRelaxedUnit {
-            every { currentUserId } returns testUserId
+        trackUserUseCase = mockkRelaxedUnit {
+            every { currentOrNullUserId } returns testUserId
             every { currentLogUserId } returns testLogUserId
+            every { currentOrNullLogUserId } returns testLogUserId
         },
         NoOpXray()
     )
@@ -60,9 +61,10 @@ class FinalizeLogsUseCaseTest {
                 metricsLoggingWireFormat = ClientConfig.MetricsLoggingWireFormat.Binary
             }.build(),
             systemLogger = mockkRelaxedUnit(),
-            idStorageUseCase = mockkRelaxedUnit {
-                every { currentUserId } returns testUserId
+            trackUserUseCase = mockkRelaxedUnit {
+                every { currentOrNullUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
+                every { currentOrNullLogUserId } returns testLogUserId
             },
             NoOpXray()
         )
@@ -82,9 +84,10 @@ class FinalizeLogsUseCaseTest {
                 metricsLoggingWireFormat = ClientConfig.MetricsLoggingWireFormat.Json
             }.build(),
             systemLogger = mockkRelaxedUnit(),
-            idStorageUseCase = mockkRelaxedUnit {
-                every { currentUserId } returns testUserId
+            trackUserUseCase = mockkRelaxedUnit {
+                every { currentOrNullUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
+                every { currentOrNullLogUserId } returns testLogUserId
             },
             NoOpXray()
         )

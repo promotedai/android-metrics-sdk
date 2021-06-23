@@ -30,7 +30,7 @@ private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 internal class FinalizeLogsUseCase(
     config: ClientConfig,
     private val systemLogger: SystemLogger,
-    private val idStorageUseCase: CurrentUserIdsUseCase,
+    private val trackUserUseCase: TrackUserUseCase,
     private val xray: Xray
 ) {
     private val url = config.metricsLoggingUrl
@@ -60,8 +60,8 @@ internal class FinalizeLogsUseCase(
     private fun prepareLogs(logMessages: List<Message>): LogRequest {
         val logRequestBuilder = LogRequest.newBuilder()
         logRequestBuilder.userInfo = createUserInfoMessage(
-            userId = idStorageUseCase.currentUserId,
-            logUserId = idStorageUseCase.currentLogUserId
+            userId = trackUserUseCase.currentOrNullUserId,
+            logUserId = trackUserUseCase.currentOrNullLogUserId
         )
         logMessages.forEach { logRequestBuilder.addMessage(it) }
         return logRequestBuilder.build()

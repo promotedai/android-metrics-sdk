@@ -55,8 +55,8 @@ internal class TrackImpressionUseCase(
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
-            sessionId = sessionUseCase.sessionId,
-            viewId = viewUseCase.viewId
+            sessionId = sessionUseCase.sessionId.currentValueOrNull,
+            viewId = viewUseCase.viewId.currentValueOrNull
         )
 
         logger.enqueueMessage(
