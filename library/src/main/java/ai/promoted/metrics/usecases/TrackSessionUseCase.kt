@@ -45,7 +45,7 @@ internal class TrackSessionUseCase(
             return@monitored
         }
 
-        trackUserUseCase.setUserId(userId)
+        trackUserUseCase.setUserId(logger, userId)
 
         sessionId.advance()
         logSession()

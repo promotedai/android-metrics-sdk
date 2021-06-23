@@ -79,7 +79,7 @@ class TrackSessionUseCaseTest {
 
         // Then
         verify(exactly = 1) {
-            trackUserUseCase.setUserId(newUserId)
+            trackUserUseCase.setUserId(any(), newUserId)
         }
     }
 }
