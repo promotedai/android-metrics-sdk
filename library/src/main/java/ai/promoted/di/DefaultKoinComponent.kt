@@ -12,6 +12,7 @@ import ai.promoted.metrics.usecases.TrackCollectionsUseCase
 import ai.promoted.metrics.usecases.TrackImpressionUseCase
 import ai.promoted.metrics.usecases.TrackRecyclerViewUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
+import ai.promoted.metrics.usecases.TrackUserUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.platform.AndroidDeviceInfoProvider
 import ai.promoted.platform.Clock
@@ -56,6 +57,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
                 )
             }
             single { createMetricsLoggerForConfig() }
+            single { TrackUserUseCase(get(), get(), get(), get()) }
             single { TrackSessionUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackViewUseCase(get(), get(), get(), get(), get(), get(), get()) }
             single { TrackCollectionsUseCase(get(), get(), get(), get(), get(), get()) }
