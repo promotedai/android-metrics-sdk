@@ -2,6 +2,7 @@ package ai.promoted.xray
 
 import ai.promoted.platform.Clock
 import ai.promoted.platform.SystemLogger
+import ai.promoted.telemetry.Telemetry
 
 private const val TAG = "Xray"
 
@@ -11,7 +12,8 @@ private const val TAG = "Xray"
  */
 internal class DefaultXray(
     clock: Clock,
-    private val systemLogger: SystemLogger
+    private val systemLogger: SystemLogger,
+    private val telemetry: Telemetry
 ) : Xray {
     private val functionMonitor = FunctionMonitor(clock)
 
@@ -66,10 +68,9 @@ internal class DefaultXray(
     }
 
     private fun logMonitoredBlockError(blockTag: String, elapsedTime: Long, error: Throwable) {
-        systemLogger.e(
-            tag = TAG,
-            errorMessage = "$blockTag threw an exception after executing for " +
-                    "${elapsedTime}ms. Exception type: ${error::class.qualifiedName}"
-        )
+        val errorMessage = "$blockTag threw an exception after executing for " +
+                "${elapsedTime}ms. Exception type: ${error::class.qualifiedName}"
+        systemLogger.e(TAG, errorMessage)
+        telemetry.onError(errorMessage, error)
     }
 }

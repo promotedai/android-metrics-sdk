@@ -82,8 +82,9 @@ internal class MetricsLogger(
                 xray.monitoredSuspend { networkConnection.send(request) }
                 telemetry.onMetricsSent(originalMessages.size, request.bodyData.size)
             } catch (error: Throwable) {
+                // Swallow the exception because Xray will have reported it via Telemetry
+                // if Telemetry is being used
                 error.printStackTrace()
-                telemetry.onError(error)
             }
         }
     }

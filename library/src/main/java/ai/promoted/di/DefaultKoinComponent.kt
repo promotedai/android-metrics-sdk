@@ -94,7 +94,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
     private fun Scope.createXrayForConfig(): Xray {
         val config: ClientConfig = get()
-        return if (config.xrayEnabled) DefaultXray(get(), get())
+        return if (config.xrayEnabled) DefaultXray(get(), get(), get())
         else NoOpXray()
     }
 

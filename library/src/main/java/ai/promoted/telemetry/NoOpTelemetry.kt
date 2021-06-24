@@ -7,6 +7,7 @@ internal class NoOpTelemetry : Telemetry {
 
     }
 
-    override fun onError(error: Throwable) {
+    override fun onError(message: String, error: Throwable) {
+
     }
 }
