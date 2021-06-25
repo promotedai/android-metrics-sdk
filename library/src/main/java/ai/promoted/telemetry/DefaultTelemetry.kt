@@ -47,13 +47,13 @@ internal class DefaultTelemetry private constructor(
         @SuppressLint("MissingPermission")
         fun createInstanceIfAvailable(context: Context): DefaultTelemetry? {
             val hasAnalytics = getAnalyticsClass() != null
-            if(!hasAnalytics) return null
+            if (!hasAnalytics) return null
 
             // Crashlytics is optional
             val hasCrashlytics = getCrashlyticsClass() != null
 
             val analytics = FirebaseAnalytics.getInstance(context)
-            val crashlytics = if(hasCrashlytics) FirebaseCrashlytics.getInstance() else null
+            val crashlytics = if (hasCrashlytics) FirebaseCrashlytics.getInstance() else null
 
             return DefaultTelemetry(analytics, crashlytics)
         }
