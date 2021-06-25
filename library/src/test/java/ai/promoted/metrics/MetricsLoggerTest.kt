@@ -6,9 +6,11 @@ import ai.promoted.metrics.usecases.FinalizeLogsUseCase
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.event.Device
 import ai.promoted.proto.event.User
+import ai.promoted.telemetry.Telemetry
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.CapturingSlot
+import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.verify
@@ -22,14 +24,18 @@ class MetricsLoggerTest {
     private val connection = mockkRelaxedUnit<NetworkConnection>()
 
     private val finalizedMessages = CapturingSlot<List<Message>>()
+
+    private val testBodyDataSize = 100
     private val mockApiRequest = PromotedApiRequest(
         "",
         emptyMap(),
-        ByteArray(0)
+        ByteArray(testBodyDataSize)
     )
     private val finalizeUseCase = mockkRelaxedUnit<FinalizeLogsUseCase> {
         every { finalizeLogs(capture(finalizedMessages)) } returns mockApiRequest
     }
+
+    private val mockTelemetry = mockkRelaxedUnit<Telemetry>()
 
     private val testFlushIntervalMillis = 500L
     private val logger = MetricsLogger(
@@ -37,9 +43,7 @@ class MetricsLoggerTest {
         connection,
         finalizeUseCase,
         NoOpXray(),
-
-        // TODO - test telemetry interaction
-        mockkRelaxedUnit()
+        mockTelemetry
     )
 
     @Test
@@ -139,5 +143,42 @@ class MetricsLoggerTest {
         verify(exactly = 1) { finalizeUseCase.finalizeLogs(any()) }
         assertThat(finalizedMessages.captured.size, equalTo(1))
         assertThat(finalizedMessages.captured.first(), equalTo(userMessage2))
+    }
+
+    @Test
+    fun `Telemetry recorded after successful send`() = runBlocking {
+        // Given metrics were logged
+        val userMessage = User.newBuilder().build()
+        val deviceMessage = Device.newBuilder().build()
+        logger.enqueueMessage(userMessage)
+        logger.enqueueMessage(deviceMessage)
+
+        // When the batch was successfully sent
+        delay(testFlushIntervalMillis + 100)
+
+        // Then telemetry was notified
+        verify(exactly = 1) {
+            mockTelemetry.onMetricsSent(2, mockApiRequest.bodyData.size)
+        }
+    }
+
+    @Test
+    // Xray will globally handle passing any errors to Telemetry
+    fun `Telemetry not recorded after failed send`() = runBlocking {
+        // Given metrics were logged
+        val userMessage = User.newBuilder().build()
+        val deviceMessage = Device.newBuilder().build()
+        logger.enqueueMessage(userMessage)
+        logger.enqueueMessage(deviceMessage)
+        // and the connection will fail
+        coEvery { connection.send(any()) } throws Exception("Test failure")
+
+        // When we attempted to send the batch
+        delay(testFlushIntervalMillis + 100)
+
+        // Then telemetry was not notified
+        verify(exactly = 0) {
+            mockTelemetry.onMetricsSent(any(), any())
+        }
     }
 }
