@@ -5,8 +5,9 @@ import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.di.DefaultKoinComponent
 import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SystemClock
-import ai.promoted.telemetry.DefaultTelemetry
-import ai.promoted.telemetry.NoOpTelemetry
+import ai.promoted.telemetry.ClassFinder
+import ai.promoted.telemetry.Telemetry
+import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray
 import android.app.Application
 import android.content.Context
@@ -107,9 +108,7 @@ internal open class SdkManager internal constructor(
     private fun createOneOffXray(context: Context?) = DefaultXray(
         clock = SystemClock(),
         systemLogger = LogcatLogger(tag = "Xray", verbose = false),
-        telemetry = context?.let {
-            DefaultTelemetry.createInstanceIfAvailable(context)
-        } ?: NoOpTelemetry()
+        telemetry = Telemetry(context, TelemetryServiceFinder(ClassFinder()))
     )
 
     private fun runConfiguration(application: Application, config: ClientConfig) {

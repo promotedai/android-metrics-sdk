@@ -24,9 +24,9 @@ import ai.promoted.platform.SystemClock
 import ai.promoted.platform.SystemLogger
 import ai.promoted.sdk.DefaultSdk
 import ai.promoted.sdk.PromotedAiSdk
-import ai.promoted.telemetry.DefaultTelemetry
-import ai.promoted.telemetry.NoOpTelemetry
+import ai.promoted.telemetry.ClassFinder
 import ai.promoted.telemetry.Telemetry
+import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray
 import ai.promoted.xray.NoOpXray
 import ai.promoted.xray.Xray
@@ -67,7 +67,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
             single { createXrayForConfig() }
-            single { createTelemetryBasedOnAvailability() }
+            single { Telemetry(get(), get()) }
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
@@ -81,6 +81,8 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
             factory<Clock> { SystemClock() }
             factory<DeviceInfoProvider> { AndroidDeviceInfoProvider() }
+            factory { TelemetryServiceFinder(get()) }
+            factory { ClassFinder() }
         }
     )
 
@@ -97,9 +99,6 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         return if (config.xrayEnabled) DefaultXray(get(), get(), get())
         else NoOpXray()
     }
-
-    private fun Scope.createTelemetryBasedOnAvailability(): Telemetry =
-        DefaultTelemetry.createInstanceIfAvailable(get()) ?: NoOpTelemetry()
 
     private fun getPromotedAiPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences("ai.promoted.prefs", Context.MODE_PRIVATE)
