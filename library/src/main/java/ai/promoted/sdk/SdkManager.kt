@@ -5,8 +5,12 @@ import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.di.DefaultKoinComponent
 import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SystemClock
+import ai.promoted.telemetry.ClassFinder
+import ai.promoted.telemetry.Telemetry
+import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray
 import android.app.Application
+import android.content.Context
 import org.koin.core.component.get
 
 /**
@@ -98,12 +102,13 @@ internal open class SdkManager internal constructor(
         // Must construct our own local Xray instance since Koin will be managing the singleton/
         // library-wide instance, but we cannot rely on Koin since we are monitoring the Koin
         // configuration/startup itself
-        createOneOffXray().monitored { runConfiguration(application, config) }
+        createOneOffXray(application).monitored { runConfiguration(application, config) }
     }
 
-    private fun createOneOffXray() = DefaultXray(
+    private fun createOneOffXray(context: Context?) = DefaultXray(
         clock = SystemClock(),
-        systemLogger = LogcatLogger(tag = "Xray", verbose = false)
+        systemLogger = LogcatLogger(tag = "Xray", verbose = false),
+        telemetry = Telemetry(context, TelemetryServiceFinder(ClassFinder()))
     )
 
     private fun runConfiguration(application: Application, config: ClientConfig) {
@@ -132,9 +137,9 @@ internal open class SdkManager internal constructor(
      * state.
      */
     fun shutdown() {
-        if(sdkState !is SdkState.Ready) return
+        if (sdkState !is SdkState.Ready) return
         val config: ClientConfig = configurableKoinComponent.get()
-        if(config.xrayEnabled) createOneOffXray().monitored { runShutdown() }
+        if (config.xrayEnabled) createOneOffXray(null).monitored { runShutdown() }
         else runShutdown()
     }
 

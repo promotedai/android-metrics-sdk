@@ -3,6 +3,7 @@ package ai.promoted.metrics
 import ai.promoted.NetworkConnection
 import ai.promoted.PromotedApiRequest
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.telemetry.Telemetry
 import ai.promoted.xray.Xray
 import com.google.protobuf.Message
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +24,8 @@ internal class MetricsLogger(
     flushIntervalMillis: Long,
     private val networkConnection: NetworkConnection,
     private val finalizeLogsUseCase: FinalizeLogsUseCase,
-    private val xray: Xray
+    private val xray: Xray,
+    private val telemetry: Telemetry
 ) {
     private val networkConnectionScope = CoroutineScope(context = Dispatchers.IO)
 
@@ -66,17 +68,22 @@ internal class MetricsLogger(
 
         val request = finalizeLogsUseCase.finalizeLogs(logMessagesCopy)
 
-        trySend(request)
+        trySend(logMessagesCopy, request)
     }
 
-    // TODO - handle error
     @Suppress("TooGenericExceptionCaught")
-    private fun trySend(request: PromotedApiRequest) {
+    private fun trySend(
+        // For telemetry
+        originalMessages: List<Message>,
+        request: PromotedApiRequest
+    ) {
         networkConnectionScope.launch {
             try {
-                xray.monitoredSuspend {  networkConnection.send(request) }
+                xray.monitoredSuspend { networkConnection.send(request) }
+                telemetry.onMetricsSent(originalMessages.size, request.bodyData.size)
             } catch (error: Throwable) {
-                // TODO
+                // Swallow the exception because Xray will have reported it via Telemetry
+                // if Telemetry is being used
                 error.printStackTrace()
             }
         }
