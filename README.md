@@ -1,6 +1,6 @@
 # Promoted.ai Android Client Library
 [![release](https://github.com/promotedai/android-metrics-sdk/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/promotedai/android-metrics-sdk/actions/workflows/release.yml)
-![INSTRUCTION](https://img.shields.io/badge/instruction--coverage-75%25-yellow.svg)
+![INSTRUCTION](https://img.shields.io/badge/instruction--coverage-73%25-yellow.svg)
 
 Promoted.ai provides an Android logging library for integration with Android apps. This library contains the functionality required to track events in your Android app and deliver them efficiently to Promoted.ai backends.
 
