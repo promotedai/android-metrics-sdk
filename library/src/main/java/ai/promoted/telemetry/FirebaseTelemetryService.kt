@@ -15,17 +15,23 @@ internal class FirebaseTelemetryService(
      *
      * @see [TelemetryService.logEvent]
      */
-    override fun logEvent(name: String, params: Map<String, TelemetryService.ParamValue>) {
+    override fun logEvent(name: String, params: Map<String, String>) {
         analytics.logEvent(name) {
             params.forEach { entry ->
-                when (val paramValue = entry.value) {
-                    is TelemetryService.ParamValue.String -> param(entry.key, paramValue.rawValue)
-                    is TelemetryService.ParamValue.Integer ->
-                        param(entry.key, paramValue.rawValue.toLong())
-                    is TelemetryService.ParamValue.Boolean ->
-                        param(entry.key, paramValue.rawValue.toString())
-                }
+                param(entry.key, entry.value)
             }
+        }
+    }
+
+    /**
+     * Increment the [FirebaseAnalytics.Param.VALUE] of the event with the given name, by the given
+     * amount to add.
+     *
+     * @see [TelemetryService.addToEventValue]
+     */
+    override fun addToEventValue(name: String, amountToAdd: Int) {
+        analytics.logEvent(name) {
+            param(FirebaseAnalytics.Param.VALUE, amountToAdd.toLong())
         }
     }
 }

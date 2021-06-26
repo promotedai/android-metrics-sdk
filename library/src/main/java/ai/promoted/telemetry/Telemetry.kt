@@ -2,10 +2,9 @@ package ai.promoted.telemetry
 
 import android.content.Context
 
-private const val EVENT_METRICS_SENT = "metrics-sent"
-private const val PARAM_NUMBER_SENT = "number-sent"
-private const val PARAM_BYTES_SENT = "bytes-sent"
-private const val EVENT_ERROR_OCCURRED = "error"
+private const val EVENT_COUNT = "ai_promoted_event_count"
+private const val BYTES_SENT = "ai_promoted_bytes_sent"
+private const val EVENT_ERROR_OCCURRED = "ai_promoted_error"
 private const val PARAM_ERROR_MESSAGE = "error-message"
 private const val PARAM_ERROR_TYPE = "error-type"
 
@@ -26,13 +25,8 @@ internal class Telemetry(
      * To be called whenever a new batch of metrics has been sent to the Promoted server.
      */
     fun onMetricsSent(countSent: Int, bytesSent: Int) {
-        service.logEvent(
-            EVENT_METRICS_SENT,
-            mapOf(
-                PARAM_NUMBER_SENT to TelemetryService.ParamValue.Integer(countSent),
-                PARAM_BYTES_SENT to TelemetryService.ParamValue.Integer(bytesSent)
-            )
-        )
+        service.addToEventValue(EVENT_COUNT, countSent)
+        service.addToEventValue(BYTES_SENT, bytesSent)
     }
 
     /**
@@ -43,10 +37,8 @@ internal class Telemetry(
         service.logEvent(
             EVENT_ERROR_OCCURRED,
             mapOf(
-                PARAM_ERROR_MESSAGE to TelemetryService.ParamValue.String(message),
-                PARAM_ERROR_TYPE to TelemetryService.ParamValue.String(
-                    error::class.qualifiedName ?: "AnonymousClass"
-                )
+                PARAM_ERROR_MESSAGE to message,
+                PARAM_ERROR_TYPE to (error::class.qualifiedName ?: "AnonymousClass")
             )
         )
     }

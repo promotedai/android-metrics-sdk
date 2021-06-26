@@ -6,6 +6,9 @@ package ai.promoted.telemetry
 // All functions here will be empty
 @Suppress("EmptyFunctionBlock")
 internal class NoOpTelemetryService : TelemetryService {
-    override fun logEvent(name: String, params: Map<String, TelemetryService.ParamValue>) {
+    override fun logEvent(name: String, params: Map<String, String>) {
+    }
+
+    override fun addToEventValue(name: String, amountToAdd: Int) {
     }
 }

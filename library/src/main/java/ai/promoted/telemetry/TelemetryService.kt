@@ -5,17 +5,17 @@ package ai.promoted.telemetry
  */
 internal interface TelemetryService {
     /**
-     * A sealed type structure of supported parameter value types. This is to allow for
-     * service-generic providing of event parameters.
+     * Log an event with the given name and given parameters. Currently only supports parameter
+     * values that are strings.
      */
-    sealed class ParamValue {
-        data class Boolean(val rawValue: kotlin.Boolean) : ParamValue()
-        data class Integer(val rawValue: Int) : ParamValue()
-        data class String(val rawValue: kotlin.String) : ParamValue()
-    }
+    fun logEvent(name: String, params: Map<String, String> = emptyMap())
 
     /**
-     * Log an event with the given name and given parameters
+     * A specialized function for (where supported) incrementing the server-side-tracked sum of
+     * some event's value, as opposed to just logging a single event w/ parameters.
+     *
+     * For example, if you want to keep a running sum of total bytes sent by an app, this function
+     * is intended to allow you to add to that sum by the integer you provide.
      */
-    fun logEvent(name: String, params: Map<String, ParamValue> = emptyMap())
+    fun addToEventValue(name: String, amountToAdd: Int)
 }
