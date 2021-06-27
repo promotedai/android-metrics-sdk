@@ -1,5 +1,6 @@
 package ai.promoted.telemetry
 
+import ai.promoted.runtime.ClassFinder
 import android.annotation.SuppressLint
 import android.content.Context
 import com.google.firebase.analytics.FirebaseAnalytics
