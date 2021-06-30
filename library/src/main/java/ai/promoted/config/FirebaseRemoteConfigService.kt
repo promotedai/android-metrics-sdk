@@ -47,11 +47,13 @@ internal class FirebaseRemoteConfigService(
 
     /**
      * Asynchronously updates the [RemoteConfig] to reflect the latest values from the server.
+     *
+     * This will honor the default fetch interval for Firebase remote config, so changes may not
+     * be received immediately if it is sooner than the default (12 hour) interval.
      */
     override fun fetchLatestConfigValues() {
         firebaseRemoteConfig
-            // Ensures the latest config is always fetched & stored immediately
-            .fetch(0)
+            .fetch()
             .addOnCompleteListener {
                 firebaseRemoteConfig.activate()
             }
