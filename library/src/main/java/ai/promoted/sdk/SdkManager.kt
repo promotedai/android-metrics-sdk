@@ -1,11 +1,12 @@
 package ai.promoted.sdk
 
 import ai.promoted.ClientConfig
+import ai.promoted.config.RemoteConfigServiceFinder
 import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.di.DefaultKoinComponent
 import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SystemClock
-import ai.promoted.telemetry.ClassFinder
+import ai.promoted.runtime.ClassFinder
 import ai.promoted.telemetry.Telemetry
 import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray
@@ -23,6 +24,9 @@ import org.koin.core.component.get
  * garbage collection.
  */
 internal open class SdkManager internal constructor(
+    private val updatedConfigUseCase: UpdateClientConfigUseCase = UpdateClientConfigUseCase(
+        RemoteConfigServiceFinder(ClassFinder())
+    ),
     private val configurableKoinComponent: ConfigurableKoinComponent = DefaultKoinComponent
 ) {
     internal sealed class SdkState {
@@ -88,7 +92,10 @@ internal open class SdkManager internal constructor(
 
     /**
      * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls
-     * after the initial call will simply reconfigure & restart Promoted.Ai
+     * after the initial call will simply reconfigure & restart Promoted.Ai.
+     *
+     * Note: Any values in this [ClientConfig] will still be overwritten by values that may exist
+     * as part of the latest-cached [RemoteConfig]
      */
     fun configure(application: Application, config: ClientConfig) =
         if (config.xrayEnabled) monitoredConfiguration(application, config)
@@ -111,20 +118,23 @@ internal open class SdkManager internal constructor(
         telemetry = Telemetry(context, TelemetryServiceFinder(ClassFinder()))
     )
 
-    private fun runConfiguration(application: Application, config: ClientConfig) {
+    private fun runConfiguration(application: Application, baselineConfig: ClientConfig) {
         // Shut down the current PromotedAi instance, if there is one running / we're in a ready
         // state
         when (val currentState = sdkState) {
             is SdkState.Ready -> currentState.sdk.shutdown()
         }
 
+        // Get the latest config w/ any cached remote-config values applied on top
+        val updatedConfig = updatedConfigUseCase.updateClientConfig(baselineConfig)
+
         // Reconfigure Koin to provide dependencies based on the current ClientConfig
-        configurableKoinComponent.configure(application, config)
+        configurableKoinComponent.configure(application, updatedConfig)
 
         // Regardless of what PromotedAi type Koin might return, we'll always override that with a
         // no-op version if logging is disabled via config. This is to prevent such critical
         // business logic from residing in the DI configuration
-        val newPromotedAi: PromotedAiSdk = when (config.loggingEnabled) {
+        val newPromotedAi: PromotedAiSdk = when (updatedConfig.loggingEnabled) {
             true -> configurableKoinComponent.get()
             else -> NoOpSdk()
         }

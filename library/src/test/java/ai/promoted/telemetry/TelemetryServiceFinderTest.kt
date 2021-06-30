@@ -1,5 +1,6 @@
 package ai.promoted.telemetry
 
+import ai.promoted.runtime.ClassFinder
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.mockk.every
 import io.mockk.mockk

@@ -22,9 +22,9 @@ import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SharedPrefsKeyValueStorage
 import ai.promoted.platform.SystemClock
 import ai.promoted.platform.SystemLogger
+import ai.promoted.runtime.ClassFinder
 import ai.promoted.sdk.DefaultSdk
 import ai.promoted.sdk.PromotedAiSdk
-import ai.promoted.telemetry.ClassFinder
 import ai.promoted.telemetry.Telemetry
 import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray

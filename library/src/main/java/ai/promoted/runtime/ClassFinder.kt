@@ -1,4 +1,4 @@
-package ai.promoted.telemetry
+package ai.promoted.runtime
 
 /**
  * Simple wrapper around [Class.forName] for safety and testability

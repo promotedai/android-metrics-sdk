@@ -1,11 +1,14 @@
 package ai.promoted
 
+import ai.promoted.config.NoOpRemoteConfigService
 import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.sdk.NoOpSdk
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
+import ai.promoted.sdk.UpdateClientConfigUseCase
 import android.app.Application
 import io.mockk.called
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.CoreMatchers.instanceOf
@@ -18,6 +21,13 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 class PromotedAiManagerTest {
+    // Ensure RemoteConfig is treated as no-op; otherwise it might exist on the testing classpath
+    // and result in actual attempts to access FirebaseRemoteConfig from the testing environment.
+    private val updatedConfigUseCase: UpdateClientConfigUseCase = UpdateClientConfigUseCase(
+        remoteConfigServiceFinder = mockk {
+            every { findAvailableService() } returns NoOpRemoteConfigService()
+        }
+    )
     private val application: Application = mockk()
 
     // Using this to ensure no Koin instances are living longer than each test
@@ -29,13 +39,13 @@ class PromotedAiManagerTest {
     @Test
     fun `Uses no-op if initialize() or configure() not called`() {
         // Given a default PromotedAiManager (using prod/runtime Koin and everything)
-        val manager = object : SdkManager(){}
+        val manager = object : SdkManager(updatedConfigUseCase) {}
 
         // When we access the instance
         // or try to call some function on the default PromotedAi interface
         // Then the PromotedAi instance is a NoOp
         assertThat(manager.sdkInstance, instanceOf(NoOpSdk::class.java))
-        PromotedAi.startSession()
+        manager.sdkInstance.startSession()
         assertThat(manager.sdkInstance, instanceOf(NoOpSdk::class.java))
     }
 
@@ -47,17 +57,20 @@ class PromotedAiManagerTest {
         var creationCount = 0
         val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
-        val manager = object : SdkManager(object : ConfigurableKoinComponent() {
-            override fun buildModules(config: ClientConfig): List<Module> = listOf(
-                module {
-                    factory<PromotedAiSdk> {
-                        creationCount++
-                        if (creationCount == 1) firstPromotedAi
-                        else secondPromotedAi
+        val manager = object : SdkManager(
+            updatedConfigUseCase = updatedConfigUseCase,
+            configurableKoinComponent = object : ConfigurableKoinComponent() {
+                override fun buildModules(config: ClientConfig): List<Module> = listOf(
+                    module {
+                        factory<PromotedAiSdk> {
+                            creationCount++
+                            if (creationCount == 1) firstPromotedAi
+                            else secondPromotedAi
+                        }
                     }
-                }
-            )
-        }) {}
+                )
+            }
+        ) {}
         manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured to disable logging
@@ -79,17 +92,20 @@ class PromotedAiManagerTest {
         var creationCount = 0
         val firstPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
         val secondPromotedAi: PromotedAiSdk = mockk(relaxUnitFun = true)
-        val manager = object : SdkManager(object : ConfigurableKoinComponent() {
-            override fun buildModules(config: ClientConfig): List<Module> = listOf(
-                module {
-                    factory<PromotedAiSdk> {
-                        creationCount++
-                        if (creationCount == 1) firstPromotedAi
-                        else secondPromotedAi
+        val manager = object : SdkManager(
+            updatedConfigUseCase = updatedConfigUseCase,
+            configurableKoinComponent = object : ConfigurableKoinComponent() {
+                override fun buildModules(config: ClientConfig): List<Module> = listOf(
+                    module {
+                        factory<PromotedAiSdk> {
+                            creationCount++
+                            if (creationCount == 1) firstPromotedAi
+                            else secondPromotedAi
+                        }
                     }
-                }
-            )
-        }) {}
+                )
+            }
+        ) {}
         manager.configure(application) { loggingEnabled = true }
 
         // When it is re-configured
@@ -114,7 +130,10 @@ class PromotedAiManagerTest {
                 }
             )
         }
-        val manager = object : SdkManager(koin) {}
+        val manager = object : SdkManager(
+            updatedConfigUseCase = updatedConfigUseCase,
+            configurableKoinComponent = koin
+        ) {}
         manager.configure(application) { loggingEnabled = true }
 
         // When it is shut down
