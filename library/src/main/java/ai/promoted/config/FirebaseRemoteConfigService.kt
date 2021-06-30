@@ -6,11 +6,11 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue
 import com.google.firebase.remoteconfig.ktx.get
 
 private const val LOGGING_ENABLED = "ai_promoted_logging_enabled"
-private const val API_URL = "ai_promoted_logging_url"
-private const val API_KEY = "ai_promoted_logging_key"
-private const val USE_JSON = "ai_promoted_wire_json"
-private const val FLUSH_INTERVAL = "ai_promoted_flush_interval"
-private const val XRAY_ENABLED = "ai_promoted_xray_enabled"
+private const val API_URL = "ai_promoted_metrics_logging_url"
+private const val API_KEY = "ai_promoted_metrics_logging_key"
+private const val WIRE_FORMAT = "ai_promoted_metrics_logging_wire_format"
+private const val FLUSH_INTERVAL = "ai_promoted_logging_flush_interval"
+private const val XRAY_LEVEL = "ai_promoted_xray_level"
 
 /**
  * Implementation of [RemoteConfigService] that uses [FirebaseRemoteConfig] to provide the
@@ -30,17 +30,10 @@ internal class FirebaseRemoteConfigService(
                 firebaseRemoteConfig[API_URL].asNonEmptyStringOrNull()
             val apiKey =
                 firebaseRemoteConfig[API_KEY].asNonEmptyStringOrNull()
-            val useJson =
-                firebaseRemoteConfig[USE_JSON].asBooleanOrNull()
-            val wireFormat = when (useJson) {
-                null -> null
-                true -> ClientConfig.MetricsLoggingWireFormat.Json
-                false -> ClientConfig.MetricsLoggingWireFormat.Binary
-            }
+            val wireFormat = firebaseRemoteConfig.getWireFormatOrNull()
             val flushInterval =
                 firebaseRemoteConfig[FLUSH_INTERVAL].asLongOrNull()
-            val xrayEnabled =
-                firebaseRemoteConfig[XRAY_ENABLED].asBooleanOrNull()
+            val xrayEnabled = firebaseRemoteConfig.getXrayEnabledOrNull()
 
             return RemoteConfig(
                 loggingEnabled,
@@ -63,6 +56,32 @@ internal class FirebaseRemoteConfigService(
                 firebaseRemoteConfig.activate()
             }
     }
+
+    /**
+     * Attempt to parse the binary or JSON enums. Any other value (null or an unsupported value)
+     * will fall back to null so that the compiled [ClientConfig.metricsLoggingWireFormat] is used.
+     */
+    private fun FirebaseRemoteConfig.getWireFormatOrNull(): ClientConfig.MetricsLoggingWireFormat? =
+        when (this[WIRE_FORMAT].asNonEmptyStringOrNull()) {
+            "json" -> ClientConfig.MetricsLoggingWireFormat.Json
+            "binary" -> ClientConfig.MetricsLoggingWireFormat.Binary
+            else -> null
+        }
+
+    /**
+     * Attempt to parse the Xray level enums. Currently, all enum values beside "none" will return
+     * a true (Android only supports on or off, rather than levels). Any other string value outside
+     * of the enums (or an empty, or a null string) will return null.
+     */
+    private fun FirebaseRemoteConfig.getXrayEnabledOrNull(): Boolean? =
+        when (this[XRAY_LEVEL].asNonEmptyStringOrNull()) {
+            "none" -> false
+            "error",
+            "warning",
+            "info",
+            "debug" -> true
+            else -> null
+        }
 
     /**
      * Firebase will intelligently try to convert strings to booleans based on their own logic,
