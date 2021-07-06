@@ -1,11 +1,11 @@
 package ai.promoted
 
+import ai.promoted.proto.event.ActionType
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * An activity representing a single Restaurant detail screen. This
@@ -20,9 +20,13 @@ class RestaurantDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_restaurant_detail)
         setSupportActionBar(findViewById(R.id.detail_toolbar))
 
+        val itemId = intent.getStringExtra(RestaurantDetailFragment.ARG_ITEM_ID)
+
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            // Notify Promoted that an action occurred
+            PromotedAi.onAction("locate-item", ActionType.CUSTOM_ACTION_TYPE) {
+                insertionId = itemId
+            }
         }
 
         // Show the Up button in the action bar.
@@ -44,7 +48,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply {
                     putString(
                         RestaurantDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(RestaurantDetailFragment.ARG_ITEM_ID)
+                        itemId
                     )
                 }
             }

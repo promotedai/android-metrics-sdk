@@ -68,6 +68,7 @@ class RestaurantListActivity : AppCompatActivity() {
             }
         ) {
             percentageThreshold = 50.0
+            // Uncomment to give a time threshold for impressions
 //            timeThresholdMillis = 3000L
         }
     }
@@ -99,8 +100,8 @@ class RestaurantListActivity : AppCompatActivity() {
             }
 
             // Notify Promoted that an action occurred
-            PromotedAi.onAction("click-item-${item.id}", ActionType.CUSTOM_ACTION_TYPE) {
-                insertionId = "click-item-insertion-${item.id}"
+            PromotedAi.onAction("open-restaurant", ActionType.CUSTOM_ACTION_TYPE) {
+                insertionId = item.id
             }
         }
 
