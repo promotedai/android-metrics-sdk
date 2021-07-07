@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -113,7 +114,10 @@ class RestaurantListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.idView.text = item.id
+            holder.imageView.setImageResource(item.image)
+            holder.nameView.text = item.name
+            holder.priceView.text = item.price
+            holder.ratingView.text = item.rating
 
             with(holder.itemView) {
                 tag = item
@@ -124,7 +128,10 @@ class RestaurantListActivity : AppCompatActivity() {
         override fun getItemCount() = values.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val idView: TextView = view.findViewById(R.id.id_text)
+            val imageView: ImageView = view.findViewById(R.id.image)
+            val nameView: TextView = view.findViewById(R.id.id_text)
+            val priceView: TextView = view.findViewById(R.id.price)
+            val ratingView: TextView = view.findViewById(R.id.rating)
         }
     }
 }

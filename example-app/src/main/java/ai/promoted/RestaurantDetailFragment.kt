@@ -32,7 +32,7 @@ class RestaurantDetailFragment : Fragment() {
                 // to load content from a content provider.
                 item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
                 activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
-                    item?.content
+                    item?.name
             }
         }
     }
@@ -45,7 +45,7 @@ class RestaurantDetailFragment : Fragment() {
 
         // Show the dummy content as text in a TextView.
         item?.let {
-            rootView.findViewById<TextView>(R.id.restaurant_detail).text = it.details
+            rootView.findViewById<TextView>(R.id.restaurant_detail).text = it.price
         }
 
         return rootView

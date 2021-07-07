@@ -1,8 +1,41 @@
 package ai.promoted.dummy
 
+import ai.promoted.R
 import java.util.*
 
 object DummyContent {
+
+    private val names = listOf(
+        "Ra-Ra Ramen",
+        "Oodles of Noodles",
+        "Not Your Instant Cup",
+        "Posh Pork Belly",
+        "Broth Bros."
+    )
+    
+    private val prices = listOf(
+        "$$$",
+        "$$",
+        "$$$",
+        "$$$$",
+        "$$"
+    )
+    
+    private val ratings = listOf(
+        "4.5",
+        "4.2",
+        "4.7",
+        "4.9",
+        "4.1"
+    )
+    
+    private val images = listOf(
+        R.drawable.ramen_1,
+        R.drawable.ramen_2,
+        R.drawable.ramen_3,
+        R.drawable.ramen_4,
+        R.drawable.ramen_5
+    )
 
     /**
      * An array of sample (dummy) items.
@@ -18,8 +51,8 @@ object DummyContent {
 
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
+        repeat(COUNT) {
+            addItem(createDummyItem(it))
         }
     }
 
@@ -29,22 +62,46 @@ object DummyContent {
     }
 
     private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "Item " + position, makeDetails(position))
-    }
-
-    private fun makeDetails(position: Int): String {
-        val builder = StringBuilder()
-        builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
+        val name = when(position) {
+            in 0..names.lastIndex -> names[position]
+            else -> "Restaurant #${position + 1}"
         }
-        return builder.toString()
+
+        val price = when(position) {
+            in 0..prices.lastIndex -> prices[position]
+            in prices.size until COUNT -> prices[position % prices.size]
+            else -> "$$"
+        }
+
+        val ratingNumberString = when(position) {
+            in 0..ratings.lastIndex -> ratings[position]
+            in ratings.size until COUNT -> ratings[position % ratings.size]
+            else -> "5.0"
+        }
+
+        val image = when(position) {
+            in 0..images.lastIndex -> images[position]
+            in images.size until COUNT -> images[position % images.size]
+            else -> R.drawable.welcome_bg
+        }
+
+        return DummyItem(
+            id = "$position",
+            name = name,
+            price = price,
+            rating = "\u2b50 $ratingNumberString",
+            image = image
+        )
     }
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
-    }
+    data class DummyItem(
+        val id: String,
+        val name: String,
+        val price: String,
+        val rating: String,
+        val image: Int
+    )
 }
