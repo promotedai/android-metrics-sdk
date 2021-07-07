@@ -2,4 +2,7 @@
     <string name="app_name">Promoted.Ai</string>
     <string name="title_restaurant_list">Nearby Ramen</string>
     <string name="title_restaurant_detail">Ramen Detail</string>
+    <string name="description_filler">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nPurus non enim praesent elementum facilisis leo vel fringilla. Magna sit amet purus gravida quis blandit. Interdum varius sit amet mattis vulputate enim nulla.
+    </string>
 </resources>

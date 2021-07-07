@@ -1,9 +1,11 @@
 package ai.promoted
 
+import ai.promoted.dummy.DummyContent
 import ai.promoted.proto.event.ActionType
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -21,6 +23,10 @@ class RestaurantDetailActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.detail_toolbar))
 
         val itemId = intent.getStringExtra(RestaurantDetailFragment.ARG_ITEM_ID)
+        val item = DummyContent.ITEM_MAP[itemId]
+        item?.let {
+            findViewById<ImageView>(R.id.image).setImageResource(item.image)
+        }
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             // Notify Promoted that an action occurred
