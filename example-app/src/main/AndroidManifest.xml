@@ -14,7 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PromotedAi">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".RestaurantListActivity"
+            android:label="@string/title_restaurant_list"
+            android:theme="@style/Theme.PromotedAi.NoActionBar" />
+        <activity
+            android:name=".RestaurantDetailActivity"
+            android:label="@string/title_restaurant_detail"
+            android:parentActivityName=".RestaurantListActivity"
+            android:theme="@style/Theme.PromotedAi.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ai.promoted.RestaurantListActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.PromotedAi.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
