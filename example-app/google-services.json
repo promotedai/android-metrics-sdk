@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "32459308660",
+    "project_id": "promotedaimetrics",
+    "storage_bucket": "promotedaimetrics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32459308660:android:d701b87cfa1a7fefa81b21",
+        "android_client_info": {
+          "package_name": "ai.promoted"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32459308660-ic1dtct04fg1h2jegt6aqdrffpl58hgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5k0gKixi9H3o7_ZXJ9oVAqn16kBnjqDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32459308660-ic1dtct04fg1h2jegt6aqdrffpl58hgv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "32459308660-a2gflu17p7ohj1hm7virb501uohq26lp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ai.promoted.HipcampMetrics"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,8 +22,11 @@ import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SharedPrefsKeyValueStorage
 import ai.promoted.platform.SystemClock
 import ai.promoted.platform.SystemLogger
+import ai.promoted.runtime.ClassFinder
 import ai.promoted.sdk.DefaultSdk
 import ai.promoted.sdk.PromotedAiSdk
+import ai.promoted.telemetry.Telemetry
+import ai.promoted.telemetry.TelemetryServiceFinder
 import ai.promoted.xray.DefaultXray
 import ai.promoted.xray.NoOpXray
 import ai.promoted.xray.Xray
@@ -64,6 +67,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
             single { createXrayForConfig() }
+            single { Telemetry(get(), get()) }
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
@@ -77,6 +81,8 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
             factory<Clock> { SystemClock() }
             factory<DeviceInfoProvider> { AndroidDeviceInfoProvider() }
+            factory { TelemetryServiceFinder(get()) }
+            factory { ClassFinder() }
         }
     )
 
@@ -85,12 +91,12 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         val flushIntervalMillis =
             TimeUnit.SECONDS.toMillis(config.loggingFlushIntervalSeconds)
         val networkConnection = config.networkConnectionProvider()
-        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get())
+        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get(), get())
     }
 
     private fun Scope.createXrayForConfig(): Xray {
         val config: ClientConfig = get()
-        return if (config.xrayEnabled) DefaultXray(get(), get())
+        return if (config.xrayEnabled) DefaultXray(get(), get(), get())
         else NoOpXray()
     }
 

@@ -8,7 +8,7 @@ plugins {
 }
 
 ext {
-    version = "0.1.6"
+    version = "0.2.0"
     PUBLISH_GROUP_ID = 'ai.promoted'
     PUBLISH_VERSION = version
     PUBLISH_ARTIFACT_ID = 'android-metrics-sdk'
@@ -81,9 +81,20 @@ dependencies {
     // Exclude this if providing custom network stack
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
+    // Optional Promoted add-ons
+    compileOnly platform('com.google.firebase:firebase-bom:28.1.0')
+    compileOnly 'com.google.firebase:firebase-analytics-ktx'
+    compileOnly 'com.google.firebase:firebase-config-ktx'
+
     testImplementation 'junit:junit:4.+'
     testImplementation "io.mockk:mockk:1.11.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+
+    // Make sure the optional Promoted add-ons are included when tests run
+    testImplementation platform('com.google.firebase:firebase-bom:28.1.0')
+    testImplementation 'com.google.firebase:firebase-analytics-ktx'
+    testImplementation 'com.google.firebase:firebase-config-ktx'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
