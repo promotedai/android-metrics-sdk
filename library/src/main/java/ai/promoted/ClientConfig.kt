@@ -42,6 +42,12 @@ data class ClientConfig(
     val xrayEnabled: Boolean,
 
     /**
+     * A function which provides the current view's ID according to the app's analytics library
+     * (e.g. Segment)
+     */
+    val platformViewIdProvider: () -> String,
+
+    /**
      * A function which provides the [NetworkConnection] to be used when sending metrics.
      * Promoted.Ai will provide a default implementation unless a custom one is provided by the
      * library user.
@@ -79,6 +85,10 @@ data class ClientConfig(
          */
         var xrayEnabled: Boolean = false,
         /**
+         * @see [ClientConfig.platformViewIdProvider]
+         */
+        var platformViewIdProvider: () -> String,
+        /**
          * @see [ClientConfig.networkConnectionProvider]
          */
         var networkConnectionProvider: () -> NetworkConnection = {
@@ -97,6 +107,7 @@ data class ClientConfig(
             metricsLoggingWireFormat,
             loggingFlushIntervalSeconds,
             xrayEnabled,
+            platformViewIdProvider,
             networkConnectionProvider
         )
     }

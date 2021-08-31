@@ -84,7 +84,7 @@ class TrackViewUseCaseTest {
     }
 
     @Test
-    fun `View is logged after start view becomes v isible`() {
+    fun `View is logged after start view becomes visible`() {
         // When a view becomes visible
         useCase.onViewVisible("view-key")
 
