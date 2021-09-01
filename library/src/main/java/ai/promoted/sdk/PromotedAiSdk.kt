@@ -18,7 +18,11 @@ internal interface PromotedAiSdk {
     var viewId: String
 
     fun startSession(userId: String = "")
+
+    @Deprecated("View logging is now automatic")
     fun onViewVisible(key: String)
+
+    fun logView(viewId: String)
 
     fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)

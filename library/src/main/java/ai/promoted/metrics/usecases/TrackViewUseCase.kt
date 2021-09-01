@@ -44,10 +44,11 @@ internal class TrackViewUseCase(
      * If needed (if this [key] is different than the last visible key), generates a new view ID.
      * Then logs a view message via [MetricsLogger].
      */
+    @Deprecated("View logging is now automatic")
     fun onViewVisible(key: String) = xray.monitored {
         if(viewId.isOverridden) {
-            systemLogger.e(IllegalStateException("Attempted to start a new session after " +
-                    "overriding session ID"))
+            systemLogger.e(IllegalStateException("Attempted to log a new view after " +
+                    "overriding view ID"))
             return@monitored
         }
 
@@ -62,6 +63,19 @@ internal class TrackViewUseCase(
                 viewId = viewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key,
+                deviceMessage = deviceMessage
+            )
+        )
+    }
+
+    fun logView(viewId: String) {
+        this.viewId.override(viewId)
+        logger.enqueueMessage(
+            createViewMessage(
+                clock = clock,
+                viewId = viewId,
+                sessionId = sessionUseCase.sessionId.currentValueOrNull,
+                name = viewId,
                 deviceMessage = deviceMessage
             )
         )
