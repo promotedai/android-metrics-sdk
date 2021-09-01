@@ -87,7 +87,10 @@ data class ClientConfig(
         /**
          * @see [ClientConfig.platformViewIdProvider]
          */
-        var platformViewIdProvider: () -> String,
+        var platformViewIdProvider: () -> String = {
+            // TODO
+            ""
+        },
         /**
          * @see [ClientConfig.networkConnectionProvider]
          */
