@@ -69,6 +69,8 @@ internal class TrackViewUseCase(
     }
 
     fun logView(viewId: String) {
+        // We don't actually need this overridden per se, but what it will do is prevent any
+        // further usage of onViewVisible, so as to avoid conflicts of view ID strategy
         this.viewId.override(viewId)
         logger.enqueueMessage(
             createViewMessage(

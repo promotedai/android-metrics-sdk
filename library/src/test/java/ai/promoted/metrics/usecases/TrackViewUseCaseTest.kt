@@ -93,4 +93,15 @@ class TrackViewUseCaseTest {
             logger.enqueueMessage(ofType(View::class))
         }
     }
+
+    @Test
+    fun `View ID is logged after logView`() {
+        // When logView is called
+        useCase.logView("the-view-id")
+
+        // Then
+        verify(exactly = 1) {
+            logger.enqueueMessage(ofType(View::class))
+        }
+    }
 }
