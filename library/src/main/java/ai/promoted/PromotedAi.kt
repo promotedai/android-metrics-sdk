@@ -92,6 +92,12 @@ object PromotedAi {
     fun onViewVisible(key: String) = sdk.onViewVisible(key)
 
     /**
+     * @see [PromotedAiSdk.logView]
+     */
+    @JvmStatic
+    fun logView(viewId: String) = sdk.logView(viewId)
+
+    /**
      * @see [PromotedAiSdk.onImpression]
      */
     @JvmStatic

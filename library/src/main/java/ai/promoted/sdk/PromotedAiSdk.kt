@@ -18,7 +18,10 @@ internal interface PromotedAiSdk {
     var viewId: String
 
     fun startSession(userId: String = "")
+
     fun onViewVisible(key: String)
+
+    fun logView(viewId: String)
 
     fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)

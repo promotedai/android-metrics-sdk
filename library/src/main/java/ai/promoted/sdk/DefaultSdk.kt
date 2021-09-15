@@ -45,7 +45,10 @@ internal class DefaultSdk(
         set(value) = trackViewUseCase.viewId.override(value)
 
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
+
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
+
+    override fun logView(viewId: String) = trackViewUseCase.logView(viewId)
 
     override fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit) =
         trackImpressionUseCase.onImpression(dataBlock)
