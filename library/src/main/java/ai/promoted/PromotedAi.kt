@@ -88,7 +88,6 @@ object PromotedAi {
     /**
      * @see [PromotedAiSdk.onViewVisible]
      */
-    @Deprecated("View logging is now automatic")
     @JvmStatic
     fun onViewVisible(key: String) = sdk.onViewVisible(key)
 
