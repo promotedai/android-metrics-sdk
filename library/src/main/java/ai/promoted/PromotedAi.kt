@@ -3,6 +3,7 @@ package ai.promoted
 import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
+import android.app.Activity
 import android.app.Application
 import androidx.recyclerview.widget.RecyclerView
 
@@ -118,10 +119,11 @@ object PromotedAi {
      */
     @JvmStatic
     fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null
-    ) = sdk.onAction(name, type, dataBlock)
+    ) = sdk.onAction(sourceActivity, name, type, dataBlock)
 
     /**
      * @see [PromotedAiSdk.onAction]

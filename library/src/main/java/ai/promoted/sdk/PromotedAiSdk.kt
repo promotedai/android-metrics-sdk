@@ -5,6 +5,7 @@ import ai.promoted.ActionData
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -27,6 +28,7 @@ internal interface PromotedAiSdk {
     fun onImpression(data: ImpressionData)
 
     fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null

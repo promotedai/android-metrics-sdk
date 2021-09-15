@@ -50,9 +50,10 @@ class DefaultSdkTest {
         val dataBlock: ActionData.Builder.() -> Unit = {
             insertionId = "insertion-id"
         }
-        sdk.onAction("action-name", ActionType.CUSTOM_ACTION_TYPE, dataBlock)
+        sdk.onAction(null, "action-name", ActionType.CUSTOM_ACTION_TYPE, dataBlock)
         verify(exactly = 1) {
             actionUseCase.onAction(
+                any(),
                 "action-name",
                 ActionType.CUSTOM_ACTION_TYPE,
                 dataBlock
@@ -64,7 +65,7 @@ class DefaultSdkTest {
     fun onActionWithData() {
         val data = ActionData.Builder().apply {
             insertionId = "insertion-id"
-        }.build()
+        }.build(null)
 
         sdk.onAction("action-name", ActionType.CUSTOM_ACTION_TYPE, data)
         verify(exactly = 1) {

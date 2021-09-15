@@ -14,6 +14,7 @@ import ai.promoted.metrics.usecases.TrackUserUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.Xray
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -56,10 +57,11 @@ internal class DefaultSdk(
     override fun onImpression(data: ImpressionData) = trackImpressionUseCase.onImpression(data)
 
     override fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
-    ) = trackActionUseCase.onAction(name, type, dataBlock)
+    ) = trackActionUseCase.onAction(sourceActivity, name, type, dataBlock)
 
     override fun onAction(name: String, type: ActionType, data: ActionData) =
         trackActionUseCase.onAction(name, type, data)

@@ -5,6 +5,7 @@ import ai.promoted.ActionData
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -30,6 +31,7 @@ internal class NoOpSdk : PromotedAiSdk {
     }
 
     override fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
