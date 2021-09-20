@@ -80,21 +80,21 @@ class DefaultSdkTest {
     @Test
     fun onCollectionVisible() {
         val collection = listOf(AbstractContent.Content("1"), AbstractContent.Content("2"))
-        sdk.onCollectionVisible("collection-key", collection)
-        verify(exactly = 1) { impressionUseCase.onCollectionVisible("collection-key", collection) }
+        sdk.onCollectionVisible(null, "collection-key", collection)
+        verify(exactly = 1) { impressionUseCase.onCollectionVisible(any(), "collection-key", collection) }
     }
 
     @Test
     fun onCollectionUpdated() {
         val collection = listOf(AbstractContent.Content("1"), AbstractContent.Content("2"))
-        sdk.onCollectionUpdated("collection-key", collection)
-        verify(exactly = 1) { impressionUseCase.onCollectionUpdated("collection-key", collection) }
+        sdk.onCollectionUpdated(null, "collection-key", collection)
+        verify(exactly = 1) { impressionUseCase.onCollectionUpdated(any(), "collection-key", collection) }
     }
 
     @Test
     fun onCollectionHidden() {
-        sdk.onCollectionHidden("collection-key")
-        verify(exactly = 1) { impressionUseCase.onCollectionHidden("collection-key") }
+        sdk.onCollectionHidden(null, "collection-key")
+        verify(exactly = 1) { impressionUseCase.onCollectionHidden(any(), "collection-key") }
     }
 
     @Test

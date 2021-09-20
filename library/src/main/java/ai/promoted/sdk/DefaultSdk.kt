@@ -51,8 +51,10 @@ internal class DefaultSdk(
 
     override fun logView(viewId: String) = trackViewUseCase.logView(viewId)
 
-    override fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit) =
-        trackImpressionUseCase.onImpression(dataBlock)
+    override fun onImpression(
+        sourceActivity: Activity?,
+        dataBlock: ImpressionData.Builder.() -> Unit
+    ) = trackImpressionUseCase.onImpression(sourceActivity, dataBlock)
 
     override fun onImpression(data: ImpressionData) = trackImpressionUseCase.onImpression(data)
 
@@ -66,14 +68,20 @@ internal class DefaultSdk(
     override fun onAction(name: String, type: ActionType, data: ActionData) =
         trackActionUseCase.onAction(name, type, data)
 
-    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
-        trackCollectionsUseCase.onCollectionVisible(collectionViewKey, content)
+    override fun onCollectionVisible(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    ) = trackCollectionsUseCase.onCollectionVisible(sourceActivity, collectionViewKey, content)
 
-    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) =
-        trackCollectionsUseCase.onCollectionUpdated(collectionViewKey, content)
+    override fun onCollectionUpdated(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    ) = trackCollectionsUseCase.onCollectionUpdated(sourceActivity, collectionViewKey, content)
 
-    override fun onCollectionHidden(collectionViewKey: String) =
-        trackCollectionsUseCase.onCollectionHidden(collectionViewKey)
+    override fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
+        trackCollectionsUseCase.onCollectionHidden(sourceActivity, collectionViewKey)
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,

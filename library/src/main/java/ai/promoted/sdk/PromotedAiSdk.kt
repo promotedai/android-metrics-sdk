@@ -24,7 +24,7 @@ internal interface PromotedAiSdk {
 
     fun logView(viewId: String)
 
-    fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
+    fun onImpression(sourceActivity: Activity?, dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)
 
     fun onAction(
@@ -40,9 +40,17 @@ internal interface PromotedAiSdk {
         data: ActionData
     )
 
-    fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
-    fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>)
-    fun onCollectionHidden(collectionViewKey: String)
+    fun onCollectionVisible(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    )
+    fun onCollectionUpdated(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    )
+    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String)
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,

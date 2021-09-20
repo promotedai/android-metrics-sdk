@@ -103,8 +103,9 @@ object PromotedAi {
      */
     @JvmStatic
     fun onImpression(
+        sourceActivity: Activity?,
         dataBlock: ImpressionData.Builder.() -> Unit
-    ) = sdk.onImpression(dataBlock)
+    ) = sdk.onImpression(sourceActivity, dataBlock)
 
     /**
      * @see [PromotedAiSdk.onImpression]
@@ -137,24 +138,27 @@ object PromotedAi {
      */
     @JvmStatic
     fun onCollectionVisible(
+        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionVisible(collectionViewKey, content)
+    ) = sdk.onCollectionVisible(sourceActivity, collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionUpdated]
      */
     @JvmStatic
     fun onCollectionUpdated(
+        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionUpdated(collectionViewKey, content)
+    ) = sdk.onCollectionUpdated(sourceActivity, collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionHidden]
      */
     @JvmStatic
-    fun onCollectionHidden(collectionViewKey: String) = sdk.onCollectionHidden(collectionViewKey)
+    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
+        sdk.onCollectionHidden(sourceActivity, collectionViewKey)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]

@@ -60,7 +60,7 @@ internal class TrackActionUseCase(
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
 
         // Log a new view event if necessary
-        data.sourceActivity?.let { viewUseCase.onViewVisible(it::class.java.name) }
+        data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
         val internalActionData = InternalActionData(
             name = name,
