@@ -1,6 +1,7 @@
 package ai.promoted
 
 import ai.promoted.sdk.PromotedAiSdk
+import android.app.Activity
 import com.google.protobuf.Message
 
 /**
@@ -19,5 +20,5 @@ class ImpressionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
 
-    fun log() = sdk.onImpression(dataBuilder.build())
+    fun log(sourceActivity: Activity?) = sdk.onImpression(dataBuilder.build(sourceActivity))
 }

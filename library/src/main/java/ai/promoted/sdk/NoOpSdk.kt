@@ -5,6 +5,7 @@ import ai.promoted.ActionData
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -18,15 +19,21 @@ internal class NoOpSdk : PromotedAiSdk {
     override var viewId: String = ""
 
     override fun startSession(userId: String) {}
+
     override fun onViewVisible(key: String) {}
 
-    override fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit) {
+    override fun logView(viewId: String) {}
+
+    override fun onImpression(
+        sourceActivity: Activity?,
+        dataBlock: ImpressionData.Builder.() -> Unit) {
     }
 
     override fun onImpression(data: ImpressionData) {
     }
 
     override fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
@@ -35,9 +42,22 @@ internal class NoOpSdk : PromotedAiSdk {
 
     override fun onAction(name: String, type: ActionType, data: ActionData) {}
 
-    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) {}
-    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) {}
-    override fun onCollectionHidden(collectionViewKey: String) {}
+    override fun onCollectionVisible(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    ) {
+    }
+
+    override fun onCollectionUpdated(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    ) {
+    }
+
+    override fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) {
+    }
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,

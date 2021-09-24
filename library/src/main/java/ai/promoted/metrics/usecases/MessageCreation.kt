@@ -43,10 +43,11 @@ internal fun createTimingMessage(time: Long) =
         .setClientLogTimestamp(time)
         .build()
 
-internal fun createUserMessage(clock: Clock) =
+internal fun createUserMessage(clock: Clock, userId: String?, logUserId: String?) =
     User
         .newBuilder()
         .setTiming(createTimingMessage(clock))
+        .setUserInfo(createUserInfoMessage(userId, logUserId))
         .build()
 
 internal fun createSessionMessage(clock: Clock) =

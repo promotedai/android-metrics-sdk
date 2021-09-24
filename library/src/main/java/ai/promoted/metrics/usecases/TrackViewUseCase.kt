@@ -45,9 +45,13 @@ internal class TrackViewUseCase(
      * Then logs a view message via [MetricsLogger].
      */
     fun onViewVisible(key: String) = xray.monitored {
-        if(viewId.isOverridden) {
-            systemLogger.e(IllegalStateException("Attempted to start a new session after " +
-                    "overriding session ID"))
+        if (viewId.isOverridden) {
+            systemLogger.e(
+                IllegalStateException(
+                    "Attempted to log a new view after " +
+                            "overriding view ID"
+                )
+            )
             return@monitored
         }
 
@@ -62,6 +66,53 @@ internal class TrackViewUseCase(
                 viewId = viewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key,
+                deviceMessage = deviceMessage
+            )
+        )
+    }
+
+    /**
+     * If needed (if this [key] is different than the last visible key), generates a new view ID.
+     * Then logs a view message via [MetricsLogger].
+     */
+    internal fun onImplicitViewVisible(key: String) = xray.monitored {
+        if (viewId.isOverridden) {
+            systemLogger.e(
+                IllegalStateException(
+                    "Attempted to log a new view after " +
+                            "overriding view ID"
+                )
+            )
+            return@monitored
+        }
+
+        // The view was already logged, so skip it
+        if (key == currentKey) return@monitored
+
+        viewId.advance()
+        currentKey = key
+
+        logger.enqueueMessage(
+            createViewMessage(
+                clock = clock,
+                viewId = viewId.currentValueOrNull,
+                sessionId = sessionUseCase.sessionId.currentValueOrNull,
+                name = key,
+                deviceMessage = deviceMessage
+            )
+        )
+    }
+
+    fun logView(viewId: String) = xray.monitored {
+        // We don't actually need this overridden per se, but what it will do is prevent any
+        // further usage of onViewVisible, so as to avoid conflicts of view ID strategy
+        this.viewId.override(viewId)
+        logger.enqueueMessage(
+            createViewMessage(
+                clock = clock,
+                viewId = viewId,
+                sessionId = sessionUseCase.sessionId.currentValueOrNull,
+                name = viewId,
                 deviceMessage = deviceMessage
             )
         )

@@ -5,6 +5,7 @@ import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
+import android.app.Activity
 
 /**
  * Allows you to manually track a single impression (as opposed to via collections with
@@ -36,10 +37,11 @@ internal class TrackImpressionUseCase(
      * so that you can granularly choose which additional data you want to be tied to this action.
      */
     fun onImpression(
+        sourceActivity: Activity?,
         dataBlock: (ImpressionData.Builder.() -> Unit)?
     ) {
-        val data = if (dataBlock != null) ImpressionData.Builder().apply(dataBlock).build()
-        else ImpressionData.Builder().build()
+        val data = if (dataBlock != null) ImpressionData.Builder().apply(dataBlock).build(sourceActivity)
+        else ImpressionData.Builder().build(sourceActivity)
 
         onImpression(data)
     }
@@ -48,6 +50,9 @@ internal class TrackImpressionUseCase(
      * Logs an impression, along with any additional data associated to it.
      */
     fun onImpression(data: ImpressionData) = xray.monitored {
+        // Log a new view event if necessary
+        data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
+
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
                 ?: return@monitored
