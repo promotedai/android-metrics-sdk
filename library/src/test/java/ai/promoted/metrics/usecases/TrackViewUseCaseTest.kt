@@ -84,20 +84,9 @@ class TrackViewUseCaseTest {
     }
 
     @Test
-    fun `View is logged after start view becomes visible`() {
+    fun `View is logged after start view becomes v isible`() {
         // When a view becomes visible
         useCase.onViewVisible("view-key")
-
-        // Then
-        verify(exactly = 1) {
-            logger.enqueueMessage(ofType(View::class))
-        }
-    }
-
-    @Test
-    fun `View ID is logged after logView`() {
-        // When logView is called
-        useCase.logView("the-view-id")
 
         // Then
         verify(exactly = 1) {

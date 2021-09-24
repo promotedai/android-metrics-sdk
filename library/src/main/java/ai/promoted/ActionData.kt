@@ -1,13 +1,11 @@
 package ai.promoted
 
-import android.app.Activity
 import com.google.protobuf.Message
 
 /**
  * Represents all data associated to an action that is provided by the library user.
  */
 data class ActionData(
-    val sourceActivity: Activity?,
     val insertionId: String?,
     val contentId: String?,
     val requestId: String?,
@@ -23,9 +21,9 @@ data class ActionData(
         var targetUrl: String? = null,
         var customProperties: Message? = null
     ) {
-        fun build(sourceActivity: Activity?) = ActionData(
-            sourceActivity, insertionId, contentId, requestId, elementId, targetUrl,
-            customProperties
+        fun build() = ActionData(
+            insertionId, contentId, requestId, elementId, targetUrl, customProperties
         )
     }
 }
+

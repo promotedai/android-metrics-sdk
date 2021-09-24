@@ -7,7 +7,6 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.Xray
-import android.app.Activity
 
 /**
  * Allows you to track a user's action and all associated metadata.
@@ -39,14 +38,12 @@ internal class TrackActionUseCase(
      * so that you can granularly choose which additional data you want to be tied to this action.
      */
     fun onAction(
-        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
     ) {
-        val data = if (dataBlock != null) {
-            ActionData.Builder().apply(dataBlock).build(sourceActivity)
-        } else ActionData.Builder().build(sourceActivity)
+        val data = if (dataBlock != null) ActionData.Builder().apply(dataBlock).build()
+        else ActionData.Builder().build()
 
         onAction(name, type, data)
     }
@@ -58,9 +55,6 @@ internal class TrackActionUseCase(
         val actionId = idGenerator.newId()
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
-
-        // Log a new view event if necessary
-        data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
         val internalActionData = InternalActionData(
             name = name,

@@ -37,7 +37,7 @@ class MessageCreationTests {
             ),
             actionData = ActionData.Builder(
                 targetUrl = "http://google.com"
-            ).build(null)
+            ).build()
         )
 
         // Then
@@ -58,7 +58,7 @@ class MessageCreationTests {
                 viewId = "test",
                 impressionId = "test"
             ),
-            actionData = ActionData.Builder().build(null)
+            actionData = ActionData.Builder().build()
         )
 
         // Then
