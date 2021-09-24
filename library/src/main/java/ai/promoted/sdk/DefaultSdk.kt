@@ -14,7 +14,6 @@ import ai.promoted.metrics.usecases.TrackUserUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
 import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.Xray
-import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -46,42 +45,30 @@ internal class DefaultSdk(
         set(value) = trackViewUseCase.viewId.override(value)
 
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
-
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
 
-    override fun logView(viewId: String) = trackViewUseCase.logView(viewId)
-
-    override fun onImpression(
-        sourceActivity: Activity?,
-        dataBlock: ImpressionData.Builder.() -> Unit
-    ) = trackImpressionUseCase.onImpression(sourceActivity, dataBlock)
+    override fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit) =
+        trackImpressionUseCase.onImpression(dataBlock)
 
     override fun onImpression(data: ImpressionData) = trackImpressionUseCase.onImpression(data)
 
     override fun onAction(
-        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
-    ) = trackActionUseCase.onAction(sourceActivity, name, type, dataBlock)
+    ) = trackActionUseCase.onAction(name, type, dataBlock)
 
     override fun onAction(name: String, type: ActionType, data: ActionData) =
         trackActionUseCase.onAction(name, type, data)
 
-    override fun onCollectionVisible(
-        sourceActivity: Activity?,
-        collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = trackCollectionsUseCase.onCollectionVisible(sourceActivity, collectionViewKey, content)
+    override fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>) =
+        trackCollectionsUseCase.onCollectionVisible(collectionViewKey, content)
 
-    override fun onCollectionUpdated(
-        sourceActivity: Activity?,
-        collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = trackCollectionsUseCase.onCollectionUpdated(sourceActivity, collectionViewKey, content)
+    override fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>) =
+        trackCollectionsUseCase.onCollectionUpdated(collectionViewKey, content)
 
-    override fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
-        trackCollectionsUseCase.onCollectionHidden(sourceActivity, collectionViewKey)
+    override fun onCollectionHidden(collectionViewKey: String) =
+        trackCollectionsUseCase.onCollectionHidden(collectionViewKey)
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,

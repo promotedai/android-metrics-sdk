@@ -48,16 +48,15 @@ internal class TrackUserUseCase(
             logUserAncestorId.advance()
             currentUserIdsUseCase.updateLogUserId(logUserAncestorId.currentValue)
 
-            logUser(logger, userId, logUserAncestorId.currentValue)
+            logUser(logger)
         }
     }
 
     fun overrideLogUserId(logger: MetricsLogger, logUserId: String) = xray.monitored {
         currentUserIdsUseCase.updateUserId("")
         currentUserIdsUseCase.updateLogUserId(logUserId)
-        logUser(logger, "", logUserId)
+        logUser(logger)
     }
 
-    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String) =
-        logger.enqueueMessage(createUserMessage(clock, userId, logUserId))
+    private fun logUser(logger: MetricsLogger) = logger.enqueueMessage(createUserMessage(clock))
 }

@@ -50,10 +50,9 @@ class DefaultSdkTest {
         val dataBlock: ActionData.Builder.() -> Unit = {
             insertionId = "insertion-id"
         }
-        sdk.onAction(null, "action-name", ActionType.CUSTOM_ACTION_TYPE, dataBlock)
+        sdk.onAction("action-name", ActionType.CUSTOM_ACTION_TYPE, dataBlock)
         verify(exactly = 1) {
             actionUseCase.onAction(
-                any(),
                 "action-name",
                 ActionType.CUSTOM_ACTION_TYPE,
                 dataBlock
@@ -65,7 +64,7 @@ class DefaultSdkTest {
     fun onActionWithData() {
         val data = ActionData.Builder().apply {
             insertionId = "insertion-id"
-        }.build(null)
+        }.build()
 
         sdk.onAction("action-name", ActionType.CUSTOM_ACTION_TYPE, data)
         verify(exactly = 1) {
@@ -80,21 +79,21 @@ class DefaultSdkTest {
     @Test
     fun onCollectionVisible() {
         val collection = listOf(AbstractContent.Content("1"), AbstractContent.Content("2"))
-        sdk.onCollectionVisible(null, "collection-key", collection)
-        verify(exactly = 1) { impressionUseCase.onCollectionVisible(any(), "collection-key", collection) }
+        sdk.onCollectionVisible("collection-key", collection)
+        verify(exactly = 1) { impressionUseCase.onCollectionVisible("collection-key", collection) }
     }
 
     @Test
     fun onCollectionUpdated() {
         val collection = listOf(AbstractContent.Content("1"), AbstractContent.Content("2"))
-        sdk.onCollectionUpdated(null, "collection-key", collection)
-        verify(exactly = 1) { impressionUseCase.onCollectionUpdated(any(), "collection-key", collection) }
+        sdk.onCollectionUpdated("collection-key", collection)
+        verify(exactly = 1) { impressionUseCase.onCollectionUpdated("collection-key", collection) }
     }
 
     @Test
     fun onCollectionHidden() {
-        sdk.onCollectionHidden(null, "collection-key")
-        verify(exactly = 1) { impressionUseCase.onCollectionHidden(any(), "collection-key") }
+        sdk.onCollectionHidden("collection-key")
+        verify(exactly = 1) { impressionUseCase.onCollectionHidden("collection-key") }
     }
 
     @Test

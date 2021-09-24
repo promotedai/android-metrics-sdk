@@ -49,6 +49,11 @@ class RestaurantListActivity : AppCompatActivity() {
         setupRecyclerView(findViewById(R.id.restaurant_list))
     }
 
+    override fun onResume() {
+        super.onResume()
+        PromotedAi.onViewVisible("ListActivity")
+    }
+
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, twoPane)
 
@@ -96,7 +101,7 @@ class RestaurantListActivity : AppCompatActivity() {
             }
 
             // Notify Promoted that an action occurred
-            PromotedAi.onAction(parentActivity, "open-restaurant", ActionType.CUSTOM_ACTION_TYPE) {
+            PromotedAi.onAction("open-restaurant", ActionType.CUSTOM_ACTION_TYPE) {
                 insertionId = item.id
             }
         }

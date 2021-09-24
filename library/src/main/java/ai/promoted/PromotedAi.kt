@@ -3,7 +3,6 @@ package ai.promoted
 import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
-import android.app.Activity
 import android.app.Application
 import androidx.recyclerview.widget.RecyclerView
 
@@ -93,19 +92,12 @@ object PromotedAi {
     fun onViewVisible(key: String) = sdk.onViewVisible(key)
 
     /**
-     * @see [PromotedAiSdk.logView]
-     */
-    @JvmStatic
-    fun logView(viewId: String) = sdk.logView(viewId)
-
-    /**
      * @see [PromotedAiSdk.onImpression]
      */
     @JvmStatic
     fun onImpression(
-        sourceActivity: Activity?,
         dataBlock: ImpressionData.Builder.() -> Unit
-    ) = sdk.onImpression(sourceActivity, dataBlock)
+    ) = sdk.onImpression(dataBlock)
 
     /**
      * @see [PromotedAiSdk.onImpression]
@@ -120,11 +112,10 @@ object PromotedAi {
      */
     @JvmStatic
     fun onAction(
-        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null
-    ) = sdk.onAction(sourceActivity, name, type, dataBlock)
+    ) = sdk.onAction(name, type, dataBlock)
 
     /**
      * @see [PromotedAiSdk.onAction]
@@ -138,27 +129,24 @@ object PromotedAi {
      */
     @JvmStatic
     fun onCollectionVisible(
-        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionVisible(sourceActivity, collectionViewKey, content)
+    ) = sdk.onCollectionVisible(collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionUpdated]
      */
     @JvmStatic
     fun onCollectionUpdated(
-        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionUpdated(sourceActivity, collectionViewKey, content)
+    ) = sdk.onCollectionUpdated(collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionHidden]
      */
     @JvmStatic
-    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
-        sdk.onCollectionHidden(sourceActivity, collectionViewKey)
+    fun onCollectionHidden(collectionViewKey: String) = sdk.onCollectionHidden(collectionViewKey)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]
