@@ -107,7 +107,32 @@ internal fun createViewMessage(
     }
     .setName(name)
     .setDevice(deviceMessage)
-    // TODO - Fill out AppScreenView.
+    .setAppScreenView(AppScreenView.getDefaultInstance())
+    .build()
+
+// TODO - new schema for auto-view & external view ID
+@Suppress("LongParameterList")
+internal fun createImplicitViewMessage(
+    clock: Clock,
+    viewId: String?,
+    externalViewId: String?,
+    sessionId: String?,
+    name: String,
+    // The Device message should be cached in memory elsewhere, so we will not construct it
+    // ourselves as part of this function, but rather it should be passed in.
+    deviceMessage: Device
+) = View
+    .newBuilder()
+    .setTiming(createTimingMessage(clock))
+    .apply {
+        sessionId?.let { setSessionId(it) }
+        viewId?.let { setViewId(it) }
+        externalViewId?.let {
+            // TODO
+        }
+    }
+    .setName(name)
+    .setDevice(deviceMessage)
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 

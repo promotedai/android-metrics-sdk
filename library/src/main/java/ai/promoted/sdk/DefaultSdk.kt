@@ -45,6 +45,12 @@ internal class DefaultSdk(
         get() = trackViewUseCase.viewId.currentOrPendingValue
         set(value) = trackViewUseCase.viewId.override(value)
 
+    override var externalViewId: String
+        get() = trackViewUseCase.externalViewId ?: ""
+        set(value) {
+            trackViewUseCase.externalViewId = value
+        }
+
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
 
     override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)

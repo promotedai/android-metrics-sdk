@@ -47,6 +47,16 @@ object PromotedAi {
         }
 
     /**
+     * @see [PromotedAiSdk.externalViewId]
+     */
+    @JvmStatic
+    var externalViewId: String
+        get() = sdk.externalViewId
+        set(value) {
+            sdk.externalViewId = value
+        }
+
+    /**
      * @see [SdkManager.initialize]
      */
     @JvmStatic

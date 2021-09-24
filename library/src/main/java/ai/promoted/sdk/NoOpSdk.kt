@@ -17,6 +17,7 @@ internal class NoOpSdk : PromotedAiSdk {
     override var logUserId: String = ""
     override var sessionId: String = ""
     override var viewId: String = ""
+    override var externalViewId: String = ""
 
     override fun startSession(userId: String) {}
 

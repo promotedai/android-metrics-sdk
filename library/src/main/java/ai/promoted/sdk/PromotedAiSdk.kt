@@ -17,6 +17,7 @@ internal interface PromotedAiSdk {
     var logUserId: String
     var sessionId: String
     var viewId: String
+    var externalViewId: String
 
     fun startSession(userId: String = "")
 

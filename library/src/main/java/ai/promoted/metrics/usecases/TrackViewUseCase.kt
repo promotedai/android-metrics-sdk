@@ -34,6 +34,12 @@ internal class TrackViewUseCase(
 ) {
     val viewId = AncestorId(idGenerator)
 
+    /**
+     * Allows the clients to set an externally-generated view ID to be used on the next view event.
+     * Once the next view is logged, this value is cleared.
+     */
+    var externalViewId: String? = null
+
     private var currentKey: String = ""
 
     private val deviceMessage: Device by lazy {
@@ -92,15 +98,19 @@ internal class TrackViewUseCase(
         viewId.advance()
         currentKey = key
 
+        // TODO - auto-view schema + external view ID
         logger.enqueueMessage(
-            createViewMessage(
+            createImplicitViewMessage(
                 clock = clock,
                 viewId = viewId.currentValueOrNull,
+                externalViewId = externalViewId,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key,
                 deviceMessage = deviceMessage
             )
         )
+
+        externalViewId = null
     }
 
     fun logView(viewId: String) = xray.monitored {
