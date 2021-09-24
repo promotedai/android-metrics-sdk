@@ -30,7 +30,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             // Notify Promoted that an action occurred
-            PromotedAi.onAction(this,"locate-item", ActionType.CUSTOM_ACTION_TYPE) {
+            PromotedAi.onAction(this, "locate-item", ActionType.CUSTOM_ACTION_TYPE) {
                 insertionId = itemId
             }
         }
