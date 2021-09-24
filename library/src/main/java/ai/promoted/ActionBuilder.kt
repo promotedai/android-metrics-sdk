@@ -2,6 +2,7 @@ package ai.promoted
 
 import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
+import android.app.Activity
 import com.google.protobuf.Message
 
 /**
@@ -26,5 +27,5 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
 
-    fun log() = sdk.onAction(name, type, dataBuilder.build())
+    fun log(sourceActivity: Activity?) = sdk.onAction(name, type, dataBuilder.build(sourceActivity))
 }

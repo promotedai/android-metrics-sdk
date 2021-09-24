@@ -61,7 +61,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Simple action is logged when no data block`() {
         // When
-        useCase.onAction("test", ActionType.ADD_TO_CART, dataBlock = null)
+        useCase.onAction(null, "test", ActionType.ADD_TO_CART, dataBlock = null)
 
         // Then
         val action = enqueuedMessage.captured as? Action
@@ -72,7 +72,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Impression ID is based on insertion ID when it is available`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = "test-insertion-id"
             contentId = "test-content-id"
             requestId = "test-request-id"
@@ -93,7 +93,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Impression ID is based on combination of content ID and logUserId when content ID is available`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = null
             contentId = "test-content-id"
             requestId = "test-request-id"
@@ -114,7 +114,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Impression ID is null or empty if both insertion ID and content ID are null`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = null
             contentId = null
             requestId = "test-request-id"
@@ -135,7 +135,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Correct session ID and view ID are used in message`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = null
             contentId = null
             requestId = "test-request-id"

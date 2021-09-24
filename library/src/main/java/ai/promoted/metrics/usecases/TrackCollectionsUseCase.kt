@@ -7,6 +7,7 @@ import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
+import android.app.Activity
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -31,8 +32,11 @@ internal class TrackCollectionsUseCase(
      * To be called when a collection view first becomes visible with its initial content. Only
      * for semantic clarity. Same as calling [onCollectionUpdated]
      */
-    fun onCollectionVisible(collectionViewKey: String, visibleContent: List<AbstractContent>) =
-        onCollectionUpdated(collectionViewKey, visibleContent)
+    fun onCollectionVisible(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        visibleContent: List<AbstractContent>
+    ) = onCollectionUpdated(sourceActivity, collectionViewKey, visibleContent)
 
     /**
      * To be called when the collection view with the given [collectionViewKey] has been entirely
@@ -41,8 +45,8 @@ internal class TrackCollectionsUseCase(
      *
      * Only for semantic clarity. Same as calling [onCollectionUpdated] with an empty list.
      */
-    fun onCollectionHidden(collectionViewKey: String) =
-        onCollectionUpdated(collectionViewKey, emptyList())
+    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
+        onCollectionUpdated(sourceActivity, collectionViewKey, emptyList())
 
     /**
      * To be called when the collection view with the given [collectionViewKey] has a
@@ -61,33 +65,38 @@ internal class TrackCollectionsUseCase(
      * view; rather, it should be a list representing the content/rows currently within the
      * viewport.
      */
-    fun onCollectionUpdated(collectionViewKey: String, visibleContent: List<AbstractContent>) =
-        xray.monitored {
-            if (visibleContent.isEmpty()) return@monitored onNoContent(collectionViewKey)
+    fun onCollectionUpdated(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        visibleContent: List<AbstractContent>
+    ) = xray.monitored {
+        sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
-            val now = clock.currentTimeMillis
-            val sessionId = sessionUseCase.sessionId.currentValueOrNull
-            val viewId = viewUseCase.viewId.currentValueOrNull
+        if (visibleContent.isEmpty()) return@monitored onNoContent(collectionViewKey)
 
-            val differ = collectionDiffers.getOrPut(collectionViewKey) {
-                AsyncCollectionDiffCalculator(
-                    calculationContext = Dispatchers.Default,
-                    notificationContext = Dispatchers.Main
-                )
-            }
+        val now = clock.currentTimeMillis
+        val sessionId = sessionUseCase.sessionId.currentValueOrNull
+        val viewId = viewUseCase.viewId.currentValueOrNull
 
-            differ.scheduleDiffCalculation(
-                newBaseline = visibleContent,
-                onResult = { newDiff ->
-                    onNewDiff(
-                        originalImpressionTime = now,
-                        originalImpressionSessionId = sessionId,
-                        originalImpressionViewId = viewId,
-                        result = newDiff
-                    )
-                }
+        val differ = collectionDiffers.getOrPut(collectionViewKey) {
+            AsyncCollectionDiffCalculator(
+                calculationContext = Dispatchers.Default,
+                notificationContext = Dispatchers.Main
             )
         }
+
+        differ.scheduleDiffCalculation(
+            newBaseline = visibleContent,
+            onResult = { newDiff ->
+                onNewDiff(
+                    originalImpressionTime = now,
+                    originalImpressionSessionId = sessionId,
+                    originalImpressionViewId = viewId,
+                    result = newDiff
+                )
+            }
+        )
+    }
 
     private fun onNoContent(collectionViewKey: String) {
         // If we begin logging end impressions, they would need to be handled from both the callback
@@ -124,10 +133,11 @@ internal class TrackCollectionsUseCase(
             contentId = content.contentId
         ) ?: return@monitored
 
+        // TODO - extract activity
         val impressionData = ImpressionData.Builder().apply {
             insertionId = content.insertionId
             contentId = content.contentId
-        }.build()
+        }.build(null)
 
         val internalImpressionData = InternalImpressionData(
             time = time,
