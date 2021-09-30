@@ -77,6 +77,60 @@ public interface RequestOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
+   * Optional. Information about the user's device.
+   * </pre>
+   *
+   * <code>.common.Device device = 18;</code>
+   * @return Whether the device field is set.
+   */
+  boolean hasDevice();
+  /**
+   * <pre>
+   * Optional. Information about the user's device.
+   * </pre>
+   *
+   * <code>.common.Device device = 18;</code>
+   * @return The device.
+   */
+  ai.promoted.proto.common.Device getDevice();
+  /**
+   * <pre>
+   * Optional. Information about the user's device.
+   * </pre>
+   *
+   * <code>.common.Device device = 18;</code>
+   */
+  ai.promoted.proto.common.DeviceOrBuilder getDeviceOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -85,7 +139,7 @@ public interface RequestOrBuilder extends
    * <code>string request_id = 6;</code>
    * @return The requestId.
    */
-  java.lang.String getRequestId();
+  String getRequestId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -107,7 +161,7 @@ public interface RequestOrBuilder extends
    * <code>string view_id = 7;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <pre>
    * Required.
@@ -127,7 +181,7 @@ public interface RequestOrBuilder extends
    * <code>string session_id = 8;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <pre>
    * Optional.
@@ -153,7 +207,7 @@ public interface RequestOrBuilder extends
    * <code>string client_request_id = 14;</code>
    * @return The clientRequestId.
    */
-  java.lang.String getClientRequestId();
+  String getClientRequestId();
   /**
    * <pre>
    * Optional.
@@ -188,7 +242,7 @@ public interface RequestOrBuilder extends
    * <code>.delivery.UseCase use_case = 9;</code>
    * @return The useCase.
    */
-  ai.promoted.proto.delivery.UseCase getUseCase();
+  UseCase getUseCase();
 
   /**
    * <pre>
@@ -198,7 +252,7 @@ public interface RequestOrBuilder extends
    * <code>string search_query = 10;</code>
    * @return The searchQuery.
    */
-  java.lang.String getSearchQuery();
+  String getSearchQuery();
   /**
    * <pre>
    * Optional.
@@ -212,13 +266,30 @@ public interface RequestOrBuilder extends
 
   /**
    * <pre>
-   * Optional. Number of Insertions to return.
+   * Optional. Set to request a specific "page" of results.
    * </pre>
    *
-   * <code>int32 limit = 15;</code>
-   * @return The limit.
+   * <code>.delivery.Paging paging = 17;</code>
+   * @return Whether the paging field is set.
    */
-  int getLimit();
+  boolean hasPaging();
+  /**
+   * <pre>
+   * Optional. Set to request a specific "page" of results.
+   * </pre>
+   *
+   * <code>.delivery.Paging paging = 17;</code>
+   * @return The paging.
+   */
+  Paging getPaging();
+  /**
+   * <pre>
+   * Optional. Set to request a specific "page" of results.
+   * </pre>
+   *
+   * <code>.delivery.Paging paging = 17;</code>
+   */
+  PagingOrBuilder getPagingOrBuilder();
 
   /**
    * <pre>
@@ -231,7 +302,7 @@ public interface RequestOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 11;</code>
    */
-  java.util.List<ai.promoted.proto.delivery.Insertion> 
+  java.util.List<Insertion>
       getInsertionList();
   /**
    * <pre>
@@ -244,7 +315,7 @@ public interface RequestOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 11;</code>
    */
-  ai.promoted.proto.delivery.Insertion getInsertion(int index);
+  Insertion getInsertion(int index);
   /**
    * <pre>
    * Optional.
@@ -268,7 +339,7 @@ public interface RequestOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 11;</code>
    */
-  java.util.List<? extends ai.promoted.proto.delivery.InsertionOrBuilder> 
+  java.util.List<? extends InsertionOrBuilder>
       getInsertionOrBuilderList();
   /**
    * <pre>
@@ -281,7 +352,7 @@ public interface RequestOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 11;</code>
    */
-  ai.promoted.proto.delivery.InsertionOrBuilder getInsertionOrBuilder(
+  InsertionOrBuilder getInsertionOrBuilder(
       int index);
 
   /**

@@ -7,7 +7,8 @@ package ai.promoted.proto.event;
  * <pre>
  * A way to batch up log requests into the same request.
  * Clients can reference logs in different batches.
- * Next ID = 17.
+ * Keep in sync with FlatEvent and FlatResponseInsertion.
+ * Next ID = 26.
  * </pre>
  *
  * Protobuf type {@code event.LogRequest}
@@ -24,23 +25,23 @@ private static final long serialVersionUID = 0L;
   private LogRequest() {
     user_ = java.util.Collections.emptyList();
     cohortMembership_ = java.util.Collections.emptyList();
-    sessionProfile_ = java.util.Collections.emptyList();
-    session_ = java.util.Collections.emptyList();
     view_ = java.util.Collections.emptyList();
+    autoView_ = java.util.Collections.emptyList();
     request_ = java.util.Collections.emptyList();
     insertion_ = java.util.Collections.emptyList();
     impression_ = java.util.Collections.emptyList();
     action_ = java.util.Collections.emptyList();
+    diagnostics_ = java.util.Collections.emptyList();
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new LogRequest();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -51,7 +52,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -95,85 +96,111 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            ai.promoted.proto.common.ClientInfo.Builder subBuilder = null;
+            if (clientInfo_ != null) {
+              subBuilder = clientInfo_.toBuilder();
+            }
+            clientInfo_ = input.readMessage(ai.promoted.proto.common.ClientInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(clientInfo_);
+              clientInfo_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           case 58: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              user_ = new java.util.ArrayList<ai.promoted.proto.event.User>();
+              user_ = new java.util.ArrayList<User>();
               mutable_bitField0_ |= 0x00000001;
             }
             user_.add(
-                input.readMessage(ai.promoted.proto.event.User.parser(), extensionRegistry));
+                input.readMessage(User.parser(), extensionRegistry));
             break;
           }
           case 66: {
             if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-              cohortMembership_ = new java.util.ArrayList<ai.promoted.proto.event.CohortMembership>();
+              cohortMembership_ = new java.util.ArrayList<CohortMembership>();
               mutable_bitField0_ |= 0x00000002;
             }
             cohortMembership_.add(
-                input.readMessage(ai.promoted.proto.event.CohortMembership.parser(), extensionRegistry));
-            break;
-          }
-          case 74: {
-            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-              sessionProfile_ = new java.util.ArrayList<ai.promoted.proto.event.SessionProfile>();
-              mutable_bitField0_ |= 0x00000004;
-            }
-            sessionProfile_.add(
-                input.readMessage(ai.promoted.proto.event.SessionProfile.parser(), extensionRegistry));
-            break;
-          }
-          case 82: {
-            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
-              session_ = new java.util.ArrayList<ai.promoted.proto.event.Session>();
-              mutable_bitField0_ |= 0x00000008;
-            }
-            session_.add(
-                input.readMessage(ai.promoted.proto.event.Session.parser(), extensionRegistry));
+                input.readMessage(CohortMembership.parser(), extensionRegistry));
             break;
           }
           case 90: {
-            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
-              view_ = new java.util.ArrayList<ai.promoted.proto.event.View>();
-              mutable_bitField0_ |= 0x00000010;
+            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+              view_ = new java.util.ArrayList<View>();
+              mutable_bitField0_ |= 0x00000004;
             }
             view_.add(
-                input.readMessage(ai.promoted.proto.event.View.parser(), extensionRegistry));
+                input.readMessage(View.parser(), extensionRegistry));
             break;
           }
           case 98: {
-            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
               request_ = new java.util.ArrayList<ai.promoted.proto.delivery.Request>();
-              mutable_bitField0_ |= 0x00000020;
+              mutable_bitField0_ |= 0x00000010;
             }
             request_.add(
                 input.readMessage(ai.promoted.proto.delivery.Request.parser(), extensionRegistry));
             break;
           }
           case 106: {
-            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
               insertion_ = new java.util.ArrayList<ai.promoted.proto.delivery.Insertion>();
-              mutable_bitField0_ |= 0x00000040;
+              mutable_bitField0_ |= 0x00000020;
             }
             insertion_.add(
                 input.readMessage(ai.promoted.proto.delivery.Insertion.parser(), extensionRegistry));
             break;
           }
           case 114: {
-            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
-              impression_ = new java.util.ArrayList<ai.promoted.proto.event.Impression>();
-              mutable_bitField0_ |= 0x00000080;
+            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+              impression_ = new java.util.ArrayList<Impression>();
+              mutable_bitField0_ |= 0x00000040;
             }
             impression_.add(
-                input.readMessage(ai.promoted.proto.event.Impression.parser(), extensionRegistry));
+                input.readMessage(Impression.parser(), extensionRegistry));
             break;
           }
           case 122: {
-            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
-              action_ = new java.util.ArrayList<ai.promoted.proto.event.Action>();
-              mutable_bitField0_ |= 0x00000100;
+            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
+              action_ = new java.util.ArrayList<Action>();
+              mutable_bitField0_ |= 0x00000080;
             }
             action_.add(
-                input.readMessage(ai.promoted.proto.event.Action.parser(), extensionRegistry));
+                input.readMessage(Action.parser(), extensionRegistry));
+            break;
+          }
+          case 186: {
+            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
+              diagnostics_ = new java.util.ArrayList<Diagnostics>();
+              mutable_bitField0_ |= 0x00000100;
+            }
+            diagnostics_.add(
+                input.readMessage(Diagnostics.parser(), extensionRegistry));
+            break;
+          }
+          case 194: {
+            ai.promoted.proto.common.Device.Builder subBuilder = null;
+            if (device_ != null) {
+              subBuilder = device_.toBuilder();
+            }
+            device_ = input.readMessage(ai.promoted.proto.common.Device.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(device_);
+              device_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 202: {
+            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+              autoView_ = new java.util.ArrayList<AutoView>();
+              mutable_bitField0_ |= 0x00000008;
+            }
+            autoView_.add(
+                input.readMessage(AutoView.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -198,25 +225,25 @@ private static final long serialVersionUID = 0L;
         cohortMembership_ = java.util.Collections.unmodifiableList(cohortMembership_);
       }
       if (((mutable_bitField0_ & 0x00000004) != 0)) {
-        sessionProfile_ = java.util.Collections.unmodifiableList(sessionProfile_);
-      }
-      if (((mutable_bitField0_ & 0x00000008) != 0)) {
-        session_ = java.util.Collections.unmodifiableList(session_);
-      }
-      if (((mutable_bitField0_ & 0x00000010) != 0)) {
         view_ = java.util.Collections.unmodifiableList(view_);
       }
-      if (((mutable_bitField0_ & 0x00000020) != 0)) {
+      if (((mutable_bitField0_ & 0x00000010) != 0)) {
         request_ = java.util.Collections.unmodifiableList(request_);
       }
-      if (((mutable_bitField0_ & 0x00000040) != 0)) {
+      if (((mutable_bitField0_ & 0x00000020) != 0)) {
         insertion_ = java.util.Collections.unmodifiableList(insertion_);
       }
-      if (((mutable_bitField0_ & 0x00000080) != 0)) {
+      if (((mutable_bitField0_ & 0x00000040) != 0)) {
         impression_ = java.util.Collections.unmodifiableList(impression_);
       }
-      if (((mutable_bitField0_ & 0x00000100) != 0)) {
+      if (((mutable_bitField0_ & 0x00000080) != 0)) {
         action_ = java.util.Collections.unmodifiableList(action_);
+      }
+      if (((mutable_bitField0_ & 0x00000100) != 0)) {
+        diagnostics_ = java.util.Collections.unmodifiableList(diagnostics_);
+      }
+      if (((mutable_bitField0_ & 0x00000008) != 0)) {
+        autoView_ = java.util.Collections.unmodifiableList(autoView_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -224,15 +251,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_LogRequest_descriptor;
+    return Event.internal_static_event_LogRequest_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_LogRequest_fieldAccessorTable
+    return Event.internal_static_event_LogRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.LogRequest.class, ai.promoted.proto.event.LogRequest.Builder.class);
+            LogRequest.class, Builder.class);
   }
 
   public static final int PLATFORM_ID_FIELD_NUMBER = 1;
@@ -246,7 +273,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 platform_id = 1;</code>
    * @return The platformId.
    */
-  @java.lang.Override
+  @Override
   public long getPlatformId() {
     return platformId_;
   }
@@ -261,7 +288,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return Whether the userInfo field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasUserInfo() {
     return userInfo_ != null;
   }
@@ -273,7 +300,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return The userInfo.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfo getUserInfo() {
     return userInfo_ == null ? ai.promoted.proto.common.UserInfo.getDefaultInstance() : userInfo_;
   }
@@ -284,7 +311,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.UserInfo user_info = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfoOrBuilder getUserInfoOrBuilder() {
     return getUserInfo();
   }
@@ -300,7 +327,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return Whether the timing field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasTiming() {
     return timing_ != null;
   }
@@ -313,7 +340,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return The timing.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Timing getTiming() {
     return timing_ == null ? ai.promoted.proto.common.Timing.getDefaultInstance() : timing_;
   }
@@ -325,209 +352,245 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Timing timing = 3;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder() {
     return getTiming();
   }
 
+  public static final int CLIENT_INFO_FIELD_NUMBER = 4;
+  private ai.promoted.proto.common.ClientInfo clientInfo_;
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  @Override
+  public boolean hasClientInfo() {
+    return clientInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfo getClientInfo() {
+    return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+  }
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+    return getClientInfo();
+  }
+
+  public static final int DEVICE_FIELD_NUMBER = 24;
+  private ai.promoted.proto.common.Device device_;
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   * @return Whether the device field is set.
+   */
+  @Override
+  public boolean hasDevice() {
+    return device_ != null;
+  }
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   * @return The device.
+   */
+  @Override
+  public ai.promoted.proto.common.Device getDevice() {
+    return device_ == null ? ai.promoted.proto.common.Device.getDefaultInstance() : device_;
+  }
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.DeviceOrBuilder getDeviceOrBuilder() {
+    return getDevice();
+  }
+
   public static final int USER_FIELD_NUMBER = 7;
-  private java.util.List<ai.promoted.proto.event.User> user_;
+  private java.util.List<User> user_;
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.User> getUserList() {
+  @Override
+  public java.util.List<User> getUserList() {
     return user_;
   }
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.UserOrBuilder> 
+  @Override
+  public java.util.List<? extends UserOrBuilder>
       getUserOrBuilderList() {
     return user_;
   }
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  @java.lang.Override
+  @Override
   public int getUserCount() {
     return user_.size();
   }
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.User getUser(int index) {
+  @Override
+  public User getUser(int index) {
     return user_.get(index);
   }
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.UserOrBuilder getUserOrBuilder(
+  @Override
+  public UserOrBuilder getUserOrBuilder(
       int index) {
     return user_.get(index);
   }
 
   public static final int COHORT_MEMBERSHIP_FIELD_NUMBER = 8;
-  private java.util.List<ai.promoted.proto.event.CohortMembership> cohortMembership_;
+  private java.util.List<CohortMembership> cohortMembership_;
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.CohortMembership> getCohortMembershipList() {
+  @Override
+  public java.util.List<CohortMembership> getCohortMembershipList() {
     return cohortMembership_;
   }
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.CohortMembershipOrBuilder> 
+  @Override
+  public java.util.List<? extends CohortMembershipOrBuilder>
       getCohortMembershipOrBuilderList() {
     return cohortMembership_;
   }
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  @java.lang.Override
+  @Override
   public int getCohortMembershipCount() {
     return cohortMembership_.size();
   }
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.CohortMembership getCohortMembership(int index) {
+  @Override
+  public CohortMembership getCohortMembership(int index) {
     return cohortMembership_.get(index);
   }
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.CohortMembershipOrBuilder getCohortMembershipOrBuilder(
+  @Override
+  public CohortMembershipOrBuilder getCohortMembershipOrBuilder(
       int index) {
     return cohortMembership_.get(index);
   }
 
-  public static final int SESSION_PROFILE_FIELD_NUMBER = 9;
-  private java.util.List<ai.promoted.proto.event.SessionProfile> sessionProfile_;
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.SessionProfile> getSessionProfileList() {
-    return sessionProfile_;
-  }
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.SessionProfileOrBuilder> 
-      getSessionProfileOrBuilderList() {
-    return sessionProfile_;
-  }
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  @java.lang.Override
-  public int getSessionProfileCount() {
-    return sessionProfile_.size();
-  }
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.SessionProfile getSessionProfile(int index) {
-    return sessionProfile_.get(index);
-  }
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.SessionProfileOrBuilder getSessionProfileOrBuilder(
-      int index) {
-    return sessionProfile_.get(index);
-  }
-
-  public static final int SESSION_FIELD_NUMBER = 10;
-  private java.util.List<ai.promoted.proto.event.Session> session_;
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.Session> getSessionList() {
-    return session_;
-  }
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.SessionOrBuilder> 
-      getSessionOrBuilderList() {
-    return session_;
-  }
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  @java.lang.Override
-  public int getSessionCount() {
-    return session_.size();
-  }
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.Session getSession(int index) {
-    return session_.get(index);
-  }
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.SessionOrBuilder getSessionOrBuilder(
-      int index) {
-    return session_.get(index);
-  }
-
   public static final int VIEW_FIELD_NUMBER = 11;
-  private java.util.List<ai.promoted.proto.event.View> view_;
+  private java.util.List<View> view_;
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.View> getViewList() {
+  @Override
+  public java.util.List<View> getViewList() {
     return view_;
   }
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.ViewOrBuilder> 
+  @Override
+  public java.util.List<? extends ViewOrBuilder>
       getViewOrBuilderList() {
     return view_;
   }
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  @java.lang.Override
+  @Override
   public int getViewCount() {
     return view_.size();
   }
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.View getView(int index) {
+  @Override
+  public View getView(int index) {
     return view_.get(index);
   }
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.ViewOrBuilder getViewOrBuilder(
+  @Override
+  public ViewOrBuilder getViewOrBuilder(
       int index) {
     return view_.get(index);
+  }
+
+  public static final int AUTO_VIEW_FIELD_NUMBER = 25;
+  private java.util.List<AutoView> autoView_;
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  @Override
+  public java.util.List<AutoView> getAutoViewList() {
+    return autoView_;
+  }
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  @Override
+  public java.util.List<? extends AutoViewOrBuilder>
+      getAutoViewOrBuilderList() {
+    return autoView_;
+  }
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  @Override
+  public int getAutoViewCount() {
+    return autoView_.size();
+  }
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  @Override
+  public AutoView getAutoView(int index) {
+    return autoView_.get(index);
+  }
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  @Override
+  public AutoViewOrBuilder getAutoViewOrBuilder(
+      int index) {
+    return autoView_.get(index);
   }
 
   public static final int REQUEST_FIELD_NUMBER = 12;
@@ -535,14 +598,14 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .delivery.Request request = 12;</code>
    */
-  @java.lang.Override
+  @Override
   public java.util.List<ai.promoted.proto.delivery.Request> getRequestList() {
     return request_;
   }
   /**
    * <code>repeated .delivery.Request request = 12;</code>
    */
-  @java.lang.Override
+  @Override
   public java.util.List<? extends ai.promoted.proto.delivery.RequestOrBuilder> 
       getRequestOrBuilderList() {
     return request_;
@@ -550,21 +613,21 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .delivery.Request request = 12;</code>
    */
-  @java.lang.Override
+  @Override
   public int getRequestCount() {
     return request_.size();
   }
   /**
    * <code>repeated .delivery.Request request = 12;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.delivery.Request getRequest(int index) {
     return request_.get(index);
   }
   /**
    * <code>repeated .delivery.Request request = 12;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.delivery.RequestOrBuilder getRequestOrBuilder(
       int index) {
     return request_.get(index);
@@ -575,14 +638,14 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .delivery.Insertion insertion = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public java.util.List<ai.promoted.proto.delivery.Insertion> getInsertionList() {
     return insertion_;
   }
   /**
    * <code>repeated .delivery.Insertion insertion = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public java.util.List<? extends ai.promoted.proto.delivery.InsertionOrBuilder> 
       getInsertionOrBuilderList() {
     return insertion_;
@@ -590,108 +653,148 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .delivery.Insertion insertion = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public int getInsertionCount() {
     return insertion_.size();
   }
   /**
    * <code>repeated .delivery.Insertion insertion = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.delivery.Insertion getInsertion(int index) {
     return insertion_.get(index);
   }
   /**
    * <code>repeated .delivery.Insertion insertion = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.delivery.InsertionOrBuilder getInsertionOrBuilder(
       int index) {
     return insertion_.get(index);
   }
 
   public static final int IMPRESSION_FIELD_NUMBER = 14;
-  private java.util.List<ai.promoted.proto.event.Impression> impression_;
+  private java.util.List<Impression> impression_;
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.Impression> getImpressionList() {
+  @Override
+  public java.util.List<Impression> getImpressionList() {
     return impression_;
   }
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.ImpressionOrBuilder> 
+  @Override
+  public java.util.List<? extends ImpressionOrBuilder>
       getImpressionOrBuilderList() {
     return impression_;
   }
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  @java.lang.Override
+  @Override
   public int getImpressionCount() {
     return impression_.size();
   }
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.Impression getImpression(int index) {
+  @Override
+  public Impression getImpression(int index) {
     return impression_.get(index);
   }
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.ImpressionOrBuilder getImpressionOrBuilder(
+  @Override
+  public ImpressionOrBuilder getImpressionOrBuilder(
       int index) {
     return impression_.get(index);
   }
 
   public static final int ACTION_FIELD_NUMBER = 15;
-  private java.util.List<ai.promoted.proto.event.Action> action_;
+  private java.util.List<Action> action_;
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.event.Action> getActionList() {
+  @Override
+  public java.util.List<Action> getActionList() {
     return action_;
   }
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.event.ActionOrBuilder> 
+  @Override
+  public java.util.List<? extends ActionOrBuilder>
       getActionOrBuilderList() {
     return action_;
   }
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  @java.lang.Override
+  @Override
   public int getActionCount() {
     return action_.size();
   }
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.Action getAction(int index) {
+  @Override
+  public Action getAction(int index) {
     return action_.get(index);
   }
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.ActionOrBuilder getActionOrBuilder(
+  @Override
+  public ActionOrBuilder getActionOrBuilder(
       int index) {
     return action_.get(index);
   }
 
+  public static final int DIAGNOSTICS_FIELD_NUMBER = 23;
+  private java.util.List<Diagnostics> diagnostics_;
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  @Override
+  public java.util.List<Diagnostics> getDiagnosticsList() {
+    return diagnostics_;
+  }
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  @Override
+  public java.util.List<? extends DiagnosticsOrBuilder>
+      getDiagnosticsOrBuilderList() {
+    return diagnostics_;
+  }
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  @Override
+  public int getDiagnosticsCount() {
+    return diagnostics_.size();
+  }
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  @Override
+  public Diagnostics getDiagnostics(int index) {
+    return diagnostics_.get(index);
+  }
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  @Override
+  public DiagnosticsOrBuilder getDiagnosticsOrBuilder(
+      int index) {
+    return diagnostics_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -701,7 +804,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (platformId_ != 0L) {
@@ -713,17 +816,14 @@ private static final long serialVersionUID = 0L;
     if (timing_ != null) {
       output.writeMessage(3, getTiming());
     }
+    if (clientInfo_ != null) {
+      output.writeMessage(4, getClientInfo());
+    }
     for (int i = 0; i < user_.size(); i++) {
       output.writeMessage(7, user_.get(i));
     }
     for (int i = 0; i < cohortMembership_.size(); i++) {
       output.writeMessage(8, cohortMembership_.get(i));
-    }
-    for (int i = 0; i < sessionProfile_.size(); i++) {
-      output.writeMessage(9, sessionProfile_.get(i));
-    }
-    for (int i = 0; i < session_.size(); i++) {
-      output.writeMessage(10, session_.get(i));
     }
     for (int i = 0; i < view_.size(); i++) {
       output.writeMessage(11, view_.get(i));
@@ -740,10 +840,19 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < action_.size(); i++) {
       output.writeMessage(15, action_.get(i));
     }
+    for (int i = 0; i < diagnostics_.size(); i++) {
+      output.writeMessage(23, diagnostics_.get(i));
+    }
+    if (device_ != null) {
+      output.writeMessage(24, getDevice());
+    }
+    for (int i = 0; i < autoView_.size(); i++) {
+      output.writeMessage(25, autoView_.get(i));
+    }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -761,6 +870,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTiming());
     }
+    if (clientInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getClientInfo());
+    }
     for (int i = 0; i < user_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(7, user_.get(i));
@@ -768,14 +881,6 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < cohortMembership_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(8, cohortMembership_.get(i));
-    }
-    for (int i = 0; i < sessionProfile_.size(); i++) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(9, sessionProfile_.get(i));
-    }
-    for (int i = 0; i < session_.size(); i++) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(10, session_.get(i));
     }
     for (int i = 0; i < view_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
@@ -797,20 +902,32 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(15, action_.get(i));
     }
+    for (int i = 0; i < diagnostics_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(23, diagnostics_.get(i));
+    }
+    if (device_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(24, getDevice());
+    }
+    for (int i = 0; i < autoView_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(25, autoView_.get(i));
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.LogRequest)) {
+    if (!(obj instanceof LogRequest)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.LogRequest other = (ai.promoted.proto.event.LogRequest) obj;
+    LogRequest other = (LogRequest) obj;
 
     if (getPlatformId()
         != other.getPlatformId()) return false;
@@ -824,16 +941,24 @@ private static final long serialVersionUID = 0L;
       if (!getTiming()
           .equals(other.getTiming())) return false;
     }
+    if (hasClientInfo() != other.hasClientInfo()) return false;
+    if (hasClientInfo()) {
+      if (!getClientInfo()
+          .equals(other.getClientInfo())) return false;
+    }
+    if (hasDevice() != other.hasDevice()) return false;
+    if (hasDevice()) {
+      if (!getDevice()
+          .equals(other.getDevice())) return false;
+    }
     if (!getUserList()
         .equals(other.getUserList())) return false;
     if (!getCohortMembershipList()
         .equals(other.getCohortMembershipList())) return false;
-    if (!getSessionProfileList()
-        .equals(other.getSessionProfileList())) return false;
-    if (!getSessionList()
-        .equals(other.getSessionList())) return false;
     if (!getViewList()
         .equals(other.getViewList())) return false;
+    if (!getAutoViewList()
+        .equals(other.getAutoViewList())) return false;
     if (!getRequestList()
         .equals(other.getRequestList())) return false;
     if (!getInsertionList()
@@ -842,11 +967,13 @@ private static final long serialVersionUID = 0L;
         .equals(other.getImpressionList())) return false;
     if (!getActionList()
         .equals(other.getActionList())) return false;
+    if (!getDiagnosticsList()
+        .equals(other.getDiagnosticsList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -864,6 +991,14 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TIMING_FIELD_NUMBER;
       hash = (53 * hash) + getTiming().hashCode();
     }
+    if (hasClientInfo()) {
+      hash = (37 * hash) + CLIENT_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getClientInfo().hashCode();
+    }
+    if (hasDevice()) {
+      hash = (37 * hash) + DEVICE_FIELD_NUMBER;
+      hash = (53 * hash) + getDevice().hashCode();
+    }
     if (getUserCount() > 0) {
       hash = (37 * hash) + USER_FIELD_NUMBER;
       hash = (53 * hash) + getUserList().hashCode();
@@ -872,17 +1007,13 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + COHORT_MEMBERSHIP_FIELD_NUMBER;
       hash = (53 * hash) + getCohortMembershipList().hashCode();
     }
-    if (getSessionProfileCount() > 0) {
-      hash = (37 * hash) + SESSION_PROFILE_FIELD_NUMBER;
-      hash = (53 * hash) + getSessionProfileList().hashCode();
-    }
-    if (getSessionCount() > 0) {
-      hash = (37 * hash) + SESSION_FIELD_NUMBER;
-      hash = (53 * hash) + getSessionList().hashCode();
-    }
     if (getViewCount() > 0) {
       hash = (37 * hash) + VIEW_FIELD_NUMBER;
       hash = (53 * hash) + getViewList().hashCode();
+    }
+    if (getAutoViewCount() > 0) {
+      hash = (37 * hash) + AUTO_VIEW_FIELD_NUMBER;
+      hash = (53 * hash) + getAutoViewList().hashCode();
     }
     if (getRequestCount() > 0) {
       hash = (37 * hash) + REQUEST_FIELD_NUMBER;
@@ -900,74 +1031,78 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + ACTION_FIELD_NUMBER;
       hash = (53 * hash) + getActionList().hashCode();
     }
+    if (getDiagnosticsCount() > 0) {
+      hash = (37 * hash) + DIAGNOSTICS_FIELD_NUMBER;
+      hash = (53 * hash) + getDiagnosticsList().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(byte[] data)
+  public static LogRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(java.io.InputStream input)
+  public static LogRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.LogRequest parseDelimitedFrom(java.io.InputStream input)
+  public static LogRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.LogRequest parseDelimitedFrom(
+  public static LogRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.LogRequest parseFrom(
+  public static LogRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -975,23 +1110,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.LogRequest prototype) {
+  public static Builder newBuilder(LogRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -999,7 +1134,8 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * A way to batch up log requests into the same request.
    * Clients can reference logs in different batches.
-   * Next ID = 17.
+   * Keep in sync with FlatEvent and FlatResponseInsertion.
+   * Next ID = 26.
    * </pre>
    *
    * Protobuf type {@code event.LogRequest}
@@ -1007,18 +1143,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.LogRequest)
-      ai.promoted.proto.event.LogRequestOrBuilder {
+      LogRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_LogRequest_descriptor;
+      return Event.internal_static_event_LogRequest_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_LogRequest_fieldAccessorTable
+      return Event.internal_static_event_LogRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.LogRequest.class, ai.promoted.proto.event.LogRequest.Builder.class);
+              LogRequest.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.LogRequest.newBuilder()
@@ -1027,7 +1163,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -1036,16 +1172,16 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
         getUserFieldBuilder();
         getCohortMembershipFieldBuilder();
-        getSessionProfileFieldBuilder();
-        getSessionFieldBuilder();
         getViewFieldBuilder();
+        getAutoViewFieldBuilder();
         getRequestFieldBuilder();
         getInsertionFieldBuilder();
         getImpressionFieldBuilder();
         getActionFieldBuilder();
+        getDiagnosticsFieldBuilder();
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       platformId_ = 0L;
@@ -1062,6 +1198,18 @@ private static final long serialVersionUID = 0L;
         timing_ = null;
         timingBuilder_ = null;
       }
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+      if (deviceBuilder_ == null) {
+        device_ = null;
+      } else {
+        device_ = null;
+        deviceBuilder_ = null;
+      }
       if (userBuilder_ == null) {
         user_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1074,74 +1222,74 @@ private static final long serialVersionUID = 0L;
       } else {
         cohortMembershipBuilder_.clear();
       }
-      if (sessionProfileBuilder_ == null) {
-        sessionProfile_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000004);
-      } else {
-        sessionProfileBuilder_.clear();
-      }
-      if (sessionBuilder_ == null) {
-        session_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
-      } else {
-        sessionBuilder_.clear();
-      }
       if (viewBuilder_ == null) {
         view_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000004);
       } else {
         viewBuilder_.clear();
       }
+      if (autoViewBuilder_ == null) {
+        autoView_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+      } else {
+        autoViewBuilder_.clear();
+      }
       if (requestBuilder_ == null) {
         request_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
       } else {
         requestBuilder_.clear();
       }
       if (insertionBuilder_ == null) {
         insertion_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
       } else {
         insertionBuilder_.clear();
       }
       if (impressionBuilder_ == null) {
         impression_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
       } else {
         impressionBuilder_.clear();
       }
       if (actionBuilder_ == null) {
         action_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
       } else {
         actionBuilder_.clear();
+      }
+      if (diagnosticsBuilder_ == null) {
+        diagnostics_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000100);
+      } else {
+        diagnosticsBuilder_.clear();
       }
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_LogRequest_descriptor;
+      return Event.internal_static_event_LogRequest_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.LogRequest getDefaultInstanceForType() {
-      return ai.promoted.proto.event.LogRequest.getDefaultInstance();
+    @Override
+    public LogRequest getDefaultInstanceForType() {
+      return LogRequest.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.LogRequest build() {
-      ai.promoted.proto.event.LogRequest result = buildPartial();
+    @Override
+    public LogRequest build() {
+      LogRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.LogRequest buildPartial() {
-      ai.promoted.proto.event.LogRequest result = new ai.promoted.proto.event.LogRequest(this);
+    @Override
+    public LogRequest buildPartial() {
+      LogRequest result = new LogRequest(this);
       int from_bitField0_ = bitField0_;
       result.platformId_ = platformId_;
       if (userInfoBuilder_ == null) {
@@ -1153,6 +1301,16 @@ private static final long serialVersionUID = 0L;
         result.timing_ = timing_;
       } else {
         result.timing_ = timingBuilder_.build();
+      }
+      if (clientInfoBuilder_ == null) {
+        result.clientInfo_ = clientInfo_;
+      } else {
+        result.clientInfo_ = clientInfoBuilder_.build();
+      }
+      if (deviceBuilder_ == null) {
+        result.device_ = device_;
+      } else {
+        result.device_ = deviceBuilder_.build();
       }
       if (userBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -1172,117 +1330,117 @@ private static final long serialVersionUID = 0L;
       } else {
         result.cohortMembership_ = cohortMembershipBuilder_.build();
       }
-      if (sessionProfileBuilder_ == null) {
-        if (((bitField0_ & 0x00000004) != 0)) {
-          sessionProfile_ = java.util.Collections.unmodifiableList(sessionProfile_);
-          bitField0_ = (bitField0_ & ~0x00000004);
-        }
-        result.sessionProfile_ = sessionProfile_;
-      } else {
-        result.sessionProfile_ = sessionProfileBuilder_.build();
-      }
-      if (sessionBuilder_ == null) {
-        if (((bitField0_ & 0x00000008) != 0)) {
-          session_ = java.util.Collections.unmodifiableList(session_);
-          bitField0_ = (bitField0_ & ~0x00000008);
-        }
-        result.session_ = session_;
-      } else {
-        result.session_ = sessionBuilder_.build();
-      }
       if (viewBuilder_ == null) {
-        if (((bitField0_ & 0x00000010) != 0)) {
+        if (((bitField0_ & 0x00000004) != 0)) {
           view_ = java.util.Collections.unmodifiableList(view_);
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000004);
         }
         result.view_ = view_;
       } else {
         result.view_ = viewBuilder_.build();
       }
+      if (autoViewBuilder_ == null) {
+        if (((bitField0_ & 0x00000008) != 0)) {
+          autoView_ = java.util.Collections.unmodifiableList(autoView_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.autoView_ = autoView_;
+      } else {
+        result.autoView_ = autoViewBuilder_.build();
+      }
       if (requestBuilder_ == null) {
-        if (((bitField0_ & 0x00000020) != 0)) {
+        if (((bitField0_ & 0x00000010) != 0)) {
           request_ = java.util.Collections.unmodifiableList(request_);
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.request_ = request_;
       } else {
         result.request_ = requestBuilder_.build();
       }
       if (insertionBuilder_ == null) {
-        if (((bitField0_ & 0x00000040) != 0)) {
+        if (((bitField0_ & 0x00000020) != 0)) {
           insertion_ = java.util.Collections.unmodifiableList(insertion_);
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
         }
         result.insertion_ = insertion_;
       } else {
         result.insertion_ = insertionBuilder_.build();
       }
       if (impressionBuilder_ == null) {
-        if (((bitField0_ & 0x00000080) != 0)) {
+        if (((bitField0_ & 0x00000040) != 0)) {
           impression_ = java.util.Collections.unmodifiableList(impression_);
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000040);
         }
         result.impression_ = impression_;
       } else {
         result.impression_ = impressionBuilder_.build();
       }
       if (actionBuilder_ == null) {
-        if (((bitField0_ & 0x00000100) != 0)) {
+        if (((bitField0_ & 0x00000080) != 0)) {
           action_ = java.util.Collections.unmodifiableList(action_);
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000080);
         }
         result.action_ = action_;
       } else {
         result.action_ = actionBuilder_.build();
       }
+      if (diagnosticsBuilder_ == null) {
+        if (((bitField0_ & 0x00000100) != 0)) {
+          diagnostics_ = java.util.Collections.unmodifiableList(diagnostics_);
+          bitField0_ = (bitField0_ & ~0x00000100);
+        }
+        result.diagnostics_ = diagnostics_;
+      } else {
+        result.diagnostics_ = diagnosticsBuilder_.build();
+      }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.LogRequest) {
-        return mergeFrom((ai.promoted.proto.event.LogRequest)other);
+      if (other instanceof LogRequest) {
+        return mergeFrom((LogRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.LogRequest other) {
-      if (other == ai.promoted.proto.event.LogRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(LogRequest other) {
+      if (other == LogRequest.getDefaultInstance()) return this;
       if (other.getPlatformId() != 0L) {
         setPlatformId(other.getPlatformId());
       }
@@ -1291,6 +1449,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasTiming()) {
         mergeTiming(other.getTiming());
+      }
+      if (other.hasClientInfo()) {
+        mergeClientInfo(other.getClientInfo());
+      }
+      if (other.hasDevice()) {
+        mergeDevice(other.getDevice());
       }
       if (userBuilder_ == null) {
         if (!other.user_.isEmpty()) {
@@ -1344,63 +1508,11 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      if (sessionProfileBuilder_ == null) {
-        if (!other.sessionProfile_.isEmpty()) {
-          if (sessionProfile_.isEmpty()) {
-            sessionProfile_ = other.sessionProfile_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            ensureSessionProfileIsMutable();
-            sessionProfile_.addAll(other.sessionProfile_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.sessionProfile_.isEmpty()) {
-          if (sessionProfileBuilder_.isEmpty()) {
-            sessionProfileBuilder_.dispose();
-            sessionProfileBuilder_ = null;
-            sessionProfile_ = other.sessionProfile_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-            sessionProfileBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getSessionProfileFieldBuilder() : null;
-          } else {
-            sessionProfileBuilder_.addAllMessages(other.sessionProfile_);
-          }
-        }
-      }
-      if (sessionBuilder_ == null) {
-        if (!other.session_.isEmpty()) {
-          if (session_.isEmpty()) {
-            session_ = other.session_;
-            bitField0_ = (bitField0_ & ~0x00000008);
-          } else {
-            ensureSessionIsMutable();
-            session_.addAll(other.session_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.session_.isEmpty()) {
-          if (sessionBuilder_.isEmpty()) {
-            sessionBuilder_.dispose();
-            sessionBuilder_ = null;
-            session_ = other.session_;
-            bitField0_ = (bitField0_ & ~0x00000008);
-            sessionBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getSessionFieldBuilder() : null;
-          } else {
-            sessionBuilder_.addAllMessages(other.session_);
-          }
-        }
-      }
       if (viewBuilder_ == null) {
         if (!other.view_.isEmpty()) {
           if (view_.isEmpty()) {
             view_ = other.view_;
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000004);
           } else {
             ensureViewIsMutable();
             view_.addAll(other.view_);
@@ -1413,7 +1525,7 @@ private static final long serialVersionUID = 0L;
             viewBuilder_.dispose();
             viewBuilder_ = null;
             view_ = other.view_;
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000004);
             viewBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getViewFieldBuilder() : null;
@@ -1422,11 +1534,37 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (autoViewBuilder_ == null) {
+        if (!other.autoView_.isEmpty()) {
+          if (autoView_.isEmpty()) {
+            autoView_ = other.autoView_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureAutoViewIsMutable();
+            autoView_.addAll(other.autoView_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.autoView_.isEmpty()) {
+          if (autoViewBuilder_.isEmpty()) {
+            autoViewBuilder_.dispose();
+            autoViewBuilder_ = null;
+            autoView_ = other.autoView_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+            autoViewBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getAutoViewFieldBuilder() : null;
+          } else {
+            autoViewBuilder_.addAllMessages(other.autoView_);
+          }
+        }
+      }
       if (requestBuilder_ == null) {
         if (!other.request_.isEmpty()) {
           if (request_.isEmpty()) {
             request_ = other.request_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureRequestIsMutable();
             request_.addAll(other.request_);
@@ -1439,7 +1577,7 @@ private static final long serialVersionUID = 0L;
             requestBuilder_.dispose();
             requestBuilder_ = null;
             request_ = other.request_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000010);
             requestBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getRequestFieldBuilder() : null;
@@ -1452,7 +1590,7 @@ private static final long serialVersionUID = 0L;
         if (!other.insertion_.isEmpty()) {
           if (insertion_.isEmpty()) {
             insertion_ = other.insertion_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000020);
           } else {
             ensureInsertionIsMutable();
             insertion_.addAll(other.insertion_);
@@ -1465,7 +1603,7 @@ private static final long serialVersionUID = 0L;
             insertionBuilder_.dispose();
             insertionBuilder_ = null;
             insertion_ = other.insertion_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000020);
             insertionBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getInsertionFieldBuilder() : null;
@@ -1478,7 +1616,7 @@ private static final long serialVersionUID = 0L;
         if (!other.impression_.isEmpty()) {
           if (impression_.isEmpty()) {
             impression_ = other.impression_;
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000040);
           } else {
             ensureImpressionIsMutable();
             impression_.addAll(other.impression_);
@@ -1491,7 +1629,7 @@ private static final long serialVersionUID = 0L;
             impressionBuilder_.dispose();
             impressionBuilder_ = null;
             impression_ = other.impression_;
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000040);
             impressionBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getImpressionFieldBuilder() : null;
@@ -1504,7 +1642,7 @@ private static final long serialVersionUID = 0L;
         if (!other.action_.isEmpty()) {
           if (action_.isEmpty()) {
             action_ = other.action_;
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000080);
           } else {
             ensureActionIsMutable();
             action_.addAll(other.action_);
@@ -1517,7 +1655,7 @@ private static final long serialVersionUID = 0L;
             actionBuilder_.dispose();
             actionBuilder_ = null;
             action_ = other.action_;
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000080);
             actionBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getActionFieldBuilder() : null;
@@ -1526,26 +1664,52 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (diagnosticsBuilder_ == null) {
+        if (!other.diagnostics_.isEmpty()) {
+          if (diagnostics_.isEmpty()) {
+            diagnostics_ = other.diagnostics_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+          } else {
+            ensureDiagnosticsIsMutable();
+            diagnostics_.addAll(other.diagnostics_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.diagnostics_.isEmpty()) {
+          if (diagnosticsBuilder_.isEmpty()) {
+            diagnosticsBuilder_.dispose();
+            diagnosticsBuilder_ = null;
+            diagnostics_ = other.diagnostics_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+            diagnosticsBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getDiagnosticsFieldBuilder() : null;
+          } else {
+            diagnosticsBuilder_.addAllMessages(other.diagnostics_);
+          }
+        }
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.LogRequest parsedMessage = null;
+      LogRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.LogRequest) e.getUnfinishedMessage();
+        parsedMessage = (LogRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1566,7 +1730,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 platform_id = 1;</code>
      * @return The platformId.
      */
-    @java.lang.Override
+    @Override
     public long getPlatformId() {
       return platformId_;
     }
@@ -1921,22 +2085,332 @@ private static final long serialVersionUID = 0L;
       return timingBuilder_;
     }
 
-    private java.util.List<ai.promoted.proto.event.User> user_ =
+    private ai.promoted.proto.common.ClientInfo clientInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> clientInfoBuilder_;
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return Whether the clientInfo field is set.
+     */
+    public boolean hasClientInfo() {
+      return clientInfoBuilder_ != null || clientInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return The clientInfo.
+     */
+    public ai.promoted.proto.common.ClientInfo getClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      } else {
+        return clientInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        clientInfo_ = value;
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(
+        ai.promoted.proto.common.ClientInfo.Builder builderForValue) {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder mergeClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (clientInfo_ != null) {
+          clientInfo_ =
+            ai.promoted.proto.common.ClientInfo.newBuilder(clientInfo_).mergeFrom(value).buildPartial();
+        } else {
+          clientInfo_ = value;
+        }
+        onChanged();
+      } else {
+        clientInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder clearClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+        onChanged();
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfo.Builder getClientInfoBuilder() {
+      
+      onChanged();
+      return getClientInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+      if (clientInfoBuilder_ != null) {
+        return clientInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return clientInfo_ == null ?
+            ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> 
+        getClientInfoFieldBuilder() {
+      if (clientInfoBuilder_ == null) {
+        clientInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder>(
+                getClientInfo(),
+                getParentForChildren(),
+                isClean());
+        clientInfo_ = null;
+      }
+      return clientInfoBuilder_;
+    }
+
+    private ai.promoted.proto.common.Device device_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.Device, ai.promoted.proto.common.Device.Builder, ai.promoted.proto.common.DeviceOrBuilder> deviceBuilder_;
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     * @return Whether the device field is set.
+     */
+    public boolean hasDevice() {
+      return deviceBuilder_ != null || device_ != null;
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     * @return The device.
+     */
+    public ai.promoted.proto.common.Device getDevice() {
+      if (deviceBuilder_ == null) {
+        return device_ == null ? ai.promoted.proto.common.Device.getDefaultInstance() : device_;
+      } else {
+        return deviceBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public Builder setDevice(ai.promoted.proto.common.Device value) {
+      if (deviceBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        device_ = value;
+        onChanged();
+      } else {
+        deviceBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public Builder setDevice(
+        ai.promoted.proto.common.Device.Builder builderForValue) {
+      if (deviceBuilder_ == null) {
+        device_ = builderForValue.build();
+        onChanged();
+      } else {
+        deviceBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public Builder mergeDevice(ai.promoted.proto.common.Device value) {
+      if (deviceBuilder_ == null) {
+        if (device_ != null) {
+          device_ =
+            ai.promoted.proto.common.Device.newBuilder(device_).mergeFrom(value).buildPartial();
+        } else {
+          device_ = value;
+        }
+        onChanged();
+      } else {
+        deviceBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public Builder clearDevice() {
+      if (deviceBuilder_ == null) {
+        device_ = null;
+        onChanged();
+      } else {
+        device_ = null;
+        deviceBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public ai.promoted.proto.common.Device.Builder getDeviceBuilder() {
+      
+      onChanged();
+      return getDeviceFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    public ai.promoted.proto.common.DeviceOrBuilder getDeviceOrBuilder() {
+      if (deviceBuilder_ != null) {
+        return deviceBuilder_.getMessageOrBuilder();
+      } else {
+        return device_ == null ?
+            ai.promoted.proto.common.Device.getDefaultInstance() : device_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional. Information about the user device.
+     * </pre>
+     *
+     * <code>.common.Device device = 24;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.Device, ai.promoted.proto.common.Device.Builder, ai.promoted.proto.common.DeviceOrBuilder> 
+        getDeviceFieldBuilder() {
+      if (deviceBuilder_ == null) {
+        deviceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.Device, ai.promoted.proto.common.Device.Builder, ai.promoted.proto.common.DeviceOrBuilder>(
+                getDevice(),
+                getParentForChildren(),
+                isClean());
+        device_ = null;
+      }
+      return deviceBuilder_;
+    }
+
+    private java.util.List<User> user_ =
       java.util.Collections.emptyList();
     private void ensureUserIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        user_ = new java.util.ArrayList<ai.promoted.proto.event.User>(user_);
+        user_ = new java.util.ArrayList<User>(user_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.User, ai.promoted.proto.event.User.Builder, ai.promoted.proto.event.UserOrBuilder> userBuilder_;
+        User, User.Builder, UserOrBuilder> userBuilder_;
 
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public java.util.List<ai.promoted.proto.event.User> getUserList() {
+    public java.util.List<User> getUserList() {
       if (userBuilder_ == null) {
         return java.util.Collections.unmodifiableList(user_);
       } else {
@@ -1956,7 +2430,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public ai.promoted.proto.event.User getUser(int index) {
+    public User getUser(int index) {
       if (userBuilder_ == null) {
         return user_.get(index);
       } else {
@@ -1967,7 +2441,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder setUser(
-        int index, ai.promoted.proto.event.User value) {
+        int index, User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1984,7 +2458,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder setUser(
-        int index, ai.promoted.proto.event.User.Builder builderForValue) {
+        int index, User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.set(index, builderForValue.build());
@@ -1997,7 +2471,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public Builder addUser(ai.promoted.proto.event.User value) {
+    public Builder addUser(User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2014,7 +2488,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder addUser(
-        int index, ai.promoted.proto.event.User value) {
+        int index, User value) {
       if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2031,7 +2505,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder addUser(
-        ai.promoted.proto.event.User.Builder builderForValue) {
+        User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.add(builderForValue.build());
@@ -2045,7 +2519,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder addUser(
-        int index, ai.promoted.proto.event.User.Builder builderForValue) {
+        int index, User.Builder builderForValue) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         user_.add(index, builderForValue.build());
@@ -2059,7 +2533,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.User user = 7;</code>
      */
     public Builder addAllUser(
-        java.lang.Iterable<? extends ai.promoted.proto.event.User> values) {
+        Iterable<? extends User> values) {
       if (userBuilder_ == null) {
         ensureUserIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2099,14 +2573,14 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public ai.promoted.proto.event.User.Builder getUserBuilder(
+    public User.Builder getUserBuilder(
         int index) {
       return getUserFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public ai.promoted.proto.event.UserOrBuilder getUserOrBuilder(
+    public UserOrBuilder getUserOrBuilder(
         int index) {
       if (userBuilder_ == null) {
         return user_.get(index);  } else {
@@ -2116,7 +2590,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.event.UserOrBuilder> 
+    public java.util.List<? extends UserOrBuilder>
          getUserOrBuilderList() {
       if (userBuilder_ != null) {
         return userBuilder_.getMessageOrBuilderList();
@@ -2127,31 +2601,31 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public ai.promoted.proto.event.User.Builder addUserBuilder() {
+    public User.Builder addUserBuilder() {
       return getUserFieldBuilder().addBuilder(
-          ai.promoted.proto.event.User.getDefaultInstance());
+          User.getDefaultInstance());
     }
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public ai.promoted.proto.event.User.Builder addUserBuilder(
+    public User.Builder addUserBuilder(
         int index) {
       return getUserFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.User.getDefaultInstance());
+          index, User.getDefaultInstance());
     }
     /**
      * <code>repeated .event.User user = 7;</code>
      */
-    public java.util.List<ai.promoted.proto.event.User.Builder> 
+    public java.util.List<User.Builder>
          getUserBuilderList() {
       return getUserFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.User, ai.promoted.proto.event.User.Builder, ai.promoted.proto.event.UserOrBuilder> 
+        User, User.Builder, UserOrBuilder>
         getUserFieldBuilder() {
       if (userBuilder_ == null) {
         userBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.User, ai.promoted.proto.event.User.Builder, ai.promoted.proto.event.UserOrBuilder>(
+            User, User.Builder, UserOrBuilder>(
                 user_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
@@ -2161,22 +2635,22 @@ private static final long serialVersionUID = 0L;
       return userBuilder_;
     }
 
-    private java.util.List<ai.promoted.proto.event.CohortMembership> cohortMembership_ =
+    private java.util.List<CohortMembership> cohortMembership_ =
       java.util.Collections.emptyList();
     private void ensureCohortMembershipIsMutable() {
       if (!((bitField0_ & 0x00000002) != 0)) {
-        cohortMembership_ = new java.util.ArrayList<ai.promoted.proto.event.CohortMembership>(cohortMembership_);
+        cohortMembership_ = new java.util.ArrayList<CohortMembership>(cohortMembership_);
         bitField0_ |= 0x00000002;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.CohortMembership, ai.promoted.proto.event.CohortMembership.Builder, ai.promoted.proto.event.CohortMembershipOrBuilder> cohortMembershipBuilder_;
+        CohortMembership, CohortMembership.Builder, CohortMembershipOrBuilder> cohortMembershipBuilder_;
 
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public java.util.List<ai.promoted.proto.event.CohortMembership> getCohortMembershipList() {
+    public java.util.List<CohortMembership> getCohortMembershipList() {
       if (cohortMembershipBuilder_ == null) {
         return java.util.Collections.unmodifiableList(cohortMembership_);
       } else {
@@ -2196,7 +2670,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public ai.promoted.proto.event.CohortMembership getCohortMembership(int index) {
+    public CohortMembership getCohortMembership(int index) {
       if (cohortMembershipBuilder_ == null) {
         return cohortMembership_.get(index);
       } else {
@@ -2207,7 +2681,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder setCohortMembership(
-        int index, ai.promoted.proto.event.CohortMembership value) {
+        int index, CohortMembership value) {
       if (cohortMembershipBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2224,7 +2698,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder setCohortMembership(
-        int index, ai.promoted.proto.event.CohortMembership.Builder builderForValue) {
+        int index, CohortMembership.Builder builderForValue) {
       if (cohortMembershipBuilder_ == null) {
         ensureCohortMembershipIsMutable();
         cohortMembership_.set(index, builderForValue.build());
@@ -2237,7 +2711,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public Builder addCohortMembership(ai.promoted.proto.event.CohortMembership value) {
+    public Builder addCohortMembership(CohortMembership value) {
       if (cohortMembershipBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2254,7 +2728,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder addCohortMembership(
-        int index, ai.promoted.proto.event.CohortMembership value) {
+        int index, CohortMembership value) {
       if (cohortMembershipBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2271,7 +2745,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder addCohortMembership(
-        ai.promoted.proto.event.CohortMembership.Builder builderForValue) {
+        CohortMembership.Builder builderForValue) {
       if (cohortMembershipBuilder_ == null) {
         ensureCohortMembershipIsMutable();
         cohortMembership_.add(builderForValue.build());
@@ -2285,7 +2759,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder addCohortMembership(
-        int index, ai.promoted.proto.event.CohortMembership.Builder builderForValue) {
+        int index, CohortMembership.Builder builderForValue) {
       if (cohortMembershipBuilder_ == null) {
         ensureCohortMembershipIsMutable();
         cohortMembership_.add(index, builderForValue.build());
@@ -2299,7 +2773,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
     public Builder addAllCohortMembership(
-        java.lang.Iterable<? extends ai.promoted.proto.event.CohortMembership> values) {
+        Iterable<? extends CohortMembership> values) {
       if (cohortMembershipBuilder_ == null) {
         ensureCohortMembershipIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2339,14 +2813,14 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public ai.promoted.proto.event.CohortMembership.Builder getCohortMembershipBuilder(
+    public CohortMembership.Builder getCohortMembershipBuilder(
         int index) {
       return getCohortMembershipFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public ai.promoted.proto.event.CohortMembershipOrBuilder getCohortMembershipOrBuilder(
+    public CohortMembershipOrBuilder getCohortMembershipOrBuilder(
         int index) {
       if (cohortMembershipBuilder_ == null) {
         return cohortMembership_.get(index);  } else {
@@ -2356,7 +2830,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.event.CohortMembershipOrBuilder> 
+    public java.util.List<? extends CohortMembershipOrBuilder>
          getCohortMembershipOrBuilderList() {
       if (cohortMembershipBuilder_ != null) {
         return cohortMembershipBuilder_.getMessageOrBuilderList();
@@ -2367,31 +2841,31 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public ai.promoted.proto.event.CohortMembership.Builder addCohortMembershipBuilder() {
+    public CohortMembership.Builder addCohortMembershipBuilder() {
       return getCohortMembershipFieldBuilder().addBuilder(
-          ai.promoted.proto.event.CohortMembership.getDefaultInstance());
+          CohortMembership.getDefaultInstance());
     }
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public ai.promoted.proto.event.CohortMembership.Builder addCohortMembershipBuilder(
+    public CohortMembership.Builder addCohortMembershipBuilder(
         int index) {
       return getCohortMembershipFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.CohortMembership.getDefaultInstance());
+          index, CohortMembership.getDefaultInstance());
     }
     /**
      * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
      */
-    public java.util.List<ai.promoted.proto.event.CohortMembership.Builder> 
+    public java.util.List<CohortMembership.Builder>
          getCohortMembershipBuilderList() {
       return getCohortMembershipFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.CohortMembership, ai.promoted.proto.event.CohortMembership.Builder, ai.promoted.proto.event.CohortMembershipOrBuilder> 
+        CohortMembership, CohortMembership.Builder, CohortMembershipOrBuilder>
         getCohortMembershipFieldBuilder() {
       if (cohortMembershipBuilder_ == null) {
         cohortMembershipBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.CohortMembership, ai.promoted.proto.event.CohortMembership.Builder, ai.promoted.proto.event.CohortMembershipOrBuilder>(
+            CohortMembership, CohortMembership.Builder, CohortMembershipOrBuilder>(
                 cohortMembership_,
                 ((bitField0_ & 0x00000002) != 0),
                 getParentForChildren(),
@@ -2401,502 +2875,22 @@ private static final long serialVersionUID = 0L;
       return cohortMembershipBuilder_;
     }
 
-    private java.util.List<ai.promoted.proto.event.SessionProfile> sessionProfile_ =
+    private java.util.List<View> view_ =
       java.util.Collections.emptyList();
-    private void ensureSessionProfileIsMutable() {
+    private void ensureViewIsMutable() {
       if (!((bitField0_ & 0x00000004) != 0)) {
-        sessionProfile_ = new java.util.ArrayList<ai.promoted.proto.event.SessionProfile>(sessionProfile_);
+        view_ = new java.util.ArrayList<View>(view_);
         bitField0_ |= 0x00000004;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.SessionProfile, ai.promoted.proto.event.SessionProfile.Builder, ai.promoted.proto.event.SessionProfileOrBuilder> sessionProfileBuilder_;
-
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public java.util.List<ai.promoted.proto.event.SessionProfile> getSessionProfileList() {
-      if (sessionProfileBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(sessionProfile_);
-      } else {
-        return sessionProfileBuilder_.getMessageList();
-      }
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public int getSessionProfileCount() {
-      if (sessionProfileBuilder_ == null) {
-        return sessionProfile_.size();
-      } else {
-        return sessionProfileBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public ai.promoted.proto.event.SessionProfile getSessionProfile(int index) {
-      if (sessionProfileBuilder_ == null) {
-        return sessionProfile_.get(index);
-      } else {
-        return sessionProfileBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder setSessionProfile(
-        int index, ai.promoted.proto.event.SessionProfile value) {
-      if (sessionProfileBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionProfileIsMutable();
-        sessionProfile_.set(index, value);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.setMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder setSessionProfile(
-        int index, ai.promoted.proto.event.SessionProfile.Builder builderForValue) {
-      if (sessionProfileBuilder_ == null) {
-        ensureSessionProfileIsMutable();
-        sessionProfile_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        sessionProfileBuilder_.setMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder addSessionProfile(ai.promoted.proto.event.SessionProfile value) {
-      if (sessionProfileBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionProfileIsMutable();
-        sessionProfile_.add(value);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder addSessionProfile(
-        int index, ai.promoted.proto.event.SessionProfile value) {
-      if (sessionProfileBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionProfileIsMutable();
-        sessionProfile_.add(index, value);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder addSessionProfile(
-        ai.promoted.proto.event.SessionProfile.Builder builderForValue) {
-      if (sessionProfileBuilder_ == null) {
-        ensureSessionProfileIsMutable();
-        sessionProfile_.add(builderForValue.build());
-        onChanged();
-      } else {
-        sessionProfileBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder addSessionProfile(
-        int index, ai.promoted.proto.event.SessionProfile.Builder builderForValue) {
-      if (sessionProfileBuilder_ == null) {
-        ensureSessionProfileIsMutable();
-        sessionProfile_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        sessionProfileBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder addAllSessionProfile(
-        java.lang.Iterable<? extends ai.promoted.proto.event.SessionProfile> values) {
-      if (sessionProfileBuilder_ == null) {
-        ensureSessionProfileIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, sessionProfile_);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder clearSessionProfile() {
-      if (sessionProfileBuilder_ == null) {
-        sessionProfile_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public Builder removeSessionProfile(int index) {
-      if (sessionProfileBuilder_ == null) {
-        ensureSessionProfileIsMutable();
-        sessionProfile_.remove(index);
-        onChanged();
-      } else {
-        sessionProfileBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public ai.promoted.proto.event.SessionProfile.Builder getSessionProfileBuilder(
-        int index) {
-      return getSessionProfileFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public ai.promoted.proto.event.SessionProfileOrBuilder getSessionProfileOrBuilder(
-        int index) {
-      if (sessionProfileBuilder_ == null) {
-        return sessionProfile_.get(index);  } else {
-        return sessionProfileBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public java.util.List<? extends ai.promoted.proto.event.SessionProfileOrBuilder> 
-         getSessionProfileOrBuilderList() {
-      if (sessionProfileBuilder_ != null) {
-        return sessionProfileBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(sessionProfile_);
-      }
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public ai.promoted.proto.event.SessionProfile.Builder addSessionProfileBuilder() {
-      return getSessionProfileFieldBuilder().addBuilder(
-          ai.promoted.proto.event.SessionProfile.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public ai.promoted.proto.event.SessionProfile.Builder addSessionProfileBuilder(
-        int index) {
-      return getSessionProfileFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.SessionProfile.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .event.SessionProfile session_profile = 9;</code>
-     */
-    public java.util.List<ai.promoted.proto.event.SessionProfile.Builder> 
-         getSessionProfileBuilderList() {
-      return getSessionProfileFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.SessionProfile, ai.promoted.proto.event.SessionProfile.Builder, ai.promoted.proto.event.SessionProfileOrBuilder> 
-        getSessionProfileFieldBuilder() {
-      if (sessionProfileBuilder_ == null) {
-        sessionProfileBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.SessionProfile, ai.promoted.proto.event.SessionProfile.Builder, ai.promoted.proto.event.SessionProfileOrBuilder>(
-                sessionProfile_,
-                ((bitField0_ & 0x00000004) != 0),
-                getParentForChildren(),
-                isClean());
-        sessionProfile_ = null;
-      }
-      return sessionProfileBuilder_;
-    }
-
-    private java.util.List<ai.promoted.proto.event.Session> session_ =
-      java.util.Collections.emptyList();
-    private void ensureSessionIsMutable() {
-      if (!((bitField0_ & 0x00000008) != 0)) {
-        session_ = new java.util.ArrayList<ai.promoted.proto.event.Session>(session_);
-        bitField0_ |= 0x00000008;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Session, ai.promoted.proto.event.Session.Builder, ai.promoted.proto.event.SessionOrBuilder> sessionBuilder_;
-
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public java.util.List<ai.promoted.proto.event.Session> getSessionList() {
-      if (sessionBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(session_);
-      } else {
-        return sessionBuilder_.getMessageList();
-      }
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public int getSessionCount() {
-      if (sessionBuilder_ == null) {
-        return session_.size();
-      } else {
-        return sessionBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public ai.promoted.proto.event.Session getSession(int index) {
-      if (sessionBuilder_ == null) {
-        return session_.get(index);
-      } else {
-        return sessionBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder setSession(
-        int index, ai.promoted.proto.event.Session value) {
-      if (sessionBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionIsMutable();
-        session_.set(index, value);
-        onChanged();
-      } else {
-        sessionBuilder_.setMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder setSession(
-        int index, ai.promoted.proto.event.Session.Builder builderForValue) {
-      if (sessionBuilder_ == null) {
-        ensureSessionIsMutable();
-        session_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        sessionBuilder_.setMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder addSession(ai.promoted.proto.event.Session value) {
-      if (sessionBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionIsMutable();
-        session_.add(value);
-        onChanged();
-      } else {
-        sessionBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder addSession(
-        int index, ai.promoted.proto.event.Session value) {
-      if (sessionBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureSessionIsMutable();
-        session_.add(index, value);
-        onChanged();
-      } else {
-        sessionBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder addSession(
-        ai.promoted.proto.event.Session.Builder builderForValue) {
-      if (sessionBuilder_ == null) {
-        ensureSessionIsMutable();
-        session_.add(builderForValue.build());
-        onChanged();
-      } else {
-        sessionBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder addSession(
-        int index, ai.promoted.proto.event.Session.Builder builderForValue) {
-      if (sessionBuilder_ == null) {
-        ensureSessionIsMutable();
-        session_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        sessionBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder addAllSession(
-        java.lang.Iterable<? extends ai.promoted.proto.event.Session> values) {
-      if (sessionBuilder_ == null) {
-        ensureSessionIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, session_);
-        onChanged();
-      } else {
-        sessionBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder clearSession() {
-      if (sessionBuilder_ == null) {
-        session_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-      } else {
-        sessionBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public Builder removeSession(int index) {
-      if (sessionBuilder_ == null) {
-        ensureSessionIsMutable();
-        session_.remove(index);
-        onChanged();
-      } else {
-        sessionBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public ai.promoted.proto.event.Session.Builder getSessionBuilder(
-        int index) {
-      return getSessionFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public ai.promoted.proto.event.SessionOrBuilder getSessionOrBuilder(
-        int index) {
-      if (sessionBuilder_ == null) {
-        return session_.get(index);  } else {
-        return sessionBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public java.util.List<? extends ai.promoted.proto.event.SessionOrBuilder> 
-         getSessionOrBuilderList() {
-      if (sessionBuilder_ != null) {
-        return sessionBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(session_);
-      }
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public ai.promoted.proto.event.Session.Builder addSessionBuilder() {
-      return getSessionFieldBuilder().addBuilder(
-          ai.promoted.proto.event.Session.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public ai.promoted.proto.event.Session.Builder addSessionBuilder(
-        int index) {
-      return getSessionFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.Session.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .event.Session session = 10;</code>
-     */
-    public java.util.List<ai.promoted.proto.event.Session.Builder> 
-         getSessionBuilderList() {
-      return getSessionFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Session, ai.promoted.proto.event.Session.Builder, ai.promoted.proto.event.SessionOrBuilder> 
-        getSessionFieldBuilder() {
-      if (sessionBuilder_ == null) {
-        sessionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.Session, ai.promoted.proto.event.Session.Builder, ai.promoted.proto.event.SessionOrBuilder>(
-                session_,
-                ((bitField0_ & 0x00000008) != 0),
-                getParentForChildren(),
-                isClean());
-        session_ = null;
-      }
-      return sessionBuilder_;
-    }
-
-    private java.util.List<ai.promoted.proto.event.View> view_ =
-      java.util.Collections.emptyList();
-    private void ensureViewIsMutable() {
-      if (!((bitField0_ & 0x00000010) != 0)) {
-        view_ = new java.util.ArrayList<ai.promoted.proto.event.View>(view_);
-        bitField0_ |= 0x00000010;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.View, ai.promoted.proto.event.View.Builder, ai.promoted.proto.event.ViewOrBuilder> viewBuilder_;
+        View, View.Builder, ViewOrBuilder> viewBuilder_;
 
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public java.util.List<ai.promoted.proto.event.View> getViewList() {
+    public java.util.List<View> getViewList() {
       if (viewBuilder_ == null) {
         return java.util.Collections.unmodifiableList(view_);
       } else {
@@ -2916,7 +2910,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public ai.promoted.proto.event.View getView(int index) {
+    public View getView(int index) {
       if (viewBuilder_ == null) {
         return view_.get(index);
       } else {
@@ -2927,7 +2921,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder setView(
-        int index, ai.promoted.proto.event.View value) {
+        int index, View value) {
       if (viewBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2944,7 +2938,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder setView(
-        int index, ai.promoted.proto.event.View.Builder builderForValue) {
+        int index, View.Builder builderForValue) {
       if (viewBuilder_ == null) {
         ensureViewIsMutable();
         view_.set(index, builderForValue.build());
@@ -2957,7 +2951,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public Builder addView(ai.promoted.proto.event.View value) {
+    public Builder addView(View value) {
       if (viewBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2974,7 +2968,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder addView(
-        int index, ai.promoted.proto.event.View value) {
+        int index, View value) {
       if (viewBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2991,7 +2985,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder addView(
-        ai.promoted.proto.event.View.Builder builderForValue) {
+        View.Builder builderForValue) {
       if (viewBuilder_ == null) {
         ensureViewIsMutable();
         view_.add(builderForValue.build());
@@ -3005,7 +2999,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder addView(
-        int index, ai.promoted.proto.event.View.Builder builderForValue) {
+        int index, View.Builder builderForValue) {
       if (viewBuilder_ == null) {
         ensureViewIsMutable();
         view_.add(index, builderForValue.build());
@@ -3019,7 +3013,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.View view = 11;</code>
      */
     public Builder addAllView(
-        java.lang.Iterable<? extends ai.promoted.proto.event.View> values) {
+        Iterable<? extends View> values) {
       if (viewBuilder_ == null) {
         ensureViewIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3036,7 +3030,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearView() {
       if (viewBuilder_ == null) {
         view_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
       } else {
         viewBuilder_.clear();
@@ -3059,14 +3053,14 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public ai.promoted.proto.event.View.Builder getViewBuilder(
+    public View.Builder getViewBuilder(
         int index) {
       return getViewFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public ai.promoted.proto.event.ViewOrBuilder getViewOrBuilder(
+    public ViewOrBuilder getViewOrBuilder(
         int index) {
       if (viewBuilder_ == null) {
         return view_.get(index);  } else {
@@ -3076,7 +3070,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.event.ViewOrBuilder> 
+    public java.util.List<? extends ViewOrBuilder>
          getViewOrBuilderList() {
       if (viewBuilder_ != null) {
         return viewBuilder_.getMessageOrBuilderList();
@@ -3087,33 +3081,33 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public ai.promoted.proto.event.View.Builder addViewBuilder() {
+    public View.Builder addViewBuilder() {
       return getViewFieldBuilder().addBuilder(
-          ai.promoted.proto.event.View.getDefaultInstance());
+          View.getDefaultInstance());
     }
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public ai.promoted.proto.event.View.Builder addViewBuilder(
+    public View.Builder addViewBuilder(
         int index) {
       return getViewFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.View.getDefaultInstance());
+          index, View.getDefaultInstance());
     }
     /**
      * <code>repeated .event.View view = 11;</code>
      */
-    public java.util.List<ai.promoted.proto.event.View.Builder> 
+    public java.util.List<View.Builder>
          getViewBuilderList() {
       return getViewFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.View, ai.promoted.proto.event.View.Builder, ai.promoted.proto.event.ViewOrBuilder> 
+        View, View.Builder, ViewOrBuilder>
         getViewFieldBuilder() {
       if (viewBuilder_ == null) {
         viewBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.View, ai.promoted.proto.event.View.Builder, ai.promoted.proto.event.ViewOrBuilder>(
+            View, View.Builder, ViewOrBuilder>(
                 view_,
-                ((bitField0_ & 0x00000010) != 0),
+                ((bitField0_ & 0x00000004) != 0),
                 getParentForChildren(),
                 isClean());
         view_ = null;
@@ -3121,12 +3115,252 @@ private static final long serialVersionUID = 0L;
       return viewBuilder_;
     }
 
+    private java.util.List<AutoView> autoView_ =
+      java.util.Collections.emptyList();
+    private void ensureAutoViewIsMutable() {
+      if (!((bitField0_ & 0x00000008) != 0)) {
+        autoView_ = new java.util.ArrayList<AutoView>(autoView_);
+        bitField0_ |= 0x00000008;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        AutoView, AutoView.Builder, AutoViewOrBuilder> autoViewBuilder_;
+
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public java.util.List<AutoView> getAutoViewList() {
+      if (autoViewBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(autoView_);
+      } else {
+        return autoViewBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public int getAutoViewCount() {
+      if (autoViewBuilder_ == null) {
+        return autoView_.size();
+      } else {
+        return autoViewBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public AutoView getAutoView(int index) {
+      if (autoViewBuilder_ == null) {
+        return autoView_.get(index);
+      } else {
+        return autoViewBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder setAutoView(
+        int index, AutoView value) {
+      if (autoViewBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAutoViewIsMutable();
+        autoView_.set(index, value);
+        onChanged();
+      } else {
+        autoViewBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder setAutoView(
+        int index, AutoView.Builder builderForValue) {
+      if (autoViewBuilder_ == null) {
+        ensureAutoViewIsMutable();
+        autoView_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        autoViewBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder addAutoView(AutoView value) {
+      if (autoViewBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAutoViewIsMutable();
+        autoView_.add(value);
+        onChanged();
+      } else {
+        autoViewBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder addAutoView(
+        int index, AutoView value) {
+      if (autoViewBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAutoViewIsMutable();
+        autoView_.add(index, value);
+        onChanged();
+      } else {
+        autoViewBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder addAutoView(
+        AutoView.Builder builderForValue) {
+      if (autoViewBuilder_ == null) {
+        ensureAutoViewIsMutable();
+        autoView_.add(builderForValue.build());
+        onChanged();
+      } else {
+        autoViewBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder addAutoView(
+        int index, AutoView.Builder builderForValue) {
+      if (autoViewBuilder_ == null) {
+        ensureAutoViewIsMutable();
+        autoView_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        autoViewBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder addAllAutoView(
+        Iterable<? extends AutoView> values) {
+      if (autoViewBuilder_ == null) {
+        ensureAutoViewIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, autoView_);
+        onChanged();
+      } else {
+        autoViewBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder clearAutoView() {
+      if (autoViewBuilder_ == null) {
+        autoView_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+      } else {
+        autoViewBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public Builder removeAutoView(int index) {
+      if (autoViewBuilder_ == null) {
+        ensureAutoViewIsMutable();
+        autoView_.remove(index);
+        onChanged();
+      } else {
+        autoViewBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public AutoView.Builder getAutoViewBuilder(
+        int index) {
+      return getAutoViewFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public AutoViewOrBuilder getAutoViewOrBuilder(
+        int index) {
+      if (autoViewBuilder_ == null) {
+        return autoView_.get(index);  } else {
+        return autoViewBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public java.util.List<? extends AutoViewOrBuilder>
+         getAutoViewOrBuilderList() {
+      if (autoViewBuilder_ != null) {
+        return autoViewBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(autoView_);
+      }
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public AutoView.Builder addAutoViewBuilder() {
+      return getAutoViewFieldBuilder().addBuilder(
+          AutoView.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public AutoView.Builder addAutoViewBuilder(
+        int index) {
+      return getAutoViewFieldBuilder().addBuilder(
+          index, AutoView.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .event.AutoView auto_view = 25;</code>
+     */
+    public java.util.List<AutoView.Builder>
+         getAutoViewBuilderList() {
+      return getAutoViewFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        AutoView, AutoView.Builder, AutoViewOrBuilder>
+        getAutoViewFieldBuilder() {
+      if (autoViewBuilder_ == null) {
+        autoViewBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            AutoView, AutoView.Builder, AutoViewOrBuilder>(
+                autoView_,
+                ((bitField0_ & 0x00000008) != 0),
+                getParentForChildren(),
+                isClean());
+        autoView_ = null;
+      }
+      return autoViewBuilder_;
+    }
+
     private java.util.List<ai.promoted.proto.delivery.Request> request_ =
       java.util.Collections.emptyList();
     private void ensureRequestIsMutable() {
-      if (!((bitField0_ & 0x00000020) != 0)) {
+      if (!((bitField0_ & 0x00000010) != 0)) {
         request_ = new java.util.ArrayList<ai.promoted.proto.delivery.Request>(request_);
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000010;
        }
     }
 
@@ -3259,7 +3493,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Request request = 12;</code>
      */
     public Builder addAllRequest(
-        java.lang.Iterable<? extends ai.promoted.proto.delivery.Request> values) {
+        Iterable<? extends ai.promoted.proto.delivery.Request> values) {
       if (requestBuilder_ == null) {
         ensureRequestIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3276,7 +3510,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearRequest() {
       if (requestBuilder_ == null) {
         request_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
       } else {
         requestBuilder_.clear();
@@ -3353,7 +3587,7 @@ private static final long serialVersionUID = 0L;
         requestBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             ai.promoted.proto.delivery.Request, ai.promoted.proto.delivery.Request.Builder, ai.promoted.proto.delivery.RequestOrBuilder>(
                 request_,
-                ((bitField0_ & 0x00000020) != 0),
+                ((bitField0_ & 0x00000010) != 0),
                 getParentForChildren(),
                 isClean());
         request_ = null;
@@ -3364,9 +3598,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<ai.promoted.proto.delivery.Insertion> insertion_ =
       java.util.Collections.emptyList();
     private void ensureInsertionIsMutable() {
-      if (!((bitField0_ & 0x00000040) != 0)) {
+      if (!((bitField0_ & 0x00000020) != 0)) {
         insertion_ = new java.util.ArrayList<ai.promoted.proto.delivery.Insertion>(insertion_);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
        }
     }
 
@@ -3499,7 +3733,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 13;</code>
      */
     public Builder addAllInsertion(
-        java.lang.Iterable<? extends ai.promoted.proto.delivery.Insertion> values) {
+        Iterable<? extends ai.promoted.proto.delivery.Insertion> values) {
       if (insertionBuilder_ == null) {
         ensureInsertionIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3516,7 +3750,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearInsertion() {
       if (insertionBuilder_ == null) {
         insertion_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
       } else {
         insertionBuilder_.clear();
@@ -3593,7 +3827,7 @@ private static final long serialVersionUID = 0L;
         insertionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             ai.promoted.proto.delivery.Insertion, ai.promoted.proto.delivery.Insertion.Builder, ai.promoted.proto.delivery.InsertionOrBuilder>(
                 insertion_,
-                ((bitField0_ & 0x00000040) != 0),
+                ((bitField0_ & 0x00000020) != 0),
                 getParentForChildren(),
                 isClean());
         insertion_ = null;
@@ -3601,22 +3835,22 @@ private static final long serialVersionUID = 0L;
       return insertionBuilder_;
     }
 
-    private java.util.List<ai.promoted.proto.event.Impression> impression_ =
+    private java.util.List<Impression> impression_ =
       java.util.Collections.emptyList();
     private void ensureImpressionIsMutable() {
-      if (!((bitField0_ & 0x00000080) != 0)) {
-        impression_ = new java.util.ArrayList<ai.promoted.proto.event.Impression>(impression_);
-        bitField0_ |= 0x00000080;
+      if (!((bitField0_ & 0x00000040) != 0)) {
+        impression_ = new java.util.ArrayList<Impression>(impression_);
+        bitField0_ |= 0x00000040;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Impression, ai.promoted.proto.event.Impression.Builder, ai.promoted.proto.event.ImpressionOrBuilder> impressionBuilder_;
+        Impression, Impression.Builder, ImpressionOrBuilder> impressionBuilder_;
 
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public java.util.List<ai.promoted.proto.event.Impression> getImpressionList() {
+    public java.util.List<Impression> getImpressionList() {
       if (impressionBuilder_ == null) {
         return java.util.Collections.unmodifiableList(impression_);
       } else {
@@ -3636,7 +3870,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public ai.promoted.proto.event.Impression getImpression(int index) {
+    public Impression getImpression(int index) {
       if (impressionBuilder_ == null) {
         return impression_.get(index);
       } else {
@@ -3647,7 +3881,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder setImpression(
-        int index, ai.promoted.proto.event.Impression value) {
+        int index, Impression value) {
       if (impressionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3664,7 +3898,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder setImpression(
-        int index, ai.promoted.proto.event.Impression.Builder builderForValue) {
+        int index, Impression.Builder builderForValue) {
       if (impressionBuilder_ == null) {
         ensureImpressionIsMutable();
         impression_.set(index, builderForValue.build());
@@ -3677,7 +3911,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public Builder addImpression(ai.promoted.proto.event.Impression value) {
+    public Builder addImpression(Impression value) {
       if (impressionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3694,7 +3928,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder addImpression(
-        int index, ai.promoted.proto.event.Impression value) {
+        int index, Impression value) {
       if (impressionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3711,7 +3945,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder addImpression(
-        ai.promoted.proto.event.Impression.Builder builderForValue) {
+        Impression.Builder builderForValue) {
       if (impressionBuilder_ == null) {
         ensureImpressionIsMutable();
         impression_.add(builderForValue.build());
@@ -3725,7 +3959,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder addImpression(
-        int index, ai.promoted.proto.event.Impression.Builder builderForValue) {
+        int index, Impression.Builder builderForValue) {
       if (impressionBuilder_ == null) {
         ensureImpressionIsMutable();
         impression_.add(index, builderForValue.build());
@@ -3739,7 +3973,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Impression impression = 14;</code>
      */
     public Builder addAllImpression(
-        java.lang.Iterable<? extends ai.promoted.proto.event.Impression> values) {
+        Iterable<? extends Impression> values) {
       if (impressionBuilder_ == null) {
         ensureImpressionIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3756,7 +3990,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearImpression() {
       if (impressionBuilder_ == null) {
         impression_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
       } else {
         impressionBuilder_.clear();
@@ -3779,14 +4013,14 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public ai.promoted.proto.event.Impression.Builder getImpressionBuilder(
+    public Impression.Builder getImpressionBuilder(
         int index) {
       return getImpressionFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public ai.promoted.proto.event.ImpressionOrBuilder getImpressionOrBuilder(
+    public ImpressionOrBuilder getImpressionOrBuilder(
         int index) {
       if (impressionBuilder_ == null) {
         return impression_.get(index);  } else {
@@ -3796,7 +4030,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.event.ImpressionOrBuilder> 
+    public java.util.List<? extends ImpressionOrBuilder>
          getImpressionOrBuilderList() {
       if (impressionBuilder_ != null) {
         return impressionBuilder_.getMessageOrBuilderList();
@@ -3807,33 +4041,33 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public ai.promoted.proto.event.Impression.Builder addImpressionBuilder() {
+    public Impression.Builder addImpressionBuilder() {
       return getImpressionFieldBuilder().addBuilder(
-          ai.promoted.proto.event.Impression.getDefaultInstance());
+          Impression.getDefaultInstance());
     }
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public ai.promoted.proto.event.Impression.Builder addImpressionBuilder(
+    public Impression.Builder addImpressionBuilder(
         int index) {
       return getImpressionFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.Impression.getDefaultInstance());
+          index, Impression.getDefaultInstance());
     }
     /**
      * <code>repeated .event.Impression impression = 14;</code>
      */
-    public java.util.List<ai.promoted.proto.event.Impression.Builder> 
+    public java.util.List<Impression.Builder>
          getImpressionBuilderList() {
       return getImpressionFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Impression, ai.promoted.proto.event.Impression.Builder, ai.promoted.proto.event.ImpressionOrBuilder> 
+        Impression, Impression.Builder, ImpressionOrBuilder>
         getImpressionFieldBuilder() {
       if (impressionBuilder_ == null) {
         impressionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.Impression, ai.promoted.proto.event.Impression.Builder, ai.promoted.proto.event.ImpressionOrBuilder>(
+            Impression, Impression.Builder, ImpressionOrBuilder>(
                 impression_,
-                ((bitField0_ & 0x00000080) != 0),
+                ((bitField0_ & 0x00000040) != 0),
                 getParentForChildren(),
                 isClean());
         impression_ = null;
@@ -3841,22 +4075,22 @@ private static final long serialVersionUID = 0L;
       return impressionBuilder_;
     }
 
-    private java.util.List<ai.promoted.proto.event.Action> action_ =
+    private java.util.List<Action> action_ =
       java.util.Collections.emptyList();
     private void ensureActionIsMutable() {
-      if (!((bitField0_ & 0x00000100) != 0)) {
-        action_ = new java.util.ArrayList<ai.promoted.proto.event.Action>(action_);
-        bitField0_ |= 0x00000100;
+      if (!((bitField0_ & 0x00000080) != 0)) {
+        action_ = new java.util.ArrayList<Action>(action_);
+        bitField0_ |= 0x00000080;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Action, ai.promoted.proto.event.Action.Builder, ai.promoted.proto.event.ActionOrBuilder> actionBuilder_;
+        Action, Action.Builder, ActionOrBuilder> actionBuilder_;
 
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public java.util.List<ai.promoted.proto.event.Action> getActionList() {
+    public java.util.List<Action> getActionList() {
       if (actionBuilder_ == null) {
         return java.util.Collections.unmodifiableList(action_);
       } else {
@@ -3876,7 +4110,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public ai.promoted.proto.event.Action getAction(int index) {
+    public Action getAction(int index) {
       if (actionBuilder_ == null) {
         return action_.get(index);
       } else {
@@ -3887,7 +4121,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder setAction(
-        int index, ai.promoted.proto.event.Action value) {
+        int index, Action value) {
       if (actionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3904,7 +4138,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder setAction(
-        int index, ai.promoted.proto.event.Action.Builder builderForValue) {
+        int index, Action.Builder builderForValue) {
       if (actionBuilder_ == null) {
         ensureActionIsMutable();
         action_.set(index, builderForValue.build());
@@ -3917,7 +4151,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public Builder addAction(ai.promoted.proto.event.Action value) {
+    public Builder addAction(Action value) {
       if (actionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3934,7 +4168,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder addAction(
-        int index, ai.promoted.proto.event.Action value) {
+        int index, Action value) {
       if (actionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3951,7 +4185,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder addAction(
-        ai.promoted.proto.event.Action.Builder builderForValue) {
+        Action.Builder builderForValue) {
       if (actionBuilder_ == null) {
         ensureActionIsMutable();
         action_.add(builderForValue.build());
@@ -3965,7 +4199,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder addAction(
-        int index, ai.promoted.proto.event.Action.Builder builderForValue) {
+        int index, Action.Builder builderForValue) {
       if (actionBuilder_ == null) {
         ensureActionIsMutable();
         action_.add(index, builderForValue.build());
@@ -3979,7 +4213,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.Action action = 15;</code>
      */
     public Builder addAllAction(
-        java.lang.Iterable<? extends ai.promoted.proto.event.Action> values) {
+        Iterable<? extends Action> values) {
       if (actionBuilder_ == null) {
         ensureActionIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3996,7 +4230,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearAction() {
       if (actionBuilder_ == null) {
         action_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
       } else {
         actionBuilder_.clear();
@@ -4019,14 +4253,14 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public ai.promoted.proto.event.Action.Builder getActionBuilder(
+    public Action.Builder getActionBuilder(
         int index) {
       return getActionFieldBuilder().getBuilder(index);
     }
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public ai.promoted.proto.event.ActionOrBuilder getActionOrBuilder(
+    public ActionOrBuilder getActionOrBuilder(
         int index) {
       if (actionBuilder_ == null) {
         return action_.get(index);  } else {
@@ -4036,7 +4270,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.event.ActionOrBuilder> 
+    public java.util.List<? extends ActionOrBuilder>
          getActionOrBuilderList() {
       if (actionBuilder_ != null) {
         return actionBuilder_.getMessageOrBuilderList();
@@ -4047,46 +4281,286 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public ai.promoted.proto.event.Action.Builder addActionBuilder() {
+    public Action.Builder addActionBuilder() {
       return getActionFieldBuilder().addBuilder(
-          ai.promoted.proto.event.Action.getDefaultInstance());
+          Action.getDefaultInstance());
     }
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public ai.promoted.proto.event.Action.Builder addActionBuilder(
+    public Action.Builder addActionBuilder(
         int index) {
       return getActionFieldBuilder().addBuilder(
-          index, ai.promoted.proto.event.Action.getDefaultInstance());
+          index, Action.getDefaultInstance());
     }
     /**
      * <code>repeated .event.Action action = 15;</code>
      */
-    public java.util.List<ai.promoted.proto.event.Action.Builder> 
+    public java.util.List<Action.Builder>
          getActionBuilderList() {
       return getActionFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.event.Action, ai.promoted.proto.event.Action.Builder, ai.promoted.proto.event.ActionOrBuilder> 
+        Action, Action.Builder, ActionOrBuilder>
         getActionFieldBuilder() {
       if (actionBuilder_ == null) {
         actionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.event.Action, ai.promoted.proto.event.Action.Builder, ai.promoted.proto.event.ActionOrBuilder>(
+            Action, Action.Builder, ActionOrBuilder>(
                 action_,
-                ((bitField0_ & 0x00000100) != 0),
+                ((bitField0_ & 0x00000080) != 0),
                 getParentForChildren(),
                 isClean());
         action_ = null;
       }
       return actionBuilder_;
     }
-    @java.lang.Override
+
+    private java.util.List<Diagnostics> diagnostics_ =
+      java.util.Collections.emptyList();
+    private void ensureDiagnosticsIsMutable() {
+      if (!((bitField0_ & 0x00000100) != 0)) {
+        diagnostics_ = new java.util.ArrayList<Diagnostics>(diagnostics_);
+        bitField0_ |= 0x00000100;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        Diagnostics, Diagnostics.Builder, DiagnosticsOrBuilder> diagnosticsBuilder_;
+
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public java.util.List<Diagnostics> getDiagnosticsList() {
+      if (diagnosticsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(diagnostics_);
+      } else {
+        return diagnosticsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public int getDiagnosticsCount() {
+      if (diagnosticsBuilder_ == null) {
+        return diagnostics_.size();
+      } else {
+        return diagnosticsBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Diagnostics getDiagnostics(int index) {
+      if (diagnosticsBuilder_ == null) {
+        return diagnostics_.get(index);
+      } else {
+        return diagnosticsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder setDiagnostics(
+        int index, Diagnostics value) {
+      if (diagnosticsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureDiagnosticsIsMutable();
+        diagnostics_.set(index, value);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder setDiagnostics(
+        int index, Diagnostics.Builder builderForValue) {
+      if (diagnosticsBuilder_ == null) {
+        ensureDiagnosticsIsMutable();
+        diagnostics_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        diagnosticsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder addDiagnostics(Diagnostics value) {
+      if (diagnosticsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureDiagnosticsIsMutable();
+        diagnostics_.add(value);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder addDiagnostics(
+        int index, Diagnostics value) {
+      if (diagnosticsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureDiagnosticsIsMutable();
+        diagnostics_.add(index, value);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder addDiagnostics(
+        Diagnostics.Builder builderForValue) {
+      if (diagnosticsBuilder_ == null) {
+        ensureDiagnosticsIsMutable();
+        diagnostics_.add(builderForValue.build());
+        onChanged();
+      } else {
+        diagnosticsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder addDiagnostics(
+        int index, Diagnostics.Builder builderForValue) {
+      if (diagnosticsBuilder_ == null) {
+        ensureDiagnosticsIsMutable();
+        diagnostics_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        diagnosticsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder addAllDiagnostics(
+        Iterable<? extends Diagnostics> values) {
+      if (diagnosticsBuilder_ == null) {
+        ensureDiagnosticsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, diagnostics_);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder clearDiagnostics() {
+      if (diagnosticsBuilder_ == null) {
+        diagnostics_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Builder removeDiagnostics(int index) {
+      if (diagnosticsBuilder_ == null) {
+        ensureDiagnosticsIsMutable();
+        diagnostics_.remove(index);
+        onChanged();
+      } else {
+        diagnosticsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Diagnostics.Builder getDiagnosticsBuilder(
+        int index) {
+      return getDiagnosticsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public DiagnosticsOrBuilder getDiagnosticsOrBuilder(
+        int index) {
+      if (diagnosticsBuilder_ == null) {
+        return diagnostics_.get(index);  } else {
+        return diagnosticsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public java.util.List<? extends DiagnosticsOrBuilder>
+         getDiagnosticsOrBuilderList() {
+      if (diagnosticsBuilder_ != null) {
+        return diagnosticsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(diagnostics_);
+      }
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Diagnostics.Builder addDiagnosticsBuilder() {
+      return getDiagnosticsFieldBuilder().addBuilder(
+          Diagnostics.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public Diagnostics.Builder addDiagnosticsBuilder(
+        int index) {
+      return getDiagnosticsFieldBuilder().addBuilder(
+          index, Diagnostics.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+     */
+    public java.util.List<Diagnostics.Builder>
+         getDiagnosticsBuilderList() {
+      return getDiagnosticsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        Diagnostics, Diagnostics.Builder, DiagnosticsOrBuilder>
+        getDiagnosticsFieldBuilder() {
+      if (diagnosticsBuilder_ == null) {
+        diagnosticsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            Diagnostics, Diagnostics.Builder, DiagnosticsOrBuilder>(
+                diagnostics_,
+                ((bitField0_ & 0x00000100) != 0),
+                getParentForChildren(),
+                isClean());
+        diagnostics_ = null;
+      }
+      return diagnosticsBuilder_;
+    }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -4097,18 +4571,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.LogRequest)
-  private static final ai.promoted.proto.event.LogRequest DEFAULT_INSTANCE;
+  private static final LogRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.LogRequest();
+    DEFAULT_INSTANCE = new LogRequest();
   }
 
-  public static ai.promoted.proto.event.LogRequest getDefaultInstance() {
+  public static LogRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<LogRequest>
       PARSER = new com.google.protobuf.AbstractParser<LogRequest>() {
-    @java.lang.Override
+    @Override
     public LogRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4121,13 +4595,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<LogRequest> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.LogRequest getDefaultInstanceForType() {
+  @Override
+  public LogRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

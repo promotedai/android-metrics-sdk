@@ -76,14 +76,68 @@ public interface LogRequestOrBuilder extends
   ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder();
 
   /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   * @return Whether the device field is set.
+   */
+  boolean hasDevice();
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   * @return The device.
+   */
+  ai.promoted.proto.common.Device getDevice();
+  /**
+   * <pre>
+   * Optional. Information about the user device.
+   * </pre>
+   *
+   * <code>.common.Device device = 24;</code>
+   */
+  ai.promoted.proto.common.DeviceOrBuilder getDeviceOrBuilder();
+
+  /**
    * <code>repeated .event.User user = 7;</code>
    */
-  java.util.List<ai.promoted.proto.event.User> 
+  java.util.List<User>
       getUserList();
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  ai.promoted.proto.event.User getUser(int index);
+  User getUser(int index);
   /**
    * <code>repeated .event.User user = 7;</code>
    */
@@ -91,23 +145,23 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  java.util.List<? extends ai.promoted.proto.event.UserOrBuilder> 
+  java.util.List<? extends UserOrBuilder>
       getUserOrBuilderList();
   /**
    * <code>repeated .event.User user = 7;</code>
    */
-  ai.promoted.proto.event.UserOrBuilder getUserOrBuilder(
+  UserOrBuilder getUserOrBuilder(
       int index);
 
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  java.util.List<ai.promoted.proto.event.CohortMembership> 
+  java.util.List<CohortMembership>
       getCohortMembershipList();
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  ai.promoted.proto.event.CohortMembership getCohortMembership(int index);
+  CohortMembership getCohortMembership(int index);
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
@@ -115,71 +169,23 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  java.util.List<? extends ai.promoted.proto.event.CohortMembershipOrBuilder> 
+  java.util.List<? extends CohortMembershipOrBuilder>
       getCohortMembershipOrBuilderList();
   /**
    * <code>repeated .event.CohortMembership cohort_membership = 8;</code>
    */
-  ai.promoted.proto.event.CohortMembershipOrBuilder getCohortMembershipOrBuilder(
-      int index);
-
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  java.util.List<ai.promoted.proto.event.SessionProfile> 
-      getSessionProfileList();
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  ai.promoted.proto.event.SessionProfile getSessionProfile(int index);
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  int getSessionProfileCount();
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  java.util.List<? extends ai.promoted.proto.event.SessionProfileOrBuilder> 
-      getSessionProfileOrBuilderList();
-  /**
-   * <code>repeated .event.SessionProfile session_profile = 9;</code>
-   */
-  ai.promoted.proto.event.SessionProfileOrBuilder getSessionProfileOrBuilder(
-      int index);
-
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  java.util.List<ai.promoted.proto.event.Session> 
-      getSessionList();
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  ai.promoted.proto.event.Session getSession(int index);
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  int getSessionCount();
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  java.util.List<? extends ai.promoted.proto.event.SessionOrBuilder> 
-      getSessionOrBuilderList();
-  /**
-   * <code>repeated .event.Session session = 10;</code>
-   */
-  ai.promoted.proto.event.SessionOrBuilder getSessionOrBuilder(
+  CohortMembershipOrBuilder getCohortMembershipOrBuilder(
       int index);
 
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  java.util.List<ai.promoted.proto.event.View> 
+  java.util.List<View>
       getViewList();
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  ai.promoted.proto.event.View getView(int index);
+  View getView(int index);
   /**
    * <code>repeated .event.View view = 11;</code>
    */
@@ -187,12 +193,36 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  java.util.List<? extends ai.promoted.proto.event.ViewOrBuilder> 
+  java.util.List<? extends ViewOrBuilder>
       getViewOrBuilderList();
   /**
    * <code>repeated .event.View view = 11;</code>
    */
-  ai.promoted.proto.event.ViewOrBuilder getViewOrBuilder(
+  ViewOrBuilder getViewOrBuilder(
+      int index);
+
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  java.util.List<AutoView>
+      getAutoViewList();
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  AutoView getAutoView(int index);
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  int getAutoViewCount();
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  java.util.List<? extends AutoViewOrBuilder>
+      getAutoViewOrBuilderList();
+  /**
+   * <code>repeated .event.AutoView auto_view = 25;</code>
+   */
+  AutoViewOrBuilder getAutoViewOrBuilder(
       int index);
 
   /**
@@ -246,12 +276,12 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  java.util.List<ai.promoted.proto.event.Impression> 
+  java.util.List<Impression>
       getImpressionList();
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  ai.promoted.proto.event.Impression getImpression(int index);
+  Impression getImpression(int index);
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
@@ -259,23 +289,23 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  java.util.List<? extends ai.promoted.proto.event.ImpressionOrBuilder> 
+  java.util.List<? extends ImpressionOrBuilder>
       getImpressionOrBuilderList();
   /**
    * <code>repeated .event.Impression impression = 14;</code>
    */
-  ai.promoted.proto.event.ImpressionOrBuilder getImpressionOrBuilder(
+  ImpressionOrBuilder getImpressionOrBuilder(
       int index);
 
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  java.util.List<ai.promoted.proto.event.Action> 
+  java.util.List<Action>
       getActionList();
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  ai.promoted.proto.event.Action getAction(int index);
+  Action getAction(int index);
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
@@ -283,11 +313,35 @@ public interface LogRequestOrBuilder extends
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  java.util.List<? extends ai.promoted.proto.event.ActionOrBuilder> 
+  java.util.List<? extends ActionOrBuilder>
       getActionOrBuilderList();
   /**
    * <code>repeated .event.Action action = 15;</code>
    */
-  ai.promoted.proto.event.ActionOrBuilder getActionOrBuilder(
+  ActionOrBuilder getActionOrBuilder(
+      int index);
+
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  java.util.List<Diagnostics>
+      getDiagnosticsList();
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  Diagnostics getDiagnostics(int index);
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  int getDiagnosticsCount();
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  java.util.List<? extends DiagnosticsOrBuilder>
+      getDiagnosticsOrBuilderList();
+  /**
+   * <code>repeated .event.Diagnostics diagnostics = 23;</code>
+   */
+  DiagnosticsOrBuilder getDiagnosticsOrBuilder(
       int index);
 }

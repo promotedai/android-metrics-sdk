@@ -8,8 +8,6 @@ import ai.promoted.proto.delivery.Request
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.LogRequest
-import ai.promoted.proto.event.Session
-import ai.promoted.proto.event.SessionProfile
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
 import ai.promoted.xray.Xray
@@ -59,10 +57,12 @@ internal class FinalizeLogsUseCase(
 
     private fun prepareLogs(logMessages: List<Message>): LogRequest {
         val logRequestBuilder = LogRequest.newBuilder()
+        // TODO - bring in Device message
         logRequestBuilder.userInfo = createUserInfoMessage(
             userId = trackUserUseCase.currentOrNullUserId,
             logUserId = trackUserUseCase.currentOrNullLogUserId
         )
+//        logRequestBuilder.device = //
         logMessages.forEach { logRequestBuilder.addMessage(it) }
         return logRequestBuilder.build()
     }
@@ -70,8 +70,8 @@ internal class FinalizeLogsUseCase(
     private fun LogRequest.Builder.addMessage(message: Message): LogRequest.Builder =
         when (message) {
             is User -> addUser(message)
-            is SessionProfile -> addSessionProfile(message)
-            is Session -> addSession(message)
+//            is SessionProfile -> addSessionProfile(message)
+//            is Session -> addSession(message)
             is View -> addView(message)
             is Request -> addRequest(message)
             is Insertion -> addInsertion(message)

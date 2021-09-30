@@ -48,9 +48,9 @@ internal class TrackSessionUseCase(
         trackUserUseCase.setUserId(logger, userId)
 
         sessionId.advance()
-        logSession()
+//        logSession()
     }
 
 
-    private fun logSession() = logger.enqueueMessage(createSessionMessage(clock))
+//    private fun logSession() = logger.enqueueMessage(createSessionMessage(clock))
 }

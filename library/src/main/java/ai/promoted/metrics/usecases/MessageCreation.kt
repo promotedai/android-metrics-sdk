@@ -15,18 +15,18 @@ import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.platform.PromotedAiLocale
+import ai.promoted.proto.common.Device
 import ai.promoted.proto.common.Properties
+import ai.promoted.proto.common.Screen
+import ai.promoted.proto.common.Size
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import ai.promoted.proto.event.AppScreenView
-import ai.promoted.proto.event.Device
+import ai.promoted.proto.event.AutoView
 import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.NavigateAction
-import ai.promoted.proto.event.Screen
-import ai.promoted.proto.event.Session
-import ai.promoted.proto.event.Size
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
 import com.google.protobuf.Message
@@ -50,14 +50,15 @@ internal fun createUserMessage(clock: Clock, userId: String?, logUserId: String?
         .setUserInfo(createUserInfoMessage(userId, logUserId))
         .build()
 
-internal fun createSessionMessage(clock: Clock) =
-    Session
-        .newBuilder()
-        .setTiming(createTimingMessage(clock))
-        .setStartEpochMillis(clock.currentTimeMillis)
-        .build()
+//internal fun createSessionMessage(clock: Clock) =
+//    Session
+//        .newBuilder()
+//        .setTiming(createTimingMessage(clock))
+//        .setStartEpochMillis(clock.currentTimeMillis)
+//        .build()
 
 internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device {
+    // TODO move to Auto-View
     val localeMessage =
         PromotedAiLocale
             .newBuilder()
@@ -85,7 +86,8 @@ internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device
         .setManufacturer(deviceInfoProvider.manufacturer)
         .setIdentifier(deviceInfoProvider.model)
         .setOsVersion(deviceInfoProvider.sdkRelease)
-        .setLocale(localeMessage)
+            // TODO - move to auto-view
+//        .setLocale(localeMessage)
         .setScreen(screenMessage)
         .build()
 }
@@ -106,7 +108,8 @@ internal fun createViewMessage(
         viewId?.let { setViewId(it) }
     }
     .setName(name)
-    .setDevice(deviceMessage)
+        // TODO - move to LogRequest
+//    .setDevice(deviceMessage)
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 
@@ -114,25 +117,21 @@ internal fun createViewMessage(
 @Suppress("LongParameterList")
 internal fun createImplicitViewMessage(
     clock: Clock,
-    viewId: String?,
-    externalViewId: String?,
+    autoViewId: String?,
     sessionId: String?,
     name: String,
     // The Device message should be cached in memory elsewhere, so we will not construct it
     // ourselves as part of this function, but rather it should be passed in.
     deviceMessage: Device
-) = View
+) = AutoView
     .newBuilder()
     .setTiming(createTimingMessage(clock))
     .apply {
         sessionId?.let { setSessionId(it) }
-        viewId?.let { setViewId(it) }
-        externalViewId?.let {
-            // TODO
-        }
+        autoViewId?.let { setAutoViewId(autoViewId) }
     }
     .setName(name)
-    .setDevice(deviceMessage)
+//    .setDevice(deviceMessage)
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 

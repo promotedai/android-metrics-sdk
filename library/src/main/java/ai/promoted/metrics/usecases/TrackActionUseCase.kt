@@ -56,6 +56,8 @@ internal class TrackActionUseCase(
      */
     fun onAction(name: String, type: ActionType, data: ActionData) = xray.monitored {
         val actionId = idGenerator.newId()
+
+        // TODO - allow people to pass in impression ID, but don't need to generate
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
 

@@ -7,7 +7,7 @@ package ai.promoted.proto.event;
  * <pre>
  * Actions are user actions.  Example: Click.
  * Actions are immutable.
- * Next ID = 21.
+ * Next ID = 24.
  * </pre>
  *
  * Protobuf type {@code event.Action}
@@ -27,21 +27,23 @@ private static final long serialVersionUID = 0L;
     insertionId_ = "";
     requestId_ = "";
     viewId_ = "";
+    autoViewId_ = "";
     sessionId_ = "";
+    contentId_ = "";
     name_ = "";
     actionType_ = 0;
     customActionType_ = "";
     elementId_ = "";
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new Action();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -52,7 +54,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -95,44 +97,57 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            ai.promoted.proto.common.ClientInfo.Builder subBuilder = null;
+            if (clientInfo_ != null) {
+              subBuilder = clientInfo_.toBuilder();
+            }
+            clientInfo_ = input.readMessage(ai.promoted.proto.common.ClientInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(clientInfo_);
+              clientInfo_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           case 50: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             actionId_ = s;
             break;
           }
           case 58: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             impressionId_ = s;
             break;
           }
           case 66: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             insertionId_ = s;
             break;
           }
           case 74: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             requestId_ = s;
             break;
           }
           case 82: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             sessionId_ = s;
             break;
           }
           case 90: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             viewId_ = s;
             break;
           }
           case 98: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             name_ = s;
             break;
@@ -144,26 +159,26 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 122: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             customActionType_ = s;
             break;
           }
           case 138: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             elementId_ = s;
             break;
           }
           case 146: {
-            ai.promoted.proto.event.NavigateAction.Builder subBuilder = null;
+            NavigateAction.Builder subBuilder = null;
             if (actionCase_ == 18) {
-              subBuilder = ((ai.promoted.proto.event.NavigateAction) action_).toBuilder();
+              subBuilder = ((NavigateAction) action_).toBuilder();
             }
             action_ =
-                input.readMessage(ai.promoted.proto.event.NavigateAction.parser(), extensionRegistry);
+                input.readMessage(NavigateAction.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom((ai.promoted.proto.event.NavigateAction) action_);
+              subBuilder.mergeFrom((NavigateAction) action_);
               action_ = subBuilder.buildPartial();
             }
             actionCase_ = 18;
@@ -180,6 +195,23 @@ private static final long serialVersionUID = 0L;
               properties_ = subBuilder.buildPartial();
             }
 
+            break;
+          }
+          case 170: {
+            String s = input.readStringRequireUtf8();
+
+            contentId_ = s;
+            break;
+          }
+          case 176: {
+
+            hasSuperimposedViews_ = input.readBool();
+            break;
+          }
+          case 186: {
+            String s = input.readStringRequireUtf8();
+
+            autoViewId_ = s;
             break;
           }
           default: {
@@ -203,22 +235,22 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_Action_descriptor;
+    return Event.internal_static_event_Action_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_Action_fieldAccessorTable
+    return Event.internal_static_event_Action_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.Action.class, ai.promoted.proto.event.Action.Builder.class);
+            Action.class, Builder.class);
   }
 
   private int actionCase_ = 0;
-  private java.lang.Object action_;
+  private Object action_;
   public enum ActionCase
       implements com.google.protobuf.Internal.EnumLite,
-          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+          InternalOneOfEnum {
     NAVIGATE_ACTION(18),
     ACTION_NOT_SET(0);
     private final int value;
@@ -230,7 +262,7 @@ private static final long serialVersionUID = 0L;
      * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
-    @java.lang.Deprecated
+    @Deprecated
     public static ActionCase valueOf(int value) {
       return forNumber(value);
     }
@@ -264,7 +296,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 platform_id = 1;</code>
    * @return The platformId.
    */
-  @java.lang.Override
+  @Override
   public long getPlatformId() {
     return platformId_;
   }
@@ -279,7 +311,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return Whether the userInfo field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasUserInfo() {
     return userInfo_ != null;
   }
@@ -291,7 +323,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return The userInfo.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfo getUserInfo() {
     return userInfo_ == null ? ai.promoted.proto.common.UserInfo.getDefaultInstance() : userInfo_;
   }
@@ -302,7 +334,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.UserInfo user_info = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfoOrBuilder getUserInfoOrBuilder() {
     return getUserInfo();
   }
@@ -318,7 +350,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return Whether the timing field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasTiming() {
     return timing_ != null;
   }
@@ -331,7 +363,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return The timing.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Timing getTiming() {
     return timing_ == null ? ai.promoted.proto.common.Timing.getDefaultInstance() : timing_;
   }
@@ -343,13 +375,51 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Timing timing = 3;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder() {
     return getTiming();
   }
 
+  public static final int CLIENT_INFO_FIELD_NUMBER = 4;
+  private ai.promoted.proto.common.ClientInfo clientInfo_;
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  @Override
+  public boolean hasClientInfo() {
+    return clientInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfo getClientInfo() {
+    return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+    return getClientInfo();
+  }
+
   public static final int ACTION_ID_FIELD_NUMBER = 6;
-  private volatile java.lang.Object actionId_;
+  private volatile Object actionId_;
   /**
    * <pre>
    * Optional.  Primary key.
@@ -360,15 +430,15 @@ private static final long serialVersionUID = 0L;
    * <code>string action_id = 6;</code>
    * @return The actionId.
    */
-  @java.lang.Override
-  public java.lang.String getActionId() {
-    java.lang.Object ref = actionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getActionId() {
+    Object ref = actionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       actionId_ = s;
       return s;
     }
@@ -383,14 +453,14 @@ private static final long serialVersionUID = 0L;
    * <code>string action_id = 6;</code>
    * @return The bytes for actionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getActionIdBytes() {
-    java.lang.Object ref = actionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = actionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       actionId_ = b;
       return b;
     } else {
@@ -399,7 +469,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int IMPRESSION_ID_FIELD_NUMBER = 7;
-  private volatile java.lang.Object impressionId_;
+  private volatile Object impressionId_;
   /**
    * <pre>
    * Optional.
@@ -408,15 +478,15 @@ private static final long serialVersionUID = 0L;
    * <code>string impression_id = 7;</code>
    * @return The impressionId.
    */
-  @java.lang.Override
-  public java.lang.String getImpressionId() {
-    java.lang.Object ref = impressionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getImpressionId() {
+    Object ref = impressionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       impressionId_ = s;
       return s;
     }
@@ -429,14 +499,14 @@ private static final long serialVersionUID = 0L;
    * <code>string impression_id = 7;</code>
    * @return The bytes for impressionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getImpressionIdBytes() {
-    java.lang.Object ref = impressionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = impressionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       impressionId_ = b;
       return b;
     } else {
@@ -445,7 +515,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int INSERTION_ID_FIELD_NUMBER = 8;
-  private volatile java.lang.Object insertionId_;
+  private volatile Object insertionId_;
   /**
    * <pre>
    * Optional.
@@ -454,15 +524,15 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 8;</code>
    * @return The insertionId.
    */
-  @java.lang.Override
-  public java.lang.String getInsertionId() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getInsertionId() {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       insertionId_ = s;
       return s;
     }
@@ -475,14 +545,14 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 8;</code>
    * @return The bytes for insertionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getInsertionIdBytes() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       insertionId_ = b;
       return b;
     } else {
@@ -491,7 +561,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int REQUEST_ID_FIELD_NUMBER = 9;
-  private volatile java.lang.Object requestId_;
+  private volatile Object requestId_;
   /**
    * <pre>
    * Optional.
@@ -500,15 +570,15 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 9;</code>
    * @return The requestId.
    */
-  @java.lang.Override
-  public java.lang.String getRequestId() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getRequestId() {
+    Object ref = requestId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       requestId_ = s;
       return s;
     }
@@ -521,14 +591,14 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 9;</code>
    * @return The bytes for requestId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getRequestIdBytes() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = requestId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       requestId_ = b;
       return b;
     } else {
@@ -537,7 +607,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VIEW_ID_FIELD_NUMBER = 11;
-  private volatile java.lang.Object viewId_;
+  private volatile Object viewId_;
   /**
    * <pre>
    * Optional.
@@ -546,15 +616,15 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 11;</code>
    * @return The viewId.
    */
-  @java.lang.Override
-  public java.lang.String getViewId() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getViewId() {
+    Object ref = viewId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       viewId_ = s;
       return s;
     }
@@ -567,14 +637,14 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 11;</code>
    * @return The bytes for viewId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getViewIdBytes() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = viewId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       viewId_ = b;
       return b;
     } else {
@@ -582,8 +652,54 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int AUTO_VIEW_ID_FIELD_NUMBER = 23;
+  private volatile Object autoViewId_;
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 23;</code>
+   * @return The autoViewId.
+   */
+  @Override
+  public String getAutoViewId() {
+    Object ref = autoViewId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      autoViewId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 23;</code>
+   * @return The bytes for autoViewId.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+      getAutoViewIdBytes() {
+    Object ref = autoViewId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      autoViewId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   public static final int SESSION_ID_FIELD_NUMBER = 10;
-  private volatile java.lang.Object sessionId_;
+  private volatile Object sessionId_;
   /**
    * <pre>
    * Optional.
@@ -592,15 +708,15 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 10;</code>
    * @return The sessionId.
    */
-  @java.lang.Override
-  public java.lang.String getSessionId() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getSessionId() {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       sessionId_ = s;
       return s;
     }
@@ -613,14 +729,14 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 10;</code>
    * @return The bytes for sessionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getSessionIdBytes() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       sessionId_ = b;
       return b;
     } else {
@@ -628,8 +744,56 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int CONTENT_ID_FIELD_NUMBER = 21;
+  private volatile Object contentId_;
+  /**
+   * <pre>
+   * Optional. content_id is used as a hint when impression_id is not set.
+   * For more accurate results, set impression_id if available.
+   * </pre>
+   *
+   * <code>string content_id = 21;</code>
+   * @return The contentId.
+   */
+  @Override
+  public String getContentId() {
+    Object ref = contentId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      contentId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Optional. content_id is used as a hint when impression_id is not set.
+   * For more accurate results, set impression_id if available.
+   * </pre>
+   *
+   * <code>string content_id = 21;</code>
+   * @return The bytes for contentId.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+      getContentIdBytes() {
+    Object ref = contentId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      contentId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   public static final int NAME_FIELD_NUMBER = 12;
-  private volatile java.lang.Object name_;
+  private volatile Object name_;
   /**
    * <pre>
    * Optional.  Custom name of the action that the user performed.
@@ -639,15 +803,15 @@ private static final long serialVersionUID = 0L;
    * <code>string name = 12;</code>
    * @return The name.
    */
-  @java.lang.Override
-  public java.lang.String getName() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getName() {
+    Object ref = name_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       name_ = s;
       return s;
     }
@@ -661,14 +825,14 @@ private static final long serialVersionUID = 0L;
    * <code>string name = 12;</code>
    * @return The bytes for name.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getNameBytes() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
+    Object ref = name_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       name_ = b;
       return b;
     } else {
@@ -686,7 +850,7 @@ private static final long serialVersionUID = 0L;
    * <code>.event.ActionType action_type = 14;</code>
    * @return The enum numeric value on the wire for actionType.
    */
-  @java.lang.Override public int getActionTypeValue() {
+  @Override public int getActionTypeValue() {
     return actionType_;
   }
   /**
@@ -697,14 +861,14 @@ private static final long serialVersionUID = 0L;
    * <code>.event.ActionType action_type = 14;</code>
    * @return The actionType.
    */
-  @java.lang.Override public ai.promoted.proto.event.ActionType getActionType() {
+  @Override public ActionType getActionType() {
     @SuppressWarnings("deprecation")
-    ai.promoted.proto.event.ActionType result = ai.promoted.proto.event.ActionType.valueOf(actionType_);
-    return result == null ? ai.promoted.proto.event.ActionType.UNRECOGNIZED : result;
+    ActionType result = ActionType.valueOf(actionType_);
+    return result == null ? ActionType.UNRECOGNIZED : result;
   }
 
   public static final int CUSTOM_ACTION_TYPE_FIELD_NUMBER = 15;
-  private volatile java.lang.Object customActionType_;
+  private volatile Object customActionType_;
   /**
    * <pre>
    * Optional.
@@ -713,15 +877,15 @@ private static final long serialVersionUID = 0L;
    * <code>string custom_action_type = 15;</code>
    * @return The customActionType.
    */
-  @java.lang.Override
-  public java.lang.String getCustomActionType() {
-    java.lang.Object ref = customActionType_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getCustomActionType() {
+    Object ref = customActionType_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       customActionType_ = s;
       return s;
     }
@@ -734,14 +898,14 @@ private static final long serialVersionUID = 0L;
    * <code>string custom_action_type = 15;</code>
    * @return The bytes for customActionType.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getCustomActionTypeBytes() {
-    java.lang.Object ref = customActionType_;
-    if (ref instanceof java.lang.String) {
+    Object ref = customActionType_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       customActionType_ = b;
       return b;
     } else {
@@ -750,20 +914,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ELEMENT_ID_FIELD_NUMBER = 17;
-  private volatile java.lang.Object elementId_;
+  private volatile Object elementId_;
   /**
    * <code>string element_id = 17;</code>
    * @return The elementId.
    */
-  @java.lang.Override
-  public java.lang.String getElementId() {
-    java.lang.Object ref = elementId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getElementId() {
+    Object ref = elementId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       elementId_ = s;
       return s;
     }
@@ -772,14 +936,14 @@ private static final long serialVersionUID = 0L;
    * <code>string element_id = 17;</code>
    * @return The bytes for elementId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getElementIdBytes() {
-    java.lang.Object ref = elementId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = elementId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       elementId_ = b;
       return b;
     } else {
@@ -789,57 +953,49 @@ private static final long serialVersionUID = 0L;
 
   public static final int NAVIGATE_ACTION_FIELD_NUMBER = 18;
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    * @return Whether the navigateAction field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasNavigateAction() {
     return actionCase_ == 18;
   }
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    * @return The navigateAction.
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.NavigateAction getNavigateAction() {
+  @Override
+  public NavigateAction getNavigateAction() {
     if (actionCase_ == 18) {
-       return (ai.promoted.proto.event.NavigateAction) action_;
+       return (NavigateAction) action_;
     }
-    return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+    return NavigateAction.getDefaultInstance();
   }
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.NavigateActionOrBuilder getNavigateActionOrBuilder() {
+  @Override
+  public NavigateActionOrBuilder getNavigateActionOrBuilder() {
     if (actionCase_ == 18) {
-       return (ai.promoted.proto.event.NavigateAction) action_;
+       return (NavigateAction) action_;
     }
-    return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+    return NavigateAction.getDefaultInstance();
+  }
+
+  public static final int HAS_SUPERIMPOSED_VIEWS_FIELD_NUMBER = 22;
+  private boolean hasSuperimposedViews_;
+  /**
+   * <pre>
+   * Optional. Indicates that this action occurred in a view that may
+   * not be topmost in the view hierarchy.
+   * </pre>
+   *
+   * <code>bool has_superimposed_views = 22;</code>
+   * @return The hasSuperimposedViews.
+   */
+  @Override
+  public boolean getHasSuperimposedViews() {
+    return hasSuperimposedViews_;
   }
 
   public static final int PROPERTIES_FIELD_NUMBER = 20;
@@ -852,7 +1008,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 20;</code>
    * @return Whether the properties field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasProperties() {
     return properties_ != null;
   }
@@ -864,7 +1020,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 20;</code>
    * @return The properties.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Properties getProperties() {
     return properties_ == null ? ai.promoted.proto.common.Properties.getDefaultInstance() : properties_;
   }
@@ -875,13 +1031,13 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Properties properties = 20;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder() {
     return getProperties();
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -891,7 +1047,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (platformId_ != 0L) {
@@ -902,6 +1058,9 @@ private static final long serialVersionUID = 0L;
     }
     if (timing_ != null) {
       output.writeMessage(3, getTiming());
+    }
+    if (clientInfo_ != null) {
+      output.writeMessage(4, getClientInfo());
     }
     if (!getActionIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, actionId_);
@@ -924,7 +1083,7 @@ private static final long serialVersionUID = 0L;
     if (!getNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 12, name_);
     }
-    if (actionType_ != ai.promoted.proto.event.ActionType.UNKNOWN_ACTION_TYPE.getNumber()) {
+    if (actionType_ != ActionType.UNKNOWN_ACTION_TYPE.getNumber()) {
       output.writeEnum(14, actionType_);
     }
     if (!getCustomActionTypeBytes().isEmpty()) {
@@ -934,15 +1093,24 @@ private static final long serialVersionUID = 0L;
       com.google.protobuf.GeneratedMessageV3.writeString(output, 17, elementId_);
     }
     if (actionCase_ == 18) {
-      output.writeMessage(18, (ai.promoted.proto.event.NavigateAction) action_);
+      output.writeMessage(18, (NavigateAction) action_);
     }
     if (properties_ != null) {
       output.writeMessage(20, getProperties());
     }
+    if (!getContentIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 21, contentId_);
+    }
+    if (hasSuperimposedViews_ != false) {
+      output.writeBool(22, hasSuperimposedViews_);
+    }
+    if (!getAutoViewIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 23, autoViewId_);
+    }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -959,6 +1127,10 @@ private static final long serialVersionUID = 0L;
     if (timing_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTiming());
+    }
+    if (clientInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getClientInfo());
     }
     if (!getActionIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, actionId_);
@@ -981,7 +1153,7 @@ private static final long serialVersionUID = 0L;
     if (!getNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, name_);
     }
-    if (actionType_ != ai.promoted.proto.event.ActionType.UNKNOWN_ACTION_TYPE.getNumber()) {
+    if (actionType_ != ActionType.UNKNOWN_ACTION_TYPE.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(14, actionType_);
     }
@@ -993,26 +1165,36 @@ private static final long serialVersionUID = 0L;
     }
     if (actionCase_ == 18) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(18, (ai.promoted.proto.event.NavigateAction) action_);
+        .computeMessageSize(18, (NavigateAction) action_);
     }
     if (properties_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(20, getProperties());
+    }
+    if (!getContentIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, contentId_);
+    }
+    if (hasSuperimposedViews_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(22, hasSuperimposedViews_);
+    }
+    if (!getAutoViewIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, autoViewId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.Action)) {
+    if (!(obj instanceof Action)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.Action other = (ai.promoted.proto.event.Action) obj;
+    Action other = (Action) obj;
 
     if (getPlatformId()
         != other.getPlatformId()) return false;
@@ -1026,6 +1208,11 @@ private static final long serialVersionUID = 0L;
       if (!getTiming()
           .equals(other.getTiming())) return false;
     }
+    if (hasClientInfo() != other.hasClientInfo()) return false;
+    if (hasClientInfo()) {
+      if (!getClientInfo()
+          .equals(other.getClientInfo())) return false;
+    }
     if (!getActionId()
         .equals(other.getActionId())) return false;
     if (!getImpressionId()
@@ -1036,8 +1223,12 @@ private static final long serialVersionUID = 0L;
         .equals(other.getRequestId())) return false;
     if (!getViewId()
         .equals(other.getViewId())) return false;
+    if (!getAutoViewId()
+        .equals(other.getAutoViewId())) return false;
     if (!getSessionId()
         .equals(other.getSessionId())) return false;
+    if (!getContentId()
+        .equals(other.getContentId())) return false;
     if (!getName()
         .equals(other.getName())) return false;
     if (actionType_ != other.actionType_) return false;
@@ -1045,6 +1236,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCustomActionType())) return false;
     if (!getElementId()
         .equals(other.getElementId())) return false;
+    if (getHasSuperimposedViews()
+        != other.getHasSuperimposedViews()) return false;
     if (hasProperties() != other.hasProperties()) return false;
     if (hasProperties()) {
       if (!getProperties()
@@ -1063,7 +1256,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -1081,6 +1274,10 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TIMING_FIELD_NUMBER;
       hash = (53 * hash) + getTiming().hashCode();
     }
+    if (hasClientInfo()) {
+      hash = (37 * hash) + CLIENT_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getClientInfo().hashCode();
+    }
     hash = (37 * hash) + ACTION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getActionId().hashCode();
     hash = (37 * hash) + IMPRESSION_ID_FIELD_NUMBER;
@@ -1091,8 +1288,12 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getRequestId().hashCode();
     hash = (37 * hash) + VIEW_ID_FIELD_NUMBER;
     hash = (53 * hash) + getViewId().hashCode();
+    hash = (37 * hash) + AUTO_VIEW_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getAutoViewId().hashCode();
     hash = (37 * hash) + SESSION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getSessionId().hashCode();
+    hash = (37 * hash) + CONTENT_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getContentId().hashCode();
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + ACTION_TYPE_FIELD_NUMBER;
@@ -1101,6 +1302,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getCustomActionType().hashCode();
     hash = (37 * hash) + ELEMENT_ID_FIELD_NUMBER;
     hash = (53 * hash) + getElementId().hashCode();
+    hash = (37 * hash) + HAS_SUPERIMPOSED_VIEWS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getHasSuperimposedViews());
     if (hasProperties()) {
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + getProperties().hashCode();
@@ -1118,69 +1322,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Action parseFrom(byte[] data)
+  public static Action parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Action parseFrom(java.io.InputStream input)
+  public static Action parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Action parseDelimitedFrom(java.io.InputStream input)
+  public static Action parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Action parseDelimitedFrom(
+  public static Action parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Action parseFrom(
+  public static Action parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -1188,23 +1392,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.Action prototype) {
+  public static Builder newBuilder(Action prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -1212,7 +1416,7 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * Actions are user actions.  Example: Click.
    * Actions are immutable.
-   * Next ID = 21.
+   * Next ID = 24.
    * </pre>
    *
    * Protobuf type {@code event.Action}
@@ -1220,18 +1424,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.Action)
-      ai.promoted.proto.event.ActionOrBuilder {
+      ActionOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_Action_descriptor;
+      return Event.internal_static_event_Action_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_Action_fieldAccessorTable
+      return Event.internal_static_event_Action_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.Action.class, ai.promoted.proto.event.Action.Builder.class);
+              Action.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.Action.newBuilder()
@@ -1240,7 +1444,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -1249,7 +1453,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       platformId_ = 0L;
@@ -1266,6 +1470,12 @@ private static final long serialVersionUID = 0L;
         timing_ = null;
         timingBuilder_ = null;
       }
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
       actionId_ = "";
 
       impressionId_ = "";
@@ -1276,7 +1486,11 @@ private static final long serialVersionUID = 0L;
 
       viewId_ = "";
 
+      autoViewId_ = "";
+
       sessionId_ = "";
+
+      contentId_ = "";
 
       name_ = "";
 
@@ -1285,6 +1499,8 @@ private static final long serialVersionUID = 0L;
       customActionType_ = "";
 
       elementId_ = "";
+
+      hasSuperimposedViews_ = false;
 
       if (propertiesBuilder_ == null) {
         properties_ = null;
@@ -1297,29 +1513,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_Action_descriptor;
+      return Event.internal_static_event_Action_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Action getDefaultInstanceForType() {
-      return ai.promoted.proto.event.Action.getDefaultInstance();
+    @Override
+    public Action getDefaultInstanceForType() {
+      return Action.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Action build() {
-      ai.promoted.proto.event.Action result = buildPartial();
+    @Override
+    public Action build() {
+      Action result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Action buildPartial() {
-      ai.promoted.proto.event.Action result = new ai.promoted.proto.event.Action(this);
+    @Override
+    public Action buildPartial() {
+      Action result = new Action(this);
       result.platformId_ = platformId_;
       if (userInfoBuilder_ == null) {
         result.userInfo_ = userInfo_;
@@ -1331,12 +1547,19 @@ private static final long serialVersionUID = 0L;
       } else {
         result.timing_ = timingBuilder_.build();
       }
+      if (clientInfoBuilder_ == null) {
+        result.clientInfo_ = clientInfo_;
+      } else {
+        result.clientInfo_ = clientInfoBuilder_.build();
+      }
       result.actionId_ = actionId_;
       result.impressionId_ = impressionId_;
       result.insertionId_ = insertionId_;
       result.requestId_ = requestId_;
       result.viewId_ = viewId_;
+      result.autoViewId_ = autoViewId_;
       result.sessionId_ = sessionId_;
+      result.contentId_ = contentId_;
       result.name_ = name_;
       result.actionType_ = actionType_;
       result.customActionType_ = customActionType_;
@@ -1348,6 +1571,7 @@ private static final long serialVersionUID = 0L;
           result.action_ = navigateActionBuilder_.build();
         }
       }
+      result.hasSuperimposedViews_ = hasSuperimposedViews_;
       if (propertiesBuilder_ == null) {
         result.properties_ = properties_;
       } else {
@@ -1358,50 +1582,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.Action) {
-        return mergeFrom((ai.promoted.proto.event.Action)other);
+      if (other instanceof Action) {
+        return mergeFrom((Action)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.Action other) {
-      if (other == ai.promoted.proto.event.Action.getDefaultInstance()) return this;
+    public Builder mergeFrom(Action other) {
+      if (other == Action.getDefaultInstance()) return this;
       if (other.getPlatformId() != 0L) {
         setPlatformId(other.getPlatformId());
       }
@@ -1410,6 +1634,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasTiming()) {
         mergeTiming(other.getTiming());
+      }
+      if (other.hasClientInfo()) {
+        mergeClientInfo(other.getClientInfo());
       }
       if (!other.getActionId().isEmpty()) {
         actionId_ = other.actionId_;
@@ -1431,8 +1658,16 @@ private static final long serialVersionUID = 0L;
         viewId_ = other.viewId_;
         onChanged();
       }
+      if (!other.getAutoViewId().isEmpty()) {
+        autoViewId_ = other.autoViewId_;
+        onChanged();
+      }
       if (!other.getSessionId().isEmpty()) {
         sessionId_ = other.sessionId_;
+        onChanged();
+      }
+      if (!other.getContentId().isEmpty()) {
+        contentId_ = other.contentId_;
         onChanged();
       }
       if (!other.getName().isEmpty()) {
@@ -1449,6 +1684,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getElementId().isEmpty()) {
         elementId_ = other.elementId_;
         onChanged();
+      }
+      if (other.getHasSuperimposedViews() != false) {
+        setHasSuperimposedViews(other.getHasSuperimposedViews());
       }
       if (other.hasProperties()) {
         mergeProperties(other.getProperties());
@@ -1467,21 +1705,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.Action parsedMessage = null;
+      Action parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.Action) e.getUnfinishedMessage();
+        parsedMessage = (Action) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1491,7 +1729,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     private int actionCase_ = 0;
-    private java.lang.Object action_;
+    private Object action_;
     public ActionCase
         getActionCase() {
       return ActionCase.forNumber(
@@ -1516,7 +1754,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 platform_id = 1;</code>
      * @return The platformId.
      */
-    @java.lang.Override
+    @Override
     public long getPlatformId() {
       return platformId_;
     }
@@ -1871,7 +2109,162 @@ private static final long serialVersionUID = 0L;
       return timingBuilder_;
     }
 
-    private java.lang.Object actionId_ = "";
+    private ai.promoted.proto.common.ClientInfo clientInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> clientInfoBuilder_;
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return Whether the clientInfo field is set.
+     */
+    public boolean hasClientInfo() {
+      return clientInfoBuilder_ != null || clientInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return The clientInfo.
+     */
+    public ai.promoted.proto.common.ClientInfo getClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      } else {
+        return clientInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        clientInfo_ = value;
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(
+        ai.promoted.proto.common.ClientInfo.Builder builderForValue) {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder mergeClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (clientInfo_ != null) {
+          clientInfo_ =
+            ai.promoted.proto.common.ClientInfo.newBuilder(clientInfo_).mergeFrom(value).buildPartial();
+        } else {
+          clientInfo_ = value;
+        }
+        onChanged();
+      } else {
+        clientInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder clearClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+        onChanged();
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfo.Builder getClientInfoBuilder() {
+      
+      onChanged();
+      return getClientInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+      if (clientInfoBuilder_ != null) {
+        return clientInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return clientInfo_ == null ?
+            ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> 
+        getClientInfoFieldBuilder() {
+      if (clientInfoBuilder_ == null) {
+        clientInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder>(
+                getClientInfo(),
+                getParentForChildren(),
+                isClean());
+        clientInfo_ = null;
+      }
+      return clientInfoBuilder_;
+    }
+
+    private Object actionId_ = "";
     /**
      * <pre>
      * Optional.  Primary key.
@@ -1882,16 +2275,16 @@ private static final long serialVersionUID = 0L;
      * <code>string action_id = 6;</code>
      * @return The actionId.
      */
-    public java.lang.String getActionId() {
-      java.lang.Object ref = actionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getActionId() {
+      Object ref = actionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         actionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1906,11 +2299,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getActionIdBytes() {
-      java.lang.Object ref = actionId_;
+      Object ref = actionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         actionId_ = b;
         return b;
       } else {
@@ -1929,7 +2322,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setActionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1977,7 +2370,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object impressionId_ = "";
+    private Object impressionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1986,16 +2379,16 @@ private static final long serialVersionUID = 0L;
      * <code>string impression_id = 7;</code>
      * @return The impressionId.
      */
-    public java.lang.String getImpressionId() {
-      java.lang.Object ref = impressionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getImpressionId() {
+      Object ref = impressionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         impressionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2008,11 +2401,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getImpressionIdBytes() {
-      java.lang.Object ref = impressionId_;
+      Object ref = impressionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         impressionId_ = b;
         return b;
       } else {
@@ -2029,7 +2422,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setImpressionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2073,7 +2466,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object insertionId_ = "";
+    private Object insertionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -2082,16 +2475,16 @@ private static final long serialVersionUID = 0L;
      * <code>string insertion_id = 8;</code>
      * @return The insertionId.
      */
-    public java.lang.String getInsertionId() {
-      java.lang.Object ref = insertionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getInsertionId() {
+      Object ref = insertionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         insertionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2104,11 +2497,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getInsertionIdBytes() {
-      java.lang.Object ref = insertionId_;
+      Object ref = insertionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         insertionId_ = b;
         return b;
       } else {
@@ -2125,7 +2518,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setInsertionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2169,7 +2562,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object requestId_ = "";
+    private Object requestId_ = "";
     /**
      * <pre>
      * Optional.
@@ -2178,16 +2571,16 @@ private static final long serialVersionUID = 0L;
      * <code>string request_id = 9;</code>
      * @return The requestId.
      */
-    public java.lang.String getRequestId() {
-      java.lang.Object ref = requestId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getRequestId() {
+      Object ref = requestId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         requestId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2200,11 +2593,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getRequestIdBytes() {
-      java.lang.Object ref = requestId_;
+      Object ref = requestId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         requestId_ = b;
         return b;
       } else {
@@ -2221,7 +2614,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRequestId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2265,7 +2658,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object viewId_ = "";
+    private Object viewId_ = "";
     /**
      * <pre>
      * Optional.
@@ -2274,16 +2667,16 @@ private static final long serialVersionUID = 0L;
      * <code>string view_id = 11;</code>
      * @return The viewId.
      */
-    public java.lang.String getViewId() {
-      java.lang.Object ref = viewId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getViewId() {
+      Object ref = viewId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         viewId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2296,11 +2689,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getViewIdBytes() {
-      java.lang.Object ref = viewId_;
+      Object ref = viewId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         viewId_ = b;
         return b;
       } else {
@@ -2317,7 +2710,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setViewId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2361,7 +2754,103 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object sessionId_ = "";
+    private Object autoViewId_ = "";
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 23;</code>
+     * @return The autoViewId.
+     */
+    public String getAutoViewId() {
+      Object ref = autoViewId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        autoViewId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 23;</code>
+     * @return The bytes for autoViewId.
+     */
+    public com.google.protobuf.ByteString
+        getAutoViewIdBytes() {
+      Object ref = autoViewId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        autoViewId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 23;</code>
+     * @param value The autoViewId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAutoViewId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      autoViewId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 23;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAutoViewId() {
+      
+      autoViewId_ = getDefaultInstance().getAutoViewId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 23;</code>
+     * @param value The bytes for autoViewId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAutoViewIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      autoViewId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Object sessionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -2370,16 +2859,16 @@ private static final long serialVersionUID = 0L;
      * <code>string session_id = 10;</code>
      * @return The sessionId.
      */
-    public java.lang.String getSessionId() {
-      java.lang.Object ref = sessionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getSessionId() {
+      Object ref = sessionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         sessionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2392,11 +2881,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getSessionIdBytes() {
-      java.lang.Object ref = sessionId_;
+      Object ref = sessionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         sessionId_ = b;
         return b;
       } else {
@@ -2413,7 +2902,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSessionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2457,7 +2946,108 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object name_ = "";
+    private Object contentId_ = "";
+    /**
+     * <pre>
+     * Optional. content_id is used as a hint when impression_id is not set.
+     * For more accurate results, set impression_id if available.
+     * </pre>
+     *
+     * <code>string content_id = 21;</code>
+     * @return The contentId.
+     */
+    public String getContentId() {
+      Object ref = contentId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        contentId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional. content_id is used as a hint when impression_id is not set.
+     * For more accurate results, set impression_id if available.
+     * </pre>
+     *
+     * <code>string content_id = 21;</code>
+     * @return The bytes for contentId.
+     */
+    public com.google.protobuf.ByteString
+        getContentIdBytes() {
+      Object ref = contentId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        contentId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional. content_id is used as a hint when impression_id is not set.
+     * For more accurate results, set impression_id if available.
+     * </pre>
+     *
+     * <code>string content_id = 21;</code>
+     * @param value The contentId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setContentId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      contentId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. content_id is used as a hint when impression_id is not set.
+     * For more accurate results, set impression_id if available.
+     * </pre>
+     *
+     * <code>string content_id = 21;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearContentId() {
+      
+      contentId_ = getDefaultInstance().getContentId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. content_id is used as a hint when impression_id is not set.
+     * For more accurate results, set impression_id if available.
+     * </pre>
+     *
+     * <code>string content_id = 21;</code>
+     * @param value The bytes for contentId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setContentIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      contentId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Object name_ = "";
     /**
      * <pre>
      * Optional.  Custom name of the action that the user performed.
@@ -2467,16 +3057,16 @@ private static final long serialVersionUID = 0L;
      * <code>string name = 12;</code>
      * @return The name.
      */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getName() {
+      Object ref = name_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         name_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2490,11 +3080,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
-      java.lang.Object ref = name_;
+      Object ref = name_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         name_ = b;
         return b;
       } else {
@@ -2512,7 +3102,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setName(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2567,7 +3157,7 @@ private static final long serialVersionUID = 0L;
      * <code>.event.ActionType action_type = 14;</code>
      * @return The enum numeric value on the wire for actionType.
      */
-    @java.lang.Override public int getActionTypeValue() {
+    @Override public int getActionTypeValue() {
       return actionType_;
     }
     /**
@@ -2593,11 +3183,11 @@ private static final long serialVersionUID = 0L;
      * <code>.event.ActionType action_type = 14;</code>
      * @return The actionType.
      */
-    @java.lang.Override
-    public ai.promoted.proto.event.ActionType getActionType() {
+    @Override
+    public ActionType getActionType() {
       @SuppressWarnings("deprecation")
-      ai.promoted.proto.event.ActionType result = ai.promoted.proto.event.ActionType.valueOf(actionType_);
-      return result == null ? ai.promoted.proto.event.ActionType.UNRECOGNIZED : result;
+      ActionType result = ActionType.valueOf(actionType_);
+      return result == null ? ActionType.UNRECOGNIZED : result;
     }
     /**
      * <pre>
@@ -2608,7 +3198,7 @@ private static final long serialVersionUID = 0L;
      * @param value The actionType to set.
      * @return This builder for chaining.
      */
-    public Builder setActionType(ai.promoted.proto.event.ActionType value) {
+    public Builder setActionType(ActionType value) {
       if (value == null) {
         throw new NullPointerException();
       }
@@ -2632,7 +3222,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object customActionType_ = "";
+    private Object customActionType_ = "";
     /**
      * <pre>
      * Optional.
@@ -2641,16 +3231,16 @@ private static final long serialVersionUID = 0L;
      * <code>string custom_action_type = 15;</code>
      * @return The customActionType.
      */
-    public java.lang.String getCustomActionType() {
-      java.lang.Object ref = customActionType_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getCustomActionType() {
+      Object ref = customActionType_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         customActionType_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2663,11 +3253,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getCustomActionTypeBytes() {
-      java.lang.Object ref = customActionType_;
+      Object ref = customActionType_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         customActionType_ = b;
         return b;
       } else {
@@ -2684,7 +3274,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCustomActionType(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2728,21 +3318,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object elementId_ = "";
+    private Object elementId_ = "";
     /**
      * <code>string element_id = 17;</code>
      * @return The elementId.
      */
-    public java.lang.String getElementId() {
-      java.lang.Object ref = elementId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getElementId() {
+      Object ref = elementId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         elementId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -2751,11 +3341,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getElementIdBytes() {
-      java.lang.Object ref = elementId_;
+      Object ref = elementId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         elementId_ = b;
         return b;
       } else {
@@ -2768,7 +3358,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setElementId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2805,61 +3395,37 @@ private static final long serialVersionUID = 0L;
     }
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.NavigateAction, ai.promoted.proto.event.NavigateAction.Builder, ai.promoted.proto.event.NavigateActionOrBuilder> navigateActionBuilder_;
+        NavigateAction, NavigateAction.Builder, NavigateActionOrBuilder> navigateActionBuilder_;
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      * @return Whether the navigateAction field is set.
      */
-    @java.lang.Override
+    @Override
     public boolean hasNavigateAction() {
       return actionCase_ == 18;
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      * @return The navigateAction.
      */
-    @java.lang.Override
-    public ai.promoted.proto.event.NavigateAction getNavigateAction() {
+    @Override
+    public NavigateAction getNavigateAction() {
       if (navigateActionBuilder_ == null) {
         if (actionCase_ == 18) {
-          return (ai.promoted.proto.event.NavigateAction) action_;
+          return (NavigateAction) action_;
         }
-        return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+        return NavigateAction.getDefaultInstance();
       } else {
         if (actionCase_ == 18) {
           return navigateActionBuilder_.getMessage();
         }
-        return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+        return NavigateAction.getDefaultInstance();
       }
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
-    public Builder setNavigateAction(ai.promoted.proto.event.NavigateAction value) {
+    public Builder setNavigateAction(NavigateAction value) {
       if (navigateActionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2873,18 +3439,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
     public Builder setNavigateAction(
-        ai.promoted.proto.event.NavigateAction.Builder builderForValue) {
+        NavigateAction.Builder builderForValue) {
       if (navigateActionBuilder_ == null) {
         action_ = builderForValue.build();
         onChanged();
@@ -2895,21 +3453,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
-    public Builder mergeNavigateAction(ai.promoted.proto.event.NavigateAction value) {
+    public Builder mergeNavigateAction(NavigateAction value) {
       if (navigateActionBuilder_ == null) {
         if (actionCase_ == 18 &&
-            action_ != ai.promoted.proto.event.NavigateAction.getDefaultInstance()) {
-          action_ = ai.promoted.proto.event.NavigateAction.newBuilder((ai.promoted.proto.event.NavigateAction) action_)
+            action_ != NavigateAction.getDefaultInstance()) {
+          action_ = NavigateAction.newBuilder((NavigateAction) action_)
               .mergeFrom(value).buildPartial();
         } else {
           action_ = value;
@@ -2925,14 +3475,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
     public Builder clearNavigateAction() {
@@ -2952,62 +3494,38 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
-    public ai.promoted.proto.event.NavigateAction.Builder getNavigateActionBuilder() {
+    public NavigateAction.Builder getNavigateActionBuilder() {
       return getNavigateActionFieldBuilder().getBuilder();
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
-    @java.lang.Override
-    public ai.promoted.proto.event.NavigateActionOrBuilder getNavigateActionOrBuilder() {
+    @Override
+    public NavigateActionOrBuilder getNavigateActionOrBuilder() {
       if ((actionCase_ == 18) && (navigateActionBuilder_ != null)) {
         return navigateActionBuilder_.getMessageOrBuilder();
       } else {
         if (actionCase_ == 18) {
-          return (ai.promoted.proto.event.NavigateAction) action_;
+          return (NavigateAction) action_;
         }
-        return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+        return NavigateAction.getDefaultInstance();
       }
     }
     /**
-     * <pre>
-     * TODO - add PURCHASE details.
-     * TODO - add ADD_TO_CART details.
-     * TODO - add SHARE details.
-     * TODO - add LIKE details.
-     * TODO - add COMMENT details.
-     * </pre>
-     *
      * <code>.event.NavigateAction navigate_action = 18;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.NavigateAction, ai.promoted.proto.event.NavigateAction.Builder, ai.promoted.proto.event.NavigateActionOrBuilder> 
+        NavigateAction, NavigateAction.Builder, NavigateActionOrBuilder>
         getNavigateActionFieldBuilder() {
       if (navigateActionBuilder_ == null) {
         if (!(actionCase_ == 18)) {
-          action_ = ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+          action_ = NavigateAction.getDefaultInstance();
         }
         navigateActionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.event.NavigateAction, ai.promoted.proto.event.NavigateAction.Builder, ai.promoted.proto.event.NavigateActionOrBuilder>(
-                (ai.promoted.proto.event.NavigateAction) action_,
+            NavigateAction, NavigateAction.Builder, NavigateActionOrBuilder>(
+                (NavigateAction) action_,
                 getParentForChildren(),
                 isClean());
         action_ = null;
@@ -3015,6 +3533,52 @@ private static final long serialVersionUID = 0L;
       actionCase_ = 18;
       onChanged();;
       return navigateActionBuilder_;
+    }
+
+    private boolean hasSuperimposedViews_ ;
+    /**
+     * <pre>
+     * Optional. Indicates that this action occurred in a view that may
+     * not be topmost in the view hierarchy.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 22;</code>
+     * @return The hasSuperimposedViews.
+     */
+    @Override
+    public boolean getHasSuperimposedViews() {
+      return hasSuperimposedViews_;
+    }
+    /**
+     * <pre>
+     * Optional. Indicates that this action occurred in a view that may
+     * not be topmost in the view hierarchy.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 22;</code>
+     * @param value The hasSuperimposedViews to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHasSuperimposedViews(boolean value) {
+      
+      hasSuperimposedViews_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Indicates that this action occurred in a view that may
+     * not be topmost in the view hierarchy.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 22;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearHasSuperimposedViews() {
+      
+      hasSuperimposedViews_ = false;
+      onChanged();
+      return this;
     }
 
     private ai.promoted.proto.common.Properties properties_;
@@ -3171,13 +3735,13 @@ private static final long serialVersionUID = 0L;
       }
       return propertiesBuilder_;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -3188,18 +3752,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.Action)
-  private static final ai.promoted.proto.event.Action DEFAULT_INSTANCE;
+  private static final Action DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.Action();
+    DEFAULT_INSTANCE = new Action();
   }
 
-  public static ai.promoted.proto.event.Action getDefaultInstance() {
+  public static Action getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Action>
       PARSER = new com.google.protobuf.AbstractParser<Action>() {
-    @java.lang.Override
+    @Override
     public Action parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3212,13 +3776,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<Action> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.Action getDefaultInstanceForType() {
+  @Override
+  public Action getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

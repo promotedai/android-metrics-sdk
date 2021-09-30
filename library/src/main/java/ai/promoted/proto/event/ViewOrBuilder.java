@@ -77,6 +77,33 @@ public interface ViewOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -85,7 +112,7 @@ public interface ViewOrBuilder extends
    * <code>string view_id = 6;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -107,7 +134,7 @@ public interface ViewOrBuilder extends
    * <code>string session_id = 7;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <pre>
    * Optional.
@@ -127,7 +154,7 @@ public interface ViewOrBuilder extends
    * <code>string name = 8;</code>
    * @return The name.
    */
-  java.lang.String getName();
+  String getName();
   /**
    * <pre>
    * Optional.  The name of the view.
@@ -166,7 +193,7 @@ public interface ViewOrBuilder extends
    * <code>string search_query = 10;</code>
    * @return The searchQuery.
    */
-  java.lang.String getSearchQuery();
+  String getSearchQuery();
   /**
    * <pre>
    * Optional.
@@ -210,31 +237,33 @@ public interface ViewOrBuilder extends
    * Optional.
    * </pre>
    *
-   * <code>.event.Device device = 12;</code>
-   * @return Whether the device field is set.
+   * <code>.common.Locale locale = 16;</code>
+   * @return Whether the locale field is set.
    */
-  boolean hasDevice();
+  boolean hasLocale();
   /**
    * <pre>
    * Optional.
    * </pre>
    *
-   * <code>.event.Device device = 12;</code>
-   * @return The device.
+   * <code>.common.Locale locale = 16;</code>
+   * @return The locale.
    */
-  ai.promoted.proto.event.Device getDevice();
+  ai.promoted.proto.common.Locale getLocale();
   /**
    * <pre>
    * Optional.
    * </pre>
    *
-   * <code>.event.Device device = 12;</code>
+   * <code>.common.Locale locale = 16;</code>
    */
-  ai.promoted.proto.event.DeviceOrBuilder getDeviceOrBuilder();
+  ai.promoted.proto.common.LocaleOrBuilder getLocaleOrBuilder();
 
   /**
    * <pre>
-   * Next ID = 5.
+   * If a specific view is set (`web_page_view` and `app_screen_view`),
+   * clients do not need to set it directly.  If those fields and `view_type`
+   * have conflicting values, the specific view field is used.
    * </pre>
    *
    * <code>.event.View.ViewType view_type = 13;</code>
@@ -243,13 +272,15 @@ public interface ViewOrBuilder extends
   int getViewTypeValue();
   /**
    * <pre>
-   * Next ID = 5.
+   * If a specific view is set (`web_page_view` and `app_screen_view`),
+   * clients do not need to set it directly.  If those fields and `view_type`
+   * have conflicting values, the specific view field is used.
    * </pre>
    *
    * <code>.event.View.ViewType view_type = 13;</code>
    * @return The viewType.
    */
-  ai.promoted.proto.event.View.ViewType getViewType();
+  View.ViewType getViewType();
 
   /**
    * <code>.event.WebPageView web_page_view = 14;</code>
@@ -260,11 +291,11 @@ public interface ViewOrBuilder extends
    * <code>.event.WebPageView web_page_view = 14;</code>
    * @return The webPageView.
    */
-  ai.promoted.proto.event.WebPageView getWebPageView();
+  WebPageView getWebPageView();
   /**
    * <code>.event.WebPageView web_page_view = 14;</code>
    */
-  ai.promoted.proto.event.WebPageViewOrBuilder getWebPageViewOrBuilder();
+  WebPageViewOrBuilder getWebPageViewOrBuilder();
 
   /**
    * <code>.event.AppScreenView app_screen_view = 15;</code>
@@ -275,11 +306,11 @@ public interface ViewOrBuilder extends
    * <code>.event.AppScreenView app_screen_view = 15;</code>
    * @return The appScreenView.
    */
-  ai.promoted.proto.event.AppScreenView getAppScreenView();
+  AppScreenView getAppScreenView();
   /**
    * <code>.event.AppScreenView app_screen_view = 15;</code>
    */
-  ai.promoted.proto.event.AppScreenViewOrBuilder getAppScreenViewOrBuilder();
+  AppScreenViewOrBuilder getAppScreenViewOrBuilder();
 
-  public ai.promoted.proto.event.View.UiTypeCase getUiTypeCase();
+  public View.UiTypeCase getUiTypeCase();
 }

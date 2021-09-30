@@ -128,6 +128,7 @@ internal class TrackCollectionsUseCase(
         viewId: String?,
         content: AbstractContent
     ) = xray.monitored {
+        // TODO - random UUID (not based on insertion ID)
         val impressionId = impressionIdGenerator.generateImpressionId(
             insertionId = content.insertionId,
             contentId = content.contentId

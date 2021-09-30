@@ -15,7 +15,7 @@ public interface NavigateActionOrBuilder extends
    * <code>string target_url = 1;</code>
    * @return The targetUrl.
    */
-  java.lang.String getTargetUrl();
+  String getTargetUrl();
   /**
    * <pre>
    * Optional.  The next URL.

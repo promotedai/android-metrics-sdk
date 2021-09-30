@@ -9,24 +9,24 @@ public interface BlenderConfigOrBuilder extends
 
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  java.util.List<ai.promoted.proto.delivery.BlenderRule> 
+  java.util.List<BlenderRule>
       getBlenderRuleList();
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  ai.promoted.proto.delivery.BlenderRule getBlenderRule(int index);
+  BlenderRule getBlenderRule(int index);
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
@@ -34,20 +34,35 @@ public interface BlenderConfigOrBuilder extends
   int getBlenderRuleCount();
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  java.util.List<? extends ai.promoted.proto.delivery.BlenderRuleOrBuilder> 
+  java.util.List<? extends BlenderRuleOrBuilder>
       getBlenderRuleOrBuilderList();
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  ai.promoted.proto.delivery.BlenderRuleOrBuilder getBlenderRuleOrBuilder(
+  BlenderRuleOrBuilder getBlenderRuleOrBuilder(
       int index);
+
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   * @return Whether the qualityScoreConfig field is set.
+   */
+  boolean hasQualityScoreConfig();
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   * @return The qualityScoreConfig.
+   */
+  QualityScoreConfig getQualityScoreConfig();
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   */
+  QualityScoreConfigOrBuilder getQualityScoreConfigOrBuilder();
 }

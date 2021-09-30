@@ -7,7 +7,7 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.platform.SystemLogger
-import ai.promoted.proto.event.Device
+import ai.promoted.proto.common.Device
 import ai.promoted.xray.Xray
 
 /**
@@ -32,16 +32,19 @@ internal class TrackViewUseCase(
     private val sessionUseCase: TrackSessionUseCase,
     private val xray: Xray
 ) {
+    // TODO - refactor to autoViewId
     val viewId = AncestorId(idGenerator)
 
     /**
      * Allows the clients to set an externally-generated view ID to be used on the next view event.
      * Once the next view is logged, this value is cleared.
      */
+    // TODO - revisit usage
     var externalViewId: String? = null
 
     private var currentKey: String = ""
 
+    // TODO - not in View/AutoView anymore
     private val deviceMessage: Device by lazy {
         createDeviceMessage(deviceInfoProvider)
     }
@@ -102,8 +105,7 @@ internal class TrackViewUseCase(
         logger.enqueueMessage(
             createImplicitViewMessage(
                 clock = clock,
-                viewId = viewId.currentValueOrNull,
-                externalViewId = externalViewId,
+                autoViewId = viewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key,
                 deviceMessage = deviceMessage
@@ -116,6 +118,7 @@ internal class TrackViewUseCase(
     fun logView(viewId: String) = xray.monitored {
         // We don't actually need this overridden per se, but what it will do is prevent any
         // further usage of onViewVisible, so as to avoid conflicts of view ID strategy
+        // TODO - revisit w/ auto-view refactor - remove override
         this.viewId.override(viewId)
         logger.enqueueMessage(
             createViewMessage(
@@ -126,5 +129,10 @@ internal class TrackViewUseCase(
                 deviceMessage = deviceMessage
             )
         )
+    }
+
+    // TODO
+    fun logAutoView(autoViewId: String) = xray.monitored {
+
     }
 }
