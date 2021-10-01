@@ -30,9 +30,9 @@ class TrackViewUseCaseTest {
 
     private val useCase = TrackViewUseCase(
         systemLogger = SystemOutLogger(),
+        logger = logger,
         clock = mockk { every { currentTimeMillis } returns testTime },
         deviceInfoProvider = mockk(relaxed = true),
-        logger = logger,
         idGenerator = UuidGenerator(),
         sessionUseCase = mockkRelaxedUnit {
             every { sessionId } returns testSessionId

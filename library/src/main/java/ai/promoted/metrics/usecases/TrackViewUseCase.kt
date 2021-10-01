@@ -7,7 +7,6 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.platform.SystemLogger
-import ai.promoted.proto.common.Device
 import ai.promoted.xray.Xray
 
 /**
@@ -44,11 +43,6 @@ internal class TrackViewUseCase(
 
     private var currentKey: String = ""
 
-    // TODO - not in View/AutoView anymore
-    private val deviceMessage: Device by lazy {
-        createDeviceMessage(deviceInfoProvider)
-    }
-
     /**
      * If needed (if this [key] is different than the last visible key), generates a new view ID.
      * Then logs a view message via [MetricsLogger].
@@ -72,10 +66,10 @@ internal class TrackViewUseCase(
         logger.enqueueMessage(
             createViewMessage(
                 clock = clock,
+                deviceInfoProvider = deviceInfoProvider,
                 viewId = viewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
-                name = key,
-                deviceMessage = deviceMessage
+                name = key
             )
         )
     }
@@ -103,12 +97,12 @@ internal class TrackViewUseCase(
 
         // TODO - auto-view schema + external view ID
         logger.enqueueMessage(
-            createImplicitViewMessage(
+            createAutoViewMessage(
                 clock = clock,
+                deviceInfoProvider = deviceInfoProvider,
                 autoViewId = viewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
-                name = key,
-                deviceMessage = deviceMessage
+                name = key
             )
         )
 
@@ -123,16 +117,16 @@ internal class TrackViewUseCase(
         logger.enqueueMessage(
             createViewMessage(
                 clock = clock,
+                deviceInfoProvider = deviceInfoProvider,
                 viewId = viewId,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
-                name = viewId,
-                deviceMessage = deviceMessage
+                name = viewId
             )
         )
     }
 
     // TODO
-    fun logAutoView(autoViewId: String) = xray.monitored {
-
-    }
+//    fun logAutoView(autoViewId: String) = xray.monitored {
+//
+//    }
 }

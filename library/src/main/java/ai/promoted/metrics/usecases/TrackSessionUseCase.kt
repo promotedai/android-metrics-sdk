@@ -4,7 +4,6 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AdvanceableId
 import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
-import ai.promoted.platform.Clock
 import ai.promoted.platform.SystemLogger
 import ai.promoted.xray.Xray
 
@@ -22,7 +21,6 @@ import ai.promoted.xray.Xray
  */
 internal class TrackSessionUseCase(
     private val systemLogger: SystemLogger,
-    private val clock: Clock,
     private val logger: MetricsLogger,
     idGenerator: IdGenerator,
     private val trackUserUseCase: TrackUserUseCase,
@@ -48,9 +46,5 @@ internal class TrackSessionUseCase(
         trackUserUseCase.setUserId(logger, userId)
 
         sessionId.advance()
-//        logSession()
     }
-
-
-//    private fun logSession() = logger.enqueueMessage(createSessionMessage(clock))
 }

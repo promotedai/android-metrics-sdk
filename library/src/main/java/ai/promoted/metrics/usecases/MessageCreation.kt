@@ -50,22 +50,7 @@ internal fun createUserMessage(clock: Clock, userId: String?, logUserId: String?
         .setUserInfo(createUserInfoMessage(userId, logUserId))
         .build()
 
-//internal fun createSessionMessage(clock: Clock) =
-//    Session
-//        .newBuilder()
-//        .setTiming(createTimingMessage(clock))
-//        .setStartEpochMillis(clock.currentTimeMillis)
-//        .build()
-
 internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device {
-    // TODO move to Auto-View
-    val localeMessage =
-        PromotedAiLocale
-            .newBuilder()
-            .setLanguageCode(deviceInfoProvider.languageCode)
-            .setRegionCode(deviceInfoProvider.countryCode)
-            .build()
-
     val screenSizeMessage =
         Size
             .newBuilder()
@@ -86,54 +71,53 @@ internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device
         .setManufacturer(deviceInfoProvider.manufacturer)
         .setIdentifier(deviceInfoProvider.model)
         .setOsVersion(deviceInfoProvider.sdkRelease)
-            // TODO - move to auto-view
-//        .setLocale(localeMessage)
         .setScreen(screenMessage)
         .build()
 }
 
 internal fun createViewMessage(
     clock: Clock,
+    deviceInfoProvider: DeviceInfoProvider,
     viewId: String?,
     sessionId: String?,
     name: String,
-    // The Device message should be cached in memory elsewhere, so we will not construct it
-    // ourselves as part of this function, but rather it should be passed in.
-    deviceMessage: Device
 ) = View
     .newBuilder()
     .setTiming(createTimingMessage(clock))
+    .setLocale(createLocaleMessage(deviceInfoProvider))
     .apply {
         sessionId?.let { setSessionId(it) }
         viewId?.let { setViewId(it) }
     }
     .setName(name)
-        // TODO - move to LogRequest
-//    .setDevice(deviceMessage)
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
 
-// TODO - new schema for auto-view & external view ID
 @Suppress("LongParameterList")
-internal fun createImplicitViewMessage(
+internal fun createAutoViewMessage(
     clock: Clock,
+    deviceInfoProvider: DeviceInfoProvider,
     autoViewId: String?,
     sessionId: String?,
     name: String,
-    // The Device message should be cached in memory elsewhere, so we will not construct it
-    // ourselves as part of this function, but rather it should be passed in.
-    deviceMessage: Device
 ) = AutoView
-    .newBuilder()
-    .setTiming(createTimingMessage(clock))
-    .apply {
-        sessionId?.let { setSessionId(it) }
-        autoViewId?.let { setAutoViewId(autoViewId) }
-    }
-    .setName(name)
-//    .setDevice(deviceMessage)
-    .setAppScreenView(AppScreenView.getDefaultInstance())
-    .build()
+        .newBuilder()
+        .setTiming(createTimingMessage(clock))
+        .setLocale(createLocaleMessage(deviceInfoProvider))
+        .apply {
+            sessionId?.let { setSessionId(it) }
+            autoViewId?.let { setAutoViewId(autoViewId) }
+        }
+        .setName(name)
+        .setAppScreenView(AppScreenView.getDefaultInstance())
+        .build()
+
+private fun createLocaleMessage(deviceInfoProvider: DeviceInfoProvider) =
+    PromotedAiLocale
+        .newBuilder()
+        .setLanguageCode(deviceInfoProvider.languageCode)
+        .setRegionCode(deviceInfoProvider.countryCode)
+        .build()
 
 @Suppress("LongParameterList")
 internal fun createActionMessage(

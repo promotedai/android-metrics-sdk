@@ -4,6 +4,7 @@ import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.metrics.id.UuidGenerator
+import ai.promoted.proto.common.Timing
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.NoOpXray
