@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 internal interface PromotedAiSdk {
     var logUserId: String
     var sessionId: String
-    var viewId: String
-    var externalViewId: String
+    var autoViewId: String
 
     fun startSession(userId: String = "")
 
-    fun onViewVisible(key: String)
-
     fun logView(viewId: String)
+
+    fun logAutoView(autoViewId: String)
 
     fun onImpression(sourceActivity: Activity?, dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)

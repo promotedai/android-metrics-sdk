@@ -55,7 +55,7 @@ class TrackImpressionsUseCaseTest {
             every { sessionId } returns testSessionId
         },
         viewUseCase = mockk {
-            every { viewId } returns testViewId
+            every { autoViewId } returns testViewId
         },
         xray = NoOpXray()
     )

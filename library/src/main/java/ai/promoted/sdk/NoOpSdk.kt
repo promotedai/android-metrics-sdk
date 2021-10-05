@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 internal class NoOpSdk : PromotedAiSdk {
     override var logUserId: String = ""
     override var sessionId: String = ""
-    override var viewId: String = ""
-    override var externalViewId: String = ""
+    override var autoViewId: String = ""
 
     override fun startSession(userId: String) {}
 
-    override fun onViewVisible(key: String) {}
-
     override fun logView(viewId: String) {}
+
+    override fun logAutoView(autoViewId: String) {}
 
     override fun onImpression(
         sourceActivity: Activity?,

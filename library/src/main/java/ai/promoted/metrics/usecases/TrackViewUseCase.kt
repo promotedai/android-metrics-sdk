@@ -12,13 +12,13 @@ import ai.promoted.xray.Xray
 /**
  * Allows you to track when a view has become visible/focused.
  *
- * This class makes use of [AdvanceableId], which means that you can query [viewId] prior to calling
+ * This class makes use of [AdvanceableId], which means that you can query [autoViewId] prior to calling
  * [onViewVisible] in order to track events associated to the soon-to-be-opened view, and when you
- * eventually do call [onViewVisible], that original [viewId] value will be used/associated to the
- * view that opens. All subsequent calls to [onViewVisible] will result in a new [viewId]
+ * eventually do call [onViewVisible], that original [autoViewId] value will be used/associated to the
+ * view that opens. All subsequent calls to [onViewVisible] will result in a new [autoViewId]
  * being generated.
  *
- * This class should be retained as a singleton in order to preserve the current [viewId] across
+ * This class should be retained as a singleton in order to preserve the current [autoViewId] across
  * other use cases.
  */
 @Suppress("LongParameterList")
@@ -31,15 +31,7 @@ internal class TrackViewUseCase(
     private val sessionUseCase: TrackSessionUseCase,
     private val xray: Xray
 ) {
-    // TODO - refactor to autoViewId
-    val viewId = AncestorId(idGenerator)
-
-    /**
-     * Allows the clients to set an externally-generated view ID to be used on the next view event.
-     * Once the next view is logged, this value is cleared.
-     */
-    // TODO - revisit usage
-    var externalViewId: String? = null
+    val autoViewId = AncestorId(idGenerator)
 
     private var currentKey: String = ""
 
@@ -47,39 +39,8 @@ internal class TrackViewUseCase(
      * If needed (if this [key] is different than the last visible key), generates a new view ID.
      * Then logs a view message via [MetricsLogger].
      */
-    fun onViewVisible(key: String) = xray.monitored {
-        if (viewId.isOverridden) {
-            systemLogger.e(
-                IllegalStateException(
-                    "Attempted to log a new view after " +
-                            "overriding view ID"
-                )
-            )
-            return@monitored
-        }
-
-        if (key != currentKey) {
-            viewId.advance()
-            currentKey = key
-        }
-
-        logger.enqueueMessage(
-            createViewMessage(
-                clock = clock,
-                deviceInfoProvider = deviceInfoProvider,
-                viewId = viewId.currentValueOrNull,
-                sessionId = sessionUseCase.sessionId.currentValueOrNull,
-                name = key
-            )
-        )
-    }
-
-    /**
-     * If needed (if this [key] is different than the last visible key), generates a new view ID.
-     * Then logs a view message via [MetricsLogger].
-     */
     internal fun onImplicitViewVisible(key: String) = xray.monitored {
-        if (viewId.isOverridden) {
+        if (autoViewId.isOverridden) {
             systemLogger.e(
                 IllegalStateException(
                     "Attempted to log a new view after " +
@@ -92,28 +53,24 @@ internal class TrackViewUseCase(
         // The view was already logged, so skip it
         if (key == currentKey) return@monitored
 
-        viewId.advance()
+        autoViewId.advance()
         currentKey = key
 
-        // TODO - auto-view schema + external view ID
         logger.enqueueMessage(
             createAutoViewMessage(
                 clock = clock,
                 deviceInfoProvider = deviceInfoProvider,
-                autoViewId = viewId.currentValueOrNull,
+                autoViewId = autoViewId.currentValueOrNull,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
                 name = key
             )
         )
-
-        externalViewId = null
     }
 
+    /**
+     * Directly logs a view event using the given ID
+     */
     fun logView(viewId: String) = xray.monitored {
-        // We don't actually need this overridden per se, but what it will do is prevent any
-        // further usage of onViewVisible, so as to avoid conflicts of view ID strategy
-        // TODO - revisit w/ auto-view refactor - remove override
-        this.viewId.override(viewId)
         logger.enqueueMessage(
             createViewMessage(
                 clock = clock,
@@ -125,8 +82,18 @@ internal class TrackViewUseCase(
         )
     }
 
-    // TODO
-//    fun logAutoView(autoViewId: String) = xray.monitored {
-//
-//    }
+    /**
+     * Directly logs an auto-view event using the given ID
+     */
+    fun logAutoView(autoViewId: String) = xray.monitored {
+        logger.enqueueMessage(
+            createAutoViewMessage(
+                clock = clock,
+                deviceInfoProvider = deviceInfoProvider,
+                autoViewId = autoViewId,
+                sessionId = sessionUseCase.sessionId.currentValueOrNull,
+                name = autoViewId
+            )
+        )
+    }
 }

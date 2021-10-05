@@ -40,9 +40,9 @@ class DefaultSdkTest {
     }
 
     @Test
-    fun onViewVisible() {
-        sdk.onViewVisible("view-key")
-        verify(exactly = 1) { viewUseCase.onViewVisible("view-key") }
+    fun logView() {
+        sdk.logView("view-id")
+        verify(exactly = 1) { viewUseCase.logView("view-id") }
     }
 
     @Test

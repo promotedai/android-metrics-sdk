@@ -37,23 +37,13 @@ object PromotedAi {
         }
 
     /**
-     * @see [PromotedAiSdk.viewId]
+     * @see [PromotedAiSdk.autoViewId]
      */
     @JvmStatic
     var viewId: String
-        get() = sdk.viewId
+        get() = sdk.autoViewId
         set(value) {
-            sdk.viewId = value
-        }
-
-    /**
-     * @see [PromotedAiSdk.externalViewId]
-     */
-    @JvmStatic
-    var externalViewId: String
-        get() = sdk.externalViewId
-        set(value) {
-            sdk.externalViewId = value
+            sdk.autoViewId = value
         }
 
     /**
@@ -97,16 +87,16 @@ object PromotedAi {
     fun startSession(userId: String) = sdk.startSession(userId)
 
     /**
-     * @see [PromotedAiSdk.onViewVisible]
-     */
-    @JvmStatic
-    fun onViewVisible(key: String) = sdk.onViewVisible(key)
-
-    /**
      * @see [PromotedAiSdk.logView]
      */
     @JvmStatic
     fun logView(viewId: String) = sdk.logView(viewId)
+
+    /**
+     * @see [PromotedAiSdk.logAutoView]
+     */
+    @JvmStatic
+    fun logAutoView(autoViewId: String) = sdk.logAutoView(autoViewId)
 
     /**
      * @see [PromotedAiSdk.onImpression]

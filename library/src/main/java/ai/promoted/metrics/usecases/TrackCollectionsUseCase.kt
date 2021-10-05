@@ -76,7 +76,7 @@ internal class TrackCollectionsUseCase(
 
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
-        val viewId = viewUseCase.viewId.currentValueOrNull
+        val viewId = viewUseCase.autoViewId.currentValueOrNull
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(
@@ -134,7 +134,6 @@ internal class TrackCollectionsUseCase(
             contentId = content.contentId
         ) ?: return@monitored
 
-        // TODO - extract activity
         val impressionData = ImpressionData.Builder().apply {
             insertionId = content.insertionId
             contentId = content.contentId
