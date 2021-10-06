@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 internal interface PromotedAiSdk {
     var logUserId: String
     var sessionId: String
-    var autoViewId: String
 
     fun startSession(userId: String = "")
 

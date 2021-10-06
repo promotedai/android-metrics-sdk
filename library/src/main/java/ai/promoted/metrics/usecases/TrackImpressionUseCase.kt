@@ -62,7 +62,7 @@ internal class TrackImpressionUseCase(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            viewId = viewUseCase.autoViewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull
         )
 
         logger.enqueueMessage(

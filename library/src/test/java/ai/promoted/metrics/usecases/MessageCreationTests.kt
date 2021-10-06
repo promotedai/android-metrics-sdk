@@ -32,7 +32,7 @@ class MessageCreationTests {
                 type = ActionType.NAVIGATE,
                 actionId = "test",
                 sessionId = "test",
-                viewId = "test",
+                autoViewId = "test",
                 impressionId = "test"
             ),
             actionData = ActionData.Builder(
@@ -55,7 +55,7 @@ class MessageCreationTests {
                 type = ActionType.CUSTOM_ACTION_TYPE,
                 actionId = "test",
                 sessionId = "test",
-                viewId = "test",
+                autoViewId = "test",
                 impressionId = "test"
             ),
             actionData = ActionData.Builder().build(null)

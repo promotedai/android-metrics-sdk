@@ -40,11 +40,8 @@ object PromotedAi {
      * @see [PromotedAiSdk.autoViewId]
      */
     @JvmStatic
-    var viewId: String
-        get() = sdk.autoViewId
-        set(value) {
-            sdk.autoViewId = value
-        }
+    @Deprecated("Auto-view ID will be used")
+    var viewId: String = ""
 
     /**
      * @see [SdkManager.initialize]

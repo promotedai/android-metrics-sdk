@@ -100,6 +100,7 @@ internal fun createAutoViewMessage(
     autoViewId: String?,
     sessionId: String?,
     name: String,
+    hasSuperImposedViews: Boolean
 ) = AutoView
         .newBuilder()
         .setTiming(createTimingMessage(clock))
@@ -133,7 +134,7 @@ internal fun createActionMessage(
         .setActionType(internalActionData.type)
         .apply {
             internalActionData.sessionId?.let { setSessionId(it) }
-            internalActionData.viewId?.let { setViewId(it) }
+            internalActionData.autoViewId?.let { setAutoViewId(it) }
             internalActionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -166,7 +167,7 @@ internal fun createImpressionMessage(
         .setImpressionId(internalImpressionData.impressionId)
         .apply {
             internalImpressionData.sessionId?.let { setSessionId(it) }
-            internalImpressionData.viewId?.let { setViewId(it) }
+            internalImpressionData.autoViewId?.let { setAutoViewId(it) }
             impressionData.insertionId?.let { setInsertionId(it) }
             impressionData.requestId?.let { setRequestId(it) }
             impressionData.contentId?.let { setContentId(it) }

@@ -40,16 +40,6 @@ internal class TrackViewUseCase(
      * Then logs a view message via [MetricsLogger].
      */
     internal fun onImplicitViewVisible(key: String) = xray.monitored {
-        if (autoViewId.isOverridden) {
-            systemLogger.e(
-                IllegalStateException(
-                    "Attempted to log a new view after " +
-                            "overriding view ID"
-                )
-            )
-            return@monitored
-        }
-
         // The view was already logged, so skip it
         if (key == currentKey) return@monitored
 
@@ -70,6 +60,7 @@ internal class TrackViewUseCase(
     /**
      * Directly logs a view event using the given ID
      */
+    // TODO - auto-view upon logView
     fun logView(viewId: String) = xray.monitored {
         logger.enqueueMessage(
             createViewMessage(
@@ -85,14 +76,20 @@ internal class TrackViewUseCase(
     /**
      * Directly logs an auto-view event using the given ID
      */
-    fun logAutoView(autoViewId: String) = xray.monitored {
+    @SuppressWarnings("")
+    fun logAutoView(
+        routeName: String,
+        routeKey: String,
+        hasSuperImposedViews: Boolean,
+        autoViewId: String
+    ) = xray.monitored {
         logger.enqueueMessage(
             createAutoViewMessage(
                 clock = clock,
                 deviceInfoProvider = deviceInfoProvider,
                 autoViewId = autoViewId,
                 sessionId = sessionUseCase.sessionId.currentValueOrNull,
-                name = autoViewId
+                name = routeName
             )
         )
     }

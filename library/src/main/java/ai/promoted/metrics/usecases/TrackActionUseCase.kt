@@ -70,7 +70,7 @@ internal class TrackActionUseCase(
             actionId = actionId,
             impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            viewId = viewUseCase.autoViewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull
         )
 
         logger.enqueueMessage(
