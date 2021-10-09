@@ -21,7 +21,7 @@ internal class NoOpSdk : PromotedAiSdk {
 
     override fun logView(viewId: String) {}
 
-    override fun logAutoView(autoViewId: String) {}
+    override fun logAutoView(autoViewId: String, routeName: String, routeKey: String) {}
 
     override fun onImpression(
         sourceActivity: Activity?,

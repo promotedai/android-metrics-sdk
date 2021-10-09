@@ -99,8 +99,7 @@ internal fun createAutoViewMessage(
     deviceInfoProvider: DeviceInfoProvider,
     autoViewId: String?,
     sessionId: String?,
-    name: String,
-    hasSuperImposedViews: Boolean
+    name: String
 ) = AutoView
         .newBuilder()
         .setTiming(createTimingMessage(clock))

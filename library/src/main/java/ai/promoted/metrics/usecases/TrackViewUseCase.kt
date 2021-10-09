@@ -6,7 +6,6 @@ import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
-import ai.promoted.platform.SystemLogger
 import ai.promoted.xray.Xray
 
 /**
@@ -23,7 +22,6 @@ import ai.promoted.xray.Xray
  */
 @Suppress("LongParameterList")
 internal class TrackViewUseCase(
-    private val systemLogger: SystemLogger,
     private val logger: MetricsLogger,
     private val clock: Clock,
     private val deviceInfoProvider: DeviceInfoProvider,
@@ -76,12 +74,11 @@ internal class TrackViewUseCase(
     /**
      * Directly logs an auto-view event using the given ID
      */
-    @SuppressWarnings("")
+    @SuppressWarnings("UnusedPrivateMember")
     fun logAutoView(
+        autoViewId: String,
         routeName: String,
-        routeKey: String,
-        hasSuperImposedViews: Boolean,
-        autoViewId: String
+        routeKey: String
     ) = xray.monitored {
         logger.enqueueMessage(
             createAutoViewMessage(

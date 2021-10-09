@@ -21,7 +21,7 @@ internal interface PromotedAiSdk {
 
     fun logView(viewId: String)
 
-    fun logAutoView(autoViewId: String)
+    fun logAutoView(autoViewId: String, routeName: String, routeKey: String)
 
     fun onImpression(sourceActivity: Activity?, dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)

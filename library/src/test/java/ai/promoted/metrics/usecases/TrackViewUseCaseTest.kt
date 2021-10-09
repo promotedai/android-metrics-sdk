@@ -1,6 +1,5 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.SystemOutLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.UuidGenerator
@@ -30,7 +29,6 @@ class TrackViewUseCaseTest {
         }
 
     private val useCase = TrackViewUseCase(
-        systemLogger = SystemOutLogger(),
         logger = logger,
         clock = mockk { every { currentTimeMillis } returns testTime },
         deviceInfoProvider = mockk(relaxed = true),
@@ -109,7 +107,7 @@ class TrackViewUseCaseTest {
     @Test
     fun `AutoView is logged after logAutoView`() {
         // When logAutoView is called
-        useCase.logAutoView("the-view-id")
+        useCase.logAutoView("the-view-id", "", "")
 
         // Then
         verify(exactly = 1) {

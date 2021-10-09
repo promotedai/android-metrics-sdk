@@ -45,7 +45,11 @@ internal class DefaultSdk(
 
     override fun logView(viewId: String) = trackViewUseCase.logView(viewId)
 
-    override fun logAutoView(autoViewId: String) = trackViewUseCase.logAutoView(autoViewId)
+    override fun logAutoView(
+        autoViewId: String,
+        routeName: String,
+        routeKey: String
+    ) = trackViewUseCase.logAutoView(autoViewId, routeName, routeKey)
 
     override fun onImpression(
         sourceActivity: Activity?,

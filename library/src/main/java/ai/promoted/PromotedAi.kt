@@ -93,7 +93,11 @@ object PromotedAi {
      * @see [PromotedAiSdk.logAutoView]
      */
     @JvmStatic
-    fun logAutoView(autoViewId: String) = sdk.logAutoView(autoViewId)
+    fun logAutoView(
+        autoViewId: String,
+        routeName: String,
+        routeKey: String
+    ) = sdk.logAutoView(autoViewId, routeName, routeKey)
 
     /**
      * @see [PromotedAiSdk.onImpression]

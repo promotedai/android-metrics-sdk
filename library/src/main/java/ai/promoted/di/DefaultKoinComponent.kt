@@ -62,7 +62,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { createMetricsLoggerForConfig() }
             single { TrackUserUseCase(get(), get(), get(), get()) }
             single { TrackSessionUseCase(get(), get(), get(), get(), get()) }
-            single { TrackViewUseCase(get(), get(), get(), get(), get(), get(), get()) }
+            single { TrackViewUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackCollectionsUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
