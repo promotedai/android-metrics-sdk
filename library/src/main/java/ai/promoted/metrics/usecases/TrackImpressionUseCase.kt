@@ -53,6 +53,7 @@ internal class TrackImpressionUseCase(
         // Log a new view event if necessary
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
+        // TODO - random UUID (not based on insertion ID)
         val impressionId =
             impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
                 ?: return@monitored
@@ -61,7 +62,7 @@ internal class TrackImpressionUseCase(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            viewId = viewUseCase.viewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull
         )
 
         logger.enqueueMessage(

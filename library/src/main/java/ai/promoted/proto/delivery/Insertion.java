@@ -7,7 +7,7 @@ package ai.promoted.proto.delivery;
  * <pre>
  * This Event represents a Content being served at a certain position regardless
  * of it was views by a user. Insertions are immutable.
- * Next ID = 16.
+ * Next ID = 21.
  * </pre>
  *
  * Protobuf type {@code delivery.Insertion}
@@ -29,14 +29,14 @@ private static final long serialVersionUID = 0L;
     contentId_ = "";
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new Insertion();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -47,8 +47,9 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -90,38 +91,51 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            ai.promoted.proto.common.ClientInfo.Builder subBuilder = null;
+            if (clientInfo_ != null) {
+              subBuilder = clientInfo_.toBuilder();
+            }
+            clientInfo_ = input.readMessage(ai.promoted.proto.common.ClientInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(clientInfo_);
+              clientInfo_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           case 50: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             insertionId_ = s;
             break;
           }
           case 58: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             requestId_ = s;
             break;
           }
           case 66: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             sessionId_ = s;
             break;
           }
           case 74: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             viewId_ = s;
             break;
           }
           case 82: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             contentId_ = s;
             break;
           }
           case 96: {
-
+            bitField0_ |= 0x00000001;
             position_ = input.readUInt64();
             break;
           }
@@ -138,9 +152,14 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 121: {
-
-            deliveryScore_ = input.readDouble();
+          case 152: {
+            bitField0_ |= 0x00000002;
+            retrievalRank_ = input.readUInt64();
+            break;
+          }
+          case 165: {
+            bitField0_ |= 0x00000004;
+            retrievalScore_ = input.readFloat();
             break;
           }
           default: {
@@ -164,17 +183,18 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Insertion_descriptor;
+    return Delivery.internal_static_delivery_Insertion_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Insertion_fieldAccessorTable
+    return Delivery.internal_static_delivery_Insertion_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.delivery.Insertion.class, ai.promoted.proto.delivery.Insertion.Builder.class);
+            Insertion.class, Builder.class);
   }
 
+  private int bitField0_;
   public static final int PLATFORM_ID_FIELD_NUMBER = 1;
   private long platformId_;
   /**
@@ -185,7 +205,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 platform_id = 1;</code>
    * @return The platformId.
    */
-  @java.lang.Override
+  @Override
   public long getPlatformId() {
     return platformId_;
   }
@@ -200,7 +220,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return Whether the userInfo field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasUserInfo() {
     return userInfo_ != null;
   }
@@ -212,7 +232,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return The userInfo.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfo getUserInfo() {
     return userInfo_ == null ? ai.promoted.proto.common.UserInfo.getDefaultInstance() : userInfo_;
   }
@@ -223,7 +243,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.UserInfo user_info = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfoOrBuilder getUserInfoOrBuilder() {
     return getUserInfo();
   }
@@ -238,7 +258,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return Whether the timing field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasTiming() {
     return timing_ != null;
   }
@@ -250,7 +270,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return The timing.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Timing getTiming() {
     return timing_ == null ? ai.promoted.proto.common.Timing.getDefaultInstance() : timing_;
   }
@@ -261,13 +281,51 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Timing timing = 3;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder() {
     return getTiming();
   }
 
+  public static final int CLIENT_INFO_FIELD_NUMBER = 4;
+  private ai.promoted.proto.common.ClientInfo clientInfo_;
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  @Override
+  public boolean hasClientInfo() {
+    return clientInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfo getClientInfo() {
+    return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+    return getClientInfo();
+  }
+
   public static final int INSERTION_ID_FIELD_NUMBER = 6;
-  private volatile java.lang.Object insertionId_;
+  private volatile Object insertionId_;
   /**
    * <pre>
    * Optional.  Primary key.
@@ -278,15 +336,15 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 6;</code>
    * @return The insertionId.
    */
-  @java.lang.Override
-  public java.lang.String getInsertionId() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getInsertionId() {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       insertionId_ = s;
       return s;
     }
@@ -301,14 +359,14 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 6;</code>
    * @return The bytes for insertionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getInsertionIdBytes() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       insertionId_ = b;
       return b;
     } else {
@@ -317,7 +375,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int REQUEST_ID_FIELD_NUMBER = 7;
-  private volatile java.lang.Object requestId_;
+  private volatile Object requestId_;
   /**
    * <pre>
    * Optional.
@@ -326,15 +384,15 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 7;</code>
    * @return The requestId.
    */
-  @java.lang.Override
-  public java.lang.String getRequestId() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getRequestId() {
+    Object ref = requestId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       requestId_ = s;
       return s;
     }
@@ -347,14 +405,14 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 7;</code>
    * @return The bytes for requestId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getRequestIdBytes() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = requestId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       requestId_ = b;
       return b;
     } else {
@@ -363,7 +421,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VIEW_ID_FIELD_NUMBER = 9;
-  private volatile java.lang.Object viewId_;
+  private volatile Object viewId_;
   /**
    * <pre>
    * Optional.
@@ -372,15 +430,15 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 9;</code>
    * @return The viewId.
    */
-  @java.lang.Override
-  public java.lang.String getViewId() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getViewId() {
+    Object ref = viewId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       viewId_ = s;
       return s;
     }
@@ -393,14 +451,14 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 9;</code>
    * @return The bytes for viewId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getViewIdBytes() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = viewId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       viewId_ = b;
       return b;
     } else {
@@ -409,7 +467,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int SESSION_ID_FIELD_NUMBER = 8;
-  private volatile java.lang.Object sessionId_;
+  private volatile Object sessionId_;
   /**
    * <pre>
    * Optional.
@@ -418,15 +476,15 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 8;</code>
    * @return The sessionId.
    */
-  @java.lang.Override
-  public java.lang.String getSessionId() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getSessionId() {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       sessionId_ = s;
       return s;
     }
@@ -439,14 +497,14 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 8;</code>
    * @return The bytes for sessionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getSessionIdBytes() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       sessionId_ = b;
       return b;
     } else {
@@ -455,7 +513,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int CONTENT_ID_FIELD_NUMBER = 10;
-  private volatile java.lang.Object contentId_;
+  private volatile Object contentId_;
   /**
    * <pre>
    * Optional.  We'll look this up using the external_content_id.
@@ -464,15 +522,15 @@ private static final long serialVersionUID = 0L;
    * <code>string content_id = 10;</code>
    * @return The contentId.
    */
-  @java.lang.Override
-  public java.lang.String getContentId() {
-    java.lang.Object ref = contentId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getContentId() {
+    Object ref = contentId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       contentId_ = s;
       return s;
     }
@@ -485,14 +543,14 @@ private static final long serialVersionUID = 0L;
    * <code>string content_id = 10;</code>
    * @return The bytes for contentId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getContentIdBytes() {
-    java.lang.Object ref = contentId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = contentId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       contentId_ = b;
       return b;
     } else {
@@ -504,72 +562,127 @@ private static final long serialVersionUID = 0L;
   private long position_;
   /**
    * <pre>
-   * Optional.  0-based.
+   * Optional. 0-based. Position "in what" depends on insertion context:
+   * if request_insertion, then position provided by client or retrieval
+   * if response_insertion, then the position returned by Delivery to the client
+   * </pre>
+   *
+   * <code>uint64 position = 12;</code>
+   * @return Whether the position field is set.
+   */
+  @Override
+  public boolean hasPosition() {
+    return ((bitField0_ & 0x00000001) != 0);
+  }
+  /**
+   * <pre>
+   * Optional. 0-based. Position "in what" depends on insertion context:
+   * if request_insertion, then position provided by client or retrieval
+   * if response_insertion, then the position returned by Delivery to the client
    * </pre>
    *
    * <code>uint64 position = 12;</code>
    * @return The position.
    */
-  @java.lang.Override
+  @Override
   public long getPosition() {
     return position_;
-  }
-
-  public static final int DELIVERY_SCORE_FIELD_NUMBER = 15;
-  private double deliveryScore_;
-  /**
-   * <pre>
-   * delivery score
-   * </pre>
-   *
-   * <code>double delivery_score = 15;</code>
-   * @return The deliveryScore.
-   */
-  @java.lang.Override
-  public double getDeliveryScore() {
-    return deliveryScore_;
   }
 
   public static final int PROPERTIES_FIELD_NUMBER = 13;
   private ai.promoted.proto.common.Properties properties_;
   /**
    * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
    * @return Whether the properties field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasProperties() {
     return properties_ != null;
   }
   /**
    * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
    * @return The properties.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Properties getProperties() {
     return properties_ == null ? ai.promoted.proto.common.Properties.getDefaultInstance() : properties_;
   }
   /**
    * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder() {
     return getProperties();
   }
 
+  public static final int RETRIEVAL_RANK_FIELD_NUMBER = 19;
+  private long retrievalRank_;
+  /**
+   * <pre>
+   * Optional. Ranking (if known) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>uint64 retrieval_rank = 19;</code>
+   * @return Whether the retrievalRank field is set.
+   */
+  @Override
+  public boolean hasRetrievalRank() {
+    return ((bitField0_ & 0x00000002) != 0);
+  }
+  /**
+   * <pre>
+   * Optional. Ranking (if known) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>uint64 retrieval_rank = 19;</code>
+   * @return The retrievalRank.
+   */
+  @Override
+  public long getRetrievalRank() {
+    return retrievalRank_;
+  }
+
+  public static final int RETRIEVAL_SCORE_FIELD_NUMBER = 20;
+  private float retrievalScore_;
+  /**
+   * <pre>
+   * Optional. Score (if any) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>float retrieval_score = 20;</code>
+   * @return Whether the retrievalScore field is set.
+   */
+  @Override
+  public boolean hasRetrievalScore() {
+    return ((bitField0_ & 0x00000004) != 0);
+  }
+  /**
+   * <pre>
+   * Optional. Score (if any) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>float retrieval_score = 20;</code>
+   * @return The retrievalScore.
+   */
+  @Override
+  public float getRetrievalScore() {
+    return retrievalScore_;
+  }
+
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -579,7 +692,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (platformId_ != 0L) {
@@ -590,6 +703,9 @@ private static final long serialVersionUID = 0L;
     }
     if (timing_ != null) {
       output.writeMessage(3, getTiming());
+    }
+    if (clientInfo_ != null) {
+      output.writeMessage(4, getClientInfo());
     }
     if (!getInsertionIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, insertionId_);
@@ -606,19 +722,22 @@ private static final long serialVersionUID = 0L;
     if (!getContentIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 10, contentId_);
     }
-    if (position_ != 0L) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeUInt64(12, position_);
     }
     if (properties_ != null) {
       output.writeMessage(13, getProperties());
     }
-    if (deliveryScore_ != 0D) {
-      output.writeDouble(15, deliveryScore_);
+    if (((bitField0_ & 0x00000002) != 0)) {
+      output.writeUInt64(19, retrievalRank_);
+    }
+    if (((bitField0_ & 0x00000004) != 0)) {
+      output.writeFloat(20, retrievalScore_);
     }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -636,6 +755,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTiming());
     }
+    if (clientInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getClientInfo());
+    }
     if (!getInsertionIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, insertionId_);
     }
@@ -651,7 +774,7 @@ private static final long serialVersionUID = 0L;
     if (!getContentIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, contentId_);
     }
-    if (position_ != 0L) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(12, position_);
     }
@@ -659,24 +782,28 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(13, getProperties());
     }
-    if (deliveryScore_ != 0D) {
+    if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(15, deliveryScore_);
+        .computeUInt64Size(19, retrievalRank_);
+    }
+    if (((bitField0_ & 0x00000004) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeFloatSize(20, retrievalScore_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.delivery.Insertion)) {
+    if (!(obj instanceof Insertion)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.delivery.Insertion other = (ai.promoted.proto.delivery.Insertion) obj;
+    Insertion other = (Insertion) obj;
 
     if (getPlatformId()
         != other.getPlatformId()) return false;
@@ -690,6 +817,11 @@ private static final long serialVersionUID = 0L;
       if (!getTiming()
           .equals(other.getTiming())) return false;
     }
+    if (hasClientInfo() != other.hasClientInfo()) return false;
+    if (hasClientInfo()) {
+      if (!getClientInfo()
+          .equals(other.getClientInfo())) return false;
+    }
     if (!getInsertionId()
         .equals(other.getInsertionId())) return false;
     if (!getRequestId()
@@ -700,21 +832,32 @@ private static final long serialVersionUID = 0L;
         .equals(other.getSessionId())) return false;
     if (!getContentId()
         .equals(other.getContentId())) return false;
-    if (getPosition()
-        != other.getPosition()) return false;
-    if (java.lang.Double.doubleToLongBits(getDeliveryScore())
-        != java.lang.Double.doubleToLongBits(
-            other.getDeliveryScore())) return false;
+    if (hasPosition() != other.hasPosition()) return false;
+    if (hasPosition()) {
+      if (getPosition()
+          != other.getPosition()) return false;
+    }
     if (hasProperties() != other.hasProperties()) return false;
     if (hasProperties()) {
       if (!getProperties()
           .equals(other.getProperties())) return false;
     }
+    if (hasRetrievalRank() != other.hasRetrievalRank()) return false;
+    if (hasRetrievalRank()) {
+      if (getRetrievalRank()
+          != other.getRetrievalRank()) return false;
+    }
+    if (hasRetrievalScore() != other.hasRetrievalScore()) return false;
+    if (hasRetrievalScore()) {
+      if (Float.floatToIntBits(getRetrievalScore())
+          != Float.floatToIntBits(
+              other.getRetrievalScore())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -732,6 +875,10 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TIMING_FIELD_NUMBER;
       hash = (53 * hash) + getTiming().hashCode();
     }
+    if (hasClientInfo()) {
+      hash = (37 * hash) + CLIENT_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getClientInfo().hashCode();
+    }
     hash = (37 * hash) + INSERTION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getInsertionId().hashCode();
     hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
@@ -742,84 +889,93 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getSessionId().hashCode();
     hash = (37 * hash) + CONTENT_ID_FIELD_NUMBER;
     hash = (53 * hash) + getContentId().hashCode();
-    hash = (37 * hash) + POSITION_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getPosition());
-    hash = (37 * hash) + DELIVERY_SCORE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getDeliveryScore()));
+    if (hasPosition()) {
+      hash = (37 * hash) + POSITION_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPosition());
+    }
     if (hasProperties()) {
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + getProperties().hashCode();
+    }
+    if (hasRetrievalRank()) {
+      hash = (37 * hash) + RETRIEVAL_RANK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRetrievalRank());
+    }
+    if (hasRetrievalScore()) {
+      hash = (37 * hash) + RETRIEVAL_SCORE_FIELD_NUMBER;
+      hash = (53 * hash) + Float.floatToIntBits(
+          getRetrievalScore());
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(byte[] data)
+  public static Insertion parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(java.io.InputStream input)
+  public static Insertion parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Insertion parseDelimitedFrom(java.io.InputStream input)
+  public static Insertion parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Insertion parseDelimitedFrom(
+  public static Insertion parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Insertion parseFrom(
+  public static Insertion parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -827,23 +983,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.delivery.Insertion prototype) {
+  public static Builder newBuilder(Insertion prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -851,7 +1007,7 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * This Event represents a Content being served at a certain position regardless
    * of it was views by a user. Insertions are immutable.
-   * Next ID = 16.
+   * Next ID = 21.
    * </pre>
    *
    * Protobuf type {@code delivery.Insertion}
@@ -859,18 +1015,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:delivery.Insertion)
-      ai.promoted.proto.delivery.InsertionOrBuilder {
+      InsertionOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Insertion_descriptor;
+      return Delivery.internal_static_delivery_Insertion_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Insertion_fieldAccessorTable
+      return Delivery.internal_static_delivery_Insertion_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.delivery.Insertion.class, ai.promoted.proto.delivery.Insertion.Builder.class);
+              Insertion.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.delivery.Insertion.newBuilder()
@@ -879,7 +1035,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -888,7 +1044,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       platformId_ = 0L;
@@ -905,6 +1061,12 @@ private static final long serialVersionUID = 0L;
         timing_ = null;
         timingBuilder_ = null;
       }
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
       insertionId_ = "";
 
       requestId_ = "";
@@ -916,41 +1078,45 @@ private static final long serialVersionUID = 0L;
       contentId_ = "";
 
       position_ = 0L;
-
-      deliveryScore_ = 0D;
-
+      bitField0_ = (bitField0_ & ~0x00000001);
       if (propertiesBuilder_ == null) {
         properties_ = null;
       } else {
         properties_ = null;
         propertiesBuilder_ = null;
       }
+      retrievalRank_ = 0L;
+      bitField0_ = (bitField0_ & ~0x00000002);
+      retrievalScore_ = 0F;
+      bitField0_ = (bitField0_ & ~0x00000004);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Insertion_descriptor;
+      return Delivery.internal_static_delivery_Insertion_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Insertion getDefaultInstanceForType() {
-      return ai.promoted.proto.delivery.Insertion.getDefaultInstance();
+    @Override
+    public Insertion getDefaultInstanceForType() {
+      return Insertion.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Insertion build() {
-      ai.promoted.proto.delivery.Insertion result = buildPartial();
+    @Override
+    public Insertion build() {
+      Insertion result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Insertion buildPartial() {
-      ai.promoted.proto.delivery.Insertion result = new ai.promoted.proto.delivery.Insertion(this);
+    @Override
+    public Insertion buildPartial() {
+      Insertion result = new Insertion(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.platformId_ = platformId_;
       if (userInfoBuilder_ == null) {
         result.userInfo_ = userInfo_;
@@ -962,66 +1128,82 @@ private static final long serialVersionUID = 0L;
       } else {
         result.timing_ = timingBuilder_.build();
       }
+      if (clientInfoBuilder_ == null) {
+        result.clientInfo_ = clientInfo_;
+      } else {
+        result.clientInfo_ = clientInfoBuilder_.build();
+      }
       result.insertionId_ = insertionId_;
       result.requestId_ = requestId_;
       result.viewId_ = viewId_;
       result.sessionId_ = sessionId_;
       result.contentId_ = contentId_;
-      result.position_ = position_;
-      result.deliveryScore_ = deliveryScore_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.position_ = position_;
+        to_bitField0_ |= 0x00000001;
+      }
       if (propertiesBuilder_ == null) {
         result.properties_ = properties_;
       } else {
         result.properties_ = propertiesBuilder_.build();
       }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.retrievalRank_ = retrievalRank_;
+        to_bitField0_ |= 0x00000002;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.retrievalScore_ = retrievalScore_;
+        to_bitField0_ |= 0x00000004;
+      }
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.delivery.Insertion) {
-        return mergeFrom((ai.promoted.proto.delivery.Insertion)other);
+      if (other instanceof Insertion) {
+        return mergeFrom((Insertion)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.delivery.Insertion other) {
-      if (other == ai.promoted.proto.delivery.Insertion.getDefaultInstance()) return this;
+    public Builder mergeFrom(Insertion other) {
+      if (other == Insertion.getDefaultInstance()) return this;
       if (other.getPlatformId() != 0L) {
         setPlatformId(other.getPlatformId());
       }
@@ -1030,6 +1212,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasTiming()) {
         mergeTiming(other.getTiming());
+      }
+      if (other.hasClientInfo()) {
+        mergeClientInfo(other.getClientInfo());
       }
       if (!other.getInsertionId().isEmpty()) {
         insertionId_ = other.insertionId_;
@@ -1051,35 +1236,38 @@ private static final long serialVersionUID = 0L;
         contentId_ = other.contentId_;
         onChanged();
       }
-      if (other.getPosition() != 0L) {
+      if (other.hasPosition()) {
         setPosition(other.getPosition());
-      }
-      if (other.getDeliveryScore() != 0D) {
-        setDeliveryScore(other.getDeliveryScore());
       }
       if (other.hasProperties()) {
         mergeProperties(other.getProperties());
+      }
+      if (other.hasRetrievalRank()) {
+        setRetrievalRank(other.getRetrievalRank());
+      }
+      if (other.hasRetrievalScore()) {
+        setRetrievalScore(other.getRetrievalScore());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.delivery.Insertion parsedMessage = null;
+      Insertion parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.delivery.Insertion) e.getUnfinishedMessage();
+        parsedMessage = (Insertion) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1088,6 +1276,7 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
     private long platformId_ ;
     /**
@@ -1098,7 +1287,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 platform_id = 1;</code>
      * @return The platformId.
      */
-    @java.lang.Override
+    @Override
     public long getPlatformId() {
       return platformId_;
     }
@@ -1442,7 +1631,162 @@ private static final long serialVersionUID = 0L;
       return timingBuilder_;
     }
 
-    private java.lang.Object insertionId_ = "";
+    private ai.promoted.proto.common.ClientInfo clientInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> clientInfoBuilder_;
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return Whether the clientInfo field is set.
+     */
+    public boolean hasClientInfo() {
+      return clientInfoBuilder_ != null || clientInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return The clientInfo.
+     */
+    public ai.promoted.proto.common.ClientInfo getClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      } else {
+        return clientInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        clientInfo_ = value;
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(
+        ai.promoted.proto.common.ClientInfo.Builder builderForValue) {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder mergeClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (clientInfo_ != null) {
+          clientInfo_ =
+            ai.promoted.proto.common.ClientInfo.newBuilder(clientInfo_).mergeFrom(value).buildPartial();
+        } else {
+          clientInfo_ = value;
+        }
+        onChanged();
+      } else {
+        clientInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder clearClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+        onChanged();
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfo.Builder getClientInfoBuilder() {
+      
+      onChanged();
+      return getClientInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+      if (clientInfoBuilder_ != null) {
+        return clientInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return clientInfo_ == null ?
+            ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> 
+        getClientInfoFieldBuilder() {
+      if (clientInfoBuilder_ == null) {
+        clientInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder>(
+                getClientInfo(),
+                getParentForChildren(),
+                isClean());
+        clientInfo_ = null;
+      }
+      return clientInfoBuilder_;
+    }
+
+    private Object insertionId_ = "";
     /**
      * <pre>
      * Optional.  Primary key.
@@ -1453,16 +1797,16 @@ private static final long serialVersionUID = 0L;
      * <code>string insertion_id = 6;</code>
      * @return The insertionId.
      */
-    public java.lang.String getInsertionId() {
-      java.lang.Object ref = insertionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getInsertionId() {
+      Object ref = insertionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         insertionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1477,11 +1821,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getInsertionIdBytes() {
-      java.lang.Object ref = insertionId_;
+      Object ref = insertionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         insertionId_ = b;
         return b;
       } else {
@@ -1500,7 +1844,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setInsertionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1548,7 +1892,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object requestId_ = "";
+    private Object requestId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1557,16 +1901,16 @@ private static final long serialVersionUID = 0L;
      * <code>string request_id = 7;</code>
      * @return The requestId.
      */
-    public java.lang.String getRequestId() {
-      java.lang.Object ref = requestId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getRequestId() {
+      Object ref = requestId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         requestId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1579,11 +1923,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getRequestIdBytes() {
-      java.lang.Object ref = requestId_;
+      Object ref = requestId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         requestId_ = b;
         return b;
       } else {
@@ -1600,7 +1944,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRequestId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1644,7 +1988,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object viewId_ = "";
+    private Object viewId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1653,16 +1997,16 @@ private static final long serialVersionUID = 0L;
      * <code>string view_id = 9;</code>
      * @return The viewId.
      */
-    public java.lang.String getViewId() {
-      java.lang.Object ref = viewId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getViewId() {
+      Object ref = viewId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         viewId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1675,11 +2019,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getViewIdBytes() {
-      java.lang.Object ref = viewId_;
+      Object ref = viewId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         viewId_ = b;
         return b;
       } else {
@@ -1696,7 +2040,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setViewId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1740,7 +2084,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object sessionId_ = "";
+    private Object sessionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1749,16 +2093,16 @@ private static final long serialVersionUID = 0L;
      * <code>string session_id = 8;</code>
      * @return The sessionId.
      */
-    public java.lang.String getSessionId() {
-      java.lang.Object ref = sessionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getSessionId() {
+      Object ref = sessionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         sessionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1771,11 +2115,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getSessionIdBytes() {
-      java.lang.Object ref = sessionId_;
+      Object ref = sessionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         sessionId_ = b;
         return b;
       } else {
@@ -1792,7 +2136,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSessionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1836,7 +2180,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object contentId_ = "";
+    private Object contentId_ = "";
     /**
      * <pre>
      * Optional.  We'll look this up using the external_content_id.
@@ -1845,16 +2189,16 @@ private static final long serialVersionUID = 0L;
      * <code>string content_id = 10;</code>
      * @return The contentId.
      */
-    public java.lang.String getContentId() {
-      java.lang.Object ref = contentId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getContentId() {
+      Object ref = contentId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         contentId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1867,11 +2211,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getContentIdBytes() {
-      java.lang.Object ref = contentId_;
+      Object ref = contentId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         contentId_ = b;
         return b;
       } else {
@@ -1888,7 +2232,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setContentId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1935,19 +2279,37 @@ private static final long serialVersionUID = 0L;
     private long position_ ;
     /**
      * <pre>
-     * Optional.  0-based.
+     * Optional. 0-based. Position "in what" depends on insertion context:
+     * if request_insertion, then position provided by client or retrieval
+     * if response_insertion, then the position returned by Delivery to the client
+     * </pre>
+     *
+     * <code>uint64 position = 12;</code>
+     * @return Whether the position field is set.
+     */
+    @Override
+    public boolean hasPosition() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. 0-based. Position "in what" depends on insertion context:
+     * if request_insertion, then position provided by client or retrieval
+     * if response_insertion, then the position returned by Delivery to the client
      * </pre>
      *
      * <code>uint64 position = 12;</code>
      * @return The position.
      */
-    @java.lang.Override
+    @Override
     public long getPosition() {
       return position_;
     }
     /**
      * <pre>
-     * Optional.  0-based.
+     * Optional. 0-based. Position "in what" depends on insertion context:
+     * if request_insertion, then position provided by client or retrieval
+     * if response_insertion, then the position returned by Delivery to the client
      * </pre>
      *
      * <code>uint64 position = 12;</code>
@@ -1955,65 +2317,24 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPosition(long value) {
-      
+      bitField0_ |= 0x00000001;
       position_ = value;
       onChanged();
       return this;
     }
     /**
      * <pre>
-     * Optional.  0-based.
+     * Optional. 0-based. Position "in what" depends on insertion context:
+     * if request_insertion, then position provided by client or retrieval
+     * if response_insertion, then the position returned by Delivery to the client
      * </pre>
      *
      * <code>uint64 position = 12;</code>
      * @return This builder for chaining.
      */
     public Builder clearPosition() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       position_ = 0L;
-      onChanged();
-      return this;
-    }
-
-    private double deliveryScore_ ;
-    /**
-     * <pre>
-     * delivery score
-     * </pre>
-     *
-     * <code>double delivery_score = 15;</code>
-     * @return The deliveryScore.
-     */
-    @java.lang.Override
-    public double getDeliveryScore() {
-      return deliveryScore_;
-    }
-    /**
-     * <pre>
-     * delivery score
-     * </pre>
-     *
-     * <code>double delivery_score = 15;</code>
-     * @param value The deliveryScore to set.
-     * @return This builder for chaining.
-     */
-    public Builder setDeliveryScore(double value) {
-      
-      deliveryScore_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * delivery score
-     * </pre>
-     *
-     * <code>double delivery_score = 15;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearDeliveryScore() {
-      
-      deliveryScore_ = 0D;
       onChanged();
       return this;
     }
@@ -2023,7 +2344,7 @@ private static final long serialVersionUID = 0L;
         ai.promoted.proto.common.Properties, ai.promoted.proto.common.Properties.Builder, ai.promoted.proto.common.PropertiesOrBuilder> propertiesBuilder_;
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2034,7 +2355,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2049,7 +2370,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2069,7 +2390,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2087,7 +2408,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2109,7 +2430,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2127,7 +2448,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2139,7 +2460,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2154,7 +2475,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  Custom properties per platform.
+     * Optional. Custom item attributes and features set by customers.
      * </pre>
      *
      * <code>.common.Properties properties = 13;</code>
@@ -2172,13 +2493,123 @@ private static final long serialVersionUID = 0L;
       }
       return propertiesBuilder_;
     }
-    @java.lang.Override
+
+    private long retrievalRank_ ;
+    /**
+     * <pre>
+     * Optional. Ranking (if known) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>uint64 retrieval_rank = 19;</code>
+     * @return Whether the retrievalRank field is set.
+     */
+    @Override
+    public boolean hasRetrievalRank() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Ranking (if known) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>uint64 retrieval_rank = 19;</code>
+     * @return The retrievalRank.
+     */
+    @Override
+    public long getRetrievalRank() {
+      return retrievalRank_;
+    }
+    /**
+     * <pre>
+     * Optional. Ranking (if known) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>uint64 retrieval_rank = 19;</code>
+     * @param value The retrievalRank to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRetrievalRank(long value) {
+      bitField0_ |= 0x00000002;
+      retrievalRank_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Ranking (if known) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>uint64 retrieval_rank = 19;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRetrievalRank() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      retrievalRank_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private float retrievalScore_ ;
+    /**
+     * <pre>
+     * Optional. Score (if any) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>float retrieval_score = 20;</code>
+     * @return Whether the retrievalScore field is set.
+     */
+    @Override
+    public boolean hasRetrievalScore() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Score (if any) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>float retrieval_score = 20;</code>
+     * @return The retrievalScore.
+     */
+    @Override
+    public float getRetrievalScore() {
+      return retrievalScore_;
+    }
+    /**
+     * <pre>
+     * Optional. Score (if any) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>float retrieval_score = 20;</code>
+     * @param value The retrievalScore to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRetrievalScore(float value) {
+      bitField0_ |= 0x00000004;
+      retrievalScore_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Score (if any) of this insertion from the retrieval system.
+     * </pre>
+     *
+     * <code>float retrieval_score = 20;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRetrievalScore() {
+      bitField0_ = (bitField0_ & ~0x00000004);
+      retrievalScore_ = 0F;
+      onChanged();
+      return this;
+    }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -2189,18 +2620,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:delivery.Insertion)
-  private static final ai.promoted.proto.delivery.Insertion DEFAULT_INSTANCE;
+  private static final Insertion DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.delivery.Insertion();
+    DEFAULT_INSTANCE = new Insertion();
   }
 
-  public static ai.promoted.proto.delivery.Insertion getDefaultInstance() {
+  public static Insertion getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Insertion>
       PARSER = new com.google.protobuf.AbstractParser<Insertion>() {
-    @java.lang.Override
+    @Override
     public Insertion parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2213,13 +2644,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<Insertion> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.delivery.Insertion getDefaultInstanceForType() {
+  @Override
+  public Insertion getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

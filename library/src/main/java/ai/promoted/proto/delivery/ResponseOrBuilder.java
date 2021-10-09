@@ -14,7 +14,7 @@ public interface ResponseOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  java.util.List<ai.promoted.proto.delivery.Insertion> 
+  java.util.List<Insertion>
       getInsertionList();
   /**
    * <pre>
@@ -23,7 +23,7 @@ public interface ResponseOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  ai.promoted.proto.delivery.Insertion getInsertion(int index);
+  Insertion getInsertion(int index);
   /**
    * <pre>
    * List of content.
@@ -39,7 +39,7 @@ public interface ResponseOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  java.util.List<? extends ai.promoted.proto.delivery.InsertionOrBuilder> 
+  java.util.List<? extends InsertionOrBuilder>
       getInsertionOrBuilderList();
   /**
    * <pre>
@@ -48,6 +48,33 @@ public interface ResponseOrBuilder extends
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  ai.promoted.proto.delivery.InsertionOrBuilder getInsertionOrBuilder(
+  InsertionOrBuilder getInsertionOrBuilder(
       int index);
+
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   * @return Whether the pagingInfo field is set.
+   */
+  boolean hasPagingInfo();
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   * @return The pagingInfo.
+   */
+  PagingInfo getPagingInfo();
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   */
+  PagingInfoOrBuilder getPagingInfoOrBuilder();
 }

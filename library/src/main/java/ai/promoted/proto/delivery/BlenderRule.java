@@ -5,7 +5,8 @@ package ai.promoted.proto.delivery;
 
 /**
  * <pre>
- * Next ID = 10.
+ * See: https://github.com/promotedai/blender for README
+ * Next ID = 11.
  * </pre>
  *
  * Protobuf type {@code delivery.BlenderRule}
@@ -23,14 +24,14 @@ private static final long serialVersionUID = 0L;
     attributeName_ = "";
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new BlenderRule();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -41,7 +42,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -54,62 +55,62 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             attributeName_ = s;
             break;
           }
           case 50: {
-            ai.promoted.proto.delivery.PositiveRule.Builder subBuilder = null;
+            PositiveRule.Builder subBuilder = null;
             if (ruleCase_ == 6) {
-              subBuilder = ((ai.promoted.proto.delivery.PositiveRule) rule_).toBuilder();
+              subBuilder = ((PositiveRule) rule_).toBuilder();
             }
             rule_ =
-                input.readMessage(ai.promoted.proto.delivery.PositiveRule.parser(), extensionRegistry);
+                input.readMessage(PositiveRule.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom((ai.promoted.proto.delivery.PositiveRule) rule_);
+              subBuilder.mergeFrom((PositiveRule) rule_);
               rule_ = subBuilder.buildPartial();
             }
             ruleCase_ = 6;
             break;
           }
           case 58: {
-            ai.promoted.proto.delivery.InsertRule.Builder subBuilder = null;
+            InsertRule.Builder subBuilder = null;
             if (ruleCase_ == 7) {
-              subBuilder = ((ai.promoted.proto.delivery.InsertRule) rule_).toBuilder();
+              subBuilder = ((InsertRule) rule_).toBuilder();
             }
             rule_ =
-                input.readMessage(ai.promoted.proto.delivery.InsertRule.parser(), extensionRegistry);
+                input.readMessage(InsertRule.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom((ai.promoted.proto.delivery.InsertRule) rule_);
+              subBuilder.mergeFrom((InsertRule) rule_);
               rule_ = subBuilder.buildPartial();
             }
             ruleCase_ = 7;
             break;
           }
           case 66: {
-            ai.promoted.proto.delivery.NegativeRule.Builder subBuilder = null;
+            NegativeRule.Builder subBuilder = null;
             if (ruleCase_ == 8) {
-              subBuilder = ((ai.promoted.proto.delivery.NegativeRule) rule_).toBuilder();
+              subBuilder = ((NegativeRule) rule_).toBuilder();
             }
             rule_ =
-                input.readMessage(ai.promoted.proto.delivery.NegativeRule.parser(), extensionRegistry);
+                input.readMessage(NegativeRule.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom((ai.promoted.proto.delivery.NegativeRule) rule_);
+              subBuilder.mergeFrom((NegativeRule) rule_);
               rule_ = subBuilder.buildPartial();
             }
             ruleCase_ = 8;
             break;
           }
           case 74: {
-            ai.promoted.proto.delivery.DiversityRule.Builder subBuilder = null;
+            DiversityRule.Builder subBuilder = null;
             if (ruleCase_ == 9) {
-              subBuilder = ((ai.promoted.proto.delivery.DiversityRule) rule_).toBuilder();
+              subBuilder = ((DiversityRule) rule_).toBuilder();
             }
             rule_ =
-                input.readMessage(ai.promoted.proto.delivery.DiversityRule.parser(), extensionRegistry);
+                input.readMessage(DiversityRule.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom((ai.promoted.proto.delivery.DiversityRule) rule_);
+              subBuilder.mergeFrom((DiversityRule) rule_);
               rule_ = subBuilder.buildPartial();
             }
             ruleCase_ = 9;
@@ -136,22 +137,22 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderRule_descriptor;
+    return Blender.internal_static_delivery_BlenderRule_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderRule_fieldAccessorTable
+    return Blender.internal_static_delivery_BlenderRule_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.delivery.BlenderRule.class, ai.promoted.proto.delivery.BlenderRule.Builder.class);
+            BlenderRule.class, Builder.class);
   }
 
   private int ruleCase_ = 0;
-  private java.lang.Object rule_;
+  private Object rule_;
   public enum RuleCase
       implements com.google.protobuf.Internal.EnumLite,
-          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+          InternalOneOfEnum {
     POSITIVE_RULE(6),
     INSERT_RULE(7),
     NEGATIVE_RULE(8),
@@ -166,7 +167,7 @@ private static final long serialVersionUID = 0L;
      * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
-    @java.lang.Deprecated
+    @Deprecated
     public static RuleCase valueOf(int value) {
       return forNumber(value);
     }
@@ -193,44 +194,44 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ATTRIBUTE_NAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object attributeName_;
+  private volatile Object attributeName_;
   /**
    * <pre>
-   * the name of item attribute that this rule applies to
+   * The name of item attribute that this rule applies to. It may be a JSON key path.
    * </pre>
    *
    * <code>string attribute_name = 1;</code>
    * @return The attributeName.
    */
-  @java.lang.Override
-  public java.lang.String getAttributeName() {
-    java.lang.Object ref = attributeName_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getAttributeName() {
+    Object ref = attributeName_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       attributeName_ = s;
       return s;
     }
   }
   /**
    * <pre>
-   * the name of item attribute that this rule applies to
+   * The name of item attribute that this rule applies to. It may be a JSON key path.
    * </pre>
    *
    * <code>string attribute_name = 1;</code>
    * @return The bytes for attributeName.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getAttributeNameBytes() {
-    java.lang.Object ref = attributeName_;
-    if (ref instanceof java.lang.String) {
+    Object ref = attributeName_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       attributeName_ = b;
       return b;
     } else {
@@ -243,7 +244,7 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.PositiveRule positive_rule = 6;</code>
    * @return Whether the positiveRule field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasPositiveRule() {
     return ruleCase_ == 6;
   }
@@ -251,22 +252,22 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.PositiveRule positive_rule = 6;</code>
    * @return The positiveRule.
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.PositiveRule getPositiveRule() {
+  @Override
+  public PositiveRule getPositiveRule() {
     if (ruleCase_ == 6) {
-       return (ai.promoted.proto.delivery.PositiveRule) rule_;
+       return (PositiveRule) rule_;
     }
-    return ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+    return PositiveRule.getDefaultInstance();
   }
   /**
    * <code>.delivery.PositiveRule positive_rule = 6;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.PositiveRuleOrBuilder getPositiveRuleOrBuilder() {
+  @Override
+  public PositiveRuleOrBuilder getPositiveRuleOrBuilder() {
     if (ruleCase_ == 6) {
-       return (ai.promoted.proto.delivery.PositiveRule) rule_;
+       return (PositiveRule) rule_;
     }
-    return ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+    return PositiveRule.getDefaultInstance();
   }
 
   public static final int INSERT_RULE_FIELD_NUMBER = 7;
@@ -274,7 +275,7 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.InsertRule insert_rule = 7;</code>
    * @return Whether the insertRule field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasInsertRule() {
     return ruleCase_ == 7;
   }
@@ -282,22 +283,22 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.InsertRule insert_rule = 7;</code>
    * @return The insertRule.
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.InsertRule getInsertRule() {
+  @Override
+  public InsertRule getInsertRule() {
     if (ruleCase_ == 7) {
-       return (ai.promoted.proto.delivery.InsertRule) rule_;
+       return (InsertRule) rule_;
     }
-    return ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+    return InsertRule.getDefaultInstance();
   }
   /**
    * <code>.delivery.InsertRule insert_rule = 7;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.InsertRuleOrBuilder getInsertRuleOrBuilder() {
+  @Override
+  public InsertRuleOrBuilder getInsertRuleOrBuilder() {
     if (ruleCase_ == 7) {
-       return (ai.promoted.proto.delivery.InsertRule) rule_;
+       return (InsertRule) rule_;
     }
-    return ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+    return InsertRule.getDefaultInstance();
   }
 
   public static final int NEGATIVE_RULE_FIELD_NUMBER = 8;
@@ -305,7 +306,7 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
    * @return Whether the negativeRule field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasNegativeRule() {
     return ruleCase_ == 8;
   }
@@ -313,22 +314,22 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
    * @return The negativeRule.
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.NegativeRule getNegativeRule() {
+  @Override
+  public NegativeRule getNegativeRule() {
     if (ruleCase_ == 8) {
-       return (ai.promoted.proto.delivery.NegativeRule) rule_;
+       return (NegativeRule) rule_;
     }
-    return ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+    return NegativeRule.getDefaultInstance();
   }
   /**
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.NegativeRuleOrBuilder getNegativeRuleOrBuilder() {
+  @Override
+  public NegativeRuleOrBuilder getNegativeRuleOrBuilder() {
     if (ruleCase_ == 8) {
-       return (ai.promoted.proto.delivery.NegativeRule) rule_;
+       return (NegativeRule) rule_;
     }
-    return ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+    return NegativeRule.getDefaultInstance();
   }
 
   public static final int DIVERSITY_RULE_FIELD_NUMBER = 9;
@@ -336,7 +337,7 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
    * @return Whether the diversityRule field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasDiversityRule() {
     return ruleCase_ == 9;
   }
@@ -344,26 +345,26 @@ private static final long serialVersionUID = 0L;
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
    * @return The diversityRule.
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.DiversityRule getDiversityRule() {
+  @Override
+  public DiversityRule getDiversityRule() {
     if (ruleCase_ == 9) {
-       return (ai.promoted.proto.delivery.DiversityRule) rule_;
+       return (DiversityRule) rule_;
     }
-    return ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+    return DiversityRule.getDefaultInstance();
   }
   /**
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.DiversityRuleOrBuilder getDiversityRuleOrBuilder() {
+  @Override
+  public DiversityRuleOrBuilder getDiversityRuleOrBuilder() {
     if (ruleCase_ == 9) {
-       return (ai.promoted.proto.delivery.DiversityRule) rule_;
+       return (DiversityRule) rule_;
     }
-    return ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+    return DiversityRule.getDefaultInstance();
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -373,28 +374,28 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (!getAttributeNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, attributeName_);
     }
     if (ruleCase_ == 6) {
-      output.writeMessage(6, (ai.promoted.proto.delivery.PositiveRule) rule_);
+      output.writeMessage(6, (PositiveRule) rule_);
     }
     if (ruleCase_ == 7) {
-      output.writeMessage(7, (ai.promoted.proto.delivery.InsertRule) rule_);
+      output.writeMessage(7, (InsertRule) rule_);
     }
     if (ruleCase_ == 8) {
-      output.writeMessage(8, (ai.promoted.proto.delivery.NegativeRule) rule_);
+      output.writeMessage(8, (NegativeRule) rule_);
     }
     if (ruleCase_ == 9) {
-      output.writeMessage(9, (ai.promoted.proto.delivery.DiversityRule) rule_);
+      output.writeMessage(9, (DiversityRule) rule_);
     }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -405,34 +406,34 @@ private static final long serialVersionUID = 0L;
     }
     if (ruleCase_ == 6) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(6, (ai.promoted.proto.delivery.PositiveRule) rule_);
+        .computeMessageSize(6, (PositiveRule) rule_);
     }
     if (ruleCase_ == 7) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(7, (ai.promoted.proto.delivery.InsertRule) rule_);
+        .computeMessageSize(7, (InsertRule) rule_);
     }
     if (ruleCase_ == 8) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(8, (ai.promoted.proto.delivery.NegativeRule) rule_);
+        .computeMessageSize(8, (NegativeRule) rule_);
     }
     if (ruleCase_ == 9) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(9, (ai.promoted.proto.delivery.DiversityRule) rule_);
+        .computeMessageSize(9, (DiversityRule) rule_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.delivery.BlenderRule)) {
+    if (!(obj instanceof BlenderRule)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.delivery.BlenderRule other = (ai.promoted.proto.delivery.BlenderRule) obj;
+    BlenderRule other = (BlenderRule) obj;
 
     if (!getAttributeName()
         .equals(other.getAttributeName())) return false;
@@ -461,7 +462,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -495,69 +496,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(byte[] data)
+  public static BlenderRule parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(java.io.InputStream input)
+  public static BlenderRule parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseDelimitedFrom(java.io.InputStream input)
+  public static BlenderRule parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseDelimitedFrom(
+  public static BlenderRule parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderRule parseFrom(
+  public static BlenderRule parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -565,29 +566,30 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.delivery.BlenderRule prototype) {
+  public static Builder newBuilder(BlenderRule prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
   /**
    * <pre>
-   * Next ID = 10.
+   * See: https://github.com/promotedai/blender for README
+   * Next ID = 11.
    * </pre>
    *
    * Protobuf type {@code delivery.BlenderRule}
@@ -595,18 +597,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:delivery.BlenderRule)
-      ai.promoted.proto.delivery.BlenderRuleOrBuilder {
+      BlenderRuleOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderRule_descriptor;
+      return Blender.internal_static_delivery_BlenderRule_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderRule_fieldAccessorTable
+      return Blender.internal_static_delivery_BlenderRule_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.delivery.BlenderRule.class, ai.promoted.proto.delivery.BlenderRule.Builder.class);
+              BlenderRule.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.delivery.BlenderRule.newBuilder()
@@ -615,7 +617,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -624,7 +626,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       attributeName_ = "";
@@ -634,29 +636,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderRule_descriptor;
+      return Blender.internal_static_delivery_BlenderRule_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderRule getDefaultInstanceForType() {
-      return ai.promoted.proto.delivery.BlenderRule.getDefaultInstance();
+    @Override
+    public BlenderRule getDefaultInstanceForType() {
+      return BlenderRule.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderRule build() {
-      ai.promoted.proto.delivery.BlenderRule result = buildPartial();
+    @Override
+    public BlenderRule build() {
+      BlenderRule result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderRule buildPartial() {
-      ai.promoted.proto.delivery.BlenderRule result = new ai.promoted.proto.delivery.BlenderRule(this);
+    @Override
+    public BlenderRule buildPartial() {
+      BlenderRule result = new BlenderRule(this);
       result.attributeName_ = attributeName_;
       if (ruleCase_ == 6) {
         if (positiveRuleBuilder_ == null) {
@@ -691,50 +693,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.delivery.BlenderRule) {
-        return mergeFrom((ai.promoted.proto.delivery.BlenderRule)other);
+      if (other instanceof BlenderRule) {
+        return mergeFrom((BlenderRule)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.delivery.BlenderRule other) {
-      if (other == ai.promoted.proto.delivery.BlenderRule.getDefaultInstance()) return this;
+    public Builder mergeFrom(BlenderRule other) {
+      if (other == BlenderRule.getDefaultInstance()) return this;
       if (!other.getAttributeName().isEmpty()) {
         attributeName_ = other.attributeName_;
         onChanged();
@@ -765,21 +767,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.delivery.BlenderRule parsedMessage = null;
+      BlenderRule parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.delivery.BlenderRule) e.getUnfinishedMessage();
+        parsedMessage = (BlenderRule) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -789,7 +791,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     private int ruleCase_ = 0;
-    private java.lang.Object rule_;
+    private Object rule_;
     public RuleCase
         getRuleCase() {
       return RuleCase.forNumber(
@@ -804,30 +806,30 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    private java.lang.Object attributeName_ = "";
+    private Object attributeName_ = "";
     /**
      * <pre>
-     * the name of item attribute that this rule applies to
+     * The name of item attribute that this rule applies to. It may be a JSON key path.
      * </pre>
      *
      * <code>string attribute_name = 1;</code>
      * @return The attributeName.
      */
-    public java.lang.String getAttributeName() {
-      java.lang.Object ref = attributeName_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getAttributeName() {
+      Object ref = attributeName_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         attributeName_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
      * <pre>
-     * the name of item attribute that this rule applies to
+     * The name of item attribute that this rule applies to. It may be a JSON key path.
      * </pre>
      *
      * <code>string attribute_name = 1;</code>
@@ -835,11 +837,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getAttributeNameBytes() {
-      java.lang.Object ref = attributeName_;
+      Object ref = attributeName_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         attributeName_ = b;
         return b;
       } else {
@@ -848,7 +850,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the name of item attribute that this rule applies to
+     * The name of item attribute that this rule applies to. It may be a JSON key path.
      * </pre>
      *
      * <code>string attribute_name = 1;</code>
@@ -856,7 +858,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setAttributeName(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -867,7 +869,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the name of item attribute that this rule applies to
+     * The name of item attribute that this rule applies to. It may be a JSON key path.
      * </pre>
      *
      * <code>string attribute_name = 1;</code>
@@ -881,7 +883,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the name of item attribute that this rule applies to
+     * The name of item attribute that this rule applies to. It may be a JSON key path.
      * </pre>
      *
      * <code>string attribute_name = 1;</code>
@@ -901,12 +903,12 @@ private static final long serialVersionUID = 0L;
     }
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.PositiveRule, ai.promoted.proto.delivery.PositiveRule.Builder, ai.promoted.proto.delivery.PositiveRuleOrBuilder> positiveRuleBuilder_;
+        PositiveRule, PositiveRule.Builder, PositiveRuleOrBuilder> positiveRuleBuilder_;
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      * @return Whether the positiveRule field is set.
      */
-    @java.lang.Override
+    @Override
     public boolean hasPositiveRule() {
       return ruleCase_ == 6;
     }
@@ -914,24 +916,24 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      * @return The positiveRule.
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.PositiveRule getPositiveRule() {
+    @Override
+    public PositiveRule getPositiveRule() {
       if (positiveRuleBuilder_ == null) {
         if (ruleCase_ == 6) {
-          return (ai.promoted.proto.delivery.PositiveRule) rule_;
+          return (PositiveRule) rule_;
         }
-        return ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+        return PositiveRule.getDefaultInstance();
       } else {
         if (ruleCase_ == 6) {
           return positiveRuleBuilder_.getMessage();
         }
-        return ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+        return PositiveRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
-    public Builder setPositiveRule(ai.promoted.proto.delivery.PositiveRule value) {
+    public Builder setPositiveRule(PositiveRule value) {
       if (positiveRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -948,7 +950,7 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
     public Builder setPositiveRule(
-        ai.promoted.proto.delivery.PositiveRule.Builder builderForValue) {
+        PositiveRule.Builder builderForValue) {
       if (positiveRuleBuilder_ == null) {
         rule_ = builderForValue.build();
         onChanged();
@@ -961,11 +963,11 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
-    public Builder mergePositiveRule(ai.promoted.proto.delivery.PositiveRule value) {
+    public Builder mergePositiveRule(PositiveRule value) {
       if (positiveRuleBuilder_ == null) {
         if (ruleCase_ == 6 &&
-            rule_ != ai.promoted.proto.delivery.PositiveRule.getDefaultInstance()) {
-          rule_ = ai.promoted.proto.delivery.PositiveRule.newBuilder((ai.promoted.proto.delivery.PositiveRule) rule_)
+            rule_ != PositiveRule.getDefaultInstance()) {
+          rule_ = PositiveRule.newBuilder((PositiveRule) rule_)
               .mergeFrom(value).buildPartial();
         } else {
           rule_ = value;
@@ -1002,36 +1004,36 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
-    public ai.promoted.proto.delivery.PositiveRule.Builder getPositiveRuleBuilder() {
+    public PositiveRule.Builder getPositiveRuleBuilder() {
       return getPositiveRuleFieldBuilder().getBuilder();
     }
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.PositiveRuleOrBuilder getPositiveRuleOrBuilder() {
+    @Override
+    public PositiveRuleOrBuilder getPositiveRuleOrBuilder() {
       if ((ruleCase_ == 6) && (positiveRuleBuilder_ != null)) {
         return positiveRuleBuilder_.getMessageOrBuilder();
       } else {
         if (ruleCase_ == 6) {
-          return (ai.promoted.proto.delivery.PositiveRule) rule_;
+          return (PositiveRule) rule_;
         }
-        return ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+        return PositiveRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.PositiveRule positive_rule = 6;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.PositiveRule, ai.promoted.proto.delivery.PositiveRule.Builder, ai.promoted.proto.delivery.PositiveRuleOrBuilder> 
+        PositiveRule, PositiveRule.Builder, PositiveRuleOrBuilder>
         getPositiveRuleFieldBuilder() {
       if (positiveRuleBuilder_ == null) {
         if (!(ruleCase_ == 6)) {
-          rule_ = ai.promoted.proto.delivery.PositiveRule.getDefaultInstance();
+          rule_ = PositiveRule.getDefaultInstance();
         }
         positiveRuleBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.delivery.PositiveRule, ai.promoted.proto.delivery.PositiveRule.Builder, ai.promoted.proto.delivery.PositiveRuleOrBuilder>(
-                (ai.promoted.proto.delivery.PositiveRule) rule_,
+            PositiveRule, PositiveRule.Builder, PositiveRuleOrBuilder>(
+                (PositiveRule) rule_,
                 getParentForChildren(),
                 isClean());
         rule_ = null;
@@ -1042,12 +1044,12 @@ private static final long serialVersionUID = 0L;
     }
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.InsertRule, ai.promoted.proto.delivery.InsertRule.Builder, ai.promoted.proto.delivery.InsertRuleOrBuilder> insertRuleBuilder_;
+        InsertRule, InsertRule.Builder, InsertRuleOrBuilder> insertRuleBuilder_;
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      * @return Whether the insertRule field is set.
      */
-    @java.lang.Override
+    @Override
     public boolean hasInsertRule() {
       return ruleCase_ == 7;
     }
@@ -1055,24 +1057,24 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      * @return The insertRule.
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.InsertRule getInsertRule() {
+    @Override
+    public InsertRule getInsertRule() {
       if (insertRuleBuilder_ == null) {
         if (ruleCase_ == 7) {
-          return (ai.promoted.proto.delivery.InsertRule) rule_;
+          return (InsertRule) rule_;
         }
-        return ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+        return InsertRule.getDefaultInstance();
       } else {
         if (ruleCase_ == 7) {
           return insertRuleBuilder_.getMessage();
         }
-        return ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+        return InsertRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
-    public Builder setInsertRule(ai.promoted.proto.delivery.InsertRule value) {
+    public Builder setInsertRule(InsertRule value) {
       if (insertRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1089,7 +1091,7 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
     public Builder setInsertRule(
-        ai.promoted.proto.delivery.InsertRule.Builder builderForValue) {
+        InsertRule.Builder builderForValue) {
       if (insertRuleBuilder_ == null) {
         rule_ = builderForValue.build();
         onChanged();
@@ -1102,11 +1104,11 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
-    public Builder mergeInsertRule(ai.promoted.proto.delivery.InsertRule value) {
+    public Builder mergeInsertRule(InsertRule value) {
       if (insertRuleBuilder_ == null) {
         if (ruleCase_ == 7 &&
-            rule_ != ai.promoted.proto.delivery.InsertRule.getDefaultInstance()) {
-          rule_ = ai.promoted.proto.delivery.InsertRule.newBuilder((ai.promoted.proto.delivery.InsertRule) rule_)
+            rule_ != InsertRule.getDefaultInstance()) {
+          rule_ = InsertRule.newBuilder((InsertRule) rule_)
               .mergeFrom(value).buildPartial();
         } else {
           rule_ = value;
@@ -1143,36 +1145,36 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
-    public ai.promoted.proto.delivery.InsertRule.Builder getInsertRuleBuilder() {
+    public InsertRule.Builder getInsertRuleBuilder() {
       return getInsertRuleFieldBuilder().getBuilder();
     }
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.InsertRuleOrBuilder getInsertRuleOrBuilder() {
+    @Override
+    public InsertRuleOrBuilder getInsertRuleOrBuilder() {
       if ((ruleCase_ == 7) && (insertRuleBuilder_ != null)) {
         return insertRuleBuilder_.getMessageOrBuilder();
       } else {
         if (ruleCase_ == 7) {
-          return (ai.promoted.proto.delivery.InsertRule) rule_;
+          return (InsertRule) rule_;
         }
-        return ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+        return InsertRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.InsertRule insert_rule = 7;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.InsertRule, ai.promoted.proto.delivery.InsertRule.Builder, ai.promoted.proto.delivery.InsertRuleOrBuilder> 
+        InsertRule, InsertRule.Builder, InsertRuleOrBuilder>
         getInsertRuleFieldBuilder() {
       if (insertRuleBuilder_ == null) {
         if (!(ruleCase_ == 7)) {
-          rule_ = ai.promoted.proto.delivery.InsertRule.getDefaultInstance();
+          rule_ = InsertRule.getDefaultInstance();
         }
         insertRuleBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.delivery.InsertRule, ai.promoted.proto.delivery.InsertRule.Builder, ai.promoted.proto.delivery.InsertRuleOrBuilder>(
-                (ai.promoted.proto.delivery.InsertRule) rule_,
+            InsertRule, InsertRule.Builder, InsertRuleOrBuilder>(
+                (InsertRule) rule_,
                 getParentForChildren(),
                 isClean());
         rule_ = null;
@@ -1183,12 +1185,12 @@ private static final long serialVersionUID = 0L;
     }
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.NegativeRule, ai.promoted.proto.delivery.NegativeRule.Builder, ai.promoted.proto.delivery.NegativeRuleOrBuilder> negativeRuleBuilder_;
+        NegativeRule, NegativeRule.Builder, NegativeRuleOrBuilder> negativeRuleBuilder_;
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      * @return Whether the negativeRule field is set.
      */
-    @java.lang.Override
+    @Override
     public boolean hasNegativeRule() {
       return ruleCase_ == 8;
     }
@@ -1196,24 +1198,24 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      * @return The negativeRule.
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.NegativeRule getNegativeRule() {
+    @Override
+    public NegativeRule getNegativeRule() {
       if (negativeRuleBuilder_ == null) {
         if (ruleCase_ == 8) {
-          return (ai.promoted.proto.delivery.NegativeRule) rule_;
+          return (NegativeRule) rule_;
         }
-        return ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+        return NegativeRule.getDefaultInstance();
       } else {
         if (ruleCase_ == 8) {
           return negativeRuleBuilder_.getMessage();
         }
-        return ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+        return NegativeRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
-    public Builder setNegativeRule(ai.promoted.proto.delivery.NegativeRule value) {
+    public Builder setNegativeRule(NegativeRule value) {
       if (negativeRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1230,7 +1232,7 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
     public Builder setNegativeRule(
-        ai.promoted.proto.delivery.NegativeRule.Builder builderForValue) {
+        NegativeRule.Builder builderForValue) {
       if (negativeRuleBuilder_ == null) {
         rule_ = builderForValue.build();
         onChanged();
@@ -1243,11 +1245,11 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
-    public Builder mergeNegativeRule(ai.promoted.proto.delivery.NegativeRule value) {
+    public Builder mergeNegativeRule(NegativeRule value) {
       if (negativeRuleBuilder_ == null) {
         if (ruleCase_ == 8 &&
-            rule_ != ai.promoted.proto.delivery.NegativeRule.getDefaultInstance()) {
-          rule_ = ai.promoted.proto.delivery.NegativeRule.newBuilder((ai.promoted.proto.delivery.NegativeRule) rule_)
+            rule_ != NegativeRule.getDefaultInstance()) {
+          rule_ = NegativeRule.newBuilder((NegativeRule) rule_)
               .mergeFrom(value).buildPartial();
         } else {
           rule_ = value;
@@ -1284,36 +1286,36 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
-    public ai.promoted.proto.delivery.NegativeRule.Builder getNegativeRuleBuilder() {
+    public NegativeRule.Builder getNegativeRuleBuilder() {
       return getNegativeRuleFieldBuilder().getBuilder();
     }
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.NegativeRuleOrBuilder getNegativeRuleOrBuilder() {
+    @Override
+    public NegativeRuleOrBuilder getNegativeRuleOrBuilder() {
       if ((ruleCase_ == 8) && (negativeRuleBuilder_ != null)) {
         return negativeRuleBuilder_.getMessageOrBuilder();
       } else {
         if (ruleCase_ == 8) {
-          return (ai.promoted.proto.delivery.NegativeRule) rule_;
+          return (NegativeRule) rule_;
         }
-        return ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+        return NegativeRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.NegativeRule negative_rule = 8;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.NegativeRule, ai.promoted.proto.delivery.NegativeRule.Builder, ai.promoted.proto.delivery.NegativeRuleOrBuilder> 
+        NegativeRule, NegativeRule.Builder, NegativeRuleOrBuilder>
         getNegativeRuleFieldBuilder() {
       if (negativeRuleBuilder_ == null) {
         if (!(ruleCase_ == 8)) {
-          rule_ = ai.promoted.proto.delivery.NegativeRule.getDefaultInstance();
+          rule_ = NegativeRule.getDefaultInstance();
         }
         negativeRuleBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.delivery.NegativeRule, ai.promoted.proto.delivery.NegativeRule.Builder, ai.promoted.proto.delivery.NegativeRuleOrBuilder>(
-                (ai.promoted.proto.delivery.NegativeRule) rule_,
+            NegativeRule, NegativeRule.Builder, NegativeRuleOrBuilder>(
+                (NegativeRule) rule_,
                 getParentForChildren(),
                 isClean());
         rule_ = null;
@@ -1324,12 +1326,12 @@ private static final long serialVersionUID = 0L;
     }
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.DiversityRule, ai.promoted.proto.delivery.DiversityRule.Builder, ai.promoted.proto.delivery.DiversityRuleOrBuilder> diversityRuleBuilder_;
+        DiversityRule, DiversityRule.Builder, DiversityRuleOrBuilder> diversityRuleBuilder_;
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      * @return Whether the diversityRule field is set.
      */
-    @java.lang.Override
+    @Override
     public boolean hasDiversityRule() {
       return ruleCase_ == 9;
     }
@@ -1337,24 +1339,24 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      * @return The diversityRule.
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.DiversityRule getDiversityRule() {
+    @Override
+    public DiversityRule getDiversityRule() {
       if (diversityRuleBuilder_ == null) {
         if (ruleCase_ == 9) {
-          return (ai.promoted.proto.delivery.DiversityRule) rule_;
+          return (DiversityRule) rule_;
         }
-        return ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+        return DiversityRule.getDefaultInstance();
       } else {
         if (ruleCase_ == 9) {
           return diversityRuleBuilder_.getMessage();
         }
-        return ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+        return DiversityRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
-    public Builder setDiversityRule(ai.promoted.proto.delivery.DiversityRule value) {
+    public Builder setDiversityRule(DiversityRule value) {
       if (diversityRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1371,7 +1373,7 @@ private static final long serialVersionUID = 0L;
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
     public Builder setDiversityRule(
-        ai.promoted.proto.delivery.DiversityRule.Builder builderForValue) {
+        DiversityRule.Builder builderForValue) {
       if (diversityRuleBuilder_ == null) {
         rule_ = builderForValue.build();
         onChanged();
@@ -1384,11 +1386,11 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
-    public Builder mergeDiversityRule(ai.promoted.proto.delivery.DiversityRule value) {
+    public Builder mergeDiversityRule(DiversityRule value) {
       if (diversityRuleBuilder_ == null) {
         if (ruleCase_ == 9 &&
-            rule_ != ai.promoted.proto.delivery.DiversityRule.getDefaultInstance()) {
-          rule_ = ai.promoted.proto.delivery.DiversityRule.newBuilder((ai.promoted.proto.delivery.DiversityRule) rule_)
+            rule_ != DiversityRule.getDefaultInstance()) {
+          rule_ = DiversityRule.newBuilder((DiversityRule) rule_)
               .mergeFrom(value).buildPartial();
         } else {
           rule_ = value;
@@ -1425,36 +1427,36 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
-    public ai.promoted.proto.delivery.DiversityRule.Builder getDiversityRuleBuilder() {
+    public DiversityRule.Builder getDiversityRuleBuilder() {
       return getDiversityRuleFieldBuilder().getBuilder();
     }
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
-    @java.lang.Override
-    public ai.promoted.proto.delivery.DiversityRuleOrBuilder getDiversityRuleOrBuilder() {
+    @Override
+    public DiversityRuleOrBuilder getDiversityRuleOrBuilder() {
       if ((ruleCase_ == 9) && (diversityRuleBuilder_ != null)) {
         return diversityRuleBuilder_.getMessageOrBuilder();
       } else {
         if (ruleCase_ == 9) {
-          return (ai.promoted.proto.delivery.DiversityRule) rule_;
+          return (DiversityRule) rule_;
         }
-        return ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+        return DiversityRule.getDefaultInstance();
       }
     }
     /**
      * <code>.delivery.DiversityRule diversity_rule = 9;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.delivery.DiversityRule, ai.promoted.proto.delivery.DiversityRule.Builder, ai.promoted.proto.delivery.DiversityRuleOrBuilder> 
+        DiversityRule, DiversityRule.Builder, DiversityRuleOrBuilder>
         getDiversityRuleFieldBuilder() {
       if (diversityRuleBuilder_ == null) {
         if (!(ruleCase_ == 9)) {
-          rule_ = ai.promoted.proto.delivery.DiversityRule.getDefaultInstance();
+          rule_ = DiversityRule.getDefaultInstance();
         }
         diversityRuleBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.delivery.DiversityRule, ai.promoted.proto.delivery.DiversityRule.Builder, ai.promoted.proto.delivery.DiversityRuleOrBuilder>(
-                (ai.promoted.proto.delivery.DiversityRule) rule_,
+            DiversityRule, DiversityRule.Builder, DiversityRuleOrBuilder>(
+                (DiversityRule) rule_,
                 getParentForChildren(),
                 isClean());
         rule_ = null;
@@ -1463,13 +1465,13 @@ private static final long serialVersionUID = 0L;
       onChanged();;
       return diversityRuleBuilder_;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -1480,18 +1482,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:delivery.BlenderRule)
-  private static final ai.promoted.proto.delivery.BlenderRule DEFAULT_INSTANCE;
+  private static final BlenderRule DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.delivery.BlenderRule();
+    DEFAULT_INSTANCE = new BlenderRule();
   }
 
-  public static ai.promoted.proto.delivery.BlenderRule getDefaultInstance() {
+  public static BlenderRule getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<BlenderRule>
       PARSER = new com.google.protobuf.AbstractParser<BlenderRule>() {
-    @java.lang.Override
+    @Override
     public BlenderRule parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1504,13 +1506,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<BlenderRule> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.delivery.BlenderRule getDefaultInstanceForType() {
+  @Override
+  public BlenderRule getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

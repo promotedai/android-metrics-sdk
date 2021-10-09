@@ -41,15 +41,15 @@ internal class DefaultSdk(
         get() = trackSessionUseCase.sessionId.currentOrPendingValue
         set(value) = trackSessionUseCase.sessionId.override(value)
 
-    override var viewId: String
-        get() = trackViewUseCase.viewId.currentOrPendingValue
-        set(value) = trackViewUseCase.viewId.override(value)
-
     override fun startSession(userId: String) = trackSessionUseCase.startSession(userId)
 
-    override fun onViewVisible(key: String) = trackViewUseCase.onViewVisible(key)
-
     override fun logView(viewId: String) = trackViewUseCase.logView(viewId)
+
+    override fun logAutoView(
+        autoViewId: String,
+        routeName: String,
+        routeKey: String
+    ) = trackViewUseCase.logAutoView(autoViewId, routeName, routeKey)
 
     override fun onImpression(
         sourceActivity: Activity?,

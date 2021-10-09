@@ -77,6 +77,33 @@ public interface ActionOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -85,7 +112,7 @@ public interface ActionOrBuilder extends
    * <code>string action_id = 6;</code>
    * @return The actionId.
    */
-  java.lang.String getActionId();
+  String getActionId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -107,7 +134,7 @@ public interface ActionOrBuilder extends
    * <code>string impression_id = 7;</code>
    * @return The impressionId.
    */
-  java.lang.String getImpressionId();
+  String getImpressionId();
   /**
    * <pre>
    * Optional.
@@ -127,7 +154,7 @@ public interface ActionOrBuilder extends
    * <code>string insertion_id = 8;</code>
    * @return The insertionId.
    */
-  java.lang.String getInsertionId();
+  String getInsertionId();
   /**
    * <pre>
    * Optional.
@@ -147,7 +174,7 @@ public interface ActionOrBuilder extends
    * <code>string request_id = 9;</code>
    * @return The requestId.
    */
-  java.lang.String getRequestId();
+  String getRequestId();
   /**
    * <pre>
    * Optional.
@@ -167,7 +194,7 @@ public interface ActionOrBuilder extends
    * <code>string view_id = 11;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <pre>
    * Optional.
@@ -184,10 +211,30 @@ public interface ActionOrBuilder extends
    * Optional.
    * </pre>
    *
+   * <code>string auto_view_id = 23;</code>
+   * @return The autoViewId.
+   */
+  String getAutoViewId();
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 23;</code>
+   * @return The bytes for autoViewId.
+   */
+  com.google.protobuf.ByteString
+      getAutoViewIdBytes();
+
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
    * <code>string session_id = 10;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <pre>
    * Optional.
@@ -201,6 +248,28 @@ public interface ActionOrBuilder extends
 
   /**
    * <pre>
+   * Optional. content_id is used as a hint when impression_id is not set.
+   * For more accurate results, set impression_id if available.
+   * </pre>
+   *
+   * <code>string content_id = 21;</code>
+   * @return The contentId.
+   */
+  String getContentId();
+  /**
+   * <pre>
+   * Optional. content_id is used as a hint when impression_id is not set.
+   * For more accurate results, set impression_id if available.
+   * </pre>
+   *
+   * <code>string content_id = 21;</code>
+   * @return The bytes for contentId.
+   */
+  com.google.protobuf.ByteString
+      getContentIdBytes();
+
+  /**
+   * <pre>
    * Optional.  Custom name of the action that the user performed.
    * E.g. "Product clicked".  Do not stick parameters or pii in this name.
    * </pre>
@@ -208,7 +277,7 @@ public interface ActionOrBuilder extends
    * <code>string name = 12;</code>
    * @return The name.
    */
-  java.lang.String getName();
+  String getName();
   /**
    * <pre>
    * Optional.  Custom name of the action that the user performed.
@@ -238,7 +307,7 @@ public interface ActionOrBuilder extends
    * <code>.event.ActionType action_type = 14;</code>
    * @return The actionType.
    */
-  ai.promoted.proto.event.ActionType getActionType();
+  ActionType getActionType();
 
   /**
    * <pre>
@@ -248,7 +317,7 @@ public interface ActionOrBuilder extends
    * <code>string custom_action_type = 15;</code>
    * @return The customActionType.
    */
-  java.lang.String getCustomActionType();
+  String getCustomActionType();
   /**
    * <pre>
    * Optional.
@@ -264,7 +333,7 @@ public interface ActionOrBuilder extends
    * <code>string element_id = 17;</code>
    * @return The elementId.
    */
-  java.lang.String getElementId();
+  String getElementId();
   /**
    * <code>string element_id = 17;</code>
    * @return The bytes for elementId.
@@ -273,43 +342,30 @@ public interface ActionOrBuilder extends
       getElementIdBytes();
 
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    * @return Whether the navigateAction field is set.
    */
   boolean hasNavigateAction();
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    * @return The navigateAction.
    */
-  ai.promoted.proto.event.NavigateAction getNavigateAction();
+  NavigateAction getNavigateAction();
   /**
-   * <pre>
-   * TODO - add PURCHASE details.
-   * TODO - add ADD_TO_CART details.
-   * TODO - add SHARE details.
-   * TODO - add LIKE details.
-   * TODO - add COMMENT details.
-   * </pre>
-   *
    * <code>.event.NavigateAction navigate_action = 18;</code>
    */
-  ai.promoted.proto.event.NavigateActionOrBuilder getNavigateActionOrBuilder();
+  NavigateActionOrBuilder getNavigateActionOrBuilder();
+
+  /**
+   * <pre>
+   * Optional. Indicates that this action occurred in a view that may
+   * not be topmost in the view hierarchy.
+   * </pre>
+   *
+   * <code>bool has_superimposed_views = 22;</code>
+   * @return The hasSuperimposedViews.
+   */
+  boolean getHasSuperimposedViews();
 
   /**
    * <pre>
@@ -338,5 +394,5 @@ public interface ActionOrBuilder extends
    */
   ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder();
 
-  public ai.promoted.proto.event.Action.ActionCase getActionCase();
+  public Action.ActionCase getActionCase();
 }

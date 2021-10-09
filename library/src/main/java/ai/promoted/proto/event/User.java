@@ -9,7 +9,6 @@ package ai.promoted.proto.event;
  * Clients can update each User multiple times by logging the User with the same
  * user_id.  Unset fields will not be updated. Repeated fields will act like a
  * merge if the item has a key.  Otherwise, it'll act like an append.
- * TODO - when we want this on Request, move this to delivery.
  * Next ID = 7.
  * </pre>
  *
@@ -27,14 +26,14 @@ private static final long serialVersionUID = 0L;
   private User() {
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new User();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -45,7 +44,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -88,6 +87,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            ai.promoted.proto.common.ClientInfo.Builder subBuilder = null;
+            if (clientInfo_ != null) {
+              subBuilder = clientInfo_.toBuilder();
+            }
+            clientInfo_ = input.readMessage(ai.promoted.proto.common.ClientInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(clientInfo_);
+              clientInfo_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           case 50: {
             ai.promoted.proto.common.Properties.Builder subBuilder = null;
             if (properties_ != null) {
@@ -122,15 +134,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_User_descriptor;
+    return Event.internal_static_event_User_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_User_fieldAccessorTable
+    return Event.internal_static_event_User_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.User.class, ai.promoted.proto.event.User.Builder.class);
+            User.class, Builder.class);
   }
 
   public static final int PLATFORM_ID_FIELD_NUMBER = 1;
@@ -144,7 +156,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 platform_id = 1;</code>
    * @return The platformId.
    */
-  @java.lang.Override
+  @Override
   public long getPlatformId() {
     return platformId_;
   }
@@ -159,7 +171,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return Whether the userInfo field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasUserInfo() {
     return userInfo_ != null;
   }
@@ -171,7 +183,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return The userInfo.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfo getUserInfo() {
     return userInfo_ == null ? ai.promoted.proto.common.UserInfo.getDefaultInstance() : userInfo_;
   }
@@ -182,7 +194,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.UserInfo user_info = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfoOrBuilder getUserInfoOrBuilder() {
     return getUserInfo();
   }
@@ -198,7 +210,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return Whether the timing field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasTiming() {
     return timing_ != null;
   }
@@ -211,7 +223,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return The timing.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Timing getTiming() {
     return timing_ == null ? ai.promoted.proto.common.Timing.getDefaultInstance() : timing_;
   }
@@ -223,9 +235,47 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Timing timing = 3;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder() {
     return getTiming();
+  }
+
+  public static final int CLIENT_INFO_FIELD_NUMBER = 4;
+  private ai.promoted.proto.common.ClientInfo clientInfo_;
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  @Override
+  public boolean hasClientInfo() {
+    return clientInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfo getClientInfo() {
+    return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+    return getClientInfo();
   }
 
   public static final int PROPERTIES_FIELD_NUMBER = 6;
@@ -238,7 +288,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 6;</code>
    * @return Whether the properties field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasProperties() {
     return properties_ != null;
   }
@@ -250,7 +300,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 6;</code>
    * @return The properties.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Properties getProperties() {
     return properties_ == null ? ai.promoted.proto.common.Properties.getDefaultInstance() : properties_;
   }
@@ -261,13 +311,13 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Properties properties = 6;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder() {
     return getProperties();
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -277,7 +327,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (platformId_ != 0L) {
@@ -289,13 +339,16 @@ private static final long serialVersionUID = 0L;
     if (timing_ != null) {
       output.writeMessage(3, getTiming());
     }
+    if (clientInfo_ != null) {
+      output.writeMessage(4, getClientInfo());
+    }
     if (properties_ != null) {
       output.writeMessage(6, getProperties());
     }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -313,6 +366,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTiming());
     }
+    if (clientInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getClientInfo());
+    }
     if (properties_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(6, getProperties());
@@ -322,15 +379,15 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.User)) {
+    if (!(obj instanceof User)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.User other = (ai.promoted.proto.event.User) obj;
+    User other = (User) obj;
 
     if (getPlatformId()
         != other.getPlatformId()) return false;
@@ -344,6 +401,11 @@ private static final long serialVersionUID = 0L;
       if (!getTiming()
           .equals(other.getTiming())) return false;
     }
+    if (hasClientInfo() != other.hasClientInfo()) return false;
+    if (hasClientInfo()) {
+      if (!getClientInfo()
+          .equals(other.getClientInfo())) return false;
+    }
     if (hasProperties() != other.hasProperties()) return false;
     if (hasProperties()) {
       if (!getProperties()
@@ -353,7 +415,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -371,6 +433,10 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TIMING_FIELD_NUMBER;
       hash = (53 * hash) + getTiming().hashCode();
     }
+    if (hasClientInfo()) {
+      hash = (37 * hash) + CLIENT_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getClientInfo().hashCode();
+    }
     if (hasProperties()) {
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + getProperties().hashCode();
@@ -380,69 +446,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.User parseFrom(byte[] data)
+  public static User parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.User parseFrom(java.io.InputStream input)
+  public static User parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.User parseDelimitedFrom(java.io.InputStream input)
+  public static User parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.User parseDelimitedFrom(
+  public static User parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.User parseFrom(
+  public static User parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -450,23 +516,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.User prototype) {
+  public static Builder newBuilder(User prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -476,7 +542,6 @@ private static final long serialVersionUID = 0L;
    * Clients can update each User multiple times by logging the User with the same
    * user_id.  Unset fields will not be updated. Repeated fields will act like a
    * merge if the item has a key.  Otherwise, it'll act like an append.
-   * TODO - when we want this on Request, move this to delivery.
    * Next ID = 7.
    * </pre>
    *
@@ -485,18 +550,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.User)
-      ai.promoted.proto.event.UserOrBuilder {
+      UserOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_User_descriptor;
+      return Event.internal_static_event_User_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_User_fieldAccessorTable
+      return Event.internal_static_event_User_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.User.class, ai.promoted.proto.event.User.Builder.class);
+              User.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.User.newBuilder()
@@ -505,7 +570,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -514,7 +579,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       platformId_ = 0L;
@@ -531,6 +596,12 @@ private static final long serialVersionUID = 0L;
         timing_ = null;
         timingBuilder_ = null;
       }
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
       if (propertiesBuilder_ == null) {
         properties_ = null;
       } else {
@@ -540,29 +611,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_User_descriptor;
+      return Event.internal_static_event_User_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.User getDefaultInstanceForType() {
-      return ai.promoted.proto.event.User.getDefaultInstance();
+    @Override
+    public User getDefaultInstanceForType() {
+      return User.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.User build() {
-      ai.promoted.proto.event.User result = buildPartial();
+    @Override
+    public User build() {
+      User result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.User buildPartial() {
-      ai.promoted.proto.event.User result = new ai.promoted.proto.event.User(this);
+    @Override
+    public User buildPartial() {
+      User result = new User(this);
       result.platformId_ = platformId_;
       if (userInfoBuilder_ == null) {
         result.userInfo_ = userInfo_;
@@ -574,6 +645,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.timing_ = timingBuilder_.build();
       }
+      if (clientInfoBuilder_ == null) {
+        result.clientInfo_ = clientInfo_;
+      } else {
+        result.clientInfo_ = clientInfoBuilder_.build();
+      }
       if (propertiesBuilder_ == null) {
         result.properties_ = properties_;
       } else {
@@ -583,50 +659,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.User) {
-        return mergeFrom((ai.promoted.proto.event.User)other);
+      if (other instanceof User) {
+        return mergeFrom((User)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.User other) {
-      if (other == ai.promoted.proto.event.User.getDefaultInstance()) return this;
+    public Builder mergeFrom(User other) {
+      if (other == User.getDefaultInstance()) return this;
       if (other.getPlatformId() != 0L) {
         setPlatformId(other.getPlatformId());
       }
@@ -636,6 +712,9 @@ private static final long serialVersionUID = 0L;
       if (other.hasTiming()) {
         mergeTiming(other.getTiming());
       }
+      if (other.hasClientInfo()) {
+        mergeClientInfo(other.getClientInfo());
+      }
       if (other.hasProperties()) {
         mergeProperties(other.getProperties());
       }
@@ -644,21 +723,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.User parsedMessage = null;
+      User parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.User) e.getUnfinishedMessage();
+        parsedMessage = (User) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -678,7 +757,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 platform_id = 1;</code>
      * @return The platformId.
      */
-    @java.lang.Override
+    @Override
     public long getPlatformId() {
       return platformId_;
     }
@@ -1033,6 +1112,161 @@ private static final long serialVersionUID = 0L;
       return timingBuilder_;
     }
 
+    private ai.promoted.proto.common.ClientInfo clientInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> clientInfoBuilder_;
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return Whether the clientInfo field is set.
+     */
+    public boolean hasClientInfo() {
+      return clientInfoBuilder_ != null || clientInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return The clientInfo.
+     */
+    public ai.promoted.proto.common.ClientInfo getClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      } else {
+        return clientInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        clientInfo_ = value;
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(
+        ai.promoted.proto.common.ClientInfo.Builder builderForValue) {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder mergeClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (clientInfo_ != null) {
+          clientInfo_ =
+            ai.promoted.proto.common.ClientInfo.newBuilder(clientInfo_).mergeFrom(value).buildPartial();
+        } else {
+          clientInfo_ = value;
+        }
+        onChanged();
+      } else {
+        clientInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder clearClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+        onChanged();
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfo.Builder getClientInfoBuilder() {
+      
+      onChanged();
+      return getClientInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+      if (clientInfoBuilder_ != null) {
+        return clientInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return clientInfo_ == null ?
+            ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> 
+        getClientInfoFieldBuilder() {
+      if (clientInfoBuilder_ == null) {
+        clientInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder>(
+                getClientInfo(),
+                getParentForChildren(),
+                isClean());
+        clientInfo_ = null;
+      }
+      return clientInfoBuilder_;
+    }
+
     private ai.promoted.proto.common.Properties properties_;
     private com.google.protobuf.SingleFieldBuilderV3<
         ai.promoted.proto.common.Properties, ai.promoted.proto.common.Properties.Builder, ai.promoted.proto.common.PropertiesOrBuilder> propertiesBuilder_;
@@ -1187,13 +1421,13 @@ private static final long serialVersionUID = 0L;
       }
       return propertiesBuilder_;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -1204,18 +1438,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.User)
-  private static final ai.promoted.proto.event.User DEFAULT_INSTANCE;
+  private static final User DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.User();
+    DEFAULT_INSTANCE = new User();
   }
 
-  public static ai.promoted.proto.event.User getDefaultInstance() {
+  public static User getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<User>
       PARSER = new com.google.protobuf.AbstractParser<User>() {
-    @java.lang.Override
+    @Override
     public User parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1228,13 +1462,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<User> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.User getDefaultInstanceForType() {
+  @Override
+  public User getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

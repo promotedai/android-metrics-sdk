@@ -5,7 +5,7 @@ package ai.promoted.proto.delivery;
 
 /**
  * <pre>
- * Next ID = 3.
+ * Next ID = 4.
  * </pre>
  *
  * Protobuf type {@code delivery.Response}
@@ -23,14 +23,14 @@ private static final long serialVersionUID = 0L;
     insertion_ = java.util.Collections.emptyList();
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new Response();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -41,7 +41,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -56,11 +56,24 @@ private static final long serialVersionUID = 0L;
             break;
           case 18: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              insertion_ = new java.util.ArrayList<ai.promoted.proto.delivery.Insertion>();
+              insertion_ = new java.util.ArrayList<Insertion>();
               mutable_bitField0_ |= 0x00000001;
             }
             insertion_.add(
-                input.readMessage(ai.promoted.proto.delivery.Insertion.parser(), extensionRegistry));
+                input.readMessage(Insertion.parser(), extensionRegistry));
+            break;
+          }
+          case 26: {
+            PagingInfo.Builder subBuilder = null;
+            if (pagingInfo_ != null) {
+              subBuilder = pagingInfo_.toBuilder();
+            }
+            pagingInfo_ = input.readMessage(PagingInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(pagingInfo_);
+              pagingInfo_ = subBuilder.buildPartial();
+            }
+
             break;
           }
           default: {
@@ -87,19 +100,19 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Response_descriptor;
+    return Delivery.internal_static_delivery_Response_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Response_fieldAccessorTable
+    return Delivery.internal_static_delivery_Response_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.delivery.Response.class, ai.promoted.proto.delivery.Response.Builder.class);
+            Response.class, Builder.class);
   }
 
   public static final int INSERTION_FIELD_NUMBER = 2;
-  private java.util.List<ai.promoted.proto.delivery.Insertion> insertion_;
+  private java.util.List<Insertion> insertion_;
   /**
    * <pre>
    * List of content.
@@ -107,8 +120,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.delivery.Insertion> getInsertionList() {
+  @Override
+  public java.util.List<Insertion> getInsertionList() {
     return insertion_;
   }
   /**
@@ -118,8 +131,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.delivery.InsertionOrBuilder> 
+  @Override
+  public java.util.List<? extends InsertionOrBuilder>
       getInsertionOrBuilderList() {
     return insertion_;
   }
@@ -130,7 +143,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public int getInsertionCount() {
     return insertion_.size();
   }
@@ -141,8 +154,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.Insertion getInsertion(int index) {
+  @Override
+  public Insertion getInsertion(int index) {
     return insertion_.get(index);
   }
   /**
@@ -152,14 +165,52 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .delivery.Insertion insertion = 2;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.InsertionOrBuilder getInsertionOrBuilder(
+  @Override
+  public InsertionOrBuilder getInsertionOrBuilder(
       int index) {
     return insertion_.get(index);
   }
 
+  public static final int PAGING_INFO_FIELD_NUMBER = 3;
+  private PagingInfo pagingInfo_;
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   * @return Whether the pagingInfo field is set.
+   */
+  @Override
+  public boolean hasPagingInfo() {
+    return pagingInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   * @return The pagingInfo.
+   */
+  @Override
+  public PagingInfo getPagingInfo() {
+    return pagingInfo_ == null ? PagingInfo.getDefaultInstance() : pagingInfo_;
+  }
+  /**
+   * <pre>
+   * Paging information of this response.  Only returned on paging requests.
+   * </pre>
+   *
+   * <code>.delivery.PagingInfo paging_info = 3;</code>
+   */
+  @Override
+  public PagingInfoOrBuilder getPagingInfoOrBuilder() {
+    return getPagingInfo();
+  }
+
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -169,16 +220,19 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     for (int i = 0; i < insertion_.size(); i++) {
       output.writeMessage(2, insertion_.get(i));
     }
+    if (pagingInfo_ != null) {
+      output.writeMessage(3, getPagingInfo());
+    }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -188,28 +242,37 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, insertion_.get(i));
     }
+    if (pagingInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(3, getPagingInfo());
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.delivery.Response)) {
+    if (!(obj instanceof Response)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.delivery.Response other = (ai.promoted.proto.delivery.Response) obj;
+    Response other = (Response) obj;
 
     if (!getInsertionList()
         .equals(other.getInsertionList())) return false;
+    if (hasPagingInfo() != other.hasPagingInfo()) return false;
+    if (hasPagingInfo()) {
+      if (!getPagingInfo()
+          .equals(other.getPagingInfo())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -220,74 +283,78 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + INSERTION_FIELD_NUMBER;
       hash = (53 * hash) + getInsertionList().hashCode();
     }
+    if (hasPagingInfo()) {
+      hash = (37 * hash) + PAGING_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getPagingInfo().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(byte[] data)
+  public static Response parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(java.io.InputStream input)
+  public static Response parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Response parseDelimitedFrom(java.io.InputStream input)
+  public static Response parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Response parseDelimitedFrom(
+  public static Response parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.Response parseFrom(
+  public static Response parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -295,29 +362,29 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.delivery.Response prototype) {
+  public static Builder newBuilder(Response prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
   /**
    * <pre>
-   * Next ID = 3.
+   * Next ID = 4.
    * </pre>
    *
    * Protobuf type {@code delivery.Response}
@@ -325,18 +392,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:delivery.Response)
-      ai.promoted.proto.delivery.ResponseOrBuilder {
+      ResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Response_descriptor;
+      return Delivery.internal_static_delivery_Response_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Response_fieldAccessorTable
+      return Delivery.internal_static_delivery_Response_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.delivery.Response.class, ai.promoted.proto.delivery.Response.Builder.class);
+              Response.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.delivery.Response.newBuilder()
@@ -345,7 +412,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -355,7 +422,7 @@ private static final long serialVersionUID = 0L;
         getInsertionFieldBuilder();
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       if (insertionBuilder_ == null) {
@@ -364,32 +431,38 @@ private static final long serialVersionUID = 0L;
       } else {
         insertionBuilder_.clear();
       }
+      if (pagingInfoBuilder_ == null) {
+        pagingInfo_ = null;
+      } else {
+        pagingInfo_ = null;
+        pagingInfoBuilder_ = null;
+      }
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.delivery.Delivery.internal_static_delivery_Response_descriptor;
+      return Delivery.internal_static_delivery_Response_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Response getDefaultInstanceForType() {
-      return ai.promoted.proto.delivery.Response.getDefaultInstance();
+    @Override
+    public Response getDefaultInstanceForType() {
+      return Response.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Response build() {
-      ai.promoted.proto.delivery.Response result = buildPartial();
+    @Override
+    public Response build() {
+      Response result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.Response buildPartial() {
-      ai.promoted.proto.delivery.Response result = new ai.promoted.proto.delivery.Response(this);
+    @Override
+    public Response buildPartial() {
+      Response result = new Response(this);
       int from_bitField0_ = bitField0_;
       if (insertionBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -400,54 +473,59 @@ private static final long serialVersionUID = 0L;
       } else {
         result.insertion_ = insertionBuilder_.build();
       }
+      if (pagingInfoBuilder_ == null) {
+        result.pagingInfo_ = pagingInfo_;
+      } else {
+        result.pagingInfo_ = pagingInfoBuilder_.build();
+      }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.delivery.Response) {
-        return mergeFrom((ai.promoted.proto.delivery.Response)other);
+      if (other instanceof Response) {
+        return mergeFrom((Response)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.delivery.Response other) {
-      if (other == ai.promoted.proto.delivery.Response.getDefaultInstance()) return this;
+    public Builder mergeFrom(Response other) {
+      if (other == Response.getDefaultInstance()) return this;
       if (insertionBuilder_ == null) {
         if (!other.insertion_.isEmpty()) {
           if (insertion_.isEmpty()) {
@@ -474,26 +552,29 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (other.hasPagingInfo()) {
+        mergePagingInfo(other.getPagingInfo());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.delivery.Response parsedMessage = null;
+      Response parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.delivery.Response) e.getUnfinishedMessage();
+        parsedMessage = (Response) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -504,17 +585,17 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<ai.promoted.proto.delivery.Insertion> insertion_ =
+    private java.util.List<Insertion> insertion_ =
       java.util.Collections.emptyList();
     private void ensureInsertionIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        insertion_ = new java.util.ArrayList<ai.promoted.proto.delivery.Insertion>(insertion_);
+        insertion_ = new java.util.ArrayList<Insertion>(insertion_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.delivery.Insertion, ai.promoted.proto.delivery.Insertion.Builder, ai.promoted.proto.delivery.InsertionOrBuilder> insertionBuilder_;
+        Insertion, Insertion.Builder, InsertionOrBuilder> insertionBuilder_;
 
     /**
      * <pre>
@@ -523,7 +604,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public java.util.List<ai.promoted.proto.delivery.Insertion> getInsertionList() {
+    public java.util.List<Insertion> getInsertionList() {
       if (insertionBuilder_ == null) {
         return java.util.Collections.unmodifiableList(insertion_);
       } else {
@@ -551,7 +632,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public ai.promoted.proto.delivery.Insertion getInsertion(int index) {
+    public Insertion getInsertion(int index) {
       if (insertionBuilder_ == null) {
         return insertion_.get(index);
       } else {
@@ -566,7 +647,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder setInsertion(
-        int index, ai.promoted.proto.delivery.Insertion value) {
+        int index, Insertion value) {
       if (insertionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -587,7 +668,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder setInsertion(
-        int index, ai.promoted.proto.delivery.Insertion.Builder builderForValue) {
+        int index, Insertion.Builder builderForValue) {
       if (insertionBuilder_ == null) {
         ensureInsertionIsMutable();
         insertion_.set(index, builderForValue.build());
@@ -604,7 +685,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public Builder addInsertion(ai.promoted.proto.delivery.Insertion value) {
+    public Builder addInsertion(Insertion value) {
       if (insertionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -625,7 +706,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder addInsertion(
-        int index, ai.promoted.proto.delivery.Insertion value) {
+        int index, Insertion value) {
       if (insertionBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -646,7 +727,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder addInsertion(
-        ai.promoted.proto.delivery.Insertion.Builder builderForValue) {
+        Insertion.Builder builderForValue) {
       if (insertionBuilder_ == null) {
         ensureInsertionIsMutable();
         insertion_.add(builderForValue.build());
@@ -664,7 +745,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder addInsertion(
-        int index, ai.promoted.proto.delivery.Insertion.Builder builderForValue) {
+        int index, Insertion.Builder builderForValue) {
       if (insertionBuilder_ == null) {
         ensureInsertionIsMutable();
         insertion_.add(index, builderForValue.build());
@@ -682,7 +763,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
     public Builder addAllInsertion(
-        java.lang.Iterable<? extends ai.promoted.proto.delivery.Insertion> values) {
+        Iterable<? extends Insertion> values) {
       if (insertionBuilder_ == null) {
         ensureInsertionIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -734,7 +815,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public ai.promoted.proto.delivery.Insertion.Builder getInsertionBuilder(
+    public Insertion.Builder getInsertionBuilder(
         int index) {
       return getInsertionFieldBuilder().getBuilder(index);
     }
@@ -745,7 +826,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public ai.promoted.proto.delivery.InsertionOrBuilder getInsertionOrBuilder(
+    public InsertionOrBuilder getInsertionOrBuilder(
         int index) {
       if (insertionBuilder_ == null) {
         return insertion_.get(index);  } else {
@@ -759,7 +840,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.delivery.InsertionOrBuilder> 
+    public java.util.List<? extends InsertionOrBuilder>
          getInsertionOrBuilderList() {
       if (insertionBuilder_ != null) {
         return insertionBuilder_.getMessageOrBuilderList();
@@ -774,9 +855,9 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public ai.promoted.proto.delivery.Insertion.Builder addInsertionBuilder() {
+    public Insertion.Builder addInsertionBuilder() {
       return getInsertionFieldBuilder().addBuilder(
-          ai.promoted.proto.delivery.Insertion.getDefaultInstance());
+          Insertion.getDefaultInstance());
     }
     /**
      * <pre>
@@ -785,10 +866,10 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public ai.promoted.proto.delivery.Insertion.Builder addInsertionBuilder(
+    public Insertion.Builder addInsertionBuilder(
         int index) {
       return getInsertionFieldBuilder().addBuilder(
-          index, ai.promoted.proto.delivery.Insertion.getDefaultInstance());
+          index, Insertion.getDefaultInstance());
     }
     /**
      * <pre>
@@ -797,16 +878,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .delivery.Insertion insertion = 2;</code>
      */
-    public java.util.List<ai.promoted.proto.delivery.Insertion.Builder> 
+    public java.util.List<Insertion.Builder>
          getInsertionBuilderList() {
       return getInsertionFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.delivery.Insertion, ai.promoted.proto.delivery.Insertion.Builder, ai.promoted.proto.delivery.InsertionOrBuilder> 
+        Insertion, Insertion.Builder, InsertionOrBuilder>
         getInsertionFieldBuilder() {
       if (insertionBuilder_ == null) {
         insertionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.delivery.Insertion, ai.promoted.proto.delivery.Insertion.Builder, ai.promoted.proto.delivery.InsertionOrBuilder>(
+            Insertion, Insertion.Builder, InsertionOrBuilder>(
                 insertion_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
@@ -815,13 +896,168 @@ private static final long serialVersionUID = 0L;
       }
       return insertionBuilder_;
     }
-    @java.lang.Override
+
+    private PagingInfo pagingInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        PagingInfo, PagingInfo.Builder, PagingInfoOrBuilder> pagingInfoBuilder_;
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     * @return Whether the pagingInfo field is set.
+     */
+    public boolean hasPagingInfo() {
+      return pagingInfoBuilder_ != null || pagingInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     * @return The pagingInfo.
+     */
+    public PagingInfo getPagingInfo() {
+      if (pagingInfoBuilder_ == null) {
+        return pagingInfo_ == null ? PagingInfo.getDefaultInstance() : pagingInfo_;
+      } else {
+        return pagingInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public Builder setPagingInfo(PagingInfo value) {
+      if (pagingInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        pagingInfo_ = value;
+        onChanged();
+      } else {
+        pagingInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public Builder setPagingInfo(
+        PagingInfo.Builder builderForValue) {
+      if (pagingInfoBuilder_ == null) {
+        pagingInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        pagingInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public Builder mergePagingInfo(PagingInfo value) {
+      if (pagingInfoBuilder_ == null) {
+        if (pagingInfo_ != null) {
+          pagingInfo_ =
+            PagingInfo.newBuilder(pagingInfo_).mergeFrom(value).buildPartial();
+        } else {
+          pagingInfo_ = value;
+        }
+        onChanged();
+      } else {
+        pagingInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public Builder clearPagingInfo() {
+      if (pagingInfoBuilder_ == null) {
+        pagingInfo_ = null;
+        onChanged();
+      } else {
+        pagingInfo_ = null;
+        pagingInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public PagingInfo.Builder getPagingInfoBuilder() {
+      
+      onChanged();
+      return getPagingInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    public PagingInfoOrBuilder getPagingInfoOrBuilder() {
+      if (pagingInfoBuilder_ != null) {
+        return pagingInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return pagingInfo_ == null ?
+            PagingInfo.getDefaultInstance() : pagingInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Paging information of this response.  Only returned on paging requests.
+     * </pre>
+     *
+     * <code>.delivery.PagingInfo paging_info = 3;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        PagingInfo, PagingInfo.Builder, PagingInfoOrBuilder>
+        getPagingInfoFieldBuilder() {
+      if (pagingInfoBuilder_ == null) {
+        pagingInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            PagingInfo, PagingInfo.Builder, PagingInfoOrBuilder>(
+                getPagingInfo(),
+                getParentForChildren(),
+                isClean());
+        pagingInfo_ = null;
+      }
+      return pagingInfoBuilder_;
+    }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -832,18 +1068,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:delivery.Response)
-  private static final ai.promoted.proto.delivery.Response DEFAULT_INSTANCE;
+  private static final Response DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.delivery.Response();
+    DEFAULT_INSTANCE = new Response();
   }
 
-  public static ai.promoted.proto.delivery.Response getDefaultInstance() {
+  public static Response getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Response>
       PARSER = new com.google.protobuf.AbstractParser<Response>() {
-    @java.lang.Override
+    @Override
     public Response parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -856,13 +1092,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<Response> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.delivery.Response getDefaultInstanceForType() {
+  @Override
+  public Response getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

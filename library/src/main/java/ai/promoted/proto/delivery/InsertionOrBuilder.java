@@ -73,6 +73,33 @@ public interface InsertionOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -81,7 +108,7 @@ public interface InsertionOrBuilder extends
    * <code>string insertion_id = 6;</code>
    * @return The insertionId.
    */
-  java.lang.String getInsertionId();
+  String getInsertionId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -103,7 +130,7 @@ public interface InsertionOrBuilder extends
    * <code>string request_id = 7;</code>
    * @return The requestId.
    */
-  java.lang.String getRequestId();
+  String getRequestId();
   /**
    * <pre>
    * Optional.
@@ -123,7 +150,7 @@ public interface InsertionOrBuilder extends
    * <code>string view_id = 9;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <pre>
    * Optional.
@@ -143,7 +170,7 @@ public interface InsertionOrBuilder extends
    * <code>string session_id = 8;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <pre>
    * Optional.
@@ -163,7 +190,7 @@ public interface InsertionOrBuilder extends
    * <code>string content_id = 10;</code>
    * @return The contentId.
    */
-  java.lang.String getContentId();
+  String getContentId();
   /**
    * <pre>
    * Optional.  We'll look this up using the external_content_id.
@@ -177,7 +204,20 @@ public interface InsertionOrBuilder extends
 
   /**
    * <pre>
-   * Optional.  0-based.
+   * Optional. 0-based. Position "in what" depends on insertion context:
+   * if request_insertion, then position provided by client or retrieval
+   * if response_insertion, then the position returned by Delivery to the client
+   * </pre>
+   *
+   * <code>uint64 position = 12;</code>
+   * @return Whether the position field is set.
+   */
+  boolean hasPosition();
+  /**
+   * <pre>
+   * Optional. 0-based. Position "in what" depends on insertion context:
+   * if request_insertion, then position provided by client or retrieval
+   * if response_insertion, then the position returned by Delivery to the client
    * </pre>
    *
    * <code>uint64 position = 12;</code>
@@ -187,17 +227,7 @@ public interface InsertionOrBuilder extends
 
   /**
    * <pre>
-   * delivery score
-   * </pre>
-   *
-   * <code>double delivery_score = 15;</code>
-   * @return The deliveryScore.
-   */
-  double getDeliveryScore();
-
-  /**
-   * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
@@ -206,7 +236,7 @@ public interface InsertionOrBuilder extends
   boolean hasProperties();
   /**
    * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
@@ -215,10 +245,48 @@ public interface InsertionOrBuilder extends
   ai.promoted.proto.common.Properties getProperties();
   /**
    * <pre>
-   * Optional.  Custom properties per platform.
+   * Optional. Custom item attributes and features set by customers.
    * </pre>
    *
    * <code>.common.Properties properties = 13;</code>
    */
   ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder();
+
+  /**
+   * <pre>
+   * Optional. Ranking (if known) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>uint64 retrieval_rank = 19;</code>
+   * @return Whether the retrievalRank field is set.
+   */
+  boolean hasRetrievalRank();
+  /**
+   * <pre>
+   * Optional. Ranking (if known) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>uint64 retrieval_rank = 19;</code>
+   * @return The retrievalRank.
+   */
+  long getRetrievalRank();
+
+  /**
+   * <pre>
+   * Optional. Score (if any) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>float retrieval_score = 20;</code>
+   * @return Whether the retrievalScore field is set.
+   */
+  boolean hasRetrievalScore();
+  /**
+   * <pre>
+   * Optional. Score (if any) of this insertion from the retrieval system.
+   * </pre>
+   *
+   * <code>float retrieval_score = 20;</code>
+   * @return The retrievalScore.
+   */
+  float getRetrievalScore();
 }

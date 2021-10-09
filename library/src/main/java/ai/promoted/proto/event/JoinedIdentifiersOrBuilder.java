@@ -17,7 +17,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string user_id = 2;</code>
    * @return The userId.
    */
-  java.lang.String getUserId();
+  String getUserId();
   /**
    * <code>string user_id = 2;</code>
    * @return The bytes for userId.
@@ -29,7 +29,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string log_user_id = 3;</code>
    * @return The logUserId.
    */
-  java.lang.String getLogUserId();
+  String getLogUserId();
   /**
    * <code>string log_user_id = 3;</code>
    * @return The bytes for logUserId.
@@ -41,7 +41,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string session_id = 4;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <code>string session_id = 4;</code>
    * @return The bytes for sessionId.
@@ -53,7 +53,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string view_id = 5;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <code>string view_id = 5;</code>
    * @return The bytes for viewId.
@@ -65,7 +65,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string request_id = 6;</code>
    * @return The requestId.
    */
-  java.lang.String getRequestId();
+  String getRequestId();
   /**
    * <code>string request_id = 6;</code>
    * @return The bytes for requestId.
@@ -77,7 +77,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string insertion_id = 7;</code>
    * @return The insertionId.
    */
-  java.lang.String getInsertionId();
+  String getInsertionId();
   /**
    * <code>string insertion_id = 7;</code>
    * @return The bytes for insertionId.
@@ -89,7 +89,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string impression_id = 8;</code>
    * @return The impressionId.
    */
-  java.lang.String getImpressionId();
+  String getImpressionId();
   /**
    * <code>string impression_id = 8;</code>
    * @return The bytes for impressionId.

@@ -37,14 +37,11 @@ object PromotedAi {
         }
 
     /**
-     * @see [PromotedAiSdk.viewId]
+     * @see [PromotedAiSdk.autoViewId]
      */
     @JvmStatic
-    var viewId: String
-        get() = sdk.viewId
-        set(value) {
-            sdk.viewId = value
-        }
+    @Deprecated("Auto-view ID will be used")
+    var viewId: String = ""
 
     /**
      * @see [SdkManager.initialize]
@@ -87,16 +84,20 @@ object PromotedAi {
     fun startSession(userId: String) = sdk.startSession(userId)
 
     /**
-     * @see [PromotedAiSdk.onViewVisible]
-     */
-    @JvmStatic
-    fun onViewVisible(key: String) = sdk.onViewVisible(key)
-
-    /**
      * @see [PromotedAiSdk.logView]
      */
     @JvmStatic
     fun logView(viewId: String) = sdk.logView(viewId)
+
+    /**
+     * @see [PromotedAiSdk.logAutoView]
+     */
+    @JvmStatic
+    fun logAutoView(
+        autoViewId: String,
+        routeName: String,
+        routeKey: String
+    ) = sdk.logAutoView(autoViewId, routeName, routeKey)
 
     /**
      * @see [PromotedAiSdk.onImpression]

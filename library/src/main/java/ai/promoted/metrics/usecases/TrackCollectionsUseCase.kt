@@ -76,7 +76,7 @@ internal class TrackCollectionsUseCase(
 
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
-        val viewId = viewUseCase.viewId.currentValueOrNull
+        val autoViewId = viewUseCase.autoViewId.currentValueOrNull
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(
@@ -91,7 +91,7 @@ internal class TrackCollectionsUseCase(
                 onNewDiff(
                     originalImpressionTime = now,
                     originalImpressionSessionId = sessionId,
-                    originalImpressionViewId = viewId,
+                    originalImpressionAutoViewId = autoViewId,
                     result = newDiff
                 )
             }
@@ -107,14 +107,14 @@ internal class TrackCollectionsUseCase(
     private fun onNewDiff(
         originalImpressionTime: Long,
         originalImpressionSessionId: String?,
-        originalImpressionViewId: String?,
+        originalImpressionAutoViewId: String?,
         result: AsyncCollectionDiffCalculator.DiffResult<AbstractContent>
     ) {
         result.newItems.forEach { newContent ->
             onStartImpression(
                 time = originalImpressionTime,
                 sessionId = originalImpressionSessionId,
-                viewId = originalImpressionViewId,
+                autoViewId = originalImpressionAutoViewId,
                 content = newContent
             )
         }
@@ -125,15 +125,15 @@ internal class TrackCollectionsUseCase(
     private fun onStartImpression(
         time: Long,
         sessionId: String?,
-        viewId: String?,
+        autoViewId: String?,
         content: AbstractContent
     ) = xray.monitored {
+        // TODO - random UUID (not based on insertion ID)
         val impressionId = impressionIdGenerator.generateImpressionId(
             insertionId = content.insertionId,
             contentId = content.contentId
         ) ?: return@monitored
 
-        // TODO - extract activity
         val impressionData = ImpressionData.Builder().apply {
             insertionId = content.insertionId
             contentId = content.contentId
@@ -142,7 +142,7 @@ internal class TrackCollectionsUseCase(
         val internalImpressionData = InternalImpressionData(
             time = time,
             sessionId = sessionId,
-            viewId = viewId,
+            autoViewId = autoViewId,
             impressionId = impressionId
         )
 

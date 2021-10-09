@@ -4,11 +4,9 @@ import ai.promoted.SystemOutLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
-import ai.promoted.proto.event.Session
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.every
-import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
@@ -27,11 +25,10 @@ class TrackSessionUseCaseTest {
 
     private val useCase = TrackSessionUseCase(
         systemLogger = SystemOutLogger(),
-        clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = UuidGenerator(),
         trackUserUseCase = trackUserUseCase,
-        NoOpXray()
+        xray = NoOpXray()
     )
 
     @Test
@@ -58,17 +55,6 @@ class TrackSessionUseCaseTest {
 
         // Then
         assertThat(secondSessionId, not(firstSessionId))
-    }
-
-    @Test
-    fun `Session is logged after start session`() {
-        // When a session is started
-        useCase.startSession("a-user-id")
-
-        // Then
-        verify(exactly = 1) {
-            logger.enqueueMessage(ofType(Session::class))
-        }
     }
 
     @Test

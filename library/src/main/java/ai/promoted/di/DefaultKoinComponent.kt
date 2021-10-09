@@ -61,15 +61,15 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             }
             single { createMetricsLoggerForConfig() }
             single { TrackUserUseCase(get(), get(), get(), get()) }
-            single { TrackSessionUseCase(get(), get(), get(), get(), get(), get()) }
-            single { TrackViewUseCase(get(), get(), get(), get(), get(), get(), get()) }
+            single { TrackSessionUseCase(get(), get(), get(), get(), get()) }
+            single { TrackViewUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackCollectionsUseCase(get(), get(), get(), get(), get(), get()) }
             single { TrackRecyclerViewUseCase(get(), get()) }
             single { CurrentUserIdsUseCase(get()) }
             single { createXrayForConfig() }
             single { Telemetry(get(), get()) }
 
-            factory { FinalizeLogsUseCase(get(), get(), get(), get()) }
+            factory { FinalizeLogsUseCase(get(), get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
             factory { TrackActionUseCase(get(), get(), get(), get(), get(), get(), get()) }
 

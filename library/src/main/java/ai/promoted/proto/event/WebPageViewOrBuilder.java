@@ -15,7 +15,7 @@ public interface WebPageViewOrBuilder extends
    * <code>string url = 1;</code>
    * @return The url.
    */
-  java.lang.String getUrl();
+  String getUrl();
   /**
    * <pre>
    * Optional.  This is the url for the page.
@@ -29,40 +29,13 @@ public interface WebPageViewOrBuilder extends
 
   /**
    * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   * @return Whether the browser field is set.
-   */
-  boolean hasBrowser();
-  /**
-   * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   * @return The browser.
-   */
-  ai.promoted.proto.event.Browser getBrowser();
-  /**
-   * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   */
-  ai.promoted.proto.event.BrowserOrBuilder getBrowserOrBuilder();
-
-  /**
-   * <pre>
    * Optional.  Can be a full referrer string.  Could be just the UTM.
    * </pre>
    *
    * <code>string referrer = 3;</code>
    * @return The referrer.
    */
-  java.lang.String getReferrer();
+  String getReferrer();
   /**
    * <pre>
    * Optional.  Can be a full referrer string.  Could be just the UTM.
@@ -75,17 +48,17 @@ public interface WebPageViewOrBuilder extends
       getReferrerBytes();
 
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    * @return Whether the documentSize field is set.
    */
   boolean hasDocumentSize();
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    * @return The documentSize.
    */
-  ai.promoted.proto.event.Size getDocumentSize();
+  ai.promoted.proto.common.Size getDocumentSize();
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    */
-  ai.promoted.proto.event.SizeOrBuilder getDocumentSizeOrBuilder();
+  ai.promoted.proto.common.SizeOrBuilder getDocumentSizeOrBuilder();
 }

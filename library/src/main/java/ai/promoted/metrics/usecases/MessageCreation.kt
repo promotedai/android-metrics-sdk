@@ -15,18 +15,18 @@ import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.platform.PromotedAiLocale
+import ai.promoted.proto.common.Device
 import ai.promoted.proto.common.Properties
+import ai.promoted.proto.common.Screen
+import ai.promoted.proto.common.Size
 import ai.promoted.proto.common.Timing
 import ai.promoted.proto.common.UserInfo
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.ActionType
 import ai.promoted.proto.event.AppScreenView
-import ai.promoted.proto.event.Device
+import ai.promoted.proto.event.AutoView
 import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.NavigateAction
-import ai.promoted.proto.event.Screen
-import ai.promoted.proto.event.Session
-import ai.promoted.proto.event.Size
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
 import com.google.protobuf.Message
@@ -50,21 +50,7 @@ internal fun createUserMessage(clock: Clock, userId: String?, logUserId: String?
         .setUserInfo(createUserInfoMessage(userId, logUserId))
         .build()
 
-internal fun createSessionMessage(clock: Clock) =
-    Session
-        .newBuilder()
-        .setTiming(createTimingMessage(clock))
-        .setStartEpochMillis(clock.currentTimeMillis)
-        .build()
-
 internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device {
-    val localeMessage =
-        PromotedAiLocale
-            .newBuilder()
-            .setLanguageCode(deviceInfoProvider.languageCode)
-            .setRegionCode(deviceInfoProvider.countryCode)
-            .build()
-
     val screenSizeMessage =
         Size
             .newBuilder()
@@ -85,31 +71,53 @@ internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device
         .setManufacturer(deviceInfoProvider.manufacturer)
         .setIdentifier(deviceInfoProvider.model)
         .setOsVersion(deviceInfoProvider.sdkRelease)
-        .setLocale(localeMessage)
         .setScreen(screenMessage)
         .build()
 }
 
 internal fun createViewMessage(
     clock: Clock,
+    deviceInfoProvider: DeviceInfoProvider,
     viewId: String?,
     sessionId: String?,
     name: String,
-    // The Device message should be cached in memory elsewhere, so we will not construct it
-    // ourselves as part of this function, but rather it should be passed in.
-    deviceMessage: Device
 ) = View
     .newBuilder()
     .setTiming(createTimingMessage(clock))
+    .setLocale(createLocaleMessage(deviceInfoProvider))
     .apply {
         sessionId?.let { setSessionId(it) }
         viewId?.let { setViewId(it) }
     }
     .setName(name)
-    .setDevice(deviceMessage)
-    // TODO - Fill out AppScreenView.
     .setAppScreenView(AppScreenView.getDefaultInstance())
     .build()
+
+@Suppress("LongParameterList")
+internal fun createAutoViewMessage(
+    clock: Clock,
+    deviceInfoProvider: DeviceInfoProvider,
+    autoViewId: String?,
+    sessionId: String?,
+    name: String
+) = AutoView
+        .newBuilder()
+        .setTiming(createTimingMessage(clock))
+        .setLocale(createLocaleMessage(deviceInfoProvider))
+        .apply {
+            sessionId?.let { setSessionId(it) }
+            autoViewId?.let { setAutoViewId(autoViewId) }
+        }
+        .setName(name)
+        .setAppScreenView(AppScreenView.getDefaultInstance())
+        .build()
+
+private fun createLocaleMessage(deviceInfoProvider: DeviceInfoProvider) =
+    PromotedAiLocale
+        .newBuilder()
+        .setLanguageCode(deviceInfoProvider.languageCode)
+        .setRegionCode(deviceInfoProvider.countryCode)
+        .build()
 
 @Suppress("LongParameterList")
 internal fun createActionMessage(
@@ -125,7 +133,7 @@ internal fun createActionMessage(
         .setActionType(internalActionData.type)
         .apply {
             internalActionData.sessionId?.let { setSessionId(it) }
-            internalActionData.viewId?.let { setViewId(it) }
+            internalActionData.autoViewId?.let { setAutoViewId(it) }
             internalActionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -158,7 +166,7 @@ internal fun createImpressionMessage(
         .setImpressionId(internalImpressionData.impressionId)
         .apply {
             internalImpressionData.sessionId?.let { setSessionId(it) }
-            internalImpressionData.viewId?.let { setViewId(it) }
+            internalImpressionData.autoViewId?.let { setAutoViewId(it) }
             impressionData.insertionId?.let { setInsertionId(it) }
             impressionData.requestId?.let { setRequestId(it) }
             impressionData.contentId?.let { setContentId(it) }

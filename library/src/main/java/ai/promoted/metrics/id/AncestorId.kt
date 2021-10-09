@@ -47,14 +47,12 @@ internal class AncestorId(
      * Move to the next implicit / internally-generated ID value
      */
     fun advance() {
-        if (isOverridden) return
-
         advanceableId.advance()
         this.currentValue = advanceableId.currentValue
     }
 
     /**
-     * Manually set the ID's value
+     * Manually set the ID's value until the next advance() call
      */
     fun override(explicitValue: String) {
         this.currentValue = explicitValue
