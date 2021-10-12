@@ -21,7 +21,6 @@ internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val impressionIdGenerator: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
     private val xray: Xray
@@ -56,10 +55,6 @@ internal class TrackActionUseCase(
      */
     fun onAction(name: String, type: ActionType, data: ActionData) = xray.monitored {
         val actionId = idGenerator.newId()
-
-        // TODO - allow people to pass in impression ID, but don't need to generate
-        val impressionId =
-            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
 
         // Log a new view event if necessary
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
