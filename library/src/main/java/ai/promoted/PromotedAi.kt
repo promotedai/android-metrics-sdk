@@ -3,6 +3,7 @@ package ai.promoted
 import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
+import android.app.Activity
 import android.app.Application
 import androidx.recyclerview.widget.RecyclerView
 
@@ -36,14 +37,11 @@ object PromotedAi {
         }
 
     /**
-     * @see [PromotedAiSdk.viewId]
+     * @see [PromotedAiSdk.autoViewId]
      */
     @JvmStatic
-    var viewId: String
-        get() = sdk.viewId
-        set(value) {
-            sdk.viewId = value
-        }
+    @Deprecated("Auto-view ID will be used")
+    var viewId: String = ""
 
     /**
      * @see [SdkManager.initialize]
@@ -86,18 +84,29 @@ object PromotedAi {
     fun startSession(userId: String) = sdk.startSession(userId)
 
     /**
-     * @see [PromotedAiSdk.onViewVisible]
+     * @see [PromotedAiSdk.logView]
      */
     @JvmStatic
-    fun onViewVisible(key: String) = sdk.onViewVisible(key)
+    fun logView(viewId: String) = sdk.logView(viewId)
+
+    /**
+     * @see [PromotedAiSdk.logAutoView]
+     */
+    @JvmStatic
+    fun logAutoView(
+        autoViewId: String,
+        routeName: String,
+        routeKey: String
+    ) = sdk.logAutoView(autoViewId, routeName, routeKey)
 
     /**
      * @see [PromotedAiSdk.onImpression]
      */
     @JvmStatic
     fun onImpression(
+        sourceActivity: Activity?,
         dataBlock: ImpressionData.Builder.() -> Unit
-    ) = sdk.onImpression(dataBlock)
+    ) = sdk.onImpression(sourceActivity, dataBlock)
 
     /**
      * @see [PromotedAiSdk.onImpression]
@@ -112,10 +121,11 @@ object PromotedAi {
      */
     @JvmStatic
     fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null
-    ) = sdk.onAction(name, type, dataBlock)
+    ) = sdk.onAction(sourceActivity, name, type, dataBlock)
 
     /**
      * @see [PromotedAiSdk.onAction]
@@ -129,24 +139,27 @@ object PromotedAi {
      */
     @JvmStatic
     fun onCollectionVisible(
+        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionVisible(collectionViewKey, content)
+    ) = sdk.onCollectionVisible(sourceActivity, collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionUpdated]
      */
     @JvmStatic
     fun onCollectionUpdated(
+        sourceActivity: Activity?,
         collectionViewKey: String,
         content: List<AbstractContent>
-    ) = sdk.onCollectionUpdated(collectionViewKey, content)
+    ) = sdk.onCollectionUpdated(sourceActivity, collectionViewKey, content)
 
     /**
      * @see [PromotedAiSdk.onCollectionHidden]
      */
     @JvmStatic
-    fun onCollectionHidden(collectionViewKey: String) = sdk.onCollectionHidden(collectionViewKey)
+    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
+        sdk.onCollectionHidden(sourceActivity, collectionViewKey)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]

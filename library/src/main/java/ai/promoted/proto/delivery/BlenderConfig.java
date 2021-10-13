@@ -5,7 +5,7 @@ package ai.promoted.proto.delivery;
 
 /**
  * <pre>
- * Next ID = 2.
+ * Next ID = 3.
  * </pre>
  *
  * Protobuf type {@code delivery.BlenderConfig}
@@ -23,14 +23,14 @@ private static final long serialVersionUID = 0L;
     blenderRule_ = java.util.Collections.emptyList();
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new BlenderConfig();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -41,7 +41,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -56,11 +56,24 @@ private static final long serialVersionUID = 0L;
             break;
           case 10: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              blenderRule_ = new java.util.ArrayList<ai.promoted.proto.delivery.BlenderRule>();
+              blenderRule_ = new java.util.ArrayList<BlenderRule>();
               mutable_bitField0_ |= 0x00000001;
             }
             blenderRule_.add(
-                input.readMessage(ai.promoted.proto.delivery.BlenderRule.parser(), extensionRegistry));
+                input.readMessage(BlenderRule.parser(), extensionRegistry));
+            break;
+          }
+          case 18: {
+            QualityScoreConfig.Builder subBuilder = null;
+            if (qualityScoreConfig_ != null) {
+              subBuilder = qualityScoreConfig_.toBuilder();
+            }
+            qualityScoreConfig_ = input.readMessage(QualityScoreConfig.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(qualityScoreConfig_);
+              qualityScoreConfig_ = subBuilder.buildPartial();
+            }
+
             break;
           }
           default: {
@@ -87,79 +100,105 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderConfig_descriptor;
+    return Blender.internal_static_delivery_BlenderConfig_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderConfig_fieldAccessorTable
+    return Blender.internal_static_delivery_BlenderConfig_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.delivery.BlenderConfig.class, ai.promoted.proto.delivery.BlenderConfig.Builder.class);
+            BlenderConfig.class, Builder.class);
   }
 
   public static final int BLENDER_RULE_FIELD_NUMBER = 1;
-  private java.util.List<ai.promoted.proto.delivery.BlenderRule> blenderRule_;
+  private java.util.List<BlenderRule> blenderRule_;
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  @java.lang.Override
-  public java.util.List<ai.promoted.proto.delivery.BlenderRule> getBlenderRuleList() {
+  @Override
+  public java.util.List<BlenderRule> getBlenderRuleList() {
     return blenderRule_;
   }
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  @java.lang.Override
-  public java.util.List<? extends ai.promoted.proto.delivery.BlenderRuleOrBuilder> 
+  @Override
+  public java.util.List<? extends BlenderRuleOrBuilder>
       getBlenderRuleOrBuilderList() {
     return blenderRule_;
   }
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  @java.lang.Override
+  @Override
   public int getBlenderRuleCount() {
     return blenderRule_.size();
   }
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.BlenderRule getBlenderRule(int index) {
+  @Override
+  public BlenderRule getBlenderRule(int index) {
     return blenderRule_.get(index);
   }
   /**
    * <pre>
-   * list of blender rules
+   * List of blender rules.
    * </pre>
    *
    * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.delivery.BlenderRuleOrBuilder getBlenderRuleOrBuilder(
+  @Override
+  public BlenderRuleOrBuilder getBlenderRuleOrBuilder(
       int index) {
     return blenderRule_.get(index);
   }
 
+  public static final int QUALITY_SCORE_CONFIG_FIELD_NUMBER = 2;
+  private QualityScoreConfig qualityScoreConfig_;
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   * @return Whether the qualityScoreConfig field is set.
+   */
+  @Override
+  public boolean hasQualityScoreConfig() {
+    return qualityScoreConfig_ != null;
+  }
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   * @return The qualityScoreConfig.
+   */
+  @Override
+  public QualityScoreConfig getQualityScoreConfig() {
+    return qualityScoreConfig_ == null ? QualityScoreConfig.getDefaultInstance() : qualityScoreConfig_;
+  }
+  /**
+   * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+   */
+  @Override
+  public QualityScoreConfigOrBuilder getQualityScoreConfigOrBuilder() {
+    return getQualityScoreConfig();
+  }
+
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -169,16 +208,19 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     for (int i = 0; i < blenderRule_.size(); i++) {
       output.writeMessage(1, blenderRule_.get(i));
     }
+    if (qualityScoreConfig_ != null) {
+      output.writeMessage(2, getQualityScoreConfig());
+    }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -188,28 +230,37 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, blenderRule_.get(i));
     }
+    if (qualityScoreConfig_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(2, getQualityScoreConfig());
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.delivery.BlenderConfig)) {
+    if (!(obj instanceof BlenderConfig)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.delivery.BlenderConfig other = (ai.promoted.proto.delivery.BlenderConfig) obj;
+    BlenderConfig other = (BlenderConfig) obj;
 
     if (!getBlenderRuleList()
         .equals(other.getBlenderRuleList())) return false;
+    if (hasQualityScoreConfig() != other.hasQualityScoreConfig()) return false;
+    if (hasQualityScoreConfig()) {
+      if (!getQualityScoreConfig()
+          .equals(other.getQualityScoreConfig())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -220,74 +271,78 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + BLENDER_RULE_FIELD_NUMBER;
       hash = (53 * hash) + getBlenderRuleList().hashCode();
     }
+    if (hasQualityScoreConfig()) {
+      hash = (37 * hash) + QUALITY_SCORE_CONFIG_FIELD_NUMBER;
+      hash = (53 * hash) + getQualityScoreConfig().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(byte[] data)
+  public static BlenderConfig parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(java.io.InputStream input)
+  public static BlenderConfig parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseDelimitedFrom(java.io.InputStream input)
+  public static BlenderConfig parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseDelimitedFrom(
+  public static BlenderConfig parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.delivery.BlenderConfig parseFrom(
+  public static BlenderConfig parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -295,29 +350,29 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.delivery.BlenderConfig prototype) {
+  public static Builder newBuilder(BlenderConfig prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
   /**
    * <pre>
-   * Next ID = 2.
+   * Next ID = 3.
    * </pre>
    *
    * Protobuf type {@code delivery.BlenderConfig}
@@ -325,18 +380,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:delivery.BlenderConfig)
-      ai.promoted.proto.delivery.BlenderConfigOrBuilder {
+      BlenderConfigOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderConfig_descriptor;
+      return Blender.internal_static_delivery_BlenderConfig_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderConfig_fieldAccessorTable
+      return Blender.internal_static_delivery_BlenderConfig_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.delivery.BlenderConfig.class, ai.promoted.proto.delivery.BlenderConfig.Builder.class);
+              BlenderConfig.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.delivery.BlenderConfig.newBuilder()
@@ -345,7 +400,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -355,7 +410,7 @@ private static final long serialVersionUID = 0L;
         getBlenderRuleFieldBuilder();
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       if (blenderRuleBuilder_ == null) {
@@ -364,32 +419,38 @@ private static final long serialVersionUID = 0L;
       } else {
         blenderRuleBuilder_.clear();
       }
+      if (qualityScoreConfigBuilder_ == null) {
+        qualityScoreConfig_ = null;
+      } else {
+        qualityScoreConfig_ = null;
+        qualityScoreConfigBuilder_ = null;
+      }
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.delivery.Blender.internal_static_delivery_BlenderConfig_descriptor;
+      return Blender.internal_static_delivery_BlenderConfig_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderConfig getDefaultInstanceForType() {
-      return ai.promoted.proto.delivery.BlenderConfig.getDefaultInstance();
+    @Override
+    public BlenderConfig getDefaultInstanceForType() {
+      return BlenderConfig.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderConfig build() {
-      ai.promoted.proto.delivery.BlenderConfig result = buildPartial();
+    @Override
+    public BlenderConfig build() {
+      BlenderConfig result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.delivery.BlenderConfig buildPartial() {
-      ai.promoted.proto.delivery.BlenderConfig result = new ai.promoted.proto.delivery.BlenderConfig(this);
+    @Override
+    public BlenderConfig buildPartial() {
+      BlenderConfig result = new BlenderConfig(this);
       int from_bitField0_ = bitField0_;
       if (blenderRuleBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -400,54 +461,59 @@ private static final long serialVersionUID = 0L;
       } else {
         result.blenderRule_ = blenderRuleBuilder_.build();
       }
+      if (qualityScoreConfigBuilder_ == null) {
+        result.qualityScoreConfig_ = qualityScoreConfig_;
+      } else {
+        result.qualityScoreConfig_ = qualityScoreConfigBuilder_.build();
+      }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.delivery.BlenderConfig) {
-        return mergeFrom((ai.promoted.proto.delivery.BlenderConfig)other);
+      if (other instanceof BlenderConfig) {
+        return mergeFrom((BlenderConfig)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.delivery.BlenderConfig other) {
-      if (other == ai.promoted.proto.delivery.BlenderConfig.getDefaultInstance()) return this;
+    public Builder mergeFrom(BlenderConfig other) {
+      if (other == BlenderConfig.getDefaultInstance()) return this;
       if (blenderRuleBuilder_ == null) {
         if (!other.blenderRule_.isEmpty()) {
           if (blenderRule_.isEmpty()) {
@@ -474,26 +540,29 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (other.hasQualityScoreConfig()) {
+        mergeQualityScoreConfig(other.getQualityScoreConfig());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.delivery.BlenderConfig parsedMessage = null;
+      BlenderConfig parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.delivery.BlenderConfig) e.getUnfinishedMessage();
+        parsedMessage = (BlenderConfig) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -504,26 +573,26 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<ai.promoted.proto.delivery.BlenderRule> blenderRule_ =
+    private java.util.List<BlenderRule> blenderRule_ =
       java.util.Collections.emptyList();
     private void ensureBlenderRuleIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        blenderRule_ = new java.util.ArrayList<ai.promoted.proto.delivery.BlenderRule>(blenderRule_);
+        blenderRule_ = new java.util.ArrayList<BlenderRule>(blenderRule_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.delivery.BlenderRule, ai.promoted.proto.delivery.BlenderRule.Builder, ai.promoted.proto.delivery.BlenderRuleOrBuilder> blenderRuleBuilder_;
+        BlenderRule, BlenderRule.Builder, BlenderRuleOrBuilder> blenderRuleBuilder_;
 
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public java.util.List<ai.promoted.proto.delivery.BlenderRule> getBlenderRuleList() {
+    public java.util.List<BlenderRule> getBlenderRuleList() {
       if (blenderRuleBuilder_ == null) {
         return java.util.Collections.unmodifiableList(blenderRule_);
       } else {
@@ -532,7 +601,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
@@ -546,12 +615,12 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public ai.promoted.proto.delivery.BlenderRule getBlenderRule(int index) {
+    public BlenderRule getBlenderRule(int index) {
       if (blenderRuleBuilder_ == null) {
         return blenderRule_.get(index);
       } else {
@@ -560,13 +629,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder setBlenderRule(
-        int index, ai.promoted.proto.delivery.BlenderRule value) {
+        int index, BlenderRule value) {
       if (blenderRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -581,13 +650,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder setBlenderRule(
-        int index, ai.promoted.proto.delivery.BlenderRule.Builder builderForValue) {
+        int index, BlenderRule.Builder builderForValue) {
       if (blenderRuleBuilder_ == null) {
         ensureBlenderRuleIsMutable();
         blenderRule_.set(index, builderForValue.build());
@@ -599,12 +668,12 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public Builder addBlenderRule(ai.promoted.proto.delivery.BlenderRule value) {
+    public Builder addBlenderRule(BlenderRule value) {
       if (blenderRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -619,13 +688,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder addBlenderRule(
-        int index, ai.promoted.proto.delivery.BlenderRule value) {
+        int index, BlenderRule value) {
       if (blenderRuleBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -640,13 +709,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder addBlenderRule(
-        ai.promoted.proto.delivery.BlenderRule.Builder builderForValue) {
+        BlenderRule.Builder builderForValue) {
       if (blenderRuleBuilder_ == null) {
         ensureBlenderRuleIsMutable();
         blenderRule_.add(builderForValue.build());
@@ -658,13 +727,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder addBlenderRule(
-        int index, ai.promoted.proto.delivery.BlenderRule.Builder builderForValue) {
+        int index, BlenderRule.Builder builderForValue) {
       if (blenderRuleBuilder_ == null) {
         ensureBlenderRuleIsMutable();
         blenderRule_.add(index, builderForValue.build());
@@ -676,13 +745,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
     public Builder addAllBlenderRule(
-        java.lang.Iterable<? extends ai.promoted.proto.delivery.BlenderRule> values) {
+        Iterable<? extends BlenderRule> values) {
       if (blenderRuleBuilder_ == null) {
         ensureBlenderRuleIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -695,7 +764,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
@@ -712,7 +781,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
@@ -729,23 +798,23 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public ai.promoted.proto.delivery.BlenderRule.Builder getBlenderRuleBuilder(
+    public BlenderRule.Builder getBlenderRuleBuilder(
         int index) {
       return getBlenderRuleFieldBuilder().getBuilder(index);
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public ai.promoted.proto.delivery.BlenderRuleOrBuilder getBlenderRuleOrBuilder(
+    public BlenderRuleOrBuilder getBlenderRuleOrBuilder(
         int index) {
       if (blenderRuleBuilder_ == null) {
         return blenderRule_.get(index);  } else {
@@ -754,12 +823,12 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public java.util.List<? extends ai.promoted.proto.delivery.BlenderRuleOrBuilder> 
+    public java.util.List<? extends BlenderRuleOrBuilder>
          getBlenderRuleOrBuilderList() {
       if (blenderRuleBuilder_ != null) {
         return blenderRuleBuilder_.getMessageOrBuilderList();
@@ -769,44 +838,44 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public ai.promoted.proto.delivery.BlenderRule.Builder addBlenderRuleBuilder() {
+    public BlenderRule.Builder addBlenderRuleBuilder() {
       return getBlenderRuleFieldBuilder().addBuilder(
-          ai.promoted.proto.delivery.BlenderRule.getDefaultInstance());
+          BlenderRule.getDefaultInstance());
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public ai.promoted.proto.delivery.BlenderRule.Builder addBlenderRuleBuilder(
+    public BlenderRule.Builder addBlenderRuleBuilder(
         int index) {
       return getBlenderRuleFieldBuilder().addBuilder(
-          index, ai.promoted.proto.delivery.BlenderRule.getDefaultInstance());
+          index, BlenderRule.getDefaultInstance());
     }
     /**
      * <pre>
-     * list of blender rules
+     * List of blender rules.
      * </pre>
      *
      * <code>repeated .delivery.BlenderRule blender_rule = 1;</code>
      */
-    public java.util.List<ai.promoted.proto.delivery.BlenderRule.Builder> 
+    public java.util.List<BlenderRule.Builder>
          getBlenderRuleBuilderList() {
       return getBlenderRuleFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        ai.promoted.proto.delivery.BlenderRule, ai.promoted.proto.delivery.BlenderRule.Builder, ai.promoted.proto.delivery.BlenderRuleOrBuilder> 
+        BlenderRule, BlenderRule.Builder, BlenderRuleOrBuilder>
         getBlenderRuleFieldBuilder() {
       if (blenderRuleBuilder_ == null) {
         blenderRuleBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            ai.promoted.proto.delivery.BlenderRule, ai.promoted.proto.delivery.BlenderRule.Builder, ai.promoted.proto.delivery.BlenderRuleOrBuilder>(
+            BlenderRule, BlenderRule.Builder, BlenderRuleOrBuilder>(
                 blenderRule_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
@@ -815,13 +884,132 @@ private static final long serialVersionUID = 0L;
       }
       return blenderRuleBuilder_;
     }
-    @java.lang.Override
+
+    private QualityScoreConfig qualityScoreConfig_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        QualityScoreConfig, QualityScoreConfig.Builder, QualityScoreConfigOrBuilder> qualityScoreConfigBuilder_;
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     * @return Whether the qualityScoreConfig field is set.
+     */
+    public boolean hasQualityScoreConfig() {
+      return qualityScoreConfigBuilder_ != null || qualityScoreConfig_ != null;
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     * @return The qualityScoreConfig.
+     */
+    public QualityScoreConfig getQualityScoreConfig() {
+      if (qualityScoreConfigBuilder_ == null) {
+        return qualityScoreConfig_ == null ? QualityScoreConfig.getDefaultInstance() : qualityScoreConfig_;
+      } else {
+        return qualityScoreConfigBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public Builder setQualityScoreConfig(QualityScoreConfig value) {
+      if (qualityScoreConfigBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        qualityScoreConfig_ = value;
+        onChanged();
+      } else {
+        qualityScoreConfigBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public Builder setQualityScoreConfig(
+        QualityScoreConfig.Builder builderForValue) {
+      if (qualityScoreConfigBuilder_ == null) {
+        qualityScoreConfig_ = builderForValue.build();
+        onChanged();
+      } else {
+        qualityScoreConfigBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public Builder mergeQualityScoreConfig(QualityScoreConfig value) {
+      if (qualityScoreConfigBuilder_ == null) {
+        if (qualityScoreConfig_ != null) {
+          qualityScoreConfig_ =
+            QualityScoreConfig.newBuilder(qualityScoreConfig_).mergeFrom(value).buildPartial();
+        } else {
+          qualityScoreConfig_ = value;
+        }
+        onChanged();
+      } else {
+        qualityScoreConfigBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public Builder clearQualityScoreConfig() {
+      if (qualityScoreConfigBuilder_ == null) {
+        qualityScoreConfig_ = null;
+        onChanged();
+      } else {
+        qualityScoreConfig_ = null;
+        qualityScoreConfigBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public QualityScoreConfig.Builder getQualityScoreConfigBuilder() {
+      
+      onChanged();
+      return getQualityScoreConfigFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    public QualityScoreConfigOrBuilder getQualityScoreConfigOrBuilder() {
+      if (qualityScoreConfigBuilder_ != null) {
+        return qualityScoreConfigBuilder_.getMessageOrBuilder();
+      } else {
+        return qualityScoreConfig_ == null ?
+            QualityScoreConfig.getDefaultInstance() : qualityScoreConfig_;
+      }
+    }
+    /**
+     * <code>.delivery.QualityScoreConfig quality_score_config = 2;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        QualityScoreConfig, QualityScoreConfig.Builder, QualityScoreConfigOrBuilder>
+        getQualityScoreConfigFieldBuilder() {
+      if (qualityScoreConfigBuilder_ == null) {
+        qualityScoreConfigBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            QualityScoreConfig, QualityScoreConfig.Builder, QualityScoreConfigOrBuilder>(
+                getQualityScoreConfig(),
+                getParentForChildren(),
+                isClean());
+        qualityScoreConfig_ = null;
+      }
+      return qualityScoreConfigBuilder_;
+    }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -832,18 +1020,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:delivery.BlenderConfig)
-  private static final ai.promoted.proto.delivery.BlenderConfig DEFAULT_INSTANCE;
+  private static final BlenderConfig DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.delivery.BlenderConfig();
+    DEFAULT_INSTANCE = new BlenderConfig();
   }
 
-  public static ai.promoted.proto.delivery.BlenderConfig getDefaultInstance() {
+  public static BlenderConfig getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<BlenderConfig>
       PARSER = new com.google.protobuf.AbstractParser<BlenderConfig>() {
-    @java.lang.Override
+    @Override
     public BlenderConfig parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -856,13 +1044,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<BlenderConfig> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.delivery.BlenderConfig getDefaultInstanceForType() {
+  @Override
+  public BlenderConfig getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

@@ -44,11 +44,6 @@ class RestaurantDetailFragment : Fragment() {
         return rootView
     }
 
-    override fun onResume() {
-        super.onResume()
-        PromotedAi.onViewVisible("DetailView")
-    }
-
     companion object {
         /**
          * The fragment argument representing the item ID that this fragment

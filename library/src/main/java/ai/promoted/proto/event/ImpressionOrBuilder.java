@@ -77,6 +77,33 @@ public interface ImpressionOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -85,7 +112,7 @@ public interface ImpressionOrBuilder extends
    * <code>string impression_id = 6;</code>
    * @return The impressionId.
    */
-  java.lang.String getImpressionId();
+  String getImpressionId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -107,7 +134,7 @@ public interface ImpressionOrBuilder extends
    * <code>string insertion_id = 7;</code>
    * @return The insertionId.
    */
-  java.lang.String getInsertionId();
+  String getInsertionId();
   /**
    * <pre>
    * Optional.
@@ -127,7 +154,7 @@ public interface ImpressionOrBuilder extends
    * <code>string request_id = 8;</code>
    * @return The requestId.
    */
-  java.lang.String getRequestId();
+  String getRequestId();
   /**
    * <pre>
    * Optional.
@@ -147,7 +174,7 @@ public interface ImpressionOrBuilder extends
    * <code>string view_id = 10;</code>
    * @return The viewId.
    */
-  java.lang.String getViewId();
+  String getViewId();
   /**
    * <pre>
    * Optional.
@@ -164,10 +191,30 @@ public interface ImpressionOrBuilder extends
    * Optional.
    * </pre>
    *
+   * <code>string auto_view_id = 15;</code>
+   * @return The autoViewId.
+   */
+  String getAutoViewId();
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 15;</code>
+   * @return The bytes for autoViewId.
+   */
+  com.google.protobuf.ByteString
+      getAutoViewIdBytes();
+
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
    * <code>string session_id = 9;</code>
    * @return The sessionId.
    */
-  java.lang.String getSessionId();
+  String getSessionId();
   /**
    * <pre>
    * Optional.
@@ -188,7 +235,7 @@ public interface ImpressionOrBuilder extends
    * <code>string content_id = 12;</code>
    * @return The contentId.
    */
-  java.lang.String getContentId();
+  String getContentId();
   /**
    * <pre>
    * Optional. content_id is used as a hint when insertion_id is not set.
@@ -200,6 +247,37 @@ public interface ImpressionOrBuilder extends
    */
   com.google.protobuf.ByteString
       getContentIdBytes();
+
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.event.ImpressionSourceType source_type = 13;</code>
+   * @return The enum numeric value on the wire for sourceType.
+   */
+  int getSourceTypeValue();
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.event.ImpressionSourceType source_type = 13;</code>
+   * @return The sourceType.
+   */
+  ImpressionSourceType getSourceType();
+
+  /**
+   * <pre>
+   * Optional. Indicates that this impression occurred in a view that may
+   * not be topmost in the view hierarchy, and thus may have been obscured
+   * from the user.
+   * </pre>
+   *
+   * <code>bool has_superimposed_views = 14;</code>
+   * @return The hasSuperimposedViews.
+   */
+  boolean getHasSuperimposedViews();
 
   /**
    * <pre>

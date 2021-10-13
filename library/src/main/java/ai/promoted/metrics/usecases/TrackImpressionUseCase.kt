@@ -3,8 +3,10 @@ package ai.promoted.metrics.usecases
 import ai.promoted.ImpressionData
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
+import android.app.Activity
 
 /**
  * Allows you to manually track a single impression (as opposed to via collections with
@@ -18,7 +20,7 @@ import ai.promoted.xray.Xray
 internal class TrackImpressionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
-    private val impressionIdGenerator: ImpressionIdGenerator,
+    private val idGenerator: IdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
     private val xray: Xray
@@ -36,10 +38,11 @@ internal class TrackImpressionUseCase(
      * so that you can granularly choose which additional data you want to be tied to this action.
      */
     fun onImpression(
+        sourceActivity: Activity?,
         dataBlock: (ImpressionData.Builder.() -> Unit)?
     ) {
-        val data = if (dataBlock != null) ImpressionData.Builder().apply(dataBlock).build()
-        else ImpressionData.Builder().build()
+        val data = if (dataBlock != null) ImpressionData.Builder().apply(dataBlock).build(sourceActivity)
+        else ImpressionData.Builder().build(sourceActivity)
 
         onImpression(data)
     }
@@ -48,15 +51,18 @@ internal class TrackImpressionUseCase(
      * Logs an impression, along with any additional data associated to it.
      */
     fun onImpression(data: ImpressionData) = xray.monitored {
-        val impressionId =
-            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
-                ?: return@monitored
+        // Log a new view event if necessary
+        data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
+
+        val impressionId = idGenerator.newId()
+        val hasSuperImposedViews = data.sourceActivity?.hasWindowFocus() == false
 
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            viewId = viewUseCase.viewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull,
+            hasSuperImposedViews = hasSuperImposedViews
         )
 
         logger.enqueueMessage(

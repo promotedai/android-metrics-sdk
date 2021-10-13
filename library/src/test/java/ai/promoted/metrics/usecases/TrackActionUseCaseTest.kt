@@ -26,8 +26,8 @@ class TrackActionUseCaseTest {
             override("session-id")
         }
 
-    private val testViewId = AncestorId(UuidGenerator()).apply {
-        override("view-id")
+    private val testAutoViewId = AncestorId(UuidGenerator()).apply {
+        override("auto-view-id")
     }
 
     private val enqueuedMessage = CapturingSlot<Message>()
@@ -48,12 +48,11 @@ class TrackActionUseCaseTest {
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = idGenerator,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
         viewUseCase = mockk {
-            every { viewId } returns testViewId
+            every { autoViewId } returns testAutoViewId
         },
         NoOpXray()
     )
@@ -61,60 +60,18 @@ class TrackActionUseCaseTest {
     @Test
     fun `Simple action is logged when no data block`() {
         // When
-        useCase.onAction("test", ActionType.ADD_TO_CART, dataBlock = null)
+        useCase.onAction(null, "test", ActionType.ADD_TO_CART, dataBlock = null)
 
         // Then
         val action = enqueuedMessage.captured as? Action
         verify(exactly = 1) { logger.enqueueMessage(any()) }
         assertThat(action, notNullValue())
-    }
-
-    @Test
-    fun `Impression ID is based on insertion ID when it is available`() {
-        // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
-            insertionId = "test-insertion-id"
-            contentId = "test-content-id"
-            requestId = "test-request-id"
-            elementId = "test-element-id"
-            targetUrl = null
-
-            // Fake custom properties
-            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
-        }
-
-        // Then
-        val action = enqueuedMessage.captured as? Action
-        verify(exactly = 1) { logger.enqueueMessage(any()) }
-        assertThat(action, notNullValue())
-        assertThat(action?.impressionId, equalTo("test-insertion-id"))
-    }
-
-    @Test
-    fun `Impression ID is based on combination of content ID and logUserId when content ID is available`() {
-        // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
-            insertionId = null
-            contentId = "test-content-id"
-            requestId = "test-request-id"
-            elementId = "test-element-id"
-            targetUrl = null
-
-            // Fake custom properties
-            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
-        }
-
-        // Then
-        val action = enqueuedMessage.captured as? Action
-        verify(exactly = 1) { logger.enqueueMessage(any()) }
-        assertThat(action, notNullValue())
-        assertThat(action?.impressionId, equalTo("test-content-id$logUserId"))
     }
 
     @Test
     fun `Impression ID is null or empty if both insertion ID and content ID are null`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = null
             contentId = null
             requestId = "test-request-id"
@@ -135,7 +92,7 @@ class TrackActionUseCaseTest {
     @Test
     fun `Correct session ID and view ID are used in message`() {
         // When
-        useCase.onAction("test", ActionType.CUSTOM_ACTION_TYPE) {
+        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
             insertionId = null
             contentId = null
             requestId = "test-request-id"
@@ -151,6 +108,6 @@ class TrackActionUseCaseTest {
         verify(exactly = 1) { logger.enqueueMessage(any()) }
         assertThat(action, notNullValue())
         assertThat(action?.sessionId, equalTo(testSessionId.currentValue))
-        assertThat(action?.viewId, equalTo(testViewId.currentValue))
+        assertThat(action?.autoViewId, equalTo(testAutoViewId.currentValue))
     }
 }

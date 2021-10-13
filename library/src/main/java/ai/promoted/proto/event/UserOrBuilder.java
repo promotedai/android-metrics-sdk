@@ -77,6 +77,33 @@ public interface UserOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Custom properties per platform.
    * </pre>
    *

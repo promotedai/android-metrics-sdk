@@ -25,14 +25,14 @@ private static final long serialVersionUID = 0L;
     referrer_ = "";
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new WebPageView();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -43,7 +43,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -56,36 +56,23 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             url_ = s;
             break;
           }
-          case 18: {
-            ai.promoted.proto.event.Browser.Builder subBuilder = null;
-            if (browser_ != null) {
-              subBuilder = browser_.toBuilder();
-            }
-            browser_ = input.readMessage(ai.promoted.proto.event.Browser.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(browser_);
-              browser_ = subBuilder.buildPartial();
-            }
-
-            break;
-          }
           case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             referrer_ = s;
             break;
           }
           case 34: {
-            ai.promoted.proto.event.Size.Builder subBuilder = null;
+            ai.promoted.proto.common.Size.Builder subBuilder = null;
             if (documentSize_ != null) {
               subBuilder = documentSize_.toBuilder();
             }
-            documentSize_ = input.readMessage(ai.promoted.proto.event.Size.parser(), extensionRegistry);
+            documentSize_ = input.readMessage(ai.promoted.proto.common.Size.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(documentSize_);
               documentSize_ = subBuilder.buildPartial();
@@ -114,19 +101,19 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_WebPageView_descriptor;
+    return Event.internal_static_event_WebPageView_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_WebPageView_fieldAccessorTable
+    return Event.internal_static_event_WebPageView_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.WebPageView.class, ai.promoted.proto.event.WebPageView.Builder.class);
+            WebPageView.class, Builder.class);
   }
 
   public static final int URL_FIELD_NUMBER = 1;
-  private volatile java.lang.Object url_;
+  private volatile Object url_;
   /**
    * <pre>
    * Optional.  This is the url for the page.
@@ -135,15 +122,15 @@ private static final long serialVersionUID = 0L;
    * <code>string url = 1;</code>
    * @return The url.
    */
-  @java.lang.Override
-  public java.lang.String getUrl() {
-    java.lang.Object ref = url_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getUrl() {
+    Object ref = url_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       url_ = s;
       return s;
     }
@@ -156,14 +143,14 @@ private static final long serialVersionUID = 0L;
    * <code>string url = 1;</code>
    * @return The bytes for url.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getUrlBytes() {
-    java.lang.Object ref = url_;
-    if (ref instanceof java.lang.String) {
+    Object ref = url_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       url_ = b;
       return b;
     } else {
@@ -171,46 +158,8 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int BROWSER_FIELD_NUMBER = 2;
-  private ai.promoted.proto.event.Browser browser_;
-  /**
-   * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   * @return Whether the browser field is set.
-   */
-  @java.lang.Override
-  public boolean hasBrowser() {
-    return browser_ != null;
-  }
-  /**
-   * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   * @return The browser.
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.Browser getBrowser() {
-    return browser_ == null ? ai.promoted.proto.event.Browser.getDefaultInstance() : browser_;
-  }
-  /**
-   * <pre>
-   * Optional.
-   * </pre>
-   *
-   * <code>.event.Browser browser = 2;</code>
-   */
-  @java.lang.Override
-  public ai.promoted.proto.event.BrowserOrBuilder getBrowserOrBuilder() {
-    return getBrowser();
-  }
-
   public static final int REFERRER_FIELD_NUMBER = 3;
-  private volatile java.lang.Object referrer_;
+  private volatile Object referrer_;
   /**
    * <pre>
    * Optional.  Can be a full referrer string.  Could be just the UTM.
@@ -219,15 +168,15 @@ private static final long serialVersionUID = 0L;
    * <code>string referrer = 3;</code>
    * @return The referrer.
    */
-  @java.lang.Override
-  public java.lang.String getReferrer() {
-    java.lang.Object ref = referrer_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getReferrer() {
+    Object ref = referrer_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       referrer_ = s;
       return s;
     }
@@ -240,14 +189,14 @@ private static final long serialVersionUID = 0L;
    * <code>string referrer = 3;</code>
    * @return The bytes for referrer.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getReferrerBytes() {
-    java.lang.Object ref = referrer_;
-    if (ref instanceof java.lang.String) {
+    Object ref = referrer_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       referrer_ = b;
       return b;
     } else {
@@ -256,33 +205,33 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int DOCUMENT_SIZE_FIELD_NUMBER = 4;
-  private ai.promoted.proto.event.Size documentSize_;
+  private ai.promoted.proto.common.Size documentSize_;
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    * @return Whether the documentSize field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasDocumentSize() {
     return documentSize_ != null;
   }
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    * @return The documentSize.
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.Size getDocumentSize() {
-    return documentSize_ == null ? ai.promoted.proto.event.Size.getDefaultInstance() : documentSize_;
+  @Override
+  public ai.promoted.proto.common.Size getDocumentSize() {
+    return documentSize_ == null ? ai.promoted.proto.common.Size.getDefaultInstance() : documentSize_;
   }
   /**
-   * <code>.event.Size document_size = 4;</code>
+   * <code>.common.Size document_size = 4;</code>
    */
-  @java.lang.Override
-  public ai.promoted.proto.event.SizeOrBuilder getDocumentSizeOrBuilder() {
+  @Override
+  public ai.promoted.proto.common.SizeOrBuilder getDocumentSizeOrBuilder() {
     return getDocumentSize();
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -292,14 +241,11 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (!getUrlBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, url_);
-    }
-    if (browser_ != null) {
-      output.writeMessage(2, getBrowser());
     }
     if (!getReferrerBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, referrer_);
@@ -310,7 +256,7 @@ private static final long serialVersionUID = 0L;
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -318,10 +264,6 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (!getUrlBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, url_);
-    }
-    if (browser_ != null) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, getBrowser());
     }
     if (!getReferrerBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, referrer_);
@@ -335,23 +277,18 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.WebPageView)) {
+    if (!(obj instanceof WebPageView)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.WebPageView other = (ai.promoted.proto.event.WebPageView) obj;
+    WebPageView other = (WebPageView) obj;
 
     if (!getUrl()
         .equals(other.getUrl())) return false;
-    if (hasBrowser() != other.hasBrowser()) return false;
-    if (hasBrowser()) {
-      if (!getBrowser()
-          .equals(other.getBrowser())) return false;
-    }
     if (!getReferrer()
         .equals(other.getReferrer())) return false;
     if (hasDocumentSize() != other.hasDocumentSize()) return false;
@@ -363,7 +300,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -372,10 +309,6 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + URL_FIELD_NUMBER;
     hash = (53 * hash) + getUrl().hashCode();
-    if (hasBrowser()) {
-      hash = (37 * hash) + BROWSER_FIELD_NUMBER;
-      hash = (53 * hash) + getBrowser().hashCode();
-    }
     hash = (37 * hash) + REFERRER_FIELD_NUMBER;
     hash = (53 * hash) + getReferrer().hashCode();
     if (hasDocumentSize()) {
@@ -387,69 +320,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(byte[] data)
+  public static WebPageView parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(java.io.InputStream input)
+  public static WebPageView parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.WebPageView parseDelimitedFrom(java.io.InputStream input)
+  public static WebPageView parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.WebPageView parseDelimitedFrom(
+  public static WebPageView parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.WebPageView parseFrom(
+  public static WebPageView parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -457,23 +390,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.WebPageView prototype) {
+  public static Builder newBuilder(WebPageView prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -488,18 +421,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.WebPageView)
-      ai.promoted.proto.event.WebPageViewOrBuilder {
+      WebPageViewOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_WebPageView_descriptor;
+      return Event.internal_static_event_WebPageView_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_WebPageView_fieldAccessorTable
+      return Event.internal_static_event_WebPageView_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.WebPageView.class, ai.promoted.proto.event.WebPageView.Builder.class);
+              WebPageView.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.WebPageView.newBuilder()
@@ -508,7 +441,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -517,17 +450,11 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       url_ = "";
 
-      if (browserBuilder_ == null) {
-        browser_ = null;
-      } else {
-        browser_ = null;
-        browserBuilder_ = null;
-      }
       referrer_ = "";
 
       if (documentSizeBuilder_ == null) {
@@ -539,35 +466,30 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_WebPageView_descriptor;
+      return Event.internal_static_event_WebPageView_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.WebPageView getDefaultInstanceForType() {
-      return ai.promoted.proto.event.WebPageView.getDefaultInstance();
+    @Override
+    public WebPageView getDefaultInstanceForType() {
+      return WebPageView.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.WebPageView build() {
-      ai.promoted.proto.event.WebPageView result = buildPartial();
+    @Override
+    public WebPageView build() {
+      WebPageView result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.WebPageView buildPartial() {
-      ai.promoted.proto.event.WebPageView result = new ai.promoted.proto.event.WebPageView(this);
+    @Override
+    public WebPageView buildPartial() {
+      WebPageView result = new WebPageView(this);
       result.url_ = url_;
-      if (browserBuilder_ == null) {
-        result.browser_ = browser_;
-      } else {
-        result.browser_ = browserBuilder_.build();
-      }
       result.referrer_ = referrer_;
       if (documentSizeBuilder_ == null) {
         result.documentSize_ = documentSize_;
@@ -578,56 +500,53 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.WebPageView) {
-        return mergeFrom((ai.promoted.proto.event.WebPageView)other);
+      if (other instanceof WebPageView) {
+        return mergeFrom((WebPageView)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.WebPageView other) {
-      if (other == ai.promoted.proto.event.WebPageView.getDefaultInstance()) return this;
+    public Builder mergeFrom(WebPageView other) {
+      if (other == WebPageView.getDefaultInstance()) return this;
       if (!other.getUrl().isEmpty()) {
         url_ = other.url_;
         onChanged();
-      }
-      if (other.hasBrowser()) {
-        mergeBrowser(other.getBrowser());
       }
       if (!other.getReferrer().isEmpty()) {
         referrer_ = other.referrer_;
@@ -641,21 +560,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.WebPageView parsedMessage = null;
+      WebPageView parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.WebPageView) e.getUnfinishedMessage();
+        parsedMessage = (WebPageView) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -665,7 +584,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object url_ = "";
+    private Object url_ = "";
     /**
      * <pre>
      * Optional.  This is the url for the page.
@@ -674,16 +593,16 @@ private static final long serialVersionUID = 0L;
      * <code>string url = 1;</code>
      * @return The url.
      */
-    public java.lang.String getUrl() {
-      java.lang.Object ref = url_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getUrl() {
+      Object ref = url_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         url_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -696,11 +615,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getUrlBytes() {
-      java.lang.Object ref = url_;
+      Object ref = url_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         url_ = b;
         return b;
       } else {
@@ -717,7 +636,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setUrl(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -761,162 +680,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private ai.promoted.proto.event.Browser browser_;
-    private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.Browser, ai.promoted.proto.event.Browser.Builder, ai.promoted.proto.event.BrowserOrBuilder> browserBuilder_;
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     * @return Whether the browser field is set.
-     */
-    public boolean hasBrowser() {
-      return browserBuilder_ != null || browser_ != null;
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     * @return The browser.
-     */
-    public ai.promoted.proto.event.Browser getBrowser() {
-      if (browserBuilder_ == null) {
-        return browser_ == null ? ai.promoted.proto.event.Browser.getDefaultInstance() : browser_;
-      } else {
-        return browserBuilder_.getMessage();
-      }
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public Builder setBrowser(ai.promoted.proto.event.Browser value) {
-      if (browserBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        browser_ = value;
-        onChanged();
-      } else {
-        browserBuilder_.setMessage(value);
-      }
-
-      return this;
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public Builder setBrowser(
-        ai.promoted.proto.event.Browser.Builder builderForValue) {
-      if (browserBuilder_ == null) {
-        browser_ = builderForValue.build();
-        onChanged();
-      } else {
-        browserBuilder_.setMessage(builderForValue.build());
-      }
-
-      return this;
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public Builder mergeBrowser(ai.promoted.proto.event.Browser value) {
-      if (browserBuilder_ == null) {
-        if (browser_ != null) {
-          browser_ =
-            ai.promoted.proto.event.Browser.newBuilder(browser_).mergeFrom(value).buildPartial();
-        } else {
-          browser_ = value;
-        }
-        onChanged();
-      } else {
-        browserBuilder_.mergeFrom(value);
-      }
-
-      return this;
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public Builder clearBrowser() {
-      if (browserBuilder_ == null) {
-        browser_ = null;
-        onChanged();
-      } else {
-        browser_ = null;
-        browserBuilder_ = null;
-      }
-
-      return this;
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public ai.promoted.proto.event.Browser.Builder getBrowserBuilder() {
-      
-      onChanged();
-      return getBrowserFieldBuilder().getBuilder();
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    public ai.promoted.proto.event.BrowserOrBuilder getBrowserOrBuilder() {
-      if (browserBuilder_ != null) {
-        return browserBuilder_.getMessageOrBuilder();
-      } else {
-        return browser_ == null ?
-            ai.promoted.proto.event.Browser.getDefaultInstance() : browser_;
-      }
-    }
-    /**
-     * <pre>
-     * Optional.
-     * </pre>
-     *
-     * <code>.event.Browser browser = 2;</code>
-     */
-    private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.Browser, ai.promoted.proto.event.Browser.Builder, ai.promoted.proto.event.BrowserOrBuilder> 
-        getBrowserFieldBuilder() {
-      if (browserBuilder_ == null) {
-        browserBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.event.Browser, ai.promoted.proto.event.Browser.Builder, ai.promoted.proto.event.BrowserOrBuilder>(
-                getBrowser(),
-                getParentForChildren(),
-                isClean());
-        browser_ = null;
-      }
-      return browserBuilder_;
-    }
-
-    private java.lang.Object referrer_ = "";
+    private Object referrer_ = "";
     /**
      * <pre>
      * Optional.  Can be a full referrer string.  Could be just the UTM.
@@ -925,16 +689,16 @@ private static final long serialVersionUID = 0L;
      * <code>string referrer = 3;</code>
      * @return The referrer.
      */
-    public java.lang.String getReferrer() {
-      java.lang.Object ref = referrer_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getReferrer() {
+      Object ref = referrer_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         referrer_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -947,11 +711,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getReferrerBytes() {
-      java.lang.Object ref = referrer_;
+      Object ref = referrer_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         referrer_ = b;
         return b;
       } else {
@@ -968,7 +732,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setReferrer(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1012,31 +776,31 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private ai.promoted.proto.event.Size documentSize_;
+    private ai.promoted.proto.common.Size documentSize_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.Size, ai.promoted.proto.event.Size.Builder, ai.promoted.proto.event.SizeOrBuilder> documentSizeBuilder_;
+        ai.promoted.proto.common.Size, ai.promoted.proto.common.Size.Builder, ai.promoted.proto.common.SizeOrBuilder> documentSizeBuilder_;
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      * @return Whether the documentSize field is set.
      */
     public boolean hasDocumentSize() {
       return documentSizeBuilder_ != null || documentSize_ != null;
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      * @return The documentSize.
      */
-    public ai.promoted.proto.event.Size getDocumentSize() {
+    public ai.promoted.proto.common.Size getDocumentSize() {
       if (documentSizeBuilder_ == null) {
-        return documentSize_ == null ? ai.promoted.proto.event.Size.getDefaultInstance() : documentSize_;
+        return documentSize_ == null ? ai.promoted.proto.common.Size.getDefaultInstance() : documentSize_;
       } else {
         return documentSizeBuilder_.getMessage();
       }
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
-    public Builder setDocumentSize(ai.promoted.proto.event.Size value) {
+    public Builder setDocumentSize(ai.promoted.proto.common.Size value) {
       if (documentSizeBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1050,10 +814,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
     public Builder setDocumentSize(
-        ai.promoted.proto.event.Size.Builder builderForValue) {
+        ai.promoted.proto.common.Size.Builder builderForValue) {
       if (documentSizeBuilder_ == null) {
         documentSize_ = builderForValue.build();
         onChanged();
@@ -1064,13 +828,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
-    public Builder mergeDocumentSize(ai.promoted.proto.event.Size value) {
+    public Builder mergeDocumentSize(ai.promoted.proto.common.Size value) {
       if (documentSizeBuilder_ == null) {
         if (documentSize_ != null) {
           documentSize_ =
-            ai.promoted.proto.event.Size.newBuilder(documentSize_).mergeFrom(value).buildPartial();
+            ai.promoted.proto.common.Size.newBuilder(documentSize_).mergeFrom(value).buildPartial();
         } else {
           documentSize_ = value;
         }
@@ -1082,7 +846,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
     public Builder clearDocumentSize() {
       if (documentSizeBuilder_ == null) {
@@ -1096,33 +860,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
-    public ai.promoted.proto.event.Size.Builder getDocumentSizeBuilder() {
+    public ai.promoted.proto.common.Size.Builder getDocumentSizeBuilder() {
       
       onChanged();
       return getDocumentSizeFieldBuilder().getBuilder();
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
-    public ai.promoted.proto.event.SizeOrBuilder getDocumentSizeOrBuilder() {
+    public ai.promoted.proto.common.SizeOrBuilder getDocumentSizeOrBuilder() {
       if (documentSizeBuilder_ != null) {
         return documentSizeBuilder_.getMessageOrBuilder();
       } else {
         return documentSize_ == null ?
-            ai.promoted.proto.event.Size.getDefaultInstance() : documentSize_;
+            ai.promoted.proto.common.Size.getDefaultInstance() : documentSize_;
       }
     }
     /**
-     * <code>.event.Size document_size = 4;</code>
+     * <code>.common.Size document_size = 4;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        ai.promoted.proto.event.Size, ai.promoted.proto.event.Size.Builder, ai.promoted.proto.event.SizeOrBuilder> 
+        ai.promoted.proto.common.Size, ai.promoted.proto.common.Size.Builder, ai.promoted.proto.common.SizeOrBuilder> 
         getDocumentSizeFieldBuilder() {
       if (documentSizeBuilder_ == null) {
         documentSizeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            ai.promoted.proto.event.Size, ai.promoted.proto.event.Size.Builder, ai.promoted.proto.event.SizeOrBuilder>(
+            ai.promoted.proto.common.Size, ai.promoted.proto.common.Size.Builder, ai.promoted.proto.common.SizeOrBuilder>(
                 getDocumentSize(),
                 getParentForChildren(),
                 isClean());
@@ -1130,13 +894,13 @@ private static final long serialVersionUID = 0L;
       }
       return documentSizeBuilder_;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -1147,18 +911,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.WebPageView)
-  private static final ai.promoted.proto.event.WebPageView DEFAULT_INSTANCE;
+  private static final WebPageView DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.WebPageView();
+    DEFAULT_INSTANCE = new WebPageView();
   }
 
-  public static ai.promoted.proto.event.WebPageView getDefaultInstance() {
+  public static WebPageView getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<WebPageView>
       PARSER = new com.google.protobuf.AbstractParser<WebPageView>() {
-    @java.lang.Override
+    @Override
     public WebPageView parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1171,13 +935,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<WebPageView> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.WebPageView getDefaultInstanceForType() {
+  @Override
+  public WebPageView getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

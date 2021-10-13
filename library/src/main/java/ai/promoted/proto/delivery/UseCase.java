@@ -6,7 +6,7 @@ package ai.promoted.proto.delivery;
 /**
  * <pre>
  * Used to indicate the client's use case.  Used on both View and Request.
- * Next ID = 11.
+ * Next ID = 12.
  * </pre>
  *
  * Protobuf enum {@code delivery.UseCase}
@@ -61,6 +61,10 @@ public enum UseCase
    * <code>SELLER_CONTENT = 10;</code>
    */
   SELLER_CONTENT(10),
+  /**
+   * <code>DISCOVER = 11;</code>
+   */
+  DISCOVER(11),
   UNRECOGNIZED(-1),
   ;
 
@@ -112,11 +116,15 @@ public enum UseCase
    * <code>SELLER_CONTENT = 10;</code>
    */
   public static final int SELLER_CONTENT_VALUE = 10;
+  /**
+   * <code>DISCOVER = 11;</code>
+   */
+  public static final int DISCOVER_VALUE = 11;
 
 
   public final int getNumber() {
     if (this == UNRECOGNIZED) {
-      throw new java.lang.IllegalArgumentException(
+      throw new IllegalArgumentException(
           "Can't get the number of an unknown enum value.");
     }
     return value;
@@ -127,7 +135,7 @@ public enum UseCase
    * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
-  @java.lang.Deprecated
+  @Deprecated
   public static UseCase valueOf(int value) {
     return forNumber(value);
   }
@@ -149,6 +157,7 @@ public enum UseCase
       case 8: return MY_CONTENT;
       case 9: return MY_SAVED_CONTENT;
       case 10: return SELLER_CONTENT;
+      case 11: return DISCOVER;
       default: return null;
     }
   }
@@ -168,7 +177,7 @@ public enum UseCase
   public final com.google.protobuf.Descriptors.EnumValueDescriptor
       getValueDescriptor() {
     if (this == UNRECOGNIZED) {
-      throw new java.lang.IllegalStateException(
+      throw new IllegalStateException(
           "Can't get the descriptor of an unrecognized enum value.");
     }
     return getDescriptor().getValues().get(ordinal());
@@ -179,7 +188,7 @@ public enum UseCase
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return ai.promoted.proto.delivery.Delivery.getDescriptor().getEnumTypes().get(0);
+    return Delivery.getDescriptor().getEnumTypes().get(0);
   }
 
   private static final UseCase[] VALUES = values();
@@ -187,7 +196,7 @@ public enum UseCase
   public static UseCase valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
-      throw new java.lang.IllegalArgumentException(
+      throw new IllegalArgumentException(
         "EnumValueDescriptor is not for this type.");
     }
     if (desc.getIndex() == -1) {

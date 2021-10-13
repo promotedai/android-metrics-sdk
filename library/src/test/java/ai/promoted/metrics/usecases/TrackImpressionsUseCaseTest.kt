@@ -50,12 +50,12 @@ class TrackImpressionsUseCaseTest {
     private val useCase = TrackCollectionsUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
+        idGenerator = idGenerator,
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
         viewUseCase = mockk {
-            every { viewId } returns testViewId
+            every { autoViewId } returns testViewId
         },
         xray = NoOpXray()
     )
@@ -76,7 +76,7 @@ class TrackImpressionsUseCaseTest {
         )
 
         // When
-        useCase.onCollectionUpdated("collection-key", content)
+        useCase.onCollectionUpdated(null, "collection-key", content)
         delay(100L) // Give time for diff calculator
 
         // Then

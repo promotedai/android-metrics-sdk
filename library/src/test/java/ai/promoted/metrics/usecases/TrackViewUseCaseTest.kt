@@ -1,10 +1,10 @@
 package ai.promoted.metrics.usecases
 
-import ai.promoted.SystemOutLogger
 import ai.promoted.metrics.MetricsLogger
 import ai.promoted.metrics.id.AncestorId
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.mockkRelaxedUnit
+import ai.promoted.proto.event.AutoView
 import ai.promoted.proto.event.View
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
@@ -29,10 +29,9 @@ class TrackViewUseCaseTest {
         }
 
     private val useCase = TrackViewUseCase(
-        systemLogger = SystemOutLogger(),
+        logger = logger,
         clock = mockk { every { currentTimeMillis } returns testTime },
         deviceInfoProvider = mockk(relaxed = true),
-        logger = logger,
         idGenerator = UuidGenerator(),
         sessionUseCase = mockkRelaxedUnit {
             every { sessionId } returns testSessionId
@@ -41,56 +40,78 @@ class TrackViewUseCaseTest {
     )
 
     @Test
-    fun `Pre-emptive view ID is preserved after first view becomes visible`() {
+    fun `Pre-emptive auto-view ID is preserved after first view becomes visible`() {
         // Given
-        val viewIdBeforeViewVisible = useCase.viewId.currentOrPendingValue
+        val viewIdBeforeViewVisible = useCase.autoViewId.currentOrPendingValue
 
         // When
-        useCase.onViewVisible("view-key")
+        useCase.onImplicitViewVisible("view-key")
 
         // Then
         assertThat(
-            useCase.viewId.currentValue,
+            useCase.autoViewId.currentValue,
             equalTo(viewIdBeforeViewVisible)
         )
     }
 
     @Test
-    fun `New view ID is generated after second view (a view with a key different than the first key used) becomes visible`() {
+    fun `New auto-view ID is generated after second view (a view with a key different than the first key used) becomes visible`() {
         // Given a view already became visible
-        useCase.onViewVisible("view-id-1")
-        val firstViewId = useCase.viewId.currentValue
+        useCase.onImplicitViewVisible("view-id-1")
+        val firstViewId = useCase.autoViewId.currentValue
 
         // When a second view becomes visible
-        useCase.onViewVisible("view-id-2")
-        val secondViewId = useCase.viewId.currentValue
+        useCase.onImplicitViewVisible("view-id-2")
+        val secondViewId = useCase.autoViewId.currentValue
 
         // Then
         assertThat(secondViewId, not(firstViewId))
     }
 
     @Test
-    fun `View ID is not changed when the last visible view becomes visible again`() {
+    fun `Auto-view ID is not changed when the last visible view becomes visible again`() {
         // Given a view became visible once
-        useCase.onViewVisible("view-id-1")
-        val firstId = useCase.viewId.currentValue
+        useCase.onImplicitViewVisible("view-id-1")
+        val firstId = useCase.autoViewId.currentValue
 
         // When it becomes visible a second time, without any other view having become visible
-        useCase.onViewVisible("view-id-1")
-        val secondId = useCase.viewId.currentValue
+        useCase.onImplicitViewVisible("view-id-1")
+        val secondId = useCase.autoViewId.currentValue
 
         // Then
         assertThat(firstId, equalTo(secondId))
     }
 
     @Test
-    fun `View is logged after start view becomes v isible`() {
+    fun `AutoView is logged after start view becomes visible`() {
         // When a view becomes visible
-        useCase.onViewVisible("view-key")
+        useCase.onImplicitViewVisible("view-key")
+
+        // Then
+        verify(exactly = 1) {
+            logger.enqueueMessage(ofType(AutoView::class))
+        }
+    }
+
+    @Test
+    fun `View is logged after logView`() {
+        // When logView is called
+        useCase.logView("the-view-id")
 
         // Then
         verify(exactly = 1) {
             logger.enqueueMessage(ofType(View::class))
+        }
+    }
+
+    @Test
+    fun `AutoView is logged after logAutoView`() {
+        // When logAutoView is called
+        useCase.logAutoView("the-view-id", "", "")
+
+        // Then
+        verify(exactly = 1) {
+            logger.enqueueMessage(ofType(AutoView::class))
         }
     }
 }

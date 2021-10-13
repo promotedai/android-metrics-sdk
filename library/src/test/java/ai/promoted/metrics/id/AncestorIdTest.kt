@@ -40,17 +40,4 @@ class AncestorIdTest {
         assertThat(ancestorId.isOverridden, equalTo(true))
         assertThat(ancestorId.currentValue, equalTo("overridden-id"))
     }
-
-    @Test
-    fun `Advance is ignored if overridden`() {
-        // Given
-        ancestorId.override("overridden-id")
-
-        // When
-        ancestorId.advance()
-
-        // Then
-        assertThat(ancestorId.isOverridden, equalTo(true))
-        assertThat(ancestorId.currentValue, equalTo("overridden-id"))
-    }
 }

@@ -77,6 +77,33 @@ public interface CohortMembershipOrBuilder extends
 
   /**
    * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  boolean hasClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  ai.promoted.proto.common.ClientInfo getClientInfo();
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder();
+
+  /**
+   * <pre>
    * Optional.  Primary key.
    * SDKs usually handles this automatically. For details, see
    * https://github.com/promotedai/schema#setting-primary-keys
@@ -85,7 +112,7 @@ public interface CohortMembershipOrBuilder extends
    * <code>string membership_id = 6;</code>
    * @return The membershipId.
    */
-  java.lang.String getMembershipId();
+  String getMembershipId();
   /**
    * <pre>
    * Optional.  Primary key.
@@ -107,7 +134,7 @@ public interface CohortMembershipOrBuilder extends
    * <code>string cohort_id = 8;</code>
    * @return The cohortId.
    */
-  java.lang.String getCohortId();
+  String getCohortId();
   /**
    * <pre>
    * Optional.  This field refers to the cohort (currently stored as an enum).
@@ -136,7 +163,7 @@ public interface CohortMembershipOrBuilder extends
    * <code>.event.CohortArm arm = 9;</code>
    * @return The arm.
    */
-  ai.promoted.proto.event.CohortArm getArm();
+  CohortArm getArm();
 
   /**
    * <pre>

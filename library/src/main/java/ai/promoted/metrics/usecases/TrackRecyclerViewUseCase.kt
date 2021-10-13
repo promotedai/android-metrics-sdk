@@ -4,7 +4,11 @@ import ai.promoted.AbstractContent
 import ai.promoted.ImpressionThreshold
 import ai.promoted.platform.Clock
 import ai.promoted.ui.recyclerview.Tracker
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.recyclerview.widget.RecyclerView
+
 
 /**
  * Given a [RecyclerView], allows you to track impressions of [AbstractContent] based on which
@@ -47,20 +51,35 @@ internal class TrackRecyclerViewUseCase(
             recyclerView = recyclerView,
             visibilityThreshold = impressionThreshold,
             currentDataProvider = currentDataProvider,
-            onVisibleRowsChanged = { onVisibleRowsChanged(rvKey, it) },
-            onRecyclerViewDetached = { onRVDetached(rvKey) }
+            onVisibleRowsChanged = { onVisibleRowsChanged(recyclerView, rvKey, it) },
+            onRecyclerViewDetached = { onRVDetached(recyclerView, rvKey) }
         )
     }
 
-    private fun onVisibleRowsChanged(rvKey: String, data: List<AbstractContent>) {
-        coreImpressionsUseCase.onCollectionUpdated(rvKey, data)
+    private fun onVisibleRowsChanged(
+        recyclerView: RecyclerView,
+        rvKey: String,
+        data: List<AbstractContent>
+    ) {
+        coreImpressionsUseCase.onCollectionUpdated(recyclerView.getActivity(), rvKey, data)
     }
 
-    private fun onRVDetached(rvKey: String) {
+    private fun onRVDetached(recyclerView: RecyclerView, rvKey: String) {
         stopAndRemoveTracking(rvKey)
-        coreImpressionsUseCase.onCollectionHidden(rvKey)
+        coreImpressionsUseCase.onCollectionHidden(recyclerView.getActivity(), rvKey)
     }
 
     private fun stopAndRemoveTracking(recyclerViewKey: String) =
         currentRecyclerViews.remove(recyclerViewKey)?.stopTracking()
+
+    private fun RecyclerView.getActivity(): Activity? {
+        var context: Context = context
+        while (context is ContextWrapper) {
+            if (context is Activity) {
+                return context
+            }
+            context = (context as ContextWrapper).baseContext
+        }
+        return null
+    }
 }

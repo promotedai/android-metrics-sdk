@@ -7,7 +7,7 @@ package ai.promoted.proto.event;
  * <pre>
  * When an Insertion (instance of Content) is shown to a user.
  * Impressions are immutable.
- * Next ID = 13.
+ * Next ID = 16.
  * </pre>
  *
  * Protobuf type {@code event.Impression}
@@ -26,18 +26,20 @@ private static final long serialVersionUID = 0L;
     insertionId_ = "";
     requestId_ = "";
     viewId_ = "";
+    autoViewId_ = "";
     sessionId_ = "";
     contentId_ = "";
+    sourceType_ = 0;
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new Impression();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -48,7 +50,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -91,32 +93,45 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            ai.promoted.proto.common.ClientInfo.Builder subBuilder = null;
+            if (clientInfo_ != null) {
+              subBuilder = clientInfo_.toBuilder();
+            }
+            clientInfo_ = input.readMessage(ai.promoted.proto.common.ClientInfo.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(clientInfo_);
+              clientInfo_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           case 50: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             impressionId_ = s;
             break;
           }
           case 58: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             insertionId_ = s;
             break;
           }
           case 66: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             requestId_ = s;
             break;
           }
           case 74: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             sessionId_ = s;
             break;
           }
           case 82: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             viewId_ = s;
             break;
@@ -135,9 +150,26 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 98: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             contentId_ = s;
+            break;
+          }
+          case 104: {
+            int rawValue = input.readEnum();
+
+            sourceType_ = rawValue;
+            break;
+          }
+          case 112: {
+
+            hasSuperimposedViews_ = input.readBool();
+            break;
+          }
+          case 122: {
+            String s = input.readStringRequireUtf8();
+
+            autoViewId_ = s;
             break;
           }
           default: {
@@ -161,15 +193,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_Impression_descriptor;
+    return Event.internal_static_event_Impression_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_Impression_fieldAccessorTable
+    return Event.internal_static_event_Impression_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.Impression.class, ai.promoted.proto.event.Impression.Builder.class);
+            Impression.class, Builder.class);
   }
 
   public static final int PLATFORM_ID_FIELD_NUMBER = 1;
@@ -183,7 +215,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 platform_id = 1;</code>
    * @return The platformId.
    */
-  @java.lang.Override
+  @Override
   public long getPlatformId() {
     return platformId_;
   }
@@ -198,7 +230,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return Whether the userInfo field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasUserInfo() {
     return userInfo_ != null;
   }
@@ -210,7 +242,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.UserInfo user_info = 2;</code>
    * @return The userInfo.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfo getUserInfo() {
     return userInfo_ == null ? ai.promoted.proto.common.UserInfo.getDefaultInstance() : userInfo_;
   }
@@ -221,7 +253,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.UserInfo user_info = 2;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.UserInfoOrBuilder getUserInfoOrBuilder() {
     return getUserInfo();
   }
@@ -237,7 +269,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return Whether the timing field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasTiming() {
     return timing_ != null;
   }
@@ -250,7 +282,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Timing timing = 3;</code>
    * @return The timing.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Timing getTiming() {
     return timing_ == null ? ai.promoted.proto.common.Timing.getDefaultInstance() : timing_;
   }
@@ -262,13 +294,51 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Timing timing = 3;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.TimingOrBuilder getTimingOrBuilder() {
     return getTiming();
   }
 
+  public static final int CLIENT_INFO_FIELD_NUMBER = 4;
+  private ai.promoted.proto.common.ClientInfo clientInfo_;
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return Whether the clientInfo field is set.
+   */
+  @Override
+  public boolean hasClientInfo() {
+    return clientInfo_ != null;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   * @return The clientInfo.
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfo getClientInfo() {
+    return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+  }
+  /**
+   * <pre>
+   * Optional.  If not set, API server uses LogRequest.client_info.
+   * </pre>
+   *
+   * <code>.common.ClientInfo client_info = 4;</code>
+   */
+  @Override
+  public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+    return getClientInfo();
+  }
+
   public static final int IMPRESSION_ID_FIELD_NUMBER = 6;
-  private volatile java.lang.Object impressionId_;
+  private volatile Object impressionId_;
   /**
    * <pre>
    * Optional.  Primary key.
@@ -279,15 +349,15 @@ private static final long serialVersionUID = 0L;
    * <code>string impression_id = 6;</code>
    * @return The impressionId.
    */
-  @java.lang.Override
-  public java.lang.String getImpressionId() {
-    java.lang.Object ref = impressionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getImpressionId() {
+    Object ref = impressionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       impressionId_ = s;
       return s;
     }
@@ -302,14 +372,14 @@ private static final long serialVersionUID = 0L;
    * <code>string impression_id = 6;</code>
    * @return The bytes for impressionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getImpressionIdBytes() {
-    java.lang.Object ref = impressionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = impressionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       impressionId_ = b;
       return b;
     } else {
@@ -318,7 +388,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int INSERTION_ID_FIELD_NUMBER = 7;
-  private volatile java.lang.Object insertionId_;
+  private volatile Object insertionId_;
   /**
    * <pre>
    * Optional.
@@ -327,15 +397,15 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 7;</code>
    * @return The insertionId.
    */
-  @java.lang.Override
-  public java.lang.String getInsertionId() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getInsertionId() {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       insertionId_ = s;
       return s;
     }
@@ -348,14 +418,14 @@ private static final long serialVersionUID = 0L;
    * <code>string insertion_id = 7;</code>
    * @return The bytes for insertionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getInsertionIdBytes() {
-    java.lang.Object ref = insertionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = insertionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       insertionId_ = b;
       return b;
     } else {
@@ -364,7 +434,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int REQUEST_ID_FIELD_NUMBER = 8;
-  private volatile java.lang.Object requestId_;
+  private volatile Object requestId_;
   /**
    * <pre>
    * Optional.
@@ -373,15 +443,15 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 8;</code>
    * @return The requestId.
    */
-  @java.lang.Override
-  public java.lang.String getRequestId() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getRequestId() {
+    Object ref = requestId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       requestId_ = s;
       return s;
     }
@@ -394,14 +464,14 @@ private static final long serialVersionUID = 0L;
    * <code>string request_id = 8;</code>
    * @return The bytes for requestId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getRequestIdBytes() {
-    java.lang.Object ref = requestId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = requestId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       requestId_ = b;
       return b;
     } else {
@@ -410,7 +480,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VIEW_ID_FIELD_NUMBER = 10;
-  private volatile java.lang.Object viewId_;
+  private volatile Object viewId_;
   /**
    * <pre>
    * Optional.
@@ -419,15 +489,15 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 10;</code>
    * @return The viewId.
    */
-  @java.lang.Override
-  public java.lang.String getViewId() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getViewId() {
+    Object ref = viewId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       viewId_ = s;
       return s;
     }
@@ -440,14 +510,14 @@ private static final long serialVersionUID = 0L;
    * <code>string view_id = 10;</code>
    * @return The bytes for viewId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getViewIdBytes() {
-    java.lang.Object ref = viewId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = viewId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       viewId_ = b;
       return b;
     } else {
@@ -455,8 +525,54 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int AUTO_VIEW_ID_FIELD_NUMBER = 15;
+  private volatile Object autoViewId_;
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 15;</code>
+   * @return The autoViewId.
+   */
+  @Override
+  public String getAutoViewId() {
+    Object ref = autoViewId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      autoViewId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>string auto_view_id = 15;</code>
+   * @return The bytes for autoViewId.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+      getAutoViewIdBytes() {
+    Object ref = autoViewId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      autoViewId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   public static final int SESSION_ID_FIELD_NUMBER = 9;
-  private volatile java.lang.Object sessionId_;
+  private volatile Object sessionId_;
   /**
    * <pre>
    * Optional.
@@ -465,15 +581,15 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 9;</code>
    * @return The sessionId.
    */
-  @java.lang.Override
-  public java.lang.String getSessionId() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getSessionId() {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       sessionId_ = s;
       return s;
     }
@@ -486,14 +602,14 @@ private static final long serialVersionUID = 0L;
    * <code>string session_id = 9;</code>
    * @return The bytes for sessionId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getSessionIdBytes() {
-    java.lang.Object ref = sessionId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = sessionId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       sessionId_ = b;
       return b;
     } else {
@@ -502,7 +618,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int CONTENT_ID_FIELD_NUMBER = 12;
-  private volatile java.lang.Object contentId_;
+  private volatile Object contentId_;
   /**
    * <pre>
    * Optional. content_id is used as a hint when insertion_id is not set.
@@ -512,15 +628,15 @@ private static final long serialVersionUID = 0L;
    * <code>string content_id = 12;</code>
    * @return The contentId.
    */
-  @java.lang.Override
-  public java.lang.String getContentId() {
-    java.lang.Object ref = contentId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getContentId() {
+    Object ref = contentId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       contentId_ = s;
       return s;
     }
@@ -534,19 +650,63 @@ private static final long serialVersionUID = 0L;
    * <code>string content_id = 12;</code>
    * @return The bytes for contentId.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getContentIdBytes() {
-    java.lang.Object ref = contentId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = contentId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       contentId_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int SOURCE_TYPE_FIELD_NUMBER = 13;
+  private int sourceType_;
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.event.ImpressionSourceType source_type = 13;</code>
+   * @return The enum numeric value on the wire for sourceType.
+   */
+  @Override public int getSourceTypeValue() {
+    return sourceType_;
+  }
+  /**
+   * <pre>
+   * Optional.
+   * </pre>
+   *
+   * <code>.event.ImpressionSourceType source_type = 13;</code>
+   * @return The sourceType.
+   */
+  @Override public ImpressionSourceType getSourceType() {
+    @SuppressWarnings("deprecation")
+    ImpressionSourceType result = ImpressionSourceType.valueOf(sourceType_);
+    return result == null ? ImpressionSourceType.UNRECOGNIZED : result;
+  }
+
+  public static final int HAS_SUPERIMPOSED_VIEWS_FIELD_NUMBER = 14;
+  private boolean hasSuperimposedViews_;
+  /**
+   * <pre>
+   * Optional. Indicates that this impression occurred in a view that may
+   * not be topmost in the view hierarchy, and thus may have been obscured
+   * from the user.
+   * </pre>
+   *
+   * <code>bool has_superimposed_views = 14;</code>
+   * @return The hasSuperimposedViews.
+   */
+  @Override
+  public boolean getHasSuperimposedViews() {
+    return hasSuperimposedViews_;
   }
 
   public static final int PROPERTIES_FIELD_NUMBER = 11;
@@ -559,7 +719,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 11;</code>
    * @return Whether the properties field is set.
    */
-  @java.lang.Override
+  @Override
   public boolean hasProperties() {
     return properties_ != null;
   }
@@ -571,7 +731,7 @@ private static final long serialVersionUID = 0L;
    * <code>.common.Properties properties = 11;</code>
    * @return The properties.
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.Properties getProperties() {
     return properties_ == null ? ai.promoted.proto.common.Properties.getDefaultInstance() : properties_;
   }
@@ -582,13 +742,13 @@ private static final long serialVersionUID = 0L;
    *
    * <code>.common.Properties properties = 11;</code>
    */
-  @java.lang.Override
+  @Override
   public ai.promoted.proto.common.PropertiesOrBuilder getPropertiesOrBuilder() {
     return getProperties();
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -598,7 +758,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (platformId_ != 0L) {
@@ -609,6 +769,9 @@ private static final long serialVersionUID = 0L;
     }
     if (timing_ != null) {
       output.writeMessage(3, getTiming());
+    }
+    if (clientInfo_ != null) {
+      output.writeMessage(4, getClientInfo());
     }
     if (!getImpressionIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, impressionId_);
@@ -631,10 +794,19 @@ private static final long serialVersionUID = 0L;
     if (!getContentIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 12, contentId_);
     }
+    if (sourceType_ != ImpressionSourceType.UNKNOWN_IMPRESSION_SOURCE_TYPE.getNumber()) {
+      output.writeEnum(13, sourceType_);
+    }
+    if (hasSuperimposedViews_ != false) {
+      output.writeBool(14, hasSuperimposedViews_);
+    }
+    if (!getAutoViewIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 15, autoViewId_);
+    }
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -651,6 +823,10 @@ private static final long serialVersionUID = 0L;
     if (timing_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTiming());
+    }
+    if (clientInfo_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getClientInfo());
     }
     if (!getImpressionIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, impressionId_);
@@ -674,20 +850,31 @@ private static final long serialVersionUID = 0L;
     if (!getContentIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, contentId_);
     }
+    if (sourceType_ != ImpressionSourceType.UNKNOWN_IMPRESSION_SOURCE_TYPE.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(13, sourceType_);
+    }
+    if (hasSuperimposedViews_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(14, hasSuperimposedViews_);
+    }
+    if (!getAutoViewIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, autoViewId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.Impression)) {
+    if (!(obj instanceof Impression)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.Impression other = (ai.promoted.proto.event.Impression) obj;
+    Impression other = (Impression) obj;
 
     if (getPlatformId()
         != other.getPlatformId()) return false;
@@ -701,6 +888,11 @@ private static final long serialVersionUID = 0L;
       if (!getTiming()
           .equals(other.getTiming())) return false;
     }
+    if (hasClientInfo() != other.hasClientInfo()) return false;
+    if (hasClientInfo()) {
+      if (!getClientInfo()
+          .equals(other.getClientInfo())) return false;
+    }
     if (!getImpressionId()
         .equals(other.getImpressionId())) return false;
     if (!getInsertionId()
@@ -709,10 +901,15 @@ private static final long serialVersionUID = 0L;
         .equals(other.getRequestId())) return false;
     if (!getViewId()
         .equals(other.getViewId())) return false;
+    if (!getAutoViewId()
+        .equals(other.getAutoViewId())) return false;
     if (!getSessionId()
         .equals(other.getSessionId())) return false;
     if (!getContentId()
         .equals(other.getContentId())) return false;
+    if (sourceType_ != other.sourceType_) return false;
+    if (getHasSuperimposedViews()
+        != other.getHasSuperimposedViews()) return false;
     if (hasProperties() != other.hasProperties()) return false;
     if (hasProperties()) {
       if (!getProperties()
@@ -722,7 +919,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -740,6 +937,10 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TIMING_FIELD_NUMBER;
       hash = (53 * hash) + getTiming().hashCode();
     }
+    if (hasClientInfo()) {
+      hash = (37 * hash) + CLIENT_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getClientInfo().hashCode();
+    }
     hash = (37 * hash) + IMPRESSION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getImpressionId().hashCode();
     hash = (37 * hash) + INSERTION_ID_FIELD_NUMBER;
@@ -748,10 +949,17 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getRequestId().hashCode();
     hash = (37 * hash) + VIEW_ID_FIELD_NUMBER;
     hash = (53 * hash) + getViewId().hashCode();
+    hash = (37 * hash) + AUTO_VIEW_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getAutoViewId().hashCode();
     hash = (37 * hash) + SESSION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getSessionId().hashCode();
     hash = (37 * hash) + CONTENT_ID_FIELD_NUMBER;
     hash = (53 * hash) + getContentId().hashCode();
+    hash = (37 * hash) + SOURCE_TYPE_FIELD_NUMBER;
+    hash = (53 * hash) + sourceType_;
+    hash = (37 * hash) + HAS_SUPERIMPOSED_VIEWS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getHasSuperimposedViews());
     if (hasProperties()) {
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + getProperties().hashCode();
@@ -761,69 +969,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(byte[] data)
+  public static Impression parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(java.io.InputStream input)
+  public static Impression parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Impression parseDelimitedFrom(java.io.InputStream input)
+  public static Impression parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Impression parseDelimitedFrom(
+  public static Impression parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.Impression parseFrom(
+  public static Impression parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -831,23 +1039,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.Impression prototype) {
+  public static Builder newBuilder(Impression prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -855,7 +1063,7 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * When an Insertion (instance of Content) is shown to a user.
    * Impressions are immutable.
-   * Next ID = 13.
+   * Next ID = 16.
    * </pre>
    *
    * Protobuf type {@code event.Impression}
@@ -863,18 +1071,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.Impression)
-      ai.promoted.proto.event.ImpressionOrBuilder {
+      ImpressionOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_Impression_descriptor;
+      return Event.internal_static_event_Impression_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_Impression_fieldAccessorTable
+      return Event.internal_static_event_Impression_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.Impression.class, ai.promoted.proto.event.Impression.Builder.class);
+              Impression.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.Impression.newBuilder()
@@ -883,7 +1091,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -892,7 +1100,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       platformId_ = 0L;
@@ -909,6 +1117,12 @@ private static final long serialVersionUID = 0L;
         timing_ = null;
         timingBuilder_ = null;
       }
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
       impressionId_ = "";
 
       insertionId_ = "";
@@ -917,9 +1131,15 @@ private static final long serialVersionUID = 0L;
 
       viewId_ = "";
 
+      autoViewId_ = "";
+
       sessionId_ = "";
 
       contentId_ = "";
+
+      sourceType_ = 0;
+
+      hasSuperimposedViews_ = false;
 
       if (propertiesBuilder_ == null) {
         properties_ = null;
@@ -930,29 +1150,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_Impression_descriptor;
+      return Event.internal_static_event_Impression_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Impression getDefaultInstanceForType() {
-      return ai.promoted.proto.event.Impression.getDefaultInstance();
+    @Override
+    public Impression getDefaultInstanceForType() {
+      return Impression.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Impression build() {
-      ai.promoted.proto.event.Impression result = buildPartial();
+    @Override
+    public Impression build() {
+      Impression result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.Impression buildPartial() {
-      ai.promoted.proto.event.Impression result = new ai.promoted.proto.event.Impression(this);
+    @Override
+    public Impression buildPartial() {
+      Impression result = new Impression(this);
       result.platformId_ = platformId_;
       if (userInfoBuilder_ == null) {
         result.userInfo_ = userInfo_;
@@ -964,12 +1184,20 @@ private static final long serialVersionUID = 0L;
       } else {
         result.timing_ = timingBuilder_.build();
       }
+      if (clientInfoBuilder_ == null) {
+        result.clientInfo_ = clientInfo_;
+      } else {
+        result.clientInfo_ = clientInfoBuilder_.build();
+      }
       result.impressionId_ = impressionId_;
       result.insertionId_ = insertionId_;
       result.requestId_ = requestId_;
       result.viewId_ = viewId_;
+      result.autoViewId_ = autoViewId_;
       result.sessionId_ = sessionId_;
       result.contentId_ = contentId_;
+      result.sourceType_ = sourceType_;
+      result.hasSuperimposedViews_ = hasSuperimposedViews_;
       if (propertiesBuilder_ == null) {
         result.properties_ = properties_;
       } else {
@@ -979,50 +1207,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.Impression) {
-        return mergeFrom((ai.promoted.proto.event.Impression)other);
+      if (other instanceof Impression) {
+        return mergeFrom((Impression)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.Impression other) {
-      if (other == ai.promoted.proto.event.Impression.getDefaultInstance()) return this;
+    public Builder mergeFrom(Impression other) {
+      if (other == Impression.getDefaultInstance()) return this;
       if (other.getPlatformId() != 0L) {
         setPlatformId(other.getPlatformId());
       }
@@ -1031,6 +1259,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasTiming()) {
         mergeTiming(other.getTiming());
+      }
+      if (other.hasClientInfo()) {
+        mergeClientInfo(other.getClientInfo());
       }
       if (!other.getImpressionId().isEmpty()) {
         impressionId_ = other.impressionId_;
@@ -1048,6 +1279,10 @@ private static final long serialVersionUID = 0L;
         viewId_ = other.viewId_;
         onChanged();
       }
+      if (!other.getAutoViewId().isEmpty()) {
+        autoViewId_ = other.autoViewId_;
+        onChanged();
+      }
       if (!other.getSessionId().isEmpty()) {
         sessionId_ = other.sessionId_;
         onChanged();
@@ -1055,6 +1290,12 @@ private static final long serialVersionUID = 0L;
       if (!other.getContentId().isEmpty()) {
         contentId_ = other.contentId_;
         onChanged();
+      }
+      if (other.sourceType_ != 0) {
+        setSourceTypeValue(other.getSourceTypeValue());
+      }
+      if (other.getHasSuperimposedViews() != false) {
+        setHasSuperimposedViews(other.getHasSuperimposedViews());
       }
       if (other.hasProperties()) {
         mergeProperties(other.getProperties());
@@ -1064,21 +1305,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.Impression parsedMessage = null;
+      Impression parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.Impression) e.getUnfinishedMessage();
+        parsedMessage = (Impression) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1098,7 +1339,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 platform_id = 1;</code>
      * @return The platformId.
      */
-    @java.lang.Override
+    @Override
     public long getPlatformId() {
       return platformId_;
     }
@@ -1453,7 +1694,162 @@ private static final long serialVersionUID = 0L;
       return timingBuilder_;
     }
 
-    private java.lang.Object impressionId_ = "";
+    private ai.promoted.proto.common.ClientInfo clientInfo_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> clientInfoBuilder_;
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return Whether the clientInfo field is set.
+     */
+    public boolean hasClientInfo() {
+      return clientInfoBuilder_ != null || clientInfo_ != null;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     * @return The clientInfo.
+     */
+    public ai.promoted.proto.common.ClientInfo getClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        return clientInfo_ == null ? ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      } else {
+        return clientInfoBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        clientInfo_ = value;
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder setClientInfo(
+        ai.promoted.proto.common.ClientInfo.Builder builderForValue) {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = builderForValue.build();
+        onChanged();
+      } else {
+        clientInfoBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder mergeClientInfo(ai.promoted.proto.common.ClientInfo value) {
+      if (clientInfoBuilder_ == null) {
+        if (clientInfo_ != null) {
+          clientInfo_ =
+            ai.promoted.proto.common.ClientInfo.newBuilder(clientInfo_).mergeFrom(value).buildPartial();
+        } else {
+          clientInfo_ = value;
+        }
+        onChanged();
+      } else {
+        clientInfoBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public Builder clearClientInfo() {
+      if (clientInfoBuilder_ == null) {
+        clientInfo_ = null;
+        onChanged();
+      } else {
+        clientInfo_ = null;
+        clientInfoBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfo.Builder getClientInfoBuilder() {
+      
+      onChanged();
+      return getClientInfoFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    public ai.promoted.proto.common.ClientInfoOrBuilder getClientInfoOrBuilder() {
+      if (clientInfoBuilder_ != null) {
+        return clientInfoBuilder_.getMessageOrBuilder();
+      } else {
+        return clientInfo_ == null ?
+            ai.promoted.proto.common.ClientInfo.getDefaultInstance() : clientInfo_;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.  If not set, API server uses LogRequest.client_info.
+     * </pre>
+     *
+     * <code>.common.ClientInfo client_info = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder> 
+        getClientInfoFieldBuilder() {
+      if (clientInfoBuilder_ == null) {
+        clientInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            ai.promoted.proto.common.ClientInfo, ai.promoted.proto.common.ClientInfo.Builder, ai.promoted.proto.common.ClientInfoOrBuilder>(
+                getClientInfo(),
+                getParentForChildren(),
+                isClean());
+        clientInfo_ = null;
+      }
+      return clientInfoBuilder_;
+    }
+
+    private Object impressionId_ = "";
     /**
      * <pre>
      * Optional.  Primary key.
@@ -1464,16 +1860,16 @@ private static final long serialVersionUID = 0L;
      * <code>string impression_id = 6;</code>
      * @return The impressionId.
      */
-    public java.lang.String getImpressionId() {
-      java.lang.Object ref = impressionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getImpressionId() {
+      Object ref = impressionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         impressionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1488,11 +1884,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getImpressionIdBytes() {
-      java.lang.Object ref = impressionId_;
+      Object ref = impressionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         impressionId_ = b;
         return b;
       } else {
@@ -1511,7 +1907,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setImpressionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1559,7 +1955,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object insertionId_ = "";
+    private Object insertionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1568,16 +1964,16 @@ private static final long serialVersionUID = 0L;
      * <code>string insertion_id = 7;</code>
      * @return The insertionId.
      */
-    public java.lang.String getInsertionId() {
-      java.lang.Object ref = insertionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getInsertionId() {
+      Object ref = insertionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         insertionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1590,11 +1986,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getInsertionIdBytes() {
-      java.lang.Object ref = insertionId_;
+      Object ref = insertionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         insertionId_ = b;
         return b;
       } else {
@@ -1611,7 +2007,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setInsertionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1655,7 +2051,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object requestId_ = "";
+    private Object requestId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1664,16 +2060,16 @@ private static final long serialVersionUID = 0L;
      * <code>string request_id = 8;</code>
      * @return The requestId.
      */
-    public java.lang.String getRequestId() {
-      java.lang.Object ref = requestId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getRequestId() {
+      Object ref = requestId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         requestId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1686,11 +2082,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getRequestIdBytes() {
-      java.lang.Object ref = requestId_;
+      Object ref = requestId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         requestId_ = b;
         return b;
       } else {
@@ -1707,7 +2103,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRequestId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1751,7 +2147,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object viewId_ = "";
+    private Object viewId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1760,16 +2156,16 @@ private static final long serialVersionUID = 0L;
      * <code>string view_id = 10;</code>
      * @return The viewId.
      */
-    public java.lang.String getViewId() {
-      java.lang.Object ref = viewId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getViewId() {
+      Object ref = viewId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         viewId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1782,11 +2178,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getViewIdBytes() {
-      java.lang.Object ref = viewId_;
+      Object ref = viewId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         viewId_ = b;
         return b;
       } else {
@@ -1803,7 +2199,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setViewId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1847,7 +2243,103 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object sessionId_ = "";
+    private Object autoViewId_ = "";
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 15;</code>
+     * @return The autoViewId.
+     */
+    public String getAutoViewId() {
+      Object ref = autoViewId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        autoViewId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 15;</code>
+     * @return The bytes for autoViewId.
+     */
+    public com.google.protobuf.ByteString
+        getAutoViewIdBytes() {
+      Object ref = autoViewId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        autoViewId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 15;</code>
+     * @param value The autoViewId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAutoViewId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      autoViewId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 15;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAutoViewId() {
+      
+      autoViewId_ = getDefaultInstance().getAutoViewId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>string auto_view_id = 15;</code>
+     * @param value The bytes for autoViewId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAutoViewIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      autoViewId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Object sessionId_ = "";
     /**
      * <pre>
      * Optional.
@@ -1856,16 +2348,16 @@ private static final long serialVersionUID = 0L;
      * <code>string session_id = 9;</code>
      * @return The sessionId.
      */
-    public java.lang.String getSessionId() {
-      java.lang.Object ref = sessionId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getSessionId() {
+      Object ref = sessionId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         sessionId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1878,11 +2370,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getSessionIdBytes() {
-      java.lang.Object ref = sessionId_;
+      Object ref = sessionId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         sessionId_ = b;
         return b;
       } else {
@@ -1899,7 +2391,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSessionId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -1943,7 +2435,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object contentId_ = "";
+    private Object contentId_ = "";
     /**
      * <pre>
      * Optional. content_id is used as a hint when insertion_id is not set.
@@ -1953,16 +2445,16 @@ private static final long serialVersionUID = 0L;
      * <code>string content_id = 12;</code>
      * @return The contentId.
      */
-    public java.lang.String getContentId() {
-      java.lang.Object ref = contentId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getContentId() {
+      Object ref = contentId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         contentId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1976,11 +2468,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getContentIdBytes() {
-      java.lang.Object ref = contentId_;
+      Object ref = contentId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         contentId_ = b;
         return b;
       } else {
@@ -1998,7 +2490,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setContentId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2040,6 +2532,129 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       contentId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int sourceType_ = 0;
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.event.ImpressionSourceType source_type = 13;</code>
+     * @return The enum numeric value on the wire for sourceType.
+     */
+    @Override public int getSourceTypeValue() {
+      return sourceType_;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.event.ImpressionSourceType source_type = 13;</code>
+     * @param value The enum numeric value on the wire for sourceType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSourceTypeValue(int value) {
+      
+      sourceType_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.event.ImpressionSourceType source_type = 13;</code>
+     * @return The sourceType.
+     */
+    @Override
+    public ImpressionSourceType getSourceType() {
+      @SuppressWarnings("deprecation")
+      ImpressionSourceType result = ImpressionSourceType.valueOf(sourceType_);
+      return result == null ? ImpressionSourceType.UNRECOGNIZED : result;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.event.ImpressionSourceType source_type = 13;</code>
+     * @param value The sourceType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSourceType(ImpressionSourceType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      sourceType_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional.
+     * </pre>
+     *
+     * <code>.event.ImpressionSourceType source_type = 13;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSourceType() {
+      
+      sourceType_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private boolean hasSuperimposedViews_ ;
+    /**
+     * <pre>
+     * Optional. Indicates that this impression occurred in a view that may
+     * not be topmost in the view hierarchy, and thus may have been obscured
+     * from the user.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 14;</code>
+     * @return The hasSuperimposedViews.
+     */
+    @Override
+    public boolean getHasSuperimposedViews() {
+      return hasSuperimposedViews_;
+    }
+    /**
+     * <pre>
+     * Optional. Indicates that this impression occurred in a view that may
+     * not be topmost in the view hierarchy, and thus may have been obscured
+     * from the user.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 14;</code>
+     * @param value The hasSuperimposedViews to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHasSuperimposedViews(boolean value) {
+      
+      hasSuperimposedViews_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional. Indicates that this impression occurred in a view that may
+     * not be topmost in the view hierarchy, and thus may have been obscured
+     * from the user.
+     * </pre>
+     *
+     * <code>bool has_superimposed_views = 14;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearHasSuperimposedViews() {
+      
+      hasSuperimposedViews_ = false;
       onChanged();
       return this;
     }
@@ -2198,13 +2813,13 @@ private static final long serialVersionUID = 0L;
       }
       return propertiesBuilder_;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -2215,18 +2830,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.Impression)
-  private static final ai.promoted.proto.event.Impression DEFAULT_INSTANCE;
+  private static final Impression DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.Impression();
+    DEFAULT_INSTANCE = new Impression();
   }
 
-  public static ai.promoted.proto.event.Impression getDefaultInstance() {
+  public static Impression getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Impression>
       PARSER = new com.google.protobuf.AbstractParser<Impression>() {
-    @java.lang.Override
+    @Override
     public Impression parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2239,13 +2854,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<Impression> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.Impression getDefaultInstanceForType() {
+  @Override
+  public Impression getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

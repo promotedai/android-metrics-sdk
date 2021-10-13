@@ -32,12 +32,12 @@ class MessageCreationTests {
                 type = ActionType.NAVIGATE,
                 actionId = "test",
                 sessionId = "test",
-                viewId = "test",
-                impressionId = "test"
+                autoViewId = "test",
+                hasSuperImposedViews = false
             ),
             actionData = ActionData.Builder(
                 targetUrl = "http://google.com"
-            ).build()
+            ).build(null)
         )
 
         // Then
@@ -55,10 +55,10 @@ class MessageCreationTests {
                 type = ActionType.CUSTOM_ACTION_TYPE,
                 actionId = "test",
                 sessionId = "test",
-                viewId = "test",
-                impressionId = "test"
+                autoViewId = "test",
+                hasSuperImposedViews = false
             ),
-            actionData = ActionData.Builder().build()
+            actionData = ActionData.Builder().build(null)
         )
 
         // Then

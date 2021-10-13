@@ -23,14 +23,14 @@ private static final long serialVersionUID = 0L;
     targetUrl_ = "";
   }
 
-  @java.lang.Override
+  @Override
   @SuppressWarnings({"unused"})
-  protected java.lang.Object newInstance(
+  protected Object newInstance(
       UnusedPrivateParameter unused) {
     return new NavigateAction();
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -41,7 +41,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -54,7 +54,7 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             targetUrl_ = s;
             break;
@@ -80,19 +80,19 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ai.promoted.proto.event.Event.internal_static_event_NavigateAction_descriptor;
+    return Event.internal_static_event_NavigateAction_descriptor;
   }
 
-  @java.lang.Override
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  @Override
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ai.promoted.proto.event.Event.internal_static_event_NavigateAction_fieldAccessorTable
+    return Event.internal_static_event_NavigateAction_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ai.promoted.proto.event.NavigateAction.class, ai.promoted.proto.event.NavigateAction.Builder.class);
+            NavigateAction.class, Builder.class);
   }
 
   public static final int TARGET_URL_FIELD_NUMBER = 1;
-  private volatile java.lang.Object targetUrl_;
+  private volatile Object targetUrl_;
   /**
    * <pre>
    * Optional.  The next URL.
@@ -101,15 +101,15 @@ private static final long serialVersionUID = 0L;
    * <code>string target_url = 1;</code>
    * @return The targetUrl.
    */
-  @java.lang.Override
-  public java.lang.String getTargetUrl() {
-    java.lang.Object ref = targetUrl_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  @Override
+  public String getTargetUrl() {
+    Object ref = targetUrl_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       targetUrl_ = s;
       return s;
     }
@@ -122,14 +122,14 @@ private static final long serialVersionUID = 0L;
    * <code>string target_url = 1;</code>
    * @return The bytes for targetUrl.
    */
-  @java.lang.Override
+  @Override
   public com.google.protobuf.ByteString
       getTargetUrlBytes() {
-    java.lang.Object ref = targetUrl_;
-    if (ref instanceof java.lang.String) {
+    Object ref = targetUrl_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       targetUrl_ = b;
       return b;
     } else {
@@ -138,7 +138,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private byte memoizedIsInitialized = -1;
-  @java.lang.Override
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -148,7 +148,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (!getTargetUrlBytes().isEmpty()) {
@@ -157,7 +157,7 @@ private static final long serialVersionUID = 0L;
     unknownFields.writeTo(output);
   }
 
-  @java.lang.Override
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -171,15 +171,15 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ai.promoted.proto.event.NavigateAction)) {
+    if (!(obj instanceof NavigateAction)) {
       return super.equals(obj);
     }
-    ai.promoted.proto.event.NavigateAction other = (ai.promoted.proto.event.NavigateAction) obj;
+    NavigateAction other = (NavigateAction) obj;
 
     if (!getTargetUrl()
         .equals(other.getTargetUrl())) return false;
@@ -187,7 +187,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -201,69 +201,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(byte[] data)
+  public static NavigateAction parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(java.io.InputStream input)
+  public static NavigateAction parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.NavigateAction parseDelimitedFrom(java.io.InputStream input)
+  public static NavigateAction parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.NavigateAction parseDelimitedFrom(
+  public static NavigateAction parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ai.promoted.proto.event.NavigateAction parseFrom(
+  public static NavigateAction parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -271,23 +271,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @java.lang.Override
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ai.promoted.proto.event.NavigateAction prototype) {
+  public static Builder newBuilder(NavigateAction prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @java.lang.Override
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -301,18 +301,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.NavigateAction)
-      ai.promoted.proto.event.NavigateActionOrBuilder {
+      NavigateActionOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ai.promoted.proto.event.Event.internal_static_event_NavigateAction_descriptor;
+      return Event.internal_static_event_NavigateAction_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ai.promoted.proto.event.Event.internal_static_event_NavigateAction_fieldAccessorTable
+      return Event.internal_static_event_NavigateAction_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ai.promoted.proto.event.NavigateAction.class, ai.promoted.proto.event.NavigateAction.Builder.class);
+              NavigateAction.class, Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.NavigateAction.newBuilder()
@@ -321,7 +321,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -330,7 +330,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @java.lang.Override
+    @Override
     public Builder clear() {
       super.clear();
       targetUrl_ = "";
@@ -338,78 +338,78 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ai.promoted.proto.event.Event.internal_static_event_NavigateAction_descriptor;
+      return Event.internal_static_event_NavigateAction_descriptor;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.NavigateAction getDefaultInstanceForType() {
-      return ai.promoted.proto.event.NavigateAction.getDefaultInstance();
+    @Override
+    public NavigateAction getDefaultInstanceForType() {
+      return NavigateAction.getDefaultInstance();
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.NavigateAction build() {
-      ai.promoted.proto.event.NavigateAction result = buildPartial();
+    @Override
+    public NavigateAction build() {
+      NavigateAction result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @java.lang.Override
-    public ai.promoted.proto.event.NavigateAction buildPartial() {
-      ai.promoted.proto.event.NavigateAction result = new ai.promoted.proto.event.NavigateAction(this);
+    @Override
+    public NavigateAction buildPartial() {
+      NavigateAction result = new NavigateAction(this);
       result.targetUrl_ = targetUrl_;
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
+    @Override
     public Builder clone() {
       return super.clone();
     }
-    @java.lang.Override
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.setField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @java.lang.Override
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @java.lang.Override
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
+        int index, Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @java.lang.Override
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
+        Object value) {
       return super.addRepeatedField(field, value);
     }
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ai.promoted.proto.event.NavigateAction) {
-        return mergeFrom((ai.promoted.proto.event.NavigateAction)other);
+      if (other instanceof NavigateAction) {
+        return mergeFrom((NavigateAction)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ai.promoted.proto.event.NavigateAction other) {
-      if (other == ai.promoted.proto.event.NavigateAction.getDefaultInstance()) return this;
+    public Builder mergeFrom(NavigateAction other) {
+      if (other == NavigateAction.getDefaultInstance()) return this;
       if (!other.getTargetUrl().isEmpty()) {
         targetUrl_ = other.targetUrl_;
         onChanged();
@@ -419,21 +419,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ai.promoted.proto.event.NavigateAction parsedMessage = null;
+      NavigateAction parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ai.promoted.proto.event.NavigateAction) e.getUnfinishedMessage();
+        parsedMessage = (NavigateAction) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -443,7 +443,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object targetUrl_ = "";
+    private Object targetUrl_ = "";
     /**
      * <pre>
      * Optional.  The next URL.
@@ -452,16 +452,16 @@ private static final long serialVersionUID = 0L;
      * <code>string target_url = 1;</code>
      * @return The targetUrl.
      */
-    public java.lang.String getTargetUrl() {
-      java.lang.Object ref = targetUrl_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getTargetUrl() {
+      Object ref = targetUrl_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         targetUrl_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -474,11 +474,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getTargetUrlBytes() {
-      java.lang.Object ref = targetUrl_;
+      Object ref = targetUrl_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         targetUrl_ = b;
         return b;
       } else {
@@ -495,7 +495,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setTargetUrl(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -538,13 +538,13 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    @java.lang.Override
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @java.lang.Override
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -555,18 +555,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.NavigateAction)
-  private static final ai.promoted.proto.event.NavigateAction DEFAULT_INSTANCE;
+  private static final NavigateAction DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ai.promoted.proto.event.NavigateAction();
+    DEFAULT_INSTANCE = new NavigateAction();
   }
 
-  public static ai.promoted.proto.event.NavigateAction getDefaultInstance() {
+  public static NavigateAction getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<NavigateAction>
       PARSER = new com.google.protobuf.AbstractParser<NavigateAction>() {
-    @java.lang.Override
+    @Override
     public NavigateAction parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -579,13 +579,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<NavigateAction> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public ai.promoted.proto.event.NavigateAction getDefaultInstanceForType() {
+  @Override
+  public NavigateAction getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

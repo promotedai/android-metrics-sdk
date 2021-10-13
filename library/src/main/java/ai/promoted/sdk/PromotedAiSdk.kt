@@ -5,6 +5,7 @@ import ai.promoted.ActionData
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
+import android.app.Activity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -15,15 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 internal interface PromotedAiSdk {
     var logUserId: String
     var sessionId: String
-    var viewId: String
 
     fun startSession(userId: String = "")
-    fun onViewVisible(key: String)
 
-    fun onImpression(dataBlock: ImpressionData.Builder.() -> Unit)
+    fun logView(viewId: String)
+
+    fun logAutoView(autoViewId: String, routeName: String, routeKey: String)
+
+    fun onImpression(sourceActivity: Activity?, dataBlock: ImpressionData.Builder.() -> Unit)
     fun onImpression(data: ImpressionData)
 
     fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)? = null
@@ -35,9 +39,17 @@ internal interface PromotedAiSdk {
         data: ActionData
     )
 
-    fun onCollectionVisible(collectionViewKey: String, content: List<AbstractContent>)
-    fun onCollectionUpdated(collectionViewKey: String, content: List<AbstractContent>)
-    fun onCollectionHidden(collectionViewKey: String)
+    fun onCollectionVisible(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    )
+    fun onCollectionUpdated(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        content: List<AbstractContent>
+    )
+    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String)
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,

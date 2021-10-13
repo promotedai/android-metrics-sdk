@@ -2,18 +2,18 @@ package ai.promoted.metrics.usecases
 
 import ai.promoted.ClientConfig
 import ai.promoted.mockkRelaxedUnit
+import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
 import ai.promoted.proto.event.Action
 import ai.promoted.proto.event.Impression
 import ai.promoted.proto.event.LogRequest
-import ai.promoted.proto.event.Session
-import ai.promoted.proto.event.SessionProfile
 import ai.promoted.proto.event.User
 import ai.promoted.proto.event.View
 import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.every
+import io.mockk.mockk
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -23,17 +23,27 @@ class FinalizeLogsUseCaseTest {
     private val testApiKey = "testApiKey"
     private val testUserId = "testUser"
     private val testLogUserId = "testLogUser"
+    private val mockDeviceInfoProvider: DeviceInfoProvider = mockk {
+        every { screenWidth } returns 0
+        every { screenHeight } returns 0
+        every { screenDensity } returns 0f
+        every { brand } returns ""
+        every { manufacturer } returns ""
+        every { model } returns ""
+        every { sdkRelease } returns ""
+    }
     private val useCase = FinalizeLogsUseCase(
         config = ClientConfig.Builder().apply {
             metricsLoggingApiKey = testApiKey
         }.build(),
         systemLogger = mockkRelaxedUnit(),
+        deviceInfoProvider = mockDeviceInfoProvider,
         trackUserUseCase = mockkRelaxedUnit {
             every { currentOrNullUserId } returns testUserId
             every { currentLogUserId } returns testLogUserId
             every { currentOrNullLogUserId } returns testLogUserId
         },
-        NoOpXray()
+        xray = NoOpXray()
     )
 
     @Test
@@ -61,12 +71,13 @@ class FinalizeLogsUseCaseTest {
                 metricsLoggingWireFormat = ClientConfig.MetricsLoggingWireFormat.Binary
             }.build(),
             systemLogger = mockkRelaxedUnit(),
+            deviceInfoProvider = mockDeviceInfoProvider,
             trackUserUseCase = mockkRelaxedUnit {
                 every { currentOrNullUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
                 every { currentOrNullLogUserId } returns testLogUserId
             },
-            NoOpXray()
+            xray = NoOpXray()
         )
 
         // When
@@ -84,12 +95,13 @@ class FinalizeLogsUseCaseTest {
                 metricsLoggingWireFormat = ClientConfig.MetricsLoggingWireFormat.Json
             }.build(),
             systemLogger = mockkRelaxedUnit(),
+            deviceInfoProvider = mockDeviceInfoProvider,
             trackUserUseCase = mockkRelaxedUnit {
                 every { currentOrNullUserId } returns testUserId
                 every { currentLogUserId } returns testLogUserId
                 every { currentOrNullLogUserId } returns testLogUserId
             },
-            NoOpXray()
+            xray = NoOpXray()
         )
 
         // When
@@ -105,8 +117,6 @@ class FinalizeLogsUseCaseTest {
         // and one unknown type
         val messages = listOf<Message>(
             User.newBuilder().build(),
-            SessionProfile.newBuilder().build(),
-            Session.newBuilder().build(),
             View.newBuilder().build(),
             Request.newBuilder().build(),
             Insertion.newBuilder().build(),
@@ -123,8 +133,6 @@ class FinalizeLogsUseCaseTest {
         // Then the serialized data contains each of the supported messages.
         val deserializedData = LogRequest.parseFrom(request.bodyData)
         assertThat(deserializedData.userCount, equalTo(1))
-        assertThat(deserializedData.sessionProfileCount, equalTo(1))
-        assertThat(deserializedData.sessionCount, equalTo(1))
         assertThat(deserializedData.viewCount, equalTo(1))
         assertThat(deserializedData.requestCount, equalTo(1))
         assertThat(deserializedData.insertionCount, equalTo(1))

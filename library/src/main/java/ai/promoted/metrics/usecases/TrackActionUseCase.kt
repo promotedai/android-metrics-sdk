@@ -7,6 +7,7 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.Xray
+import android.app.Activity
 
 /**
  * Allows you to track a user's action and all associated metadata.
@@ -20,7 +21,6 @@ internal class TrackActionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
     private val idGenerator: IdGenerator,
-    private val impressionIdGenerator: ImpressionIdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
     private val xray: Xray
@@ -38,12 +38,14 @@ internal class TrackActionUseCase(
      * so that you can granularly choose which additional data you want to be tied to this action.
      */
     fun onAction(
+        sourceActivity: Activity?,
         name: String,
         type: ActionType,
         dataBlock: (ActionData.Builder.() -> Unit)?
     ) {
-        val data = if (dataBlock != null) ActionData.Builder().apply(dataBlock).build()
-        else ActionData.Builder().build()
+        val data = if (dataBlock != null) {
+            ActionData.Builder().apply(dataBlock).build(sourceActivity)
+        } else ActionData.Builder().build(sourceActivity)
 
         onAction(name, type, data)
     }
@@ -53,16 +55,20 @@ internal class TrackActionUseCase(
      */
     fun onAction(name: String, type: ActionType, data: ActionData) = xray.monitored {
         val actionId = idGenerator.newId()
-        val impressionId =
-            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
+
+        // Log a new view event if necessary
+        data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
+
+        // If the source activity has window focus, then there are no superimposed views
+        val hasSuperImposedViews = data.sourceActivity?.hasWindowFocus() == false
 
         val internalActionData = InternalActionData(
             name = name,
             type = type,
             actionId = actionId,
-            impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            viewId = viewUseCase.viewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull,
+            hasSuperImposedViews = hasSuperImposedViews
         )
 
         logger.enqueueMessage(

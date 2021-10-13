@@ -2,6 +2,7 @@ package ai.promoted
 
 import ai.promoted.proto.event.ActionType
 import ai.promoted.sdk.PromotedAiSdk
+import android.app.Activity
 import com.google.protobuf.Message
 
 /**
@@ -18,6 +19,7 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
 
     fun withName(name: String) = apply { this.name = name }
     fun withType(type: ActionType) = apply { this.type = type }
+    fun withImpressionId(id: String) = apply { dataBuilder.impressionId = id }
     fun withInsertionId(id: String) = apply { dataBuilder.insertionId = id }
     fun withContentId(id: String) = apply { dataBuilder.contentId = id }
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
@@ -26,5 +28,5 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
 
-    fun log() = sdk.onAction(name, type, dataBuilder.build())
+    fun log(sourceActivity: Activity?) = sdk.onAction(name, type, dataBuilder.build(sourceActivity))
 }

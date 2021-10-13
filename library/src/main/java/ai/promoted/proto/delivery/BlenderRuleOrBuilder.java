@@ -9,16 +9,16 @@ public interface BlenderRuleOrBuilder extends
 
   /**
    * <pre>
-   * the name of item attribute that this rule applies to
+   * The name of item attribute that this rule applies to. It may be a JSON key path.
    * </pre>
    *
    * <code>string attribute_name = 1;</code>
    * @return The attributeName.
    */
-  java.lang.String getAttributeName();
+  String getAttributeName();
   /**
    * <pre>
-   * the name of item attribute that this rule applies to
+   * The name of item attribute that this rule applies to. It may be a JSON key path.
    * </pre>
    *
    * <code>string attribute_name = 1;</code>
@@ -36,11 +36,11 @@ public interface BlenderRuleOrBuilder extends
    * <code>.delivery.PositiveRule positive_rule = 6;</code>
    * @return The positiveRule.
    */
-  ai.promoted.proto.delivery.PositiveRule getPositiveRule();
+  PositiveRule getPositiveRule();
   /**
    * <code>.delivery.PositiveRule positive_rule = 6;</code>
    */
-  ai.promoted.proto.delivery.PositiveRuleOrBuilder getPositiveRuleOrBuilder();
+  PositiveRuleOrBuilder getPositiveRuleOrBuilder();
 
   /**
    * <code>.delivery.InsertRule insert_rule = 7;</code>
@@ -51,11 +51,11 @@ public interface BlenderRuleOrBuilder extends
    * <code>.delivery.InsertRule insert_rule = 7;</code>
    * @return The insertRule.
    */
-  ai.promoted.proto.delivery.InsertRule getInsertRule();
+  InsertRule getInsertRule();
   /**
    * <code>.delivery.InsertRule insert_rule = 7;</code>
    */
-  ai.promoted.proto.delivery.InsertRuleOrBuilder getInsertRuleOrBuilder();
+  InsertRuleOrBuilder getInsertRuleOrBuilder();
 
   /**
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
@@ -66,11 +66,11 @@ public interface BlenderRuleOrBuilder extends
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
    * @return The negativeRule.
    */
-  ai.promoted.proto.delivery.NegativeRule getNegativeRule();
+  NegativeRule getNegativeRule();
   /**
    * <code>.delivery.NegativeRule negative_rule = 8;</code>
    */
-  ai.promoted.proto.delivery.NegativeRuleOrBuilder getNegativeRuleOrBuilder();
+  NegativeRuleOrBuilder getNegativeRuleOrBuilder();
 
   /**
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
@@ -81,11 +81,11 @@ public interface BlenderRuleOrBuilder extends
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
    * @return The diversityRule.
    */
-  ai.promoted.proto.delivery.DiversityRule getDiversityRule();
+  DiversityRule getDiversityRule();
   /**
    * <code>.delivery.DiversityRule diversity_rule = 9;</code>
    */
-  ai.promoted.proto.delivery.DiversityRuleOrBuilder getDiversityRuleOrBuilder();
+  DiversityRuleOrBuilder getDiversityRuleOrBuilder();
 
-  public ai.promoted.proto.delivery.BlenderRule.RuleCase getRuleCase();
+  public BlenderRule.RuleCase getRuleCase();
 }
