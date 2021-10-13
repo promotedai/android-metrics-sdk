@@ -19,6 +19,7 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
 
     fun withName(name: String) = apply { this.name = name }
     fun withType(type: ActionType) = apply { this.type = type }
+    fun withImpressionId(id: String) = apply { dataBuilder.impressionId = id }
     fun withInsertionId(id: String) = apply { dataBuilder.insertionId = id }
     fun withContentId(id: String) = apply { dataBuilder.contentId = id }
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
