@@ -50,7 +50,7 @@ class TrackImpressionsUseCaseTest {
     private val useCase = TrackCollectionsUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
+        idGenerator = idGenerator,
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },

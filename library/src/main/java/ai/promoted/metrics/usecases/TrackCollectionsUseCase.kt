@@ -5,6 +5,7 @@ import ai.promoted.ImpressionData
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
 import android.app.Activity
@@ -22,7 +23,7 @@ internal class TrackCollectionsUseCase(
     private val logger: MetricsLogger,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
-    private val impressionIdGenerator: ImpressionIdGenerator,
+    private val idGenerator: IdGenerator,
     private val xray: Xray
 ) {
     private val collectionDiffers =
@@ -77,6 +78,7 @@ internal class TrackCollectionsUseCase(
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
         val autoViewId = viewUseCase.autoViewId.currentValueOrNull
+        val hasSuperImposedViews = sourceActivity?.hasWindowFocus() == false
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(
@@ -92,6 +94,7 @@ internal class TrackCollectionsUseCase(
                     originalImpressionTime = now,
                     originalImpressionSessionId = sessionId,
                     originalImpressionAutoViewId = autoViewId,
+                    originalHasSuperImposedViews = hasSuperImposedViews,
                     result = newDiff
                 )
             }
@@ -108,6 +111,7 @@ internal class TrackCollectionsUseCase(
         originalImpressionTime: Long,
         originalImpressionSessionId: String?,
         originalImpressionAutoViewId: String?,
+        originalHasSuperImposedViews: Boolean?,
         result: AsyncCollectionDiffCalculator.DiffResult<AbstractContent>
     ) {
         result.newItems.forEach { newContent ->
@@ -115,6 +119,7 @@ internal class TrackCollectionsUseCase(
                 time = originalImpressionTime,
                 sessionId = originalImpressionSessionId,
                 autoViewId = originalImpressionAutoViewId,
+                hasSuperImposedViews = originalHasSuperImposedViews,
                 content = newContent
             )
         }
@@ -126,13 +131,10 @@ internal class TrackCollectionsUseCase(
         time: Long,
         sessionId: String?,
         autoViewId: String?,
+        hasSuperImposedViews: Boolean?,
         content: AbstractContent
     ) = xray.monitored {
-        // TODO - random UUID (not based on insertion ID)
-        val impressionId = impressionIdGenerator.generateImpressionId(
-            insertionId = content.insertionId,
-            contentId = content.contentId
-        ) ?: return@monitored
+        val impressionId = idGenerator.newId()
 
         val impressionData = ImpressionData.Builder().apply {
             insertionId = content.insertionId
@@ -143,7 +145,8 @@ internal class TrackCollectionsUseCase(
             time = time,
             sessionId = sessionId,
             autoViewId = autoViewId,
-            impressionId = impressionId
+            impressionId = impressionId,
+            hasSuperImposedViews = hasSuperImposedViews
         )
 
         logger.enqueueMessage(createImpressionMessage(impressionData, internalImpressionData))

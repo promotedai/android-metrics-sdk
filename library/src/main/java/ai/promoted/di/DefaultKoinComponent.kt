@@ -6,7 +6,6 @@ import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.metrics.id.UuidGenerator
 import ai.promoted.metrics.usecases.CurrentUserIdsUseCase
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
-import ai.promoted.metrics.usecases.ImpressionIdGenerator
 import ai.promoted.metrics.usecases.TrackActionUseCase
 import ai.promoted.metrics.usecases.TrackCollectionsUseCase
 import ai.promoted.metrics.usecases.TrackImpressionUseCase
@@ -71,9 +70,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
-            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get(), get()) }
-
-            factory { ImpressionIdGenerator(get(), get()) }
+            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<KeyValueStorage> { SharedPrefsKeyValueStorage(get()) }

@@ -8,6 +8,7 @@ import com.google.protobuf.Message
  */
 data class ActionData(
     val sourceActivity: Activity?,
+    val impressionId: String?,
     val insertionId: String?,
     val contentId: String?,
     val requestId: String?,
@@ -16,6 +17,7 @@ data class ActionData(
     val customProperties: Message?
 ) {
     data class Builder(
+        var impressionId: String? = null,
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
@@ -24,7 +26,7 @@ data class ActionData(
         var customProperties: Message? = null
     ) {
         fun build(sourceActivity: Activity?) = ActionData(
-            sourceActivity, insertionId, contentId, requestId, elementId, targetUrl,
+            sourceActivity, impressionId, insertionId, contentId, requestId, elementId, targetUrl,
             customProperties
         )
     }
