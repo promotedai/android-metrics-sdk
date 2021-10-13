@@ -14,6 +14,7 @@ data class ActionData(
     val requestId: String?,
     val elementId: String?,
     val targetUrl: String?,
+    val hasSuperImposedViews: Boolean?,
     val customProperties: Message?
 ) {
     data class Builder(
@@ -23,11 +24,12 @@ data class ActionData(
         var requestId: String? = null,
         var elementId: String? = null,
         var targetUrl: String? = null,
+        var hasSuperImposedViews: Boolean? = null,
         var customProperties: Message? = null
     ) {
         fun build(sourceActivity: Activity?) = ActionData(
             sourceActivity, impressionId, insertionId, contentId, requestId, elementId, targetUrl,
-            customProperties
+            hasSuperImposedViews, customProperties
         )
     }
 }

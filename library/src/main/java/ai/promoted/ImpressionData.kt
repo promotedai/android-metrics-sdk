@@ -11,16 +11,18 @@ data class ImpressionData(
     val insertionId: String?,
     val contentId: String?,
     val requestId: String?,
+    val hasSuperImposedViews: Boolean?,
     val customProperties: Message?
 ) {
     data class Builder(
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
+        var hasSuperImposedViews: Boolean? = null,
         var customProperties: Message? = null
     ) {
         fun build(sourceActivity: Activity?) = ImpressionData(
-            sourceActivity, insertionId, contentId, requestId, customProperties
+            sourceActivity, insertionId, contentId, requestId, hasSuperImposedViews, customProperties
         )
     }
 }

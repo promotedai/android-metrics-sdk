@@ -116,6 +116,7 @@ class OperationSchedulerTest {
     }
 
     @Test
+    @Ignore("Flaky")
     fun `Should invoke second operation even after first one had been canceled`() {
         // Given that an operation has been scheduled to execute after the interval below
         // and then half-way through had been canceled

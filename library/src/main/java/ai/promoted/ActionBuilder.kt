@@ -12,6 +12,7 @@ import com.google.protobuf.Message
  * While this is supported for Kotlin users, the [PromotedAiSdk.onAction] with the [ActionData.Builder]
  * configuration block is recommended.
  */
+@SuppressWarnings("TooManyFunctions")
 class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     private var name: String = ""
     private var type: ActionType = ActionType.UNKNOWN_ACTION_TYPE
@@ -25,6 +26,9 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
     fun withElementId(id: String) = apply { dataBuilder.elementId = id }
     fun withTargetUrl(url: String) = apply { dataBuilder.targetUrl = url }
+    fun withHasSuperImposedViews(hasSuperImposedViews: Boolean) =
+        apply { dataBuilder.hasSuperImposedViews = hasSuperImposedViews }
+
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
 

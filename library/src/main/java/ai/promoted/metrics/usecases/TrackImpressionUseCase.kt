@@ -55,7 +55,14 @@ internal class TrackImpressionUseCase(
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
         val impressionId = idGenerator.newId()
-        val hasSuperImposedViews = data.sourceActivity?.hasWindowFocus() == false
+
+        // Allows for manual passing in of hasSuperImposedViews (i.e. via RN) or an inferred
+        // value if one exists
+        val hasSuperImposedViews = when (data.hasSuperImposedViews) {
+            true -> true
+            false -> false
+            else -> data.sourceActivity?.hasWindowFocus() == false
+        }
 
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
