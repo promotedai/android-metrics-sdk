@@ -63,7 +63,6 @@ internal class TrackActionUseCase(
             name = name,
             type = type,
             actionId = actionId,
-            impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
             autoViewId = viewUseCase.autoViewId.currentValueOrNull
         )

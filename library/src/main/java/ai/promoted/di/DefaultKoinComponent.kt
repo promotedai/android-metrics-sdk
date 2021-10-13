@@ -70,7 +70,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
             factory { FinalizeLogsUseCase(get(), get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
-            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get(), get()) }
+            factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
 
             factory<IdGenerator> { UuidGenerator() }
             factory<KeyValueStorage> { SharedPrefsKeyValueStorage(get()) }

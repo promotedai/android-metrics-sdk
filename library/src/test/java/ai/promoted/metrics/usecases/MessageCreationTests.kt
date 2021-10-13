@@ -33,7 +33,6 @@ class MessageCreationTests {
                 actionId = "test",
                 sessionId = "test",
                 autoViewId = "test",
-                impressionId = "test"
             ),
             actionData = ActionData.Builder(
                 targetUrl = "http://google.com"
@@ -56,7 +55,6 @@ class MessageCreationTests {
                 actionId = "test",
                 sessionId = "test",
                 autoViewId = "test",
-                impressionId = "test"
             ),
             actionData = ActionData.Builder().build(null)
         )

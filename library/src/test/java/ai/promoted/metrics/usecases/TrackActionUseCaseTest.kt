@@ -48,7 +48,6 @@ class TrackActionUseCaseTest {
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,
         idGenerator = idGenerator,
-        impressionIdGenerator = ImpressionIdGenerator(idGenerator, trackUserUseCase),
         sessionUseCase = mockk {
             every { sessionId } returns testSessionId
         },
@@ -67,48 +66,6 @@ class TrackActionUseCaseTest {
         val action = enqueuedMessage.captured as? Action
         verify(exactly = 1) { logger.enqueueMessage(any()) }
         assertThat(action, notNullValue())
-    }
-
-    @Test
-    fun `Impression ID is based on insertion ID when it is available`() {
-        // When
-        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
-            insertionId = "test-insertion-id"
-            contentId = "test-content-id"
-            requestId = "test-request-id"
-            elementId = "test-element-id"
-            targetUrl = null
-
-            // Fake custom properties
-            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
-        }
-
-        // Then
-        val action = enqueuedMessage.captured as? Action
-        verify(exactly = 1) { logger.enqueueMessage(any()) }
-        assertThat(action, notNullValue())
-        assertThat(action?.impressionId, equalTo("test-insertion-id"))
-    }
-
-    @Test
-    fun `Impression ID is based on combination of content ID and logUserId when content ID is available`() {
-        // When
-        useCase.onAction(null, "test", ActionType.CUSTOM_ACTION_TYPE) {
-            insertionId = null
-            contentId = "test-content-id"
-            requestId = "test-request-id"
-            elementId = "test-element-id"
-            targetUrl = null
-
-            // Fake custom properties
-            customProperties = Timing.newBuilder().setClientLogTimestamp(0L).build()
-        }
-
-        // Then
-        val action = enqueuedMessage.captured as? Action
-        verify(exactly = 1) { logger.enqueueMessage(any()) }
-        assertThat(action, notNullValue())
-        assertThat(action?.impressionId, equalTo("test-content-id$logUserId"))
     }
 
     @Test

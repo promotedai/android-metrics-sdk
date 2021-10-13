@@ -134,7 +134,7 @@ internal fun createActionMessage(
         .apply {
             internalActionData.sessionId?.let { setSessionId(it) }
             internalActionData.autoViewId?.let { setAutoViewId(it) }
-            internalActionData.impressionId?.let { setImpressionId(it) }
+            actionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
             elementId = actionData.elementId ?: name

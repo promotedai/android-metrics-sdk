@@ -5,6 +5,7 @@ import ai.promoted.ImpressionData
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
 import android.app.Activity
@@ -22,7 +23,7 @@ internal class TrackCollectionsUseCase(
     private val logger: MetricsLogger,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
-    private val impressionIdGenerator: ImpressionIdGenerator,
+    private val idGenerator: IdGenerator,
     private val xray: Xray
 ) {
     private val collectionDiffers =
@@ -128,11 +129,7 @@ internal class TrackCollectionsUseCase(
         autoViewId: String?,
         content: AbstractContent
     ) = xray.monitored {
-        // TODO - random UUID (not based on insertion ID)
-        val impressionId = impressionIdGenerator.generateImpressionId(
-            insertionId = content.insertionId,
-            contentId = content.contentId
-        ) ?: return@monitored
+        val impressionId = idGenerator.newId()
 
         val impressionData = ImpressionData.Builder().apply {
             insertionId = content.insertionId

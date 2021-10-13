@@ -3,6 +3,7 @@ package ai.promoted.metrics.usecases
 import ai.promoted.ImpressionData
 import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.metrics.MetricsLogger
+import ai.promoted.metrics.id.IdGenerator
 import ai.promoted.platform.Clock
 import ai.promoted.xray.Xray
 import android.app.Activity
@@ -19,7 +20,7 @@ import android.app.Activity
 internal class TrackImpressionUseCase(
     private val clock: Clock,
     private val logger: MetricsLogger,
-    private val impressionIdGenerator: ImpressionIdGenerator,
+    private val idGenerator: IdGenerator,
     private val sessionUseCase: TrackSessionUseCase,
     private val viewUseCase: TrackViewUseCase,
     private val xray: Xray
@@ -53,10 +54,7 @@ internal class TrackImpressionUseCase(
         // Log a new view event if necessary
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
-        // TODO - random UUID (not based on insertion ID)
-        val impressionId =
-            impressionIdGenerator.generateImpressionId(data.insertionId, data.contentId)
-                ?: return@monitored
+        val impressionId = idGenerator.newId()
 
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
