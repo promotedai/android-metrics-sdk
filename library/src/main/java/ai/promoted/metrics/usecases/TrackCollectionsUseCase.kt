@@ -78,6 +78,7 @@ internal class TrackCollectionsUseCase(
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
         val autoViewId = viewUseCase.autoViewId.currentValueOrNull
+        val hasSuperImposedViews = sourceActivity?.hasWindowFocus() == false
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(
@@ -93,6 +94,7 @@ internal class TrackCollectionsUseCase(
                     originalImpressionTime = now,
                     originalImpressionSessionId = sessionId,
                     originalImpressionAutoViewId = autoViewId,
+                    originalHasSuperImposedViews = hasSuperImposedViews,
                     result = newDiff
                 )
             }
@@ -109,6 +111,7 @@ internal class TrackCollectionsUseCase(
         originalImpressionTime: Long,
         originalImpressionSessionId: String?,
         originalImpressionAutoViewId: String?,
+        originalHasSuperImposedViews: Boolean?,
         result: AsyncCollectionDiffCalculator.DiffResult<AbstractContent>
     ) {
         result.newItems.forEach { newContent ->
@@ -116,6 +119,7 @@ internal class TrackCollectionsUseCase(
                 time = originalImpressionTime,
                 sessionId = originalImpressionSessionId,
                 autoViewId = originalImpressionAutoViewId,
+                hasSuperImposedViews = originalHasSuperImposedViews,
                 content = newContent
             )
         }
@@ -127,6 +131,7 @@ internal class TrackCollectionsUseCase(
         time: Long,
         sessionId: String?,
         autoViewId: String?,
+        hasSuperImposedViews: Boolean?,
         content: AbstractContent
     ) = xray.monitored {
         val impressionId = idGenerator.newId()
@@ -140,7 +145,8 @@ internal class TrackCollectionsUseCase(
             time = time,
             sessionId = sessionId,
             autoViewId = autoViewId,
-            impressionId = impressionId
+            impressionId = impressionId,
+            hasSuperImposedViews = hasSuperImposedViews
         )
 
         logger.enqueueMessage(createImpressionMessage(impressionData, internalImpressionData))

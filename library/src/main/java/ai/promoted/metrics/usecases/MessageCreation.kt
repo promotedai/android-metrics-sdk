@@ -101,16 +101,16 @@ internal fun createAutoViewMessage(
     sessionId: String?,
     name: String
 ) = AutoView
-        .newBuilder()
-        .setTiming(createTimingMessage(clock))
-        .setLocale(createLocaleMessage(deviceInfoProvider))
-        .apply {
-            sessionId?.let { setSessionId(it) }
-            autoViewId?.let { setAutoViewId(autoViewId) }
-        }
-        .setName(name)
-        .setAppScreenView(AppScreenView.getDefaultInstance())
-        .build()
+    .newBuilder()
+    .setTiming(createTimingMessage(clock))
+    .setLocale(createLocaleMessage(deviceInfoProvider))
+    .apply {
+        sessionId?.let { setSessionId(it) }
+        autoViewId?.let { setAutoViewId(autoViewId) }
+    }
+    .setName(name)
+    .setAppScreenView(AppScreenView.getDefaultInstance())
+    .build()
 
 private fun createLocaleMessage(deviceInfoProvider: DeviceInfoProvider) =
     PromotedAiLocale
@@ -134,6 +134,7 @@ internal fun createActionMessage(
         .apply {
             internalActionData.sessionId?.let { setSessionId(it) }
             internalActionData.autoViewId?.let { setAutoViewId(it) }
+            internalActionData.hasSuperImposedViews?.let { setHasSuperimposedViews(it) }
             actionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -167,6 +168,7 @@ internal fun createImpressionMessage(
         .apply {
             internalImpressionData.sessionId?.let { setSessionId(it) }
             internalImpressionData.autoViewId?.let { setAutoViewId(it) }
+            internalImpressionData.hasSuperImposedViews?.let { setHasSuperimposedViews(it) }
             impressionData.insertionId?.let { setInsertionId(it) }
             impressionData.requestId?.let { setRequestId(it) }
             impressionData.contentId?.let { setContentId(it) }

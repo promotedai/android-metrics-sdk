@@ -59,12 +59,16 @@ internal class TrackActionUseCase(
         // Log a new view event if necessary
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
+        // If the source activity has window focus, then there are no superimposed views
+        val hasSuperImposedViews = data.sourceActivity?.hasWindowFocus() == false
+
         val internalActionData = InternalActionData(
             name = name,
             type = type,
             actionId = actionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            autoViewId = viewUseCase.autoViewId.currentValueOrNull
+            autoViewId = viewUseCase.autoViewId.currentValueOrNull,
+            hasSuperImposedViews = hasSuperImposedViews
         )
 
         logger.enqueueMessage(
