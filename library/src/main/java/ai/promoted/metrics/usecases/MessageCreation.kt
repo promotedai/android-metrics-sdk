@@ -138,6 +138,7 @@ internal fun createActionMessage(
             actionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
+            actionData.contentId?.let { setContentId(it) }
             elementId = actionData.elementId ?: name
             if (internalActionData.type == ActionType.NAVIGATE) {
                 navigateAction = createNavigationMessage(actionData.targetUrl)
