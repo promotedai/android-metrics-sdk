@@ -1,7 +1,7 @@
 package ai.promoted.telemetry
 
+import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 
 /**
  * An implementation of [TelemetryService] that passes through to [FirebaseAnalytics]
@@ -16,11 +16,12 @@ internal class FirebaseTelemetryService(
      * @see [TelemetryService.logEvent]
      */
     override fun logEvent(name: String, params: Map<String, String>) {
-        analytics.logEvent(name) {
-            params.forEach { entry ->
-                param(entry.key, entry.value)
-            }
+        val paramsBundle = Bundle()
+        params.forEach { entry ->
+            paramsBundle.putString(entry.key, entry.value)
         }
+
+        analytics.logEvent(name, paramsBundle)
     }
 
     /**
@@ -30,8 +31,8 @@ internal class FirebaseTelemetryService(
      * @see [TelemetryService.addToEventValue]
      */
     override fun addToEventValue(name: String, amountToAdd: Int) {
-        analytics.logEvent(name) {
-            param(FirebaseAnalytics.Param.VALUE, amountToAdd.toLong())
-        }
+        val paramsBundle = Bundle()
+        paramsBundle.putLong(FirebaseAnalytics.Param.VALUE, amountToAdd.toLong())
+        analytics.logEvent(name, paramsBundle)
     }
 }
