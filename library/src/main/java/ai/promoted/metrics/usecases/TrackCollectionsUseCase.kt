@@ -78,7 +78,7 @@ internal class TrackCollectionsUseCase(
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
         val autoViewId = viewUseCase.autoViewId.currentValueOrNull
-        val hasSuperImposedViews = sourceActivity?.hasWindowFocus() == false
+        val hasSuperimposedViews = sourceActivity?.hasWindowFocus() == false
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(
@@ -94,7 +94,7 @@ internal class TrackCollectionsUseCase(
                     originalImpressionTime = now,
                     originalImpressionSessionId = sessionId,
                     originalImpressionAutoViewId = autoViewId,
-                    originalHasSuperImposedViews = hasSuperImposedViews,
+                    originalHasSuperimposedViews = hasSuperimposedViews,
                     result = newDiff
                 )
             }
@@ -111,7 +111,7 @@ internal class TrackCollectionsUseCase(
         originalImpressionTime: Long,
         originalImpressionSessionId: String?,
         originalImpressionAutoViewId: String?,
-        originalHasSuperImposedViews: Boolean?,
+        originalHasSuperimposedViews: Boolean?,
         result: AsyncCollectionDiffCalculator.DiffResult<AbstractContent>
     ) {
         result.newItems.forEach { newContent ->
@@ -119,7 +119,7 @@ internal class TrackCollectionsUseCase(
                 time = originalImpressionTime,
                 sessionId = originalImpressionSessionId,
                 autoViewId = originalImpressionAutoViewId,
-                hasSuperImposedViews = originalHasSuperImposedViews,
+                hasSuperimposedViews = originalHasSuperimposedViews,
                 content = newContent
             )
         }
@@ -131,7 +131,7 @@ internal class TrackCollectionsUseCase(
         time: Long,
         sessionId: String?,
         autoViewId: String?,
-        hasSuperImposedViews: Boolean?,
+        hasSuperimposedViews: Boolean?,
         content: AbstractContent
     ) = xray.monitored {
         val impressionId = idGenerator.newId()
@@ -146,7 +146,7 @@ internal class TrackCollectionsUseCase(
             sessionId = sessionId,
             autoViewId = autoViewId,
             impressionId = impressionId,
-            hasSuperImposedViews = hasSuperImposedViews
+            hasSuperimposedViews = hasSuperimposedViews
         )
 
         logger.enqueueMessage(createImpressionMessage(impressionData, internalImpressionData))

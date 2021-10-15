@@ -59,21 +59,24 @@ internal class TrackActionUseCase(
         // Log a new view event if necessary
         data.sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
-        // Allows for manual passing in of hasSuperImposedViews (i.e. via RN) or an inferred
+        // Allows for manual passing in of hasSuperimposedViews (i.e. via RN) or an inferred
         // value if one exists
-        val hasSuperImposedViews = when (data.hasSuperImposedViews) {
+        val hasSuperimposedViews = when (data.hasSuperimposedViews) {
             true -> true
             false -> false
             else -> data.sourceActivity?.hasWindowFocus() == false
         }
+
+        val autoViewId = data.autoViewId ?:
+            viewUseCase.autoViewId.currentValueOrNull
 
         val internalActionData = InternalActionData(
             name = name,
             type = type,
             actionId = actionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            autoViewId = viewUseCase.autoViewId.currentValueOrNull,
-            hasSuperImposedViews = hasSuperImposedViews
+            autoViewId = autoViewId,
+            hasSuperimposedViews = hasSuperimposedViews
         )
 
         logger.enqueueMessage(

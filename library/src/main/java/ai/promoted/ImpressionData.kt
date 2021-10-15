@@ -11,18 +11,20 @@ data class ImpressionData(
     val insertionId: String?,
     val contentId: String?,
     val requestId: String?,
-    val hasSuperImposedViews: Boolean?,
+    val autoViewId: String?,
+    val hasSuperimposedViews: Boolean?,
     val customProperties: Message?
 ) {
     data class Builder(
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
-        var hasSuperImposedViews: Boolean? = null,
+        val autoViewId: String? = null,
+        var hasSuperimposedViews: Boolean? = null,
         var customProperties: Message? = null
     ) {
         fun build(sourceActivity: Activity?) = ImpressionData(
-            sourceActivity, insertionId, contentId, requestId, hasSuperImposedViews, customProperties
+            sourceActivity, insertionId, contentId, requestId, autoViewId, hasSuperimposedViews, customProperties
         )
     }
 }

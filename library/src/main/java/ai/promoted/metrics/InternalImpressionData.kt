@@ -5,5 +5,5 @@ internal data class InternalImpressionData(
     val sessionId: String?,
     val autoViewId: String?,
     val impressionId: String,
-    val hasSuperImposedViews: Boolean?
+    val hasSuperimposedViews: Boolean?
 )

@@ -134,7 +134,7 @@ internal fun createActionMessage(
         .apply {
             internalActionData.sessionId?.let { setSessionId(it) }
             internalActionData.autoViewId?.let { setAutoViewId(it) }
-            internalActionData.hasSuperImposedViews?.let { setHasSuperimposedViews(it) }
+            internalActionData.hasSuperimposedViews?.let { setHasSuperimposedViews(it) }
             actionData.impressionId?.let { setImpressionId(it) }
             actionData.insertionId?.let { setInsertionId(it) }
             actionData.requestId?.let { setRequestId(it) }
@@ -168,7 +168,7 @@ internal fun createImpressionMessage(
         .apply {
             internalImpressionData.sessionId?.let { setSessionId(it) }
             internalImpressionData.autoViewId?.let { setAutoViewId(it) }
-            internalImpressionData.hasSuperImposedViews?.let { setHasSuperimposedViews(it) }
+            internalImpressionData.hasSuperimposedViews?.let { setHasSuperimposedViews(it) }
             impressionData.insertionId?.let { setInsertionId(it) }
             impressionData.requestId?.let { setRequestId(it) }
             impressionData.contentId?.let { setContentId(it) }

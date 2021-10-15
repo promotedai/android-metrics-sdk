@@ -11,5 +11,5 @@ internal data class InternalActionData(
     val actionId: String,
     val sessionId: String?,
     val autoViewId: String?,
-    val hasSuperImposedViews: Boolean?
+    val hasSuperimposedViews: Boolean?
 )

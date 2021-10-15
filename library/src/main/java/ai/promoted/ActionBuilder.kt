@@ -26,8 +26,8 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
     fun withElementId(id: String) = apply { dataBuilder.elementId = id }
     fun withTargetUrl(url: String) = apply { dataBuilder.targetUrl = url }
-    fun withHasSuperImposedViews(hasSuperImposedViews: Boolean) =
-        apply { dataBuilder.hasSuperImposedViews = hasSuperImposedViews }
+    fun withHasSuperimposedViews(hasSuperimposedViews: Boolean) =
+        apply { dataBuilder.hasSuperimposedViews = hasSuperimposedViews }
 
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }

@@ -17,8 +17,8 @@ class ImpressionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withInsertionId(id: String) = apply { dataBuilder.insertionId = id }
     fun withContentId(id: String) = apply { dataBuilder.contentId = id }
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
-    fun withHasSuperImposedViews(hasSuperImposedViews: Boolean) =
-        apply { dataBuilder.hasSuperImposedViews = hasSuperImposedViews }
+    fun withHasSuperimposedViews(hasSuperimposedViews: Boolean) =
+        apply { dataBuilder.hasSuperimposedViews = hasSuperimposedViews }
 
     fun withCustomProperties(properties: Message) =
         apply { dataBuilder.customProperties = properties }
