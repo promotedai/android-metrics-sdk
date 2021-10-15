@@ -36,6 +36,8 @@ class MessageCreationTests {
                 hasSuperimposedViews = false
             ),
             actionData = ActionData.Builder(
+                contentId = "foobar",
+                insertionId = "batman",
                 targetUrl = "http://google.com"
             ).build(null)
         )
@@ -63,5 +65,30 @@ class MessageCreationTests {
 
         // Then
         assertThat(message.elementId, equalTo("TestNav"))
+    }
+
+    @Test
+    fun `Should set contentId and insertionId`() {
+        // When
+        val message = createActionMessage(
+            clock = clock,
+            internalActionData = InternalActionData(
+                name = "TestNav",
+                type = ActionType.NAVIGATE,
+                actionId = "test",
+                sessionId = "test",
+                autoViewId = "test",
+                hasSuperimposedViews = false
+            ),
+            actionData = ActionData.Builder(
+                contentId = "foobar",
+                insertionId = "batman",
+                targetUrl = "http://google.com"
+            ).build(null)
+        )
+
+        // Then
+        assertThat(message.contentId, equalTo("foobar"))
+        assertThat(message.insertionId, equalTo("batman"))
     }
 }
