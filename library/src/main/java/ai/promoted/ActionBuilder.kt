@@ -24,6 +24,7 @@ class ActionBuilder internal constructor(private val sdk: PromotedAiSdk) {
     fun withInsertionId(id: String) = apply { dataBuilder.insertionId = id }
     fun withContentId(id: String) = apply { dataBuilder.contentId = id }
     fun withRequestId(id: String) = apply { dataBuilder.requestId = id }
+    fun withAutoViewId(id: String) = apply { dataBuilder.autoViewId = id }
     fun withElementId(id: String) = apply { dataBuilder.elementId = id }
     fun withTargetUrl(url: String) = apply { dataBuilder.targetUrl = url }
     fun withHasSuperimposedViews(hasSuperimposedViews: Boolean) =
