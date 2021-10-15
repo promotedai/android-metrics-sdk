@@ -23,6 +23,7 @@ plugins {
 }
 
 allprojects {
+    group = "ai.promoted"
     repositories {
         google()
         jcenter()

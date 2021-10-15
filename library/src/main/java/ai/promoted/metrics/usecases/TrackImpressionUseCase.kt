@@ -56,20 +56,23 @@ internal class TrackImpressionUseCase(
 
         val impressionId = idGenerator.newId()
 
-        // Allows for manual passing in of hasSuperImposedViews (i.e. via RN) or an inferred
+        // Allows for manual passing in of hasSuperimposedViews (i.e. via RN) or an inferred
         // value if one exists
-        val hasSuperImposedViews = when (data.hasSuperImposedViews) {
+        val hasSuperimposedViews = when (data.hasSuperimposedViews) {
             true -> true
             false -> false
             else -> data.sourceActivity?.hasWindowFocus() == false
         }
 
+        val autoViewId = data.autoViewId ?:
+            viewUseCase.autoViewId.currentValueOrNull
+
         val internalImpressionData = InternalImpressionData(
             time = clock.currentTimeMillis,
             impressionId = impressionId,
             sessionId = sessionUseCase.sessionId.currentValueOrNull,
-            autoViewId = viewUseCase.autoViewId.currentValueOrNull,
-            hasSuperImposedViews = hasSuperImposedViews
+            autoViewId = autoViewId,
+            hasSuperimposedViews = hasSuperimposedViews
         )
 
         logger.enqueueMessage(

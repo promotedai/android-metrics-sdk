@@ -141,8 +141,9 @@ object PromotedAi {
     fun onCollectionVisible(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = sdk.onCollectionVisible(sourceActivity, collectionViewKey, content)
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState? = null
+    ) = sdk.onCollectionVisible(sourceActivity, collectionViewKey, content, autoViewState)
 
     /**
      * @see [PromotedAiSdk.onCollectionUpdated]
@@ -151,15 +152,19 @@ object PromotedAi {
     fun onCollectionUpdated(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = sdk.onCollectionUpdated(sourceActivity, collectionViewKey, content)
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState? = null
+    ) = sdk.onCollectionUpdated(sourceActivity, collectionViewKey, content, autoViewState)
 
     /**
      * @see [PromotedAiSdk.onCollectionHidden]
      */
     @JvmStatic
-    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
-        sdk.onCollectionHidden(sourceActivity, collectionViewKey)
+    fun onCollectionHidden(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        autoViewState: AutoViewState? = null
+    ) = sdk.onCollectionHidden(sourceActivity, collectionViewKey, autoViewState)
 
     /**
      * @see [PromotedAiSdk.trackRecyclerView]

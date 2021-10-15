@@ -12,9 +12,10 @@ data class ActionData(
     val insertionId: String?,
     val contentId: String?,
     val requestId: String?,
+    val autoViewId: String?,
     val elementId: String?,
     val targetUrl: String?,
-    val hasSuperImposedViews: Boolean?,
+    val hasSuperimposedViews: Boolean?,
     val customProperties: Message?
 ) {
     data class Builder(
@@ -22,14 +23,15 @@ data class ActionData(
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
+        var autoViewId: String? = null,
         var elementId: String? = null,
         var targetUrl: String? = null,
-        var hasSuperImposedViews: Boolean? = null,
+        var hasSuperimposedViews: Boolean? = null,
         var customProperties: Message? = null
     ) {
         fun build(sourceActivity: Activity?) = ActionData(
-            sourceActivity, impressionId, insertionId, contentId, requestId, elementId, targetUrl,
-            hasSuperImposedViews, customProperties
+            sourceActivity, impressionId, insertionId, contentId, requestId, autoViewId, elementId, targetUrl,
+            hasSuperimposedViews, customProperties
         )
     }
 }
