@@ -19,7 +19,7 @@ data class ImpressionData(
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
-        val autoViewId: String? = null,
+        var autoViewId: String? = null,
         var hasSuperimposedViews: Boolean? = null,
         var customProperties: Message? = null
     ) {

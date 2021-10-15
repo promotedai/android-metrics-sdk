@@ -23,7 +23,7 @@ data class ActionData(
         var insertionId: String? = null,
         var contentId: String? = null,
         var requestId: String? = null,
-        val autoViewId: String? = null,
+        var autoViewId: String? = null,
         var elementId: String? = null,
         var targetUrl: String? = null,
         var hasSuperimposedViews: Boolean? = null,
