@@ -1,6 +1,7 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.AbstractContent
+import ai.promoted.AutoViewState
 import ai.promoted.ImpressionData
 import ai.promoted.calculation.AsyncCollectionDiffCalculator
 import ai.promoted.metrics.InternalImpressionData
@@ -36,8 +37,9 @@ internal class TrackCollectionsUseCase(
     fun onCollectionVisible(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        visibleContent: List<AbstractContent>
-    ) = onCollectionUpdated(sourceActivity, collectionViewKey, visibleContent)
+        visibleContent: List<AbstractContent>,
+        autoViewState: AutoViewState?
+    ) = onCollectionUpdated(sourceActivity, collectionViewKey, visibleContent, autoViewState)
 
     /**
      * To be called when the collection view with the given [collectionViewKey] has been entirely
@@ -46,8 +48,12 @@ internal class TrackCollectionsUseCase(
      *
      * Only for semantic clarity. Same as calling [onCollectionUpdated] with an empty list.
      */
-    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
-        onCollectionUpdated(sourceActivity, collectionViewKey, emptyList())
+    fun onCollectionHidden(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        autoViewState: AutoViewState?
+    ) =
+        onCollectionUpdated(sourceActivity, collectionViewKey, emptyList(), autoViewState)
 
     /**
      * To be called when the collection view with the given [collectionViewKey] has a
@@ -69,7 +75,8 @@ internal class TrackCollectionsUseCase(
     fun onCollectionUpdated(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        visibleContent: List<AbstractContent>
+        visibleContent: List<AbstractContent>,
+        autoViewState: AutoViewState?
     ) = xray.monitored {
         sourceActivity?.let { viewUseCase.onImplicitViewVisible(it::class.java.name) }
 
@@ -77,8 +84,17 @@ internal class TrackCollectionsUseCase(
 
         val now = clock.currentTimeMillis
         val sessionId = sessionUseCase.sessionId.currentValueOrNull
-        val autoViewId = viewUseCase.autoViewId.currentValueOrNull
-        val hasSuperimposedViews = sourceActivity?.hasWindowFocus() == false
+
+        // Allow manual override of auto-view state
+        val hasSuperimposedViews = when (autoViewState?.hasSuperimposedViews) {
+            null -> sourceActivity?.hasWindowFocus() == false
+            else -> autoViewState.hasSuperimposedViews
+        }
+
+        val autoViewId = when(autoViewState?.autoViewId) {
+            null -> viewUseCase.autoViewId.currentValueOrNull
+            else -> autoViewState.autoViewId
+        }
 
         val differ = collectionDiffers.getOrPut(collectionViewKey) {
             AsyncCollectionDiffCalculator(

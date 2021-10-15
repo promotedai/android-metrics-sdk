@@ -61,12 +61,12 @@ internal class TrackRecyclerViewUseCase(
         rvKey: String,
         data: List<AbstractContent>
     ) {
-        coreImpressionsUseCase.onCollectionUpdated(recyclerView.getActivity(), rvKey, data)
+        coreImpressionsUseCase.onCollectionUpdated(recyclerView.getActivity(), rvKey, data, null)
     }
 
     private fun onRVDetached(recyclerView: RecyclerView, rvKey: String) {
         stopAndRemoveTracking(rvKey)
-        coreImpressionsUseCase.onCollectionHidden(recyclerView.getActivity(), rvKey)
+        coreImpressionsUseCase.onCollectionHidden(recyclerView.getActivity(), rvKey, null)
     }
 
     private fun stopAndRemoveTracking(recyclerViewKey: String) =

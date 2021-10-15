@@ -2,6 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.AutoViewState
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.metrics.MetricsLogger
@@ -71,17 +72,23 @@ internal class DefaultSdk(
     override fun onCollectionVisible(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = trackCollectionsUseCase.onCollectionVisible(sourceActivity, collectionViewKey, content)
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
+    ) = trackCollectionsUseCase.onCollectionVisible(sourceActivity, collectionViewKey, content, autoViewState)
 
     override fun onCollectionUpdated(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
-    ) = trackCollectionsUseCase.onCollectionUpdated(sourceActivity, collectionViewKey, content)
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
+    ) = trackCollectionsUseCase.onCollectionUpdated(sourceActivity, collectionViewKey, content, autoViewState)
 
-    override fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) =
-        trackCollectionsUseCase.onCollectionHidden(sourceActivity, collectionViewKey)
+    override fun onCollectionHidden(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        autoViewState: AutoViewState?
+    ) =
+        trackCollectionsUseCase.onCollectionHidden(sourceActivity, collectionViewKey, autoViewState)
 
     override fun trackRecyclerView(
         recyclerView: RecyclerView,

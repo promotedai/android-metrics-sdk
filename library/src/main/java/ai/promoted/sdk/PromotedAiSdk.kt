@@ -2,6 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.AutoViewState
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
@@ -42,14 +43,22 @@ internal interface PromotedAiSdk {
     fun onCollectionVisible(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
     )
+
     fun onCollectionUpdated(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
     )
-    fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String)
+
+    fun onCollectionHidden(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        autoViewState: AutoViewState?
+    )
 
     fun trackRecyclerView(
         recyclerView: RecyclerView,

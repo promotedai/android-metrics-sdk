@@ -2,6 +2,7 @@ package ai.promoted.sdk
 
 import ai.promoted.AbstractContent
 import ai.promoted.ActionData
+import ai.promoted.AutoViewState
 import ai.promoted.ImpressionData
 import ai.promoted.ImpressionThreshold
 import ai.promoted.proto.event.ActionType
@@ -25,7 +26,8 @@ internal class NoOpSdk : PromotedAiSdk {
 
     override fun onImpression(
         sourceActivity: Activity?,
-        dataBlock: ImpressionData.Builder.() -> Unit) {
+        dataBlock: ImpressionData.Builder.() -> Unit
+    ) {
     }
 
     override fun onImpression(data: ImpressionData) {
@@ -44,18 +46,24 @@ internal class NoOpSdk : PromotedAiSdk {
     override fun onCollectionVisible(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
     ) {
     }
 
     override fun onCollectionUpdated(
         sourceActivity: Activity?,
         collectionViewKey: String,
-        content: List<AbstractContent>
+        content: List<AbstractContent>,
+        autoViewState: AutoViewState?
     ) {
     }
 
-    override fun onCollectionHidden(sourceActivity: Activity?, collectionViewKey: String) {
+    override fun onCollectionHidden(
+        sourceActivity: Activity?,
+        collectionViewKey: String,
+        autoViewState: AutoViewState?
+    ) {
     }
 
     override fun trackRecyclerView(

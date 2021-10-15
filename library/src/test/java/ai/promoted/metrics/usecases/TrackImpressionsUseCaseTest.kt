@@ -76,7 +76,7 @@ class TrackImpressionsUseCaseTest {
         )
 
         // When
-        useCase.onCollectionUpdated(null, "collection-key", content)
+        useCase.onCollectionUpdated(null, "collection-key", content, null)
         delay(100L) // Give time for diff calculator
 
         // Then
