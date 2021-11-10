@@ -3,7 +3,6 @@ package ai.promoted.config
 import ai.promoted.ClientConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue
-import com.google.firebase.remoteconfig.ktx.get
 
 private const val LOGGING_ENABLED = "ai_promoted_logging_enabled"
 private const val API_URL = "ai_promoted_metrics_logging_url"
@@ -25,14 +24,14 @@ internal class FirebaseRemoteConfigService(
     override val latestRemoteConfig: RemoteConfig
         get() {
             val loggingEnabled =
-                firebaseRemoteConfig[LOGGING_ENABLED].asBooleanOrNull()
+                firebaseRemoteConfig.getValue(LOGGING_ENABLED).asBooleanOrNull()
             val apiUrl =
-                firebaseRemoteConfig[API_URL].asNonEmptyStringOrNull()
+                firebaseRemoteConfig.getValue(API_URL).asNonEmptyStringOrNull()
             val apiKey =
-                firebaseRemoteConfig[API_KEY].asNonEmptyStringOrNull()
+                firebaseRemoteConfig.getValue(API_KEY).asNonEmptyStringOrNull()
             val wireFormat = firebaseRemoteConfig.getWireFormatOrNull()
             val flushInterval =
-                firebaseRemoteConfig[FLUSH_INTERVAL].asLongOrNull()
+                firebaseRemoteConfig.getValue(FLUSH_INTERVAL).asLongOrNull()
             val xrayEnabled = firebaseRemoteConfig.getXrayEnabledOrNull()
 
             return RemoteConfig(
@@ -64,7 +63,7 @@ internal class FirebaseRemoteConfigService(
      * will fall back to null so that the compiled [ClientConfig.metricsLoggingWireFormat] is used.
      */
     private fun FirebaseRemoteConfig.getWireFormatOrNull(): ClientConfig.MetricsLoggingWireFormat? =
-        when (this[WIRE_FORMAT].asNonEmptyStringOrNull()) {
+        when (this.getValue(WIRE_FORMAT).asNonEmptyStringOrNull()) {
             "json" -> ClientConfig.MetricsLoggingWireFormat.Json
             "binary" -> ClientConfig.MetricsLoggingWireFormat.Binary
             else -> null
@@ -76,7 +75,7 @@ internal class FirebaseRemoteConfigService(
      * of the enums (or an empty, or a null string) will return null.
      */
     private fun FirebaseRemoteConfig.getXrayEnabledOrNull(): Boolean? =
-        when (this[XRAY_LEVEL].asNonEmptyStringOrNull()) {
+        when (this.getValue(XRAY_LEVEL).asNonEmptyStringOrNull()) {
             "none" -> false
             "error",
             "warning",

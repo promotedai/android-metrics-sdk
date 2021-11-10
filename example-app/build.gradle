@@ -60,9 +60,11 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
 
     // For testing the optional firebase integration
+    // Compile against Java versions instead of KTX versions because not all clients will have
+    // Kotlin/KTX on dependency path
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-config'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
