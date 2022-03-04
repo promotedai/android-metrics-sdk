@@ -15,6 +15,7 @@ import ai.promoted.metrics.InternalImpressionData
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.platform.PromotedAiLocale
+import ai.promoted.proto.common.ClientInfo
 import ai.promoted.proto.common.Device
 import ai.promoted.proto.common.Properties
 import ai.promoted.proto.common.Screen
@@ -202,5 +203,14 @@ internal fun createUserInfoMessage(userId: String?, logUserId: String?) =
         .apply {
             userId?.let { setUserId(it) }
             logUserId?.let { setLogUserId(it) }
+        }
+        .build()
+
+internal fun createClientInfo() =
+    ClientInfo
+        .newBuilder()
+        .apply {
+            clientType = ClientInfo.ClientType.PLATFORM_CLIENT
+            trafficType = ClientInfo.TrafficType.PRODUCTION
         }
         .build()

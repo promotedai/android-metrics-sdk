@@ -66,6 +66,7 @@ internal class FinalizeLogsUseCase(
 
     private fun prepareLogs(logMessages: List<Message>): LogRequest {
         val logRequestBuilder = LogRequest.newBuilder()
+        logRequestBuilder.clientInfo = createClientInfo()
         logRequestBuilder.userInfo = createUserInfoMessage(
             userId = trackUserUseCase.currentOrNullUserId,
             logUserId = trackUserUseCase.currentOrNullLogUserId
