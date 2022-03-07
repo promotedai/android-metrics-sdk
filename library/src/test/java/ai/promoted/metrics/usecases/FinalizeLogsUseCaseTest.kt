@@ -3,6 +3,7 @@ package ai.promoted.metrics.usecases
 import ai.promoted.ClientConfig
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.platform.DeviceInfoProvider
+import ai.promoted.proto.common.ClientInfo
 import ai.promoted.proto.delivery.Insertion
 import ai.promoted.proto.delivery.Request
 import ai.promoted.proto.event.Action
@@ -55,6 +56,17 @@ class FinalizeLogsUseCaseTest {
         val deserializedData = LogRequest.parseFrom(request.bodyData)
         assertThat(deserializedData.userInfo.userId, equalTo(testUserId))
         assertThat(deserializedData.userInfo.logUserId, equalTo(testLogUserId))
+    }
+
+    @Test
+    fun `Should set client info on final logs`() {
+        // When logs finalized
+        val request = useCase.finalizeLogs(emptyList())
+
+        // Then the serialized data contains the correct client info
+        val deserializedData = LogRequest.parseFrom(request.bodyData)
+        assertThat(deserializedData.clientInfo.clientType, equalTo(ClientInfo.ClientType.PLATFORM_CLIENT))
+        assertThat(deserializedData.clientInfo.trafficType, equalTo(ClientInfo.TrafficType.PRODUCTION))
     }
 
     @Test
