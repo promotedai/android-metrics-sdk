@@ -20,7 +20,6 @@ import org.junit.Test
 
 class TrackActionUseCaseTest {
     private val randomUuid = "random-uuid"
-    private val logUserId = "log-user-id"
     private val testSessionId =
         AncestorId(UuidGenerator()).apply {
             override("session-id")
@@ -41,9 +40,7 @@ class TrackActionUseCaseTest {
             firstArg()
         }
     }
-    private val trackUserUseCase = mockk<TrackUserUseCase> {
-        every { currentLogUserId } returns logUserId
-    }
+
     private val useCase = TrackActionUseCase(
         clock = mockk { every { currentTimeMillis } returns 0L },
         logger = logger,

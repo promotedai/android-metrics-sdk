@@ -17,8 +17,7 @@ internal class TrackUserUseCase(
     val currentOrNullUserId: String?
         get() {
             val currentUserId = currentUserIdsUseCase.currentUserId
-            return if (currentUserId.isEmpty()) null
-            else currentUserId
+            return currentUserId.ifEmpty { null }
         }
 
     val currentLogUserId: String
@@ -27,15 +26,13 @@ internal class TrackUserUseCase(
     val currentOrPendingLogUserId: String
         get() {
             val currentLogUserId = this.currentLogUserId
-            return if (currentLogUserId.isEmpty()) logUserAncestorId.currentOrPendingValue
-            else currentLogUserId
+            return currentLogUserId.ifEmpty { logUserAncestorId.currentOrPendingValue }
         }
 
     val currentOrNullLogUserId: String?
         get() {
             val currentLogUserId = this.currentLogUserId
-            return if (currentLogUserId.isEmpty()) null
-            else currentLogUserId
+            return currentLogUserId.ifEmpty { null }
         }
 
     fun setUserId(logger: MetricsLogger, userId: String) = xray.monitored {
@@ -58,6 +55,10 @@ internal class TrackUserUseCase(
         logUser(logger, "", logUserId)
     }
 
-    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String) =
+    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String) {
+        // No need to logUser if there are no IDs
+        if (userId.isBlank() && logUserId.isBlank()) return
+
         logger.enqueueMessage(createUserMessage(clock, userId, logUserId))
+    }
 }
