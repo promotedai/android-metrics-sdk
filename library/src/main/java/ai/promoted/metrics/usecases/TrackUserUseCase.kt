@@ -55,11 +55,10 @@ internal class TrackUserUseCase(
         logUser(logger, "", logUserId)
     }
 
-    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String){
+    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String) {
         // No need to logUser if there are no IDs
-        if(userId.isBlank() && logUserId.isBlank()) return
+        if (userId.isBlank() && logUserId.isBlank()) return
 
         logger.enqueueMessage(createUserMessage(clock, userId, logUserId))
     }
-
 }
