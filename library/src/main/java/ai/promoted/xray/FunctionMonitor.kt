@@ -55,6 +55,7 @@ internal class FunctionMonitor(
      * When retrieved, will return a string that follows the pattern "ClassName.function", based
      * on the calling site of the log statement.
      */
+    @Suppress("ThrowingExceptionsWithoutMessageOrCause")
     private fun generateMonitorTag(stackElementsToExclude: List<KClass<*>>): String =
         Throwable().stackTrace
             // Excludes this class, and any additional classes specified by the caller, from the

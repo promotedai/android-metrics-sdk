@@ -17,14 +17,12 @@ ext {
 apply from: "${rootDir}/scripts/publish-module.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName project.ext.version
+        targetSdkVersion 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -59,6 +57,7 @@ android {
             includeAndroidResources = true
         }
     }
+    namespace 'ai.promoted'
 }
 
 dependencies {

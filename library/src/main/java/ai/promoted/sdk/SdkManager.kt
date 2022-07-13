@@ -123,6 +123,7 @@ internal open class SdkManager internal constructor(
         // state
         when (val currentState = sdkState) {
             is SdkState.Ready -> currentState.sdk.shutdown()
+            else -> {}
         }
 
         // Get the latest config w/ any cached remote-config values applied on top
