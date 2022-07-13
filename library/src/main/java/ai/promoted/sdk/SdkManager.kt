@@ -4,6 +4,7 @@ import ai.promoted.ClientConfig
 import ai.promoted.config.RemoteConfigServiceFinder
 import ai.promoted.di.ConfigurableKoinComponent
 import ai.promoted.di.DefaultKoinComponent
+import ai.promoted.platform.AppRuntimeEnvironment
 import ai.promoted.platform.LogcatLogger
 import ai.promoted.platform.SystemClock
 import ai.promoted.runtime.ClassFinder
@@ -83,12 +84,14 @@ internal open class SdkManager internal constructor(
         configure(application = application, config = ClientConfig.Builder().apply(block).build())
 
     /**
-     * Simply calls [configure], but provides semantic clarity for users of Promoted.Ai. For example,
-     * you might call this function, [initialize], in your application onCreate(), but if you want
-     * to reconfigure at a later point, it would be clearer if you called [configure].
+     * Same as calling [configure] with a custom configuration lambda, except this uses
+     * a Builder object itself rather than the configuration lambda. Useful for Java syntax.
      */
-    fun initialize(application: Application, config: ClientConfig) =
-        configure(application, config)
+    internal fun configure(application: Application, builder: ClientConfig.Builder) {
+        AppRuntimeEnvironment.default.initialize(application)
+        configure(application = application, config = builder.build())
+    }
+
 
     /**
      * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls
@@ -97,7 +100,7 @@ internal open class SdkManager internal constructor(
      * Note: Any values in this [ClientConfig] will still be overwritten by values that may exist
      * as part of the latest-cached [RemoteConfig]
      */
-    fun configure(application: Application, config: ClientConfig) =
+    private fun configure(application: Application, config: ClientConfig) =
         if (config.xrayEnabled) monitoredConfiguration(application, config)
         else runConfiguration(application, config)
 

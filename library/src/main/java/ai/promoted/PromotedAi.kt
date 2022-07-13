@@ -51,25 +51,11 @@ object PromotedAi {
         manager.initialize(application, block)
 
     /**
-     * @see [SdkManager.initialize]
-     */
-    @JvmStatic
-    fun initialize(application: Application, config: ClientConfig) =
-        manager.initialize(application, config)
-
-    /**
      * @see [SdkManager.configure]
      */
     @JvmStatic
     fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) =
         manager.configure(application, block)
-
-    /**
-     * @see [SdkManager.configure]
-     */
-    @JvmStatic
-    fun configure(application: Application, config: ClientConfig) =
-        manager.configure(application, config)
 
     /**
      * @see [SdkManager.shutdown]

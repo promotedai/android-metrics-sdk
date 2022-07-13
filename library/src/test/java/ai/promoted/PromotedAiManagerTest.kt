@@ -2,19 +2,18 @@ package ai.promoted
 
 import ai.promoted.config.NoOpRemoteConfigService
 import ai.promoted.di.ConfigurableKoinComponent
+import ai.promoted.platform.AppRuntimeEnvironment
 import ai.promoted.sdk.NoOpSdk
 import ai.promoted.sdk.PromotedAiSdk
 import ai.promoted.sdk.SdkManager
 import ai.promoted.sdk.UpdateClientConfigUseCase
 import android.app.Application
-import io.mockk.called
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
@@ -30,10 +29,18 @@ class PromotedAiManagerTest {
     )
     private val application: Application = mockk()
 
+    // Ensures AppRuntimeEnvironment doesn't actually attempt to invoke Android SDK
+    @Before
+    fun setup() {
+        mockkObject(AppRuntimeEnvironment)
+        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment()
+    }
+
     // Using this to ensure no Koin instances are living longer than each test
     @After
     fun tearDown() {
         stopKoin()
+        unmockkObject(AppRuntimeEnvironment)
     }
 
     @Test
