@@ -65,7 +65,7 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:3.0.1"
 
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.core:core-ktx:1.8.0'
 
     // Protobuf is defined as api/transitive because the Promoted.Ai API allows passing of custom
     // protobuf objects
@@ -74,7 +74,7 @@ dependencies {
 
     // Provided to allow for scroll tracking of collections
     // Exclude this if scroll tracking is not needed
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 
     // Provided to allow for default network stack
     // Exclude this if providing custom network stack
@@ -89,15 +89,15 @@ dependencies {
 
     testImplementation 'junit:junit:4.+'
     testImplementation "io.mockk:mockk:1.11.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
 
     // Make sure the optional Promoted add-ons are included when tests run
     testImplementation platform('com.google.firebase:firebase-bom:28.1.0')
     testImplementation 'com.google.firebase:firebase-analytics'
     testImplementation 'com.google.firebase:firebase-config'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
 tasks.withType(Test) {
