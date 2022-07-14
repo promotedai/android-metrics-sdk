@@ -19,7 +19,9 @@ class ClientConfigTest {
     @Before
     fun setup() {
         mockkObject(AppRuntimeEnvironment.Companion)
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment()
+        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
+            isDebuggable = true
+        )
     }
 
     @After
@@ -31,9 +33,7 @@ class ClientConfigTest {
     fun `Client config baseline default`() {
         // Given we're in a standard prod environment
         every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
-            isNonProdBuild = false,
-            isRunningOnEmulator = false,
-            isDebuggerConnected = false
+            isDebuggable = false
         )
 
         // When
@@ -54,69 +54,10 @@ class ClientConfigTest {
     }
 
     @Test
-    fun `Client config prefers modal logging anomaly when non-prod build`() {
+    fun `Client config prefers modal logging anomaly when debuggable build`() {
         // Given we're in a standard prod environment
         every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
-            isNonProdBuild = true,
-            isRunningOnEmulator = false,
-            isDebuggerConnected = false
-        )
-
-        // When
-        val config = ClientConfig.Builder().build()
-
-        // Then
-        assertThat(
-            config.loggingAnomalyHandling,
-            equalTo(ClientConfig.LoggingAnomalyHandling.ModalDialog)
-        )
-    }
-
-    @Test
-    fun `Client config prefers modal logging anomaly when running on emulator`() {
-        // Given we're in a standard prod environment
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
-            isNonProdBuild = false,
-            isRunningOnEmulator = true,
-            isDebuggerConnected = false
-        )
-
-        // When
-        val config = ClientConfig.Builder().build()
-
-        // Then
-        assertThat(
-            config.loggingAnomalyHandling,
-            equalTo(ClientConfig.LoggingAnomalyHandling.ModalDialog)
-        )
-    }
-
-    @Test
-    fun `Client config prefers modal logging anomaly when debugger connected`() {
-        // Given we're in a standard prod environment
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
-            isNonProdBuild = false,
-            isRunningOnEmulator = false,
-            isDebuggerConnected = true
-        )
-
-        // When
-        val config = ClientConfig.Builder().build()
-
-        // Then
-        assertThat(
-            config.loggingAnomalyHandling,
-            equalTo(ClientConfig.LoggingAnomalyHandling.ModalDialog)
-        )
-    }
-
-    @Test
-    fun `Client config prefers modal logging anomaly when all debug environment flags are true`() {
-        // Given we're in a standard prod environment
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
-            isNonProdBuild = true,
-            isRunningOnEmulator = true,
-            isDebuggerConnected = true
+            isDebuggable = true
         )
 
         // When

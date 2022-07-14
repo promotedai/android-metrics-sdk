@@ -33,7 +33,9 @@ class PromotedAiManagerTest {
     @Before
     fun setup() {
         mockkObject(AppRuntimeEnvironment)
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment()
+        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
+            isDebuggable = false
+        )
     }
 
     // Using this to ensure no Koin instances are living longer than each test

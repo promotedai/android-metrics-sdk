@@ -61,7 +61,9 @@ class FinalizeLogsUseCaseTest {
     @Before
     fun setup() {
         mockkObject(AppRuntimeEnvironment)
-        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment()
+        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
+            isDebuggable = false
+        )
     }
 
     @After
@@ -87,8 +89,14 @@ class FinalizeLogsUseCaseTest {
 
         // Then the serialized data contains the correct client info
         val deserializedData = LogRequest.parseFrom(request.bodyData)
-        assertThat(deserializedData.clientInfo.clientType, equalTo(ClientInfo.ClientType.PLATFORM_CLIENT))
-        assertThat(deserializedData.clientInfo.trafficType, equalTo(ClientInfo.TrafficType.PRODUCTION))
+        assertThat(
+            deserializedData.clientInfo.clientType,
+            equalTo(ClientInfo.ClientType.PLATFORM_CLIENT)
+        )
+        assertThat(
+            deserializedData.clientInfo.trafficType,
+            equalTo(ClientInfo.TrafficType.PRODUCTION)
+        )
     }
 
     @Test

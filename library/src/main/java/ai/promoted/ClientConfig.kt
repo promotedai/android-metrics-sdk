@@ -79,9 +79,7 @@ data class ClientConfig(
                 get() {
                     val environment = AppRuntimeEnvironment.default
                     return when {
-                        environment.isNonProdBuild
-                                || environment.isDebuggerConnected
-                                || environment.isRunningOnEmulator -> ModalDialog
+                        environment.isDebuggable -> ModalDialog
                         else -> None
                     }
                 }
