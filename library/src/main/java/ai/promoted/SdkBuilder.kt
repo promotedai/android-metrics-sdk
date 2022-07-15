@@ -30,6 +30,12 @@ class SdkBuilder internal constructor(
         apply { clientConfigBuilder.loggingEnabled = enabled }
 
     /**
+     * @see [ClientConfig.loggingAnomalyHandling]
+     */
+    fun withLoggingAnomalyHandling(loggingAnomalyHandling: ClientConfig.LoggingAnomalyHandling) =
+        apply { clientConfigBuilder.loggingAnomalyHandling = loggingAnomalyHandling }
+
+    /**
      * @see [ClientConfig.metricsLoggingUrl]
      */
     fun withMetricsLoggingUrl(url: String) =
@@ -75,5 +81,5 @@ class SdkBuilder internal constructor(
      */
     @Suppress("MemberVisibilityCanBePrivate")
     fun configure(application: Application) =
-        sdkManager.configure(application, clientConfigBuilder.build())
+        sdkManager.configure(application, clientConfigBuilder)
 }

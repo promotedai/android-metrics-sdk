@@ -2,6 +2,7 @@ package ai.promoted
 
 import ai.promoted.http.RetrofitNetworkConnection
 import ai.promoted.http.RetrofitProvider
+import ai.promoted.platform.AppRuntimeEnvironment
 
 /**
  * Represents all of the options a library user has to customize the behavior of the Promoted.Ai
@@ -13,6 +14,11 @@ data class ClientConfig(
      * meaning, API calls are available to the library user, but nothing will happen.
      */
     val loggingEnabled: Boolean,
+
+    /**
+     * How to handle logging anomalies.
+     */
+    val loggingAnomalyHandling: LoggingAnomalyHandling,
 
     /**
      * The URL of the server to receive the metrics
@@ -48,9 +54,36 @@ data class ClientConfig(
      */
     val networkConnectionProvider: () -> NetworkConnection,
 ) {
+    /**
+     * Supported formats for the metrics to be sent to the server.
+     */
     enum class MetricsLoggingWireFormat {
         Json,
         Binary
+    }
+
+    /**
+     * Different types of action to take upon a logging anomaly (e.g. bad event structure).
+     */
+    enum class LoggingAnomalyHandling {
+        None,
+        ConsoleLog,
+        ModalDialog;
+
+        companion object {
+            /**
+             * Based on the runtime environment, determine the default mechanism for handling
+             * logging anomalies.
+             */
+            val default: LoggingAnomalyHandling
+                get() {
+                    val environment = AppRuntimeEnvironment.default
+                    return when {
+                        environment.isDebuggable -> ModalDialog
+                        else -> None
+                    }
+                }
+        }
     }
 
     data class Builder(
@@ -58,6 +91,12 @@ data class ClientConfig(
          * @see [ClientConfig.loggingEnabled]
          */
         var loggingEnabled: Boolean = true,
+
+        /**
+         * @see [ClientConfig.loggingAnomalyHandling]
+         */
+        var loggingAnomalyHandling: LoggingAnomalyHandling = LoggingAnomalyHandling.default,
+
         /**
          * @see [ClientConfig.metricsLoggingUrl]
          */
@@ -92,6 +131,7 @@ data class ClientConfig(
          */
         fun build() = ClientConfig(
             loggingEnabled,
+            loggingAnomalyHandling,
             metricsLoggingUrl,
             metricsLoggingApiKey,
             metricsLoggingWireFormat,

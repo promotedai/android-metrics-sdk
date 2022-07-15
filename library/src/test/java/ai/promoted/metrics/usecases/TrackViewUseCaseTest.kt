@@ -55,7 +55,7 @@ class TrackViewUseCaseTest {
     }
 
     @Test
-    fun `New auto-view ID is generated after second view (a view with a key different than the first key used) becomes visible`() {
+    fun `New auto-view ID is generated after a different view becomes visible`() {
         // Given a view already became visible
         useCase.onImplicitViewVisible("view-id-1")
         val firstViewId = useCase.autoViewId.currentValue

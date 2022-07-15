@@ -1,7 +1,9 @@
 package ai.promoted.metrics.usecases
 
 import ai.promoted.ClientConfig
+import ai.promoted.FakeAppRuntimeEnvironment
 import ai.promoted.mockkRelaxedUnit
+import ai.promoted.platform.AppRuntimeEnvironment
 import ai.promoted.platform.DeviceInfoProvider
 import ai.promoted.proto.common.ClientInfo
 import ai.promoted.proto.delivery.Insertion
@@ -15,9 +17,13 @@ import ai.promoted.xray.NoOpXray
 import com.google.protobuf.Message
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class FinalizeLogsUseCaseTest {
@@ -33,19 +39,37 @@ class FinalizeLogsUseCaseTest {
         every { model } returns ""
         every { sdkRelease } returns ""
     }
-    private val useCase = FinalizeLogsUseCase(
-        config = ClientConfig.Builder().apply {
-            metricsLoggingApiKey = testApiKey
-        }.build(),
-        systemLogger = mockkRelaxedUnit(),
-        deviceInfoProvider = mockDeviceInfoProvider,
-        trackUserUseCase = mockkRelaxedUnit {
-            every { currentOrNullUserId } returns testUserId
-            every { currentLogUserId } returns testLogUserId
-            every { currentOrNullLogUserId } returns testLogUserId
-        },
-        xray = NoOpXray()
-    )
+
+    // Need to use lazy here because ClientConfig requires a properly mocked AppRuntimeEnvironment.
+    private val useCase by lazy {
+        FinalizeLogsUseCase(
+            config = ClientConfig.Builder().apply {
+                metricsLoggingApiKey = testApiKey
+            }.build(),
+            systemLogger = mockkRelaxedUnit(),
+            deviceInfoProvider = mockDeviceInfoProvider,
+            trackUserUseCase = mockkRelaxedUnit {
+                every { currentOrNullUserId } returns testUserId
+                every { currentLogUserId } returns testLogUserId
+                every { currentOrNullLogUserId } returns testLogUserId
+            },
+            xray = NoOpXray()
+        )
+    }
+
+    // Ensures AppRuntimeEnvironment doesn't actually attempt to invoke Android SDK
+    @Before
+    fun setup() {
+        mockkObject(AppRuntimeEnvironment)
+        every { AppRuntimeEnvironment.Companion.default } returns FakeAppRuntimeEnvironment(
+            isDebuggable = false
+        )
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(AppRuntimeEnvironment)
+    }
 
     @Test
     fun `Should set user info on final logs`() {
@@ -65,8 +89,14 @@ class FinalizeLogsUseCaseTest {
 
         // Then the serialized data contains the correct client info
         val deserializedData = LogRequest.parseFrom(request.bodyData)
-        assertThat(deserializedData.clientInfo.clientType, equalTo(ClientInfo.ClientType.PLATFORM_CLIENT))
-        assertThat(deserializedData.clientInfo.trafficType, equalTo(ClientInfo.TrafficType.PRODUCTION))
+        assertThat(
+            deserializedData.clientInfo.clientType,
+            equalTo(ClientInfo.ClientType.PLATFORM_CLIENT)
+        )
+        assertThat(
+            deserializedData.clientInfo.trafficType,
+            equalTo(ClientInfo.TrafficType.PRODUCTION)
+        )
     }
 
     @Test

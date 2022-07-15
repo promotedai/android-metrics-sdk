@@ -38,10 +38,18 @@ class OperationSchedulerTest {
 
         // Then the operation ran
         // and even as time goes on, the operation has only been invoked once
-        assertThat("Execution count after 1 delay was ${observableOperation.executionCount}", observableOperation.executionCount, equalTo(1))
+        assertThat(
+            "Execution count after 1 delay was ${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(1)
+        )
         Thread.sleep(interval.withTimeForExecution)
         Thread.sleep(interval.withTimeForExecution)
-        assertThat("Execution count after 2 extra delays was ${observableOperation.executionCount}", observableOperation.executionCount, equalTo(1))
+        assertThat(
+            "Execution count after 2 extra delays was ${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(1)
+        )
     }
 
     @Test
@@ -65,7 +73,12 @@ class OperationSchedulerTest {
         Thread.sleep((80L).withTimeForExecution)
 
         // Then the operation is still only invoked once
-        assertThat("Execution count after multiple early schedules was ${observableOperation.executionCount}",  observableOperation.executionCount, equalTo(1))
+        assertThat(
+            "Execution count after multiple early schedules was " +
+                    "${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(1)
+        )
     }
 
     @Test
@@ -85,12 +98,21 @@ class OperationSchedulerTest {
 
         // Then the operation is never invoked, even after the full interval has passed
         // several times
-        assertThat("Execution count after a half-delay was ${observableOperation.executionCount}",  observableOperation.executionCount, equalTo(0))
+        assertThat(
+            "Execution count after a half-delay was ${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(0)
+        )
 
         Thread.sleep(interval.withTimeForExecution)
         Thread.sleep(interval.withTimeForExecution)
 
-        assertThat("Execution count after 2 additional delays was ${observableOperation.executionCount}", observableOperation.executionCount, equalTo(0))
+        assertThat(
+            "Execution count after 2 additional delays was " +
+                    "${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(0)
+        )
     }
 
     @Test
@@ -113,7 +135,12 @@ class OperationSchedulerTest {
         scheduler.maybeSchedule()
         Thread.sleep(interval.withTimeForExecution)
 
-        assertThat("Execution count after 3 schedules/3 delays was ${observableOperation.executionCount}", observableOperation.executionCount, equalTo(3))
+        assertThat(
+            "Execution count after 3 schedules/3 delays was " +
+                    "${observableOperation.executionCount}",
+            observableOperation.executionCount,
+            equalTo(3)
+        )
     }
 
     @Test
