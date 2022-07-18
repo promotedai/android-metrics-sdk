@@ -3,6 +3,7 @@ package ai.promoted.metrics
 import ai.promoted.NetworkConnection
 import ai.promoted.PromotedApiRequest
 import ai.promoted.metrics.usecases.FinalizeLogsUseCase
+import ai.promoted.metrics.usecases.anomaly.AnalyzeMessageUseCase
 import ai.promoted.mockkRelaxedUnit
 import ai.promoted.proto.common.Device
 import ai.promoted.proto.event.User
@@ -31,6 +32,9 @@ class MetricsLoggerTest {
         emptyMap(),
         ByteArray(testBodyDataSize)
     )
+
+    private val analyzeMessageUseCase = mockkRelaxedUnit<AnalyzeMessageUseCase>()
+
     private val finalizeUseCase = mockkRelaxedUnit<FinalizeLogsUseCase> {
         every { finalizeLogs(capture(finalizedMessages)) } returns mockApiRequest
     }
@@ -41,6 +45,7 @@ class MetricsLoggerTest {
     private val logger = MetricsLogger(
         testFlushIntervalMillis,
         connection,
+        analyzeMessageUseCase,
         finalizeUseCase,
         NoOpXray(),
         mockTelemetry
@@ -180,5 +185,17 @@ class MetricsLoggerTest {
         verify(exactly = 0) {
             mockTelemetry.onMetricsSent(any(), any())
         }
+    }
+
+    @Test
+    fun `Each enqueued message is analyzed`() {
+        // Given
+        val message = User.newBuilder().build()
+
+        // When
+        logger.enqueueMessage(message)
+
+        // Then
+        verify { analyzeMessageUseCase.analyzeMessage(message) }
     }
 }

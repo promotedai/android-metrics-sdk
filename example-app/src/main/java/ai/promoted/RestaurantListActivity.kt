@@ -4,9 +4,7 @@ import ai.promoted.dummy.DummyContent
 import ai.promoted.proto.event.ActionType
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -47,6 +45,24 @@ class RestaurantListActivity : AppCompatActivity() {
         }
 
         setupRecyclerView(findViewById(R.id.restaurant_list))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_restaurant_list, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logBadData) {
+            PromotedAi.onAction(this, "test", type = ActionType.CUSTOM_ACTION_TYPE) {
+                this.contentId = ""
+                this.impressionId = ""
+                this.insertionId = ""
+            }
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

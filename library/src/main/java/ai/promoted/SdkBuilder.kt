@@ -36,6 +36,12 @@ class SdkBuilder internal constructor(
         apply { clientConfigBuilder.loggingAnomalyHandling = loggingAnomalyHandling }
 
     /**
+     * @see [ClientConfig.loggingAnomalyContactInfo]
+     */
+    fun withLoggingAnomalyHandling(loggingAnomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo) =
+        apply { clientConfigBuilder.loggingAnomalyContactInfo = loggingAnomalyContactInfo }
+
+    /**
      * @see [ClientConfig.metricsLoggingUrl]
      */
     fun withMetricsLoggingUrl(url: String) =
