@@ -1,6 +1,11 @@
 package ai.promoted.metrics.usecases.anomaly
 
-import ai.promoted.proto.event.*
+import ai.promoted.proto.event.LogRequest
+import ai.promoted.proto.event.Impression
+import ai.promoted.proto.event.Action
+import ai.promoted.proto.event.User
+import ai.promoted.proto.event.ImpressionSourceType
+import ai.promoted.proto.event.ActionType
 import ai.promoted.xray.Xray
 import com.google.protobuf.Message
 
@@ -36,6 +41,7 @@ internal class AnalyzeMessageUseCase(
         }
     }
 
+    @Suppress("ComplexCondition")
     private fun analyzeAction(action: Action) {
         if (action.actionType != ActionType.CHECKOUT
             && action.actionType != ActionType.PURCHASE

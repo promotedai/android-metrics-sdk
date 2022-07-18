@@ -13,7 +13,6 @@ import ai.promoted.metrics.usecases.TrackRecyclerViewUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackUserUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
-import ai.promoted.metrics.usecases.anomaly.*
 import ai.promoted.metrics.usecases.anomaly.AnalyzeMessageUseCase
 import ai.promoted.metrics.usecases.anomaly.AnomalyHandler
 import ai.promoted.metrics.usecases.anomaly.ConsoleLogAnomalyHandler

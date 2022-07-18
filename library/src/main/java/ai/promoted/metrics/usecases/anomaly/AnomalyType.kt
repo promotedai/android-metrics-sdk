@@ -1,5 +1,6 @@
 package ai.promoted.metrics.usecases.anomaly
 
+@Suppress("MagicNumber")
 internal enum class AnomalyType(val errorCode: Int) {
     MissingLogUserIdInUserMessage(101),
     MissingLogUserIdInLogRequest(102),
@@ -7,6 +8,7 @@ internal enum class AnomalyType(val errorCode: Int) {
     MissingJoinableFieldsInAction(104),
     ReactNativeMetricsModuleNotInitialized(105);
 
+    @Suppress("MaxLineLength")
     val debugDescription: String
         get() = when (this) {
             MissingLogUserIdInUserMessage,

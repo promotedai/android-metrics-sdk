@@ -11,6 +11,7 @@ import android.app.Application
  * While this is supported for Kotlin users, the [PromotedAi.initialize]/[PromotedAi.configure]
  * with the [ClientConfig.Builder] configuration block is recommended.
  */
+@Suppress("TooManyFunctions")
 class SdkBuilder internal constructor(
     private val sdkManager: SdkManager
 ) {
