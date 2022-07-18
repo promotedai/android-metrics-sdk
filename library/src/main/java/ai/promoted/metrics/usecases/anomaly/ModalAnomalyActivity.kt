@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.TextView
 
@@ -31,6 +32,12 @@ internal class ModalAnomalyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_anomaly)
         findViewById<TextView>(R.id.message).text =
             anomalyType.buildErrorMessage(anomalyContactInfo)
+        findViewById<View>(R.id.dontShowAgainButton).setOnClickListener {
+            onDontShowAgainClicked()
+        }
+        findViewById<View>(R.id.closeButton).setOnClickListener {
+            onCloseClicked()
+        }
     }
 
     private fun AnomalyType.buildErrorMessage(anomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo) =
@@ -53,6 +60,13 @@ internal class ModalAnomalyActivity : AppCompatActivity() {
               - Slack: ${this.slack.value}
             """.trimIndent()
         }
+
+    private fun onDontShowAgainClicked() {
+        ModalDialogAnomalyHandler.handlingDismissedForSession = true
+        finish()
+    }
+
+    private fun onCloseClicked() = finish()
 
     companion object {
         private const val ANOMALY_TYPE = "anomaly_type"
@@ -96,7 +110,7 @@ internal class ModalAnomalyActivity : AppCompatActivity() {
                         anomalyContactInfo.slack.value
                     )
                 }
-                putString(ANOMALY_CONTACT_SLACK, anomalyContactInfo.email.value)
+                putString(ANOMALY_CONTACT_EMAIL, anomalyContactInfo.email.value)
             }
 
         private fun Bundle.readAnomalyContactInfo(): ClientConfig.LoggingAnomalyContactInfo {
