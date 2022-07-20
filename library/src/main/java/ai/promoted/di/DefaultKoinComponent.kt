@@ -13,6 +13,11 @@ import ai.promoted.metrics.usecases.TrackRecyclerViewUseCase
 import ai.promoted.metrics.usecases.TrackSessionUseCase
 import ai.promoted.metrics.usecases.TrackUserUseCase
 import ai.promoted.metrics.usecases.TrackViewUseCase
+import ai.promoted.metrics.usecases.anomaly.AnalyzeMessageUseCase
+import ai.promoted.metrics.usecases.anomaly.AnomalyHandler
+import ai.promoted.metrics.usecases.anomaly.ConsoleLogAnomalyHandler
+import ai.promoted.metrics.usecases.anomaly.ModalDialogAnomalyHandler
+import ai.promoted.metrics.usecases.anomaly.NoOpAnomalyHandler
 import ai.promoted.platform.AndroidDeviceInfoProvider
 import ai.promoted.platform.Clock
 import ai.promoted.platform.DeviceInfoProvider
@@ -68,6 +73,8 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
             single { createXrayForConfig() }
             single { Telemetry(get(), get()) }
 
+            factory<AnomalyHandler> { createAnomalyHandlerForConfig() }
+            factory { AnalyzeMessageUseCase(get(), get()) }
             factory { FinalizeLogsUseCase(get(), get(), get(), get(), get()) }
             factory { TrackImpressionUseCase(get(), get(), get(), get(), get(), get()) }
             factory { TrackActionUseCase(get(), get(), get(), get(), get(), get()) }
@@ -88,7 +95,7 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
         val flushIntervalMillis =
             TimeUnit.SECONDS.toMillis(config.loggingFlushIntervalSeconds)
         val networkConnection = config.networkConnectionProvider()
-        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get(), get())
+        return MetricsLogger(flushIntervalMillis, networkConnection, get(), get(), get(), get())
     }
 
     private fun Scope.createXrayForConfig(): Xray {
@@ -99,4 +106,16 @@ internal object DefaultKoinComponent : ConfigurableKoinComponent() {
 
     private fun getPromotedAiPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences("ai.promoted.prefs", Context.MODE_PRIVATE)
+
+    private fun Scope.createAnomalyHandlerForConfig(): AnomalyHandler {
+        val config: ClientConfig = get()
+        return when (config.loggingAnomalyHandling) {
+            ClientConfig.LoggingAnomalyHandling.None -> NoOpAnomalyHandler()
+            ClientConfig.LoggingAnomalyHandling.ConsoleLog -> ConsoleLogAnomalyHandler(get())
+            ClientConfig.LoggingAnomalyHandling.ModalDialog -> ModalDialogAnomalyHandler(
+                get(),
+                config.loggingAnomalyContactInfo
+            )
+        }
+    }
 }

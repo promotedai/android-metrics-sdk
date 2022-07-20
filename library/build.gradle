@@ -79,6 +79,9 @@ dependencies {
     // Provided to allow for default network stack
     // Exclude this if providing custom network stack
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Optional Promoted add-ons
     // Compile against Java versions instead of KTX versions because not all clients will have
