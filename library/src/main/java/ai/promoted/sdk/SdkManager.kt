@@ -80,10 +80,8 @@ internal open class SdkManager internal constructor(
     /**
      * Same as calling the Kotlin-idiomatic [initialize] with a custom configuration lambda.
      */
-    fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) {
-        AppRuntimeEnvironment.default.initialize(application)
+    fun configure(application: Application, block: ClientConfig.Builder.() -> Unit) =
         configure(application = application, config = ClientConfig.Builder().apply(block).build())
-    }
 
     /**
      * Same as calling [configure] with a custom configuration lambda, except this uses
@@ -93,6 +91,7 @@ internal open class SdkManager internal constructor(
         AppRuntimeEnvironment.default.initialize(application)
         configure(application = application, config = builder.build())
     }
+
 
     /**
      * Initializes (or reconfigures) Promoted.Ai with the given configuration. Subsequent calls

@@ -11,7 +11,6 @@ import android.app.Application
  * While this is supported for Kotlin users, the [PromotedAi.initialize]/[PromotedAi.configure]
  * with the [ClientConfig.Builder] configuration block is recommended.
  */
-@Suppress("TooManyFunctions")
 class SdkBuilder internal constructor(
     private val sdkManager: SdkManager
 ) {
@@ -35,12 +34,6 @@ class SdkBuilder internal constructor(
      */
     fun withLoggingAnomalyHandling(loggingAnomalyHandling: ClientConfig.LoggingAnomalyHandling) =
         apply { clientConfigBuilder.loggingAnomalyHandling = loggingAnomalyHandling }
-
-    /**
-     * @see [ClientConfig.loggingAnomalyContactInfo]
-     */
-    fun withLoggingAnomalyHandling(loggingAnomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo) =
-        apply { clientConfigBuilder.loggingAnomalyContactInfo = loggingAnomalyContactInfo }
 
     /**
      * @see [ClientConfig.metricsLoggingUrl]

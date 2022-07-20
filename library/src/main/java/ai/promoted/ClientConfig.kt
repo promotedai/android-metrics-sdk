@@ -21,11 +21,6 @@ data class ClientConfig(
     val loggingAnomalyHandling: LoggingAnomalyHandling,
 
     /**
-     * How to contact Promoted to assist in resolving anomalies
-     */
-    val loggingAnomalyContactInfo: LoggingAnomalyContactInfo,
-
-    /**
      * The URL of the server to receive the metrics
      */
     val metricsLoggingUrl: String,
@@ -91,27 +86,6 @@ data class ClientConfig(
         }
     }
 
-    /**
-     * How a developer should reach out for support with logging anomalies
-     */
-    data class LoggingAnomalyContactInfo(
-        val slack: Slack?,
-        val email: Email
-    ) {
-        @JvmInline
-        value class Slack(val value: String)
-
-        @JvmInline
-        value class Email(val value: String)
-
-        companion object {
-            val default = LoggingAnomalyContactInfo(
-                slack = null,
-                email = Email("help@promoted.ai")
-            )
-        }
-    }
-
     data class Builder(
         /**
          * @see [ClientConfig.loggingEnabled]
@@ -122,11 +96,6 @@ data class ClientConfig(
          * @see [ClientConfig.loggingAnomalyHandling]
          */
         var loggingAnomalyHandling: LoggingAnomalyHandling = LoggingAnomalyHandling.default,
-
-        /**
-         * @see [ClientConfig.loggingAnomalyContactInfo]
-         */
-        var loggingAnomalyContactInfo: LoggingAnomalyContactInfo = LoggingAnomalyContactInfo.default,
 
         /**
          * @see [ClientConfig.metricsLoggingUrl]
@@ -163,7 +132,6 @@ data class ClientConfig(
         fun build() = ClientConfig(
             loggingEnabled,
             loggingAnomalyHandling,
-            loggingAnomalyContactInfo,
             metricsLoggingUrl,
             metricsLoggingApiKey,
             metricsLoggingWireFormat,
