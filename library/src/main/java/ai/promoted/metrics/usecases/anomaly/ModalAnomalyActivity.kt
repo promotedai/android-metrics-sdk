@@ -73,7 +73,20 @@ internal class ModalAnomalyActivity : AppCompatActivity() {
         private const val ANOMALY_CONTACT_SLACK = "anomaly_contact_slack"
         private const val ANOMALY_CONTACT_EMAIL = "anomaly_contact_email"
 
-        fun show(
+        /**
+         * Presents a modal with detailed error message when the SDK has not been initialized
+         * properly. Clients should not use this function directly.
+         *
+         * Although this function is intended only for internal use in the Promoted metrics
+         * library, it is declared public so that ReactNativeMetrics can show the modal
+         * for module initialization issues.
+         */
+        fun showInitializationAnomaly(
+            context: Context,
+            anomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo
+        ) = show(context, AnomalyType.SdkNotInitialized, anomalyContactInfo)
+
+        internal fun show(
             context: Context,
             anomalyType: AnomalyType,
             anomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo
