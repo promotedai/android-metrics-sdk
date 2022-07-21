@@ -10,7 +10,15 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 
-internal class ModalAnomalyActivity : AppCompatActivity() {
+/**
+ * Presents a modal with detailed error message when the SDK has not been initialized
+ * properly. Clients should not use this class directly.
+ *
+ * Although this class is intended only for internal use in the Promoted metrics
+ * library, it is declared public so that ReactNativeMetrics can show the modal
+ * for module initialization issues.
+ */
+class ModalAnomalyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeOrFinish()
@@ -81,10 +89,19 @@ internal class ModalAnomalyActivity : AppCompatActivity() {
          * library, it is declared public so that ReactNativeMetrics can show the modal
          * for module initialization issues.
          */
+        @JvmStatic
         fun showInitializationAnomaly(
             context: Context,
-            anomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo
-        ) = show(context, AnomalyType.SdkNotInitialized, anomalyContactInfo)
+            slack: String?,
+            email: String
+        ) {
+            val slackInfo = slack?.let { ClientConfig.LoggingAnomalyContactInfo.Slack(it) }
+            show(
+                context, AnomalyType.SdkNotInitialized, ClientConfig.LoggingAnomalyContactInfo(
+                    slackInfo, ClientConfig.LoggingAnomalyContactInfo.Email(email)
+                )
+            )
+        }
 
         internal fun show(
             context: Context,
