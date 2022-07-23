@@ -39,7 +39,7 @@ class SdkBuilder internal constructor(
     /**
      * @see [ClientConfig.loggingAnomalyContactInfo]
      */
-    fun withLoggingAnomalyHandling(loggingAnomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo) =
+    fun withLoggingAnomalyContactInfo(loggingAnomalyContactInfo: ClientConfig.LoggingAnomalyContactInfo) =
         apply { clientConfigBuilder.loggingAnomalyContactInfo = loggingAnomalyContactInfo }
 
     /**
