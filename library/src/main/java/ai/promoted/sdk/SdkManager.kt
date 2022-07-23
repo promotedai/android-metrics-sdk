@@ -77,6 +77,9 @@ internal open class SdkManager internal constructor(
     fun initialize(application: Application, block: ClientConfig.Builder.() -> Unit) =
         configure(application, block)
 
+    fun initialize(application: Application, builder: ClientConfig.Builder) =
+        configure(application, builder)
+
     /**
      * Same as calling the Kotlin-idiomatic [initialize] with a custom configuration lambda.
      */
