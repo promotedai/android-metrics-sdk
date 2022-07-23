@@ -16,6 +16,10 @@ object PromotedAi {
     private val manager = SdkManager()
     private val sdk get() = manager.sdkInstance
 
+    @JvmStatic
+    val isInitialized: Boolean
+        get() = manager.sdkReady
+
     /**
      * @see [PromotedAiSdk.logUserId]
      */

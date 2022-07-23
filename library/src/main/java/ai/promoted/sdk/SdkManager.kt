@@ -38,6 +38,8 @@ internal open class SdkManager internal constructor(
 
     private var sdkState: SdkState = SdkState.NotConfigured
 
+    internal val sdkReady get() = sdkState is SdkState.Ready
+
     internal val sdkInstance: PromotedAiSdk
         get() = when (val currentState = sdkState) {
             is SdkState.NotConfigured,
