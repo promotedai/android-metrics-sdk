@@ -54,9 +54,9 @@ afterEvaluate {
                           email = 'drewdennis@promoted.ai'
                         }
                         developer {
-                          id = 'rockapot'
-                          name = 'Yu-Hong Wang'
-                          email = 'yu-hong@promoted.ai'
+                          id = 'yunapotamus'
+                          name = 'Yuna Wang'
+                          email = 'yuna@promoted.ai'
                         }
                     }
 
