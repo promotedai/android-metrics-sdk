@@ -17,6 +17,7 @@ import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat
 
 private const val HEADER_API_KEY = "x-api-key"
+private const val JSON_CONTENT_TYPE = "application/json"
 private const val PROTOBUF_CONTENT_TYPE = "application/protobuf"
 
 /**
@@ -95,8 +96,10 @@ internal class FinalizeLogsUseCase(
             HEADER_API_KEY to apiKey
         )
 
-        if (wireFormat == ClientConfig.MetricsLoggingWireFormat.Binary)
-            headers["content-type"] = PROTOBUF_CONTENT_TYPE
+        headers["content-type"] = when (wireFormat) {
+            ClientConfig.MetricsLoggingWireFormat.Binary -> PROTOBUF_CONTENT_TYPE
+            ClientConfig.MetricsLoggingWireFormat.Json -> JSON_CONTENT_TYPE
+        }
 
         return headers
     }
