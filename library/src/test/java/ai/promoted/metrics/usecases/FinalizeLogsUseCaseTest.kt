@@ -130,7 +130,7 @@ class FinalizeLogsUseCaseTest {
     }
 
     @Test
-    fun `No content type on headers when wire format is json`() {
+    fun `Json content type is included on headers when wire format is json`() {
         // Given we're configured for JSON
         val useCase = FinalizeLogsUseCase(
             config = ClientConfig.Builder().apply {
@@ -150,7 +150,7 @@ class FinalizeLogsUseCaseTest {
         val request = useCase.finalizeLogs(emptyList())
 
         // Then
-        assertThat(request.headers["content-type"], nullValue())
+        assertThat(request.headers["content-type"], equalTo("application/json"))
     }
 
     @Test
