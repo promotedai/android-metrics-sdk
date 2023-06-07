@@ -29,7 +29,7 @@ jobs:
       - name: Source jar
         run: ./gradlew androidSourcesJar
       - name: Publish to MavenCentral
-        run: ./gradlew :library:publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew :library:publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository --warning-mode all
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
