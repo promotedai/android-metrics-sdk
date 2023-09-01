@@ -7,7 +7,7 @@ package ai.promoted
  * @see [PromotedAiSdk.currentSessionInfo]
  */
 data class SessionInfo(
-    val logUserId: String,
+    val anonUserId: String,
     val sessionId: String,
     val viewId: String
 )

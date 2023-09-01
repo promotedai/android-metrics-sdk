@@ -29,7 +29,7 @@ internal class TrackSessionUseCase(
     val sessionId = AncestorId(idGenerator)
 
     /**
-     * If needed, generates a new session ID, then ensures that the logUserId is in sync with the
+     * If needed, generates a new session ID, then ensures that the anonUserId is in sync with the
      * user ID, and then logs both a user message and a session message using [MetricsLogger].
      */
     fun startSession(userId: String) = xray.monitored {

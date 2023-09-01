@@ -29,7 +29,7 @@ import org.junit.Test
 class FinalizeLogsUseCaseTest {
     private val testApiKey = "testApiKey"
     private val testUserId = "testUser"
-    private val testLogUserId = "testLogUser"
+    private val testAnonUserId = "testAnonUser"
     private val mockDeviceInfoProvider: DeviceInfoProvider = mockk {
         every { screenWidth } returns 0
         every { screenHeight } returns 0
@@ -50,8 +50,8 @@ class FinalizeLogsUseCaseTest {
             deviceInfoProvider = mockDeviceInfoProvider,
             trackUserUseCase = mockkRelaxedUnit {
                 every { currentOrNullUserId } returns testUserId
-                every { currentLogUserId } returns testLogUserId
-                every { currentOrNullLogUserId } returns testLogUserId
+                every { currentAnonUserId } returns testAnonUserId
+                every { currentOrNullAnonUserId } returns testAnonUserId
             },
             xray = NoOpXray()
         )
@@ -79,7 +79,7 @@ class FinalizeLogsUseCaseTest {
         // Then the serialized data contains the correct user info
         val deserializedData = LogRequest.parseFrom(request.bodyData)
         assertThat(deserializedData.userInfo.userId, equalTo(testUserId))
-        assertThat(deserializedData.userInfo.logUserId, equalTo(testLogUserId))
+        assertThat(deserializedData.userInfo.anonUserId, equalTo(testAnonUserId))
     }
 
     @Test
@@ -116,8 +116,8 @@ class FinalizeLogsUseCaseTest {
             deviceInfoProvider = mockDeviceInfoProvider,
             trackUserUseCase = mockkRelaxedUnit {
                 every { currentOrNullUserId } returns testUserId
-                every { currentLogUserId } returns testLogUserId
-                every { currentOrNullLogUserId } returns testLogUserId
+                every { currentAnonUserId } returns testAnonUserId
+                every { currentOrNullAnonUserId } returns testAnonUserId
             },
             xray = NoOpXray()
         )
@@ -140,8 +140,8 @@ class FinalizeLogsUseCaseTest {
             deviceInfoProvider = mockDeviceInfoProvider,
             trackUserUseCase = mockkRelaxedUnit {
                 every { currentOrNullUserId } returns testUserId
-                every { currentLogUserId } returns testLogUserId
-                every { currentOrNullLogUserId } returns testLogUserId
+                every { currentAnonUserId } returns testAnonUserId
+                every { currentOrNullAnonUserId } returns testAnonUserId
             },
             xray = NoOpXray()
         )

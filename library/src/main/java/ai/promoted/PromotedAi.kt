@@ -21,13 +21,13 @@ object PromotedAi {
         get() = manager.sdkReady
 
     /**
-     * @see [PromotedAiSdk.logUserId]
+     * @see [PromotedAiSdk.anonUserId]
      */
     @JvmStatic
-    var logUserId: String
-        get() = sdk.logUserId
+    var anonUserId: String
+        get() = sdk.anonUserId
         set(value) {
-            sdk.logUserId = value
+            sdk.anonUserId = value
         }
 
     /**

@@ -17,7 +17,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string user_id = 2;</code>
    * @return The userId.
    */
-  String getUserId();
+  java.lang.String getUserId();
   /**
    * <code>string user_id = 2;</code>
    * @return The bytes for userId.
@@ -29,7 +29,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string log_user_id = 3;</code>
    * @return The logUserId.
    */
-  String getLogUserId();
+  java.lang.String getLogUserId();
   /**
    * <code>string log_user_id = 3;</code>
    * @return The bytes for logUserId.
@@ -38,10 +38,22 @@ public interface JoinedIdentifiersOrBuilder extends
       getLogUserIdBytes();
 
   /**
+   * <code>string anon_user_id = 10;</code>
+   * @return The anonUserId.
+   */
+  java.lang.String getAnonUserId();
+  /**
+   * <code>string anon_user_id = 10;</code>
+   * @return The bytes for anonUserId.
+   */
+  com.google.protobuf.ByteString
+      getAnonUserIdBytes();
+
+  /**
    * <code>string session_id = 4;</code>
    * @return The sessionId.
    */
-  String getSessionId();
+  java.lang.String getSessionId();
   /**
    * <code>string session_id = 4;</code>
    * @return The bytes for sessionId.
@@ -53,7 +65,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string view_id = 5;</code>
    * @return The viewId.
    */
-  String getViewId();
+  java.lang.String getViewId();
   /**
    * <code>string view_id = 5;</code>
    * @return The bytes for viewId.
@@ -62,10 +74,22 @@ public interface JoinedIdentifiersOrBuilder extends
       getViewIdBytes();
 
   /**
+   * <code>string auto_view_id = 9;</code>
+   * @return The autoViewId.
+   */
+  java.lang.String getAutoViewId();
+  /**
+   * <code>string auto_view_id = 9;</code>
+   * @return The bytes for autoViewId.
+   */
+  com.google.protobuf.ByteString
+      getAutoViewIdBytes();
+
+  /**
    * <code>string request_id = 6;</code>
    * @return The requestId.
    */
-  String getRequestId();
+  java.lang.String getRequestId();
   /**
    * <code>string request_id = 6;</code>
    * @return The bytes for requestId.
@@ -77,7 +101,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string insertion_id = 7;</code>
    * @return The insertionId.
    */
-  String getInsertionId();
+  java.lang.String getInsertionId();
   /**
    * <code>string insertion_id = 7;</code>
    * @return The bytes for insertionId.
@@ -89,7 +113,7 @@ public interface JoinedIdentifiersOrBuilder extends
    * <code>string impression_id = 8;</code>
    * @return The impressionId.
    */
-  String getImpressionId();
+  java.lang.String getImpressionId();
   /**
    * <code>string impression_id = 8;</code>
    * @return The bytes for impressionId.

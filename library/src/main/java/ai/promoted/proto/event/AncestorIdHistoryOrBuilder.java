@@ -14,7 +14,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  java.util.List<AncestorIdHistoryItem>
+  java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> 
       getLogUserIdHistoryList();
   /**
    * <pre>
@@ -23,7 +23,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  AncestorIdHistoryItem getLogUserIdHistory(int index);
+  ai.promoted.proto.event.AncestorIdHistoryItem getLogUserIdHistory(int index);
   /**
    * <pre>
    * Window of latest log user ids.
@@ -39,7 +39,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getLogUserIdHistoryOrBuilderList();
   /**
    * <pre>
@@ -48,7 +48,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
+  ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
       int index);
 
   /**
@@ -68,7 +68,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  java.util.List<AncestorIdHistoryItem>
+  java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> 
       getSessionIdHistoryList();
   /**
    * <pre>
@@ -77,7 +77,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  AncestorIdHistoryItem getSessionIdHistory(int index);
+  ai.promoted.proto.event.AncestorIdHistoryItem getSessionIdHistory(int index);
   /**
    * <pre>
    * Window of latest session ids.
@@ -93,7 +93,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getSessionIdHistoryOrBuilderList();
   /**
    * <pre>
@@ -102,7 +102,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
+  ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
       int index);
 
   /**
@@ -122,7 +122,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  java.util.List<AncestorIdHistoryItem>
+  java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> 
       getViewIdHistoryList();
   /**
    * <pre>
@@ -131,7 +131,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  AncestorIdHistoryItem getViewIdHistory(int index);
+  ai.promoted.proto.event.AncestorIdHistoryItem getViewIdHistory(int index);
   /**
    * <pre>
    * Window of latest view ids.
@@ -147,7 +147,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getViewIdHistoryOrBuilderList();
   /**
    * <pre>
@@ -156,7 +156,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
+  ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
       int index);
 
   /**
@@ -176,7 +176,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  java.util.List<AncestorIdHistoryItem>
+  java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> 
       getAutoViewIdHistoryList();
   /**
    * <pre>
@@ -185,7 +185,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  AncestorIdHistoryItem getAutoViewIdHistory(int index);
+  ai.promoted.proto.event.AncestorIdHistoryItem getAutoViewIdHistory(int index);
   /**
    * <pre>
    * Window of latest auto view ids.
@@ -201,7 +201,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getAutoViewIdHistoryOrBuilderList();
   /**
    * <pre>
@@ -210,7 +210,7 @@ public interface AncestorIdHistoryOrBuilder extends
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
+  ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
       int index);
 
   /**

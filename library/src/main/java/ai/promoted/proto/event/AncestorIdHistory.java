@@ -27,14 +27,14 @@ private static final long serialVersionUID = 0L;
     autoViewIdHistory_ = java.util.Collections.emptyList();
   }
 
-  @Override
+  @java.lang.Override
   @SuppressWarnings({"unused"})
-  protected Object newInstance(
+  protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
     return new AncestorIdHistory();
   }
 
-  @Override
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new NullPointerException();
+      throw new java.lang.NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -60,11 +60,11 @@ private static final long serialVersionUID = 0L;
             break;
           case 10: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              logUserIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>();
+              logUserIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>();
               mutable_bitField0_ |= 0x00000001;
             }
             logUserIdHistory_.add(
-                input.readMessage(AncestorIdHistoryItem.parser(), extensionRegistry));
+                input.readMessage(ai.promoted.proto.event.AncestorIdHistoryItem.parser(), extensionRegistry));
             break;
           }
           case 16: {
@@ -74,11 +74,11 @@ private static final long serialVersionUID = 0L;
           }
           case 26: {
             if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-              sessionIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>();
+              sessionIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>();
               mutable_bitField0_ |= 0x00000002;
             }
             sessionIdHistory_.add(
-                input.readMessage(AncestorIdHistoryItem.parser(), extensionRegistry));
+                input.readMessage(ai.promoted.proto.event.AncestorIdHistoryItem.parser(), extensionRegistry));
             break;
           }
           case 32: {
@@ -88,11 +88,11 @@ private static final long serialVersionUID = 0L;
           }
           case 42: {
             if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-              viewIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>();
+              viewIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>();
               mutable_bitField0_ |= 0x00000004;
             }
             viewIdHistory_.add(
-                input.readMessage(AncestorIdHistoryItem.parser(), extensionRegistry));
+                input.readMessage(ai.promoted.proto.event.AncestorIdHistoryItem.parser(), extensionRegistry));
             break;
           }
           case 48: {
@@ -102,11 +102,11 @@ private static final long serialVersionUID = 0L;
           }
           case 58: {
             if (!((mutable_bitField0_ & 0x00000008) != 0)) {
-              autoViewIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>();
+              autoViewIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>();
               mutable_bitField0_ |= 0x00000008;
             }
             autoViewIdHistory_.add(
-                input.readMessage(AncestorIdHistoryItem.parser(), extensionRegistry));
+                input.readMessage(ai.promoted.proto.event.AncestorIdHistoryItem.parser(), extensionRegistry));
             break;
           }
           case 64: {
@@ -147,19 +147,19 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return Event.internal_static_event_AncestorIdHistory_descriptor;
+    return ai.promoted.proto.event.Event.internal_static_event_AncestorIdHistory_descriptor;
   }
 
-  @Override
-  protected FieldAccessorTable
+  @java.lang.Override
+  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return Event.internal_static_event_AncestorIdHistory_fieldAccessorTable
+    return ai.promoted.proto.event.Event.internal_static_event_AncestorIdHistory_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            AncestorIdHistory.class, Builder.class);
+            ai.promoted.proto.event.AncestorIdHistory.class, ai.promoted.proto.event.AncestorIdHistory.Builder.class);
   }
 
   public static final int LOG_USER_ID_HISTORY_FIELD_NUMBER = 1;
-  private java.util.List<AncestorIdHistoryItem> logUserIdHistory_;
+  private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> logUserIdHistory_;
   /**
    * <pre>
    * Window of latest log user ids.
@@ -167,8 +167,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  @Override
-  public java.util.List<AncestorIdHistoryItem> getLogUserIdHistoryList() {
+  @java.lang.Override
+  public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getLogUserIdHistoryList() {
     return logUserIdHistory_;
   }
   /**
@@ -178,8 +178,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  @Override
-  public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  @java.lang.Override
+  public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getLogUserIdHistoryOrBuilderList() {
     return logUserIdHistory_;
   }
@@ -190,7 +190,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  @Override
+  @java.lang.Override
   public int getLogUserIdHistoryCount() {
     return logUserIdHistory_.size();
   }
@@ -201,8 +201,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  @Override
-  public AncestorIdHistoryItem getLogUserIdHistory(int index) {
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItem getLogUserIdHistory(int index) {
     return logUserIdHistory_.get(index);
   }
   /**
@@ -212,8 +212,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
    */
-  @Override
-  public AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
       int index) {
     return logUserIdHistory_.get(index);
   }
@@ -228,13 +228,13 @@ private static final long serialVersionUID = 0L;
    * <code>int32 total_log_user_ids_logged = 2;</code>
    * @return The totalLogUserIdsLogged.
    */
-  @Override
+  @java.lang.Override
   public int getTotalLogUserIdsLogged() {
     return totalLogUserIdsLogged_;
   }
 
   public static final int SESSION_ID_HISTORY_FIELD_NUMBER = 3;
-  private java.util.List<AncestorIdHistoryItem> sessionIdHistory_;
+  private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> sessionIdHistory_;
   /**
    * <pre>
    * Window of latest session ids.
@@ -242,8 +242,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  @Override
-  public java.util.List<AncestorIdHistoryItem> getSessionIdHistoryList() {
+  @java.lang.Override
+  public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getSessionIdHistoryList() {
     return sessionIdHistory_;
   }
   /**
@@ -253,8 +253,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  @Override
-  public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  @java.lang.Override
+  public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getSessionIdHistoryOrBuilderList() {
     return sessionIdHistory_;
   }
@@ -265,7 +265,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  @Override
+  @java.lang.Override
   public int getSessionIdHistoryCount() {
     return sessionIdHistory_.size();
   }
@@ -276,8 +276,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  @Override
-  public AncestorIdHistoryItem getSessionIdHistory(int index) {
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItem getSessionIdHistory(int index) {
     return sessionIdHistory_.get(index);
   }
   /**
@@ -287,8 +287,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
    */
-  @Override
-  public AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
       int index) {
     return sessionIdHistory_.get(index);
   }
@@ -303,13 +303,13 @@ private static final long serialVersionUID = 0L;
    * <code>int32 total_session_ids_logged = 4;</code>
    * @return The totalSessionIdsLogged.
    */
-  @Override
+  @java.lang.Override
   public int getTotalSessionIdsLogged() {
     return totalSessionIdsLogged_;
   }
 
   public static final int VIEW_ID_HISTORY_FIELD_NUMBER = 5;
-  private java.util.List<AncestorIdHistoryItem> viewIdHistory_;
+  private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> viewIdHistory_;
   /**
    * <pre>
    * Window of latest view ids.
@@ -317,8 +317,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  @Override
-  public java.util.List<AncestorIdHistoryItem> getViewIdHistoryList() {
+  @java.lang.Override
+  public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getViewIdHistoryList() {
     return viewIdHistory_;
   }
   /**
@@ -328,8 +328,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  @Override
-  public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  @java.lang.Override
+  public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getViewIdHistoryOrBuilderList() {
     return viewIdHistory_;
   }
@@ -340,7 +340,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  @Override
+  @java.lang.Override
   public int getViewIdHistoryCount() {
     return viewIdHistory_.size();
   }
@@ -351,8 +351,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  @Override
-  public AncestorIdHistoryItem getViewIdHistory(int index) {
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItem getViewIdHistory(int index) {
     return viewIdHistory_.get(index);
   }
   /**
@@ -362,8 +362,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
    */
-  @Override
-  public AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
       int index) {
     return viewIdHistory_.get(index);
   }
@@ -378,13 +378,13 @@ private static final long serialVersionUID = 0L;
    * <code>int32 total_view_ids_logged = 6;</code>
    * @return The totalViewIdsLogged.
    */
-  @Override
+  @java.lang.Override
   public int getTotalViewIdsLogged() {
     return totalViewIdsLogged_;
   }
 
   public static final int AUTO_VIEW_ID_HISTORY_FIELD_NUMBER = 7;
-  private java.util.List<AncestorIdHistoryItem> autoViewIdHistory_;
+  private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> autoViewIdHistory_;
   /**
    * <pre>
    * Window of latest auto view ids.
@@ -392,8 +392,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  @Override
-  public java.util.List<AncestorIdHistoryItem> getAutoViewIdHistoryList() {
+  @java.lang.Override
+  public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getAutoViewIdHistoryList() {
     return autoViewIdHistory_;
   }
   /**
@@ -403,8 +403,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  @Override
-  public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+  @java.lang.Override
+  public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
       getAutoViewIdHistoryOrBuilderList() {
     return autoViewIdHistory_;
   }
@@ -415,7 +415,7 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  @Override
+  @java.lang.Override
   public int getAutoViewIdHistoryCount() {
     return autoViewIdHistory_.size();
   }
@@ -426,8 +426,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  @Override
-  public AncestorIdHistoryItem getAutoViewIdHistory(int index) {
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItem getAutoViewIdHistory(int index) {
     return autoViewIdHistory_.get(index);
   }
   /**
@@ -437,8 +437,8 @@ private static final long serialVersionUID = 0L;
    *
    * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
    */
-  @Override
-  public AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
       int index) {
     return autoViewIdHistory_.get(index);
   }
@@ -453,13 +453,13 @@ private static final long serialVersionUID = 0L;
    * <code>int32 total_auto_view_ids_logged = 8;</code>
    * @return The totalAutoViewIdsLogged.
    */
-  @Override
+  @java.lang.Override
   public int getTotalAutoViewIdsLogged() {
     return totalAutoViewIdsLogged_;
   }
 
   private byte memoizedIsInitialized = -1;
-  @Override
+  @java.lang.Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -469,7 +469,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     for (int i = 0; i < logUserIdHistory_.size(); i++) {
@@ -499,7 +499,7 @@ private static final long serialVersionUID = 0L;
     unknownFields.writeTo(output);
   }
 
-  @Override
+  @java.lang.Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -542,15 +542,15 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @Override
-  public boolean equals(final Object obj) {
+  @java.lang.Override
+  public boolean equals(final java.lang.Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof AncestorIdHistory)) {
+    if (!(obj instanceof ai.promoted.proto.event.AncestorIdHistory)) {
       return super.equals(obj);
     }
-    AncestorIdHistory other = (AncestorIdHistory) obj;
+    ai.promoted.proto.event.AncestorIdHistory other = (ai.promoted.proto.event.AncestorIdHistory) obj;
 
     if (!getLogUserIdHistoryList()
         .equals(other.getLogUserIdHistoryList())) return false;
@@ -572,7 +572,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -608,69 +608,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static AncestorIdHistory parseFrom(byte[] data)
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static AncestorIdHistory parseFrom(java.io.InputStream input)
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static AncestorIdHistory parseDelimitedFrom(java.io.InputStream input)
+  public static ai.promoted.proto.event.AncestorIdHistory parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static AncestorIdHistory parseDelimitedFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static AncestorIdHistory parseFrom(
+  public static ai.promoted.proto.event.AncestorIdHistory parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -678,23 +678,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @Override
+  @java.lang.Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(AncestorIdHistory prototype) {
+  public static Builder newBuilder(ai.promoted.proto.event.AncestorIdHistory prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @Override
+  @java.lang.Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @Override
+  @java.lang.Override
   protected Builder newBuilderForType(
-      BuilderParent parent) {
+      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -709,18 +709,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:event.AncestorIdHistory)
-      AncestorIdHistoryOrBuilder {
+      ai.promoted.proto.event.AncestorIdHistoryOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return Event.internal_static_event_AncestorIdHistory_descriptor;
+      return ai.promoted.proto.event.Event.internal_static_event_AncestorIdHistory_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return Event.internal_static_event_AncestorIdHistory_fieldAccessorTable
+      return ai.promoted.proto.event.Event.internal_static_event_AncestorIdHistory_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              AncestorIdHistory.class, Builder.class);
+              ai.promoted.proto.event.AncestorIdHistory.class, ai.promoted.proto.event.AncestorIdHistory.Builder.class);
     }
 
     // Construct using ai.promoted.proto.event.AncestorIdHistory.newBuilder()
@@ -729,7 +729,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -742,7 +742,7 @@ private static final long serialVersionUID = 0L;
         getAutoViewIdHistoryFieldBuilder();
       }
     }
-    @Override
+    @java.lang.Override
     public Builder clear() {
       super.clear();
       if (logUserIdHistoryBuilder_ == null) {
@@ -780,29 +780,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return Event.internal_static_event_AncestorIdHistory_descriptor;
+      return ai.promoted.proto.event.Event.internal_static_event_AncestorIdHistory_descriptor;
     }
 
-    @Override
-    public AncestorIdHistory getDefaultInstanceForType() {
-      return AncestorIdHistory.getDefaultInstance();
+    @java.lang.Override
+    public ai.promoted.proto.event.AncestorIdHistory getDefaultInstanceForType() {
+      return ai.promoted.proto.event.AncestorIdHistory.getDefaultInstance();
     }
 
-    @Override
-    public AncestorIdHistory build() {
-      AncestorIdHistory result = buildPartial();
+    @java.lang.Override
+    public ai.promoted.proto.event.AncestorIdHistory build() {
+      ai.promoted.proto.event.AncestorIdHistory result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @Override
-    public AncestorIdHistory buildPartial() {
-      AncestorIdHistory result = new AncestorIdHistory(this);
+    @java.lang.Override
+    public ai.promoted.proto.event.AncestorIdHistory buildPartial() {
+      ai.promoted.proto.event.AncestorIdHistory result = new ai.promoted.proto.event.AncestorIdHistory(this);
       int from_bitField0_ = bitField0_;
       if (logUserIdHistoryBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -848,50 +848,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @Override
+    @java.lang.Override
     public Builder clone() {
       return super.clone();
     }
-    @Override
+    @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.setField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @Override
+    @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @Override
+    @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, Object value) {
+        int index, java.lang.Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @Override
+    @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.addRepeatedField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof AncestorIdHistory) {
-        return mergeFrom((AncestorIdHistory)other);
+      if (other instanceof ai.promoted.proto.event.AncestorIdHistory) {
+        return mergeFrom((ai.promoted.proto.event.AncestorIdHistory)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(AncestorIdHistory other) {
-      if (other == AncestorIdHistory.getDefaultInstance()) return this;
+    public Builder mergeFrom(ai.promoted.proto.event.AncestorIdHistory other) {
+      if (other == ai.promoted.proto.event.AncestorIdHistory.getDefaultInstance()) return this;
       if (logUserIdHistoryBuilder_ == null) {
         if (!other.logUserIdHistory_.isEmpty()) {
           if (logUserIdHistory_.isEmpty()) {
@@ -1013,21 +1013,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      AncestorIdHistory parsedMessage = null;
+      ai.promoted.proto.event.AncestorIdHistory parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (AncestorIdHistory) e.getUnfinishedMessage();
+        parsedMessage = (ai.promoted.proto.event.AncestorIdHistory) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1038,17 +1038,17 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<AncestorIdHistoryItem> logUserIdHistory_ =
+    private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> logUserIdHistory_ =
       java.util.Collections.emptyList();
     private void ensureLogUserIdHistoryIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        logUserIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>(logUserIdHistory_);
+        logUserIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>(logUserIdHistory_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder> logUserIdHistoryBuilder_;
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> logUserIdHistoryBuilder_;
 
     /**
      * <pre>
@@ -1057,7 +1057,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public java.util.List<AncestorIdHistoryItem> getLogUserIdHistoryList() {
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getLogUserIdHistoryList() {
       if (logUserIdHistoryBuilder_ == null) {
         return java.util.Collections.unmodifiableList(logUserIdHistory_);
       } else {
@@ -1085,7 +1085,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public AncestorIdHistoryItem getLogUserIdHistory(int index) {
+    public ai.promoted.proto.event.AncestorIdHistoryItem getLogUserIdHistory(int index) {
       if (logUserIdHistoryBuilder_ == null) {
         return logUserIdHistory_.get(index);
       } else {
@@ -1100,7 +1100,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder setLogUserIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (logUserIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1121,7 +1121,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder setLogUserIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (logUserIdHistoryBuilder_ == null) {
         ensureLogUserIdHistoryIsMutable();
         logUserIdHistory_.set(index, builderForValue.build());
@@ -1138,7 +1138,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public Builder addLogUserIdHistory(AncestorIdHistoryItem value) {
+    public Builder addLogUserIdHistory(ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (logUserIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1159,7 +1159,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder addLogUserIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (logUserIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1180,7 +1180,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder addLogUserIdHistory(
-        AncestorIdHistoryItem.Builder builderForValue) {
+        ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (logUserIdHistoryBuilder_ == null) {
         ensureLogUserIdHistoryIsMutable();
         logUserIdHistory_.add(builderForValue.build());
@@ -1198,7 +1198,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder addLogUserIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (logUserIdHistoryBuilder_ == null) {
         ensureLogUserIdHistoryIsMutable();
         logUserIdHistory_.add(index, builderForValue.build());
@@ -1216,7 +1216,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
     public Builder addAllLogUserIdHistory(
-        Iterable<? extends AncestorIdHistoryItem> values) {
+        java.lang.Iterable<? extends ai.promoted.proto.event.AncestorIdHistoryItem> values) {
       if (logUserIdHistoryBuilder_ == null) {
         ensureLogUserIdHistoryIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1268,7 +1268,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public AncestorIdHistoryItem.Builder getLogUserIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder getLogUserIdHistoryBuilder(
         int index) {
       return getLogUserIdHistoryFieldBuilder().getBuilder(index);
     }
@@ -1279,7 +1279,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getLogUserIdHistoryOrBuilder(
         int index) {
       if (logUserIdHistoryBuilder_ == null) {
         return logUserIdHistory_.get(index);  } else {
@@ -1293,7 +1293,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+    public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
          getLogUserIdHistoryOrBuilderList() {
       if (logUserIdHistoryBuilder_ != null) {
         return logUserIdHistoryBuilder_.getMessageOrBuilderList();
@@ -1308,9 +1308,9 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public AncestorIdHistoryItem.Builder addLogUserIdHistoryBuilder() {
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addLogUserIdHistoryBuilder() {
       return getLogUserIdHistoryFieldBuilder().addBuilder(
-          AncestorIdHistoryItem.getDefaultInstance());
+          ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -1319,10 +1319,10 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public AncestorIdHistoryItem.Builder addLogUserIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addLogUserIdHistoryBuilder(
         int index) {
       return getLogUserIdHistoryFieldBuilder().addBuilder(
-          index, AncestorIdHistoryItem.getDefaultInstance());
+          index, ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -1331,16 +1331,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem log_user_id_history = 1;</code>
      */
-    public java.util.List<AncestorIdHistoryItem.Builder>
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem.Builder> 
          getLogUserIdHistoryBuilderList() {
       return getLogUserIdHistoryFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
         getLogUserIdHistoryFieldBuilder() {
       if (logUserIdHistoryBuilder_ == null) {
         logUserIdHistoryBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>(
+            ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder>(
                 logUserIdHistory_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
@@ -1359,7 +1359,7 @@ private static final long serialVersionUID = 0L;
      * <code>int32 total_log_user_ids_logged = 2;</code>
      * @return The totalLogUserIdsLogged.
      */
-    @Override
+    @java.lang.Override
     public int getTotalLogUserIdsLogged() {
       return totalLogUserIdsLogged_;
     }
@@ -1393,17 +1393,17 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<AncestorIdHistoryItem> sessionIdHistory_ =
+    private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> sessionIdHistory_ =
       java.util.Collections.emptyList();
     private void ensureSessionIdHistoryIsMutable() {
       if (!((bitField0_ & 0x00000002) != 0)) {
-        sessionIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>(sessionIdHistory_);
+        sessionIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>(sessionIdHistory_);
         bitField0_ |= 0x00000002;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder> sessionIdHistoryBuilder_;
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> sessionIdHistoryBuilder_;
 
     /**
      * <pre>
@@ -1412,7 +1412,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public java.util.List<AncestorIdHistoryItem> getSessionIdHistoryList() {
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getSessionIdHistoryList() {
       if (sessionIdHistoryBuilder_ == null) {
         return java.util.Collections.unmodifiableList(sessionIdHistory_);
       } else {
@@ -1440,7 +1440,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public AncestorIdHistoryItem getSessionIdHistory(int index) {
+    public ai.promoted.proto.event.AncestorIdHistoryItem getSessionIdHistory(int index) {
       if (sessionIdHistoryBuilder_ == null) {
         return sessionIdHistory_.get(index);
       } else {
@@ -1455,7 +1455,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder setSessionIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (sessionIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1476,7 +1476,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder setSessionIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (sessionIdHistoryBuilder_ == null) {
         ensureSessionIdHistoryIsMutable();
         sessionIdHistory_.set(index, builderForValue.build());
@@ -1493,7 +1493,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public Builder addSessionIdHistory(AncestorIdHistoryItem value) {
+    public Builder addSessionIdHistory(ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (sessionIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1514,7 +1514,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder addSessionIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (sessionIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1535,7 +1535,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder addSessionIdHistory(
-        AncestorIdHistoryItem.Builder builderForValue) {
+        ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (sessionIdHistoryBuilder_ == null) {
         ensureSessionIdHistoryIsMutable();
         sessionIdHistory_.add(builderForValue.build());
@@ -1553,7 +1553,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder addSessionIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (sessionIdHistoryBuilder_ == null) {
         ensureSessionIdHistoryIsMutable();
         sessionIdHistory_.add(index, builderForValue.build());
@@ -1571,7 +1571,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
     public Builder addAllSessionIdHistory(
-        Iterable<? extends AncestorIdHistoryItem> values) {
+        java.lang.Iterable<? extends ai.promoted.proto.event.AncestorIdHistoryItem> values) {
       if (sessionIdHistoryBuilder_ == null) {
         ensureSessionIdHistoryIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1623,7 +1623,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public AncestorIdHistoryItem.Builder getSessionIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder getSessionIdHistoryBuilder(
         int index) {
       return getSessionIdHistoryFieldBuilder().getBuilder(index);
     }
@@ -1634,7 +1634,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getSessionIdHistoryOrBuilder(
         int index) {
       if (sessionIdHistoryBuilder_ == null) {
         return sessionIdHistory_.get(index);  } else {
@@ -1648,7 +1648,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+    public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
          getSessionIdHistoryOrBuilderList() {
       if (sessionIdHistoryBuilder_ != null) {
         return sessionIdHistoryBuilder_.getMessageOrBuilderList();
@@ -1663,9 +1663,9 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public AncestorIdHistoryItem.Builder addSessionIdHistoryBuilder() {
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addSessionIdHistoryBuilder() {
       return getSessionIdHistoryFieldBuilder().addBuilder(
-          AncestorIdHistoryItem.getDefaultInstance());
+          ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -1674,10 +1674,10 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public AncestorIdHistoryItem.Builder addSessionIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addSessionIdHistoryBuilder(
         int index) {
       return getSessionIdHistoryFieldBuilder().addBuilder(
-          index, AncestorIdHistoryItem.getDefaultInstance());
+          index, ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -1686,16 +1686,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem session_id_history = 3;</code>
      */
-    public java.util.List<AncestorIdHistoryItem.Builder>
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem.Builder> 
          getSessionIdHistoryBuilderList() {
       return getSessionIdHistoryFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
         getSessionIdHistoryFieldBuilder() {
       if (sessionIdHistoryBuilder_ == null) {
         sessionIdHistoryBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>(
+            ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder>(
                 sessionIdHistory_,
                 ((bitField0_ & 0x00000002) != 0),
                 getParentForChildren(),
@@ -1714,7 +1714,7 @@ private static final long serialVersionUID = 0L;
      * <code>int32 total_session_ids_logged = 4;</code>
      * @return The totalSessionIdsLogged.
      */
-    @Override
+    @java.lang.Override
     public int getTotalSessionIdsLogged() {
       return totalSessionIdsLogged_;
     }
@@ -1748,17 +1748,17 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<AncestorIdHistoryItem> viewIdHistory_ =
+    private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> viewIdHistory_ =
       java.util.Collections.emptyList();
     private void ensureViewIdHistoryIsMutable() {
       if (!((bitField0_ & 0x00000004) != 0)) {
-        viewIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>(viewIdHistory_);
+        viewIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>(viewIdHistory_);
         bitField0_ |= 0x00000004;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder> viewIdHistoryBuilder_;
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> viewIdHistoryBuilder_;
 
     /**
      * <pre>
@@ -1767,7 +1767,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public java.util.List<AncestorIdHistoryItem> getViewIdHistoryList() {
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getViewIdHistoryList() {
       if (viewIdHistoryBuilder_ == null) {
         return java.util.Collections.unmodifiableList(viewIdHistory_);
       } else {
@@ -1795,7 +1795,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public AncestorIdHistoryItem getViewIdHistory(int index) {
+    public ai.promoted.proto.event.AncestorIdHistoryItem getViewIdHistory(int index) {
       if (viewIdHistoryBuilder_ == null) {
         return viewIdHistory_.get(index);
       } else {
@@ -1810,7 +1810,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder setViewIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (viewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1831,7 +1831,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder setViewIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (viewIdHistoryBuilder_ == null) {
         ensureViewIdHistoryIsMutable();
         viewIdHistory_.set(index, builderForValue.build());
@@ -1848,7 +1848,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public Builder addViewIdHistory(AncestorIdHistoryItem value) {
+    public Builder addViewIdHistory(ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (viewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1869,7 +1869,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder addViewIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (viewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1890,7 +1890,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder addViewIdHistory(
-        AncestorIdHistoryItem.Builder builderForValue) {
+        ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (viewIdHistoryBuilder_ == null) {
         ensureViewIdHistoryIsMutable();
         viewIdHistory_.add(builderForValue.build());
@@ -1908,7 +1908,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder addViewIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (viewIdHistoryBuilder_ == null) {
         ensureViewIdHistoryIsMutable();
         viewIdHistory_.add(index, builderForValue.build());
@@ -1926,7 +1926,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
     public Builder addAllViewIdHistory(
-        Iterable<? extends AncestorIdHistoryItem> values) {
+        java.lang.Iterable<? extends ai.promoted.proto.event.AncestorIdHistoryItem> values) {
       if (viewIdHistoryBuilder_ == null) {
         ensureViewIdHistoryIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1978,7 +1978,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public AncestorIdHistoryItem.Builder getViewIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder getViewIdHistoryBuilder(
         int index) {
       return getViewIdHistoryFieldBuilder().getBuilder(index);
     }
@@ -1989,7 +1989,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getViewIdHistoryOrBuilder(
         int index) {
       if (viewIdHistoryBuilder_ == null) {
         return viewIdHistory_.get(index);  } else {
@@ -2003,7 +2003,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+    public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
          getViewIdHistoryOrBuilderList() {
       if (viewIdHistoryBuilder_ != null) {
         return viewIdHistoryBuilder_.getMessageOrBuilderList();
@@ -2018,9 +2018,9 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public AncestorIdHistoryItem.Builder addViewIdHistoryBuilder() {
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addViewIdHistoryBuilder() {
       return getViewIdHistoryFieldBuilder().addBuilder(
-          AncestorIdHistoryItem.getDefaultInstance());
+          ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -2029,10 +2029,10 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public AncestorIdHistoryItem.Builder addViewIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addViewIdHistoryBuilder(
         int index) {
       return getViewIdHistoryFieldBuilder().addBuilder(
-          index, AncestorIdHistoryItem.getDefaultInstance());
+          index, ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -2041,16 +2041,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem view_id_history = 5;</code>
      */
-    public java.util.List<AncestorIdHistoryItem.Builder>
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem.Builder> 
          getViewIdHistoryBuilderList() {
       return getViewIdHistoryFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
         getViewIdHistoryFieldBuilder() {
       if (viewIdHistoryBuilder_ == null) {
         viewIdHistoryBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>(
+            ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder>(
                 viewIdHistory_,
                 ((bitField0_ & 0x00000004) != 0),
                 getParentForChildren(),
@@ -2069,7 +2069,7 @@ private static final long serialVersionUID = 0L;
      * <code>int32 total_view_ids_logged = 6;</code>
      * @return The totalViewIdsLogged.
      */
-    @Override
+    @java.lang.Override
     public int getTotalViewIdsLogged() {
       return totalViewIdsLogged_;
     }
@@ -2103,17 +2103,17 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<AncestorIdHistoryItem> autoViewIdHistory_ =
+    private java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> autoViewIdHistory_ =
       java.util.Collections.emptyList();
     private void ensureAutoViewIdHistoryIsMutable() {
       if (!((bitField0_ & 0x00000008) != 0)) {
-        autoViewIdHistory_ = new java.util.ArrayList<AncestorIdHistoryItem>(autoViewIdHistory_);
+        autoViewIdHistory_ = new java.util.ArrayList<ai.promoted.proto.event.AncestorIdHistoryItem>(autoViewIdHistory_);
         bitField0_ |= 0x00000008;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder> autoViewIdHistoryBuilder_;
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> autoViewIdHistoryBuilder_;
 
     /**
      * <pre>
@@ -2122,7 +2122,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public java.util.List<AncestorIdHistoryItem> getAutoViewIdHistoryList() {
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem> getAutoViewIdHistoryList() {
       if (autoViewIdHistoryBuilder_ == null) {
         return java.util.Collections.unmodifiableList(autoViewIdHistory_);
       } else {
@@ -2150,7 +2150,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public AncestorIdHistoryItem getAutoViewIdHistory(int index) {
+    public ai.promoted.proto.event.AncestorIdHistoryItem getAutoViewIdHistory(int index) {
       if (autoViewIdHistoryBuilder_ == null) {
         return autoViewIdHistory_.get(index);
       } else {
@@ -2165,7 +2165,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder setAutoViewIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (autoViewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2186,7 +2186,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder setAutoViewIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (autoViewIdHistoryBuilder_ == null) {
         ensureAutoViewIdHistoryIsMutable();
         autoViewIdHistory_.set(index, builderForValue.build());
@@ -2203,7 +2203,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public Builder addAutoViewIdHistory(AncestorIdHistoryItem value) {
+    public Builder addAutoViewIdHistory(ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (autoViewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2224,7 +2224,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder addAutoViewIdHistory(
-        int index, AncestorIdHistoryItem value) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem value) {
       if (autoViewIdHistoryBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -2245,7 +2245,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder addAutoViewIdHistory(
-        AncestorIdHistoryItem.Builder builderForValue) {
+        ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (autoViewIdHistoryBuilder_ == null) {
         ensureAutoViewIdHistoryIsMutable();
         autoViewIdHistory_.add(builderForValue.build());
@@ -2263,7 +2263,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder addAutoViewIdHistory(
-        int index, AncestorIdHistoryItem.Builder builderForValue) {
+        int index, ai.promoted.proto.event.AncestorIdHistoryItem.Builder builderForValue) {
       if (autoViewIdHistoryBuilder_ == null) {
         ensureAutoViewIdHistoryIsMutable();
         autoViewIdHistory_.add(index, builderForValue.build());
@@ -2281,7 +2281,7 @@ private static final long serialVersionUID = 0L;
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
     public Builder addAllAutoViewIdHistory(
-        Iterable<? extends AncestorIdHistoryItem> values) {
+        java.lang.Iterable<? extends ai.promoted.proto.event.AncestorIdHistoryItem> values) {
       if (autoViewIdHistoryBuilder_ == null) {
         ensureAutoViewIdHistoryIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2333,7 +2333,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public AncestorIdHistoryItem.Builder getAutoViewIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder getAutoViewIdHistoryBuilder(
         int index) {
       return getAutoViewIdHistoryFieldBuilder().getBuilder(index);
     }
@@ -2344,7 +2344,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder getAutoViewIdHistoryOrBuilder(
         int index) {
       if (autoViewIdHistoryBuilder_ == null) {
         return autoViewIdHistory_.get(index);  } else {
@@ -2358,7 +2358,7 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public java.util.List<? extends AncestorIdHistoryItemOrBuilder>
+    public java.util.List<? extends ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
          getAutoViewIdHistoryOrBuilderList() {
       if (autoViewIdHistoryBuilder_ != null) {
         return autoViewIdHistoryBuilder_.getMessageOrBuilderList();
@@ -2373,9 +2373,9 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public AncestorIdHistoryItem.Builder addAutoViewIdHistoryBuilder() {
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addAutoViewIdHistoryBuilder() {
       return getAutoViewIdHistoryFieldBuilder().addBuilder(
-          AncestorIdHistoryItem.getDefaultInstance());
+          ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -2384,10 +2384,10 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public AncestorIdHistoryItem.Builder addAutoViewIdHistoryBuilder(
+    public ai.promoted.proto.event.AncestorIdHistoryItem.Builder addAutoViewIdHistoryBuilder(
         int index) {
       return getAutoViewIdHistoryFieldBuilder().addBuilder(
-          index, AncestorIdHistoryItem.getDefaultInstance());
+          index, ai.promoted.proto.event.AncestorIdHistoryItem.getDefaultInstance());
     }
     /**
      * <pre>
@@ -2396,16 +2396,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>repeated .event.AncestorIdHistoryItem auto_view_id_history = 7;</code>
      */
-    public java.util.List<AncestorIdHistoryItem.Builder>
+    public java.util.List<ai.promoted.proto.event.AncestorIdHistoryItem.Builder> 
          getAutoViewIdHistoryBuilderList() {
       return getAutoViewIdHistoryFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>
+        ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder> 
         getAutoViewIdHistoryFieldBuilder() {
       if (autoViewIdHistoryBuilder_ == null) {
         autoViewIdHistoryBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            AncestorIdHistoryItem, AncestorIdHistoryItem.Builder, AncestorIdHistoryItemOrBuilder>(
+            ai.promoted.proto.event.AncestorIdHistoryItem, ai.promoted.proto.event.AncestorIdHistoryItem.Builder, ai.promoted.proto.event.AncestorIdHistoryItemOrBuilder>(
                 autoViewIdHistory_,
                 ((bitField0_ & 0x00000008) != 0),
                 getParentForChildren(),
@@ -2424,7 +2424,7 @@ private static final long serialVersionUID = 0L;
      * <code>int32 total_auto_view_ids_logged = 8;</code>
      * @return The totalAutoViewIdsLogged.
      */
-    @Override
+    @java.lang.Override
     public int getTotalAutoViewIdsLogged() {
       return totalAutoViewIdsLogged_;
     }
@@ -2457,13 +2457,13 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    @Override
+    @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @Override
+    @java.lang.Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -2474,18 +2474,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:event.AncestorIdHistory)
-  private static final AncestorIdHistory DEFAULT_INSTANCE;
+  private static final ai.promoted.proto.event.AncestorIdHistory DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new AncestorIdHistory();
+    DEFAULT_INSTANCE = new ai.promoted.proto.event.AncestorIdHistory();
   }
 
-  public static AncestorIdHistory getDefaultInstance() {
+  public static ai.promoted.proto.event.AncestorIdHistory getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<AncestorIdHistory>
       PARSER = new com.google.protobuf.AbstractParser<AncestorIdHistory>() {
-    @Override
+    @java.lang.Override
     public AncestorIdHistory parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2498,13 +2498,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @Override
+  @java.lang.Override
   public com.google.protobuf.Parser<AncestorIdHistory> getParserForType() {
     return PARSER;
   }
 
-  @Override
-  public AncestorIdHistory getDefaultInstanceForType() {
+  @java.lang.Override
+  public ai.promoted.proto.event.AncestorIdHistory getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

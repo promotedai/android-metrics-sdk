@@ -5,8 +5,12 @@ package ai.promoted.proto.common;
 
 /**
  * <pre>
- * Common submessage that scopes helps scope a request/log to a user.
- * Next ID = 4.
+ * Common submessage that indicates the user for a record.
+ * Summary of fields:
+ * - `user_id` = the platform's auth user ID.
+ * - `anon_user_id` = the platform's anonymous user ID.
+ * - `log_user_id` = internal Promoted forgettable, longer-term user ID.
+ * Next ID = 6.
  * </pre>
  *
  * Protobuf type {@code common.UserInfo}
@@ -23,16 +27,17 @@ private static final long serialVersionUID = 0L;
   private UserInfo() {
     userId_ = "";
     logUserId_ = "";
+    anonUserId_ = "";
   }
 
-  @Override
+  @java.lang.Override
   @SuppressWarnings({"unused"})
-  protected Object newInstance(
+  protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
     return new UserInfo();
   }
 
-  @Override
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -43,7 +48,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new NullPointerException();
+      throw new java.lang.NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -56,13 +61,13 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             userId_ = s;
             break;
           }
           case 18: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             logUserId_ = s;
             break;
@@ -70,6 +75,22 @@ private static final long serialVersionUID = 0L;
           case 24: {
 
             isInternalUser_ = input.readBool();
+            break;
+          }
+          case 32: {
+
+            ignoreUsage_ = input.readBool();
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            anonUserId_ = s;
+            break;
+          }
+          case 48: {
+
+            hasUserId_ = input.readBool();
             break;
           }
           default: {
@@ -93,58 +114,62 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return CommonProto.internal_static_common_UserInfo_descriptor;
+    return ai.promoted.proto.common.CommonProto.internal_static_common_UserInfo_descriptor;
   }
 
-  @Override
-  protected FieldAccessorTable
+  @java.lang.Override
+  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return CommonProto.internal_static_common_UserInfo_fieldAccessorTable
+    return ai.promoted.proto.common.CommonProto.internal_static_common_UserInfo_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            UserInfo.class, Builder.class);
+            ai.promoted.proto.common.UserInfo.class, ai.promoted.proto.common.UserInfo.Builder.class);
   }
 
   public static final int USER_ID_FIELD_NUMBER = 1;
-  private volatile Object userId_;
+  private volatile java.lang.Object userId_;
   /**
    * <pre>
-   * Optional.  The Platform's actual user ID.
-   * This field will be cleared from our transaction logs.
+   * Optional.  The platform's authenticated user ID.
+   * This field will be cleared in our long-term transaction logs to
+   * make it easier to forget `user_id`s.
+   * Internally, this field gets mapped over to `log_user_id`.
    * </pre>
    *
    * <code>string user_id = 1;</code>
    * @return The userId.
    */
-  @Override
-  public String getUserId() {
-    Object ref = userId_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getUserId() {
+    java.lang.Object ref = userId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       userId_ = s;
       return s;
     }
   }
   /**
    * <pre>
-   * Optional.  The Platform's actual user ID.
-   * This field will be cleared from our transaction logs.
+   * Optional.  The platform's authenticated user ID.
+   * This field will be cleared in our long-term transaction logs to
+   * make it easier to forget `user_id`s.
+   * Internally, this field gets mapped over to `log_user_id`.
    * </pre>
    *
    * <code>string user_id = 1;</code>
    * @return The bytes for userId.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getUserIdBytes() {
-    Object ref = userId_;
-    if (ref instanceof String) {
+    java.lang.Object ref = userId_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       userId_ = b;
       return b;
     } else {
@@ -153,52 +178,56 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int LOG_USER_ID_FIELD_NUMBER = 2;
-  private volatile Object logUserId_;
+  private volatile java.lang.Object logUserId_;
   /**
    * <pre>
-   * Optional.  This is a user UUID that is different from user_id and
-   * can quickly be disassociated from the actual user ID.  This is useful:
-   * 1. in case the user wants to be forgotten.
-   * 2. logging unauthenticated users.
-   * The user UUID is in a different ID space than user_id.
+   * Internal.  Optional.  The `log_user_id` is another type of user ID.
+   * It's different than the `anon_user_id` and auth `user_id`.
+   * The goal is to have a user ID that lives longer than
+   * anon_user_id but different from the auth `user_id` so we can
+   * decouple our long-term logs in case the user wants to be forgotten.
+   * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+   * Most of Promoted's internal systems use `log_user_id`.
    * </pre>
    *
    * <code>string log_user_id = 2;</code>
    * @return The logUserId.
    */
-  @Override
-  public String getLogUserId() {
-    Object ref = logUserId_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getLogUserId() {
+    java.lang.Object ref = logUserId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       logUserId_ = s;
       return s;
     }
   }
   /**
    * <pre>
-   * Optional.  This is a user UUID that is different from user_id and
-   * can quickly be disassociated from the actual user ID.  This is useful:
-   * 1. in case the user wants to be forgotten.
-   * 2. logging unauthenticated users.
-   * The user UUID is in a different ID space than user_id.
+   * Internal.  Optional.  The `log_user_id` is another type of user ID.
+   * It's different than the `anon_user_id` and auth `user_id`.
+   * The goal is to have a user ID that lives longer than
+   * anon_user_id but different from the auth `user_id` so we can
+   * decouple our long-term logs in case the user wants to be forgotten.
+   * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+   * Most of Promoted's internal systems use `log_user_id`.
    * </pre>
    *
    * <code>string log_user_id = 2;</code>
    * @return The bytes for logUserId.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getLogUserIdBytes() {
-    Object ref = logUserId_;
-    if (ref instanceof String) {
+    java.lang.Object ref = logUserId_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       logUserId_ = b;
       return b;
     } else {
@@ -217,13 +246,103 @@ private static final long serialVersionUID = 0L;
    * <code>bool is_internal_user = 3;</code>
    * @return The isInternalUser.
    */
-  @Override
+  @java.lang.Override
   public boolean getIsInternalUser() {
     return isInternalUser_;
   }
 
+  public static final int IGNORE_USAGE_FIELD_NUMBER = 4;
+  private boolean ignoreUsage_;
+  /**
+   * <pre>
+   * Optional, defaults to false.  Can be used to suppress traffic.
+   * One use case is to use this field when debugging specific customer
+   * experiences by overriding the log_user_id.
+   * </pre>
+   *
+   * <code>bool ignore_usage = 4;</code>
+   * @return The ignoreUsage.
+   */
+  @java.lang.Override
+  public boolean getIgnoreUsage() {
+    return ignoreUsage_;
+  }
+
+  public static final int ANON_USER_ID_FIELD_NUMBER = 5;
+  private volatile java.lang.Object anonUserId_;
+  /**
+   * <pre>
+   * Optional vs Required is complicated.  The platform's anonymous user ID.
+   * Currently, the field is optional.  Clients need to migrate from setting
+   * `log_user_id` to setting the `anon_user_id` field.
+   * After the migration, we'll temporarily treat anon_user_id as required.
+   * Then we staff another project to not require anon_user_id if user_id is
+   * specified.  This is useful when there are delayed conversion events.
+   * </pre>
+   *
+   * <code>string anon_user_id = 5;</code>
+   * @return The anonUserId.
+   */
+  @java.lang.Override
+  public java.lang.String getAnonUserId() {
+    java.lang.Object ref = anonUserId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      anonUserId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Optional vs Required is complicated.  The platform's anonymous user ID.
+   * Currently, the field is optional.  Clients need to migrate from setting
+   * `log_user_id` to setting the `anon_user_id` field.
+   * After the migration, we'll temporarily treat anon_user_id as required.
+   * Then we staff another project to not require anon_user_id if user_id is
+   * specified.  This is useful when there are delayed conversion events.
+   * </pre>
+   *
+   * <code>string anon_user_id = 5;</code>
+   * @return The bytes for anonUserId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getAnonUserIdBytes() {
+    java.lang.Object ref = anonUserId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      anonUserId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int HAS_USER_ID_FIELD_NUMBER = 6;
+  private boolean hasUserId_;
+  /**
+   * <pre>
+   * Read-only for most of the system.  This is an extra indicator that
+   * Promoted sets when scrubbing user_id.  This indicates that
+   * the log_user_id is logged in.
+   * </pre>
+   *
+   * <code>bool has_user_id = 6;</code>
+   * @return The hasUserId.
+   */
+  @java.lang.Override
+  public boolean getHasUserId() {
+    return hasUserId_;
+  }
+
   private byte memoizedIsInitialized = -1;
-  @Override
+  @java.lang.Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -233,7 +352,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (!getUserIdBytes().isEmpty()) {
@@ -245,10 +364,19 @@ private static final long serialVersionUID = 0L;
     if (isInternalUser_ != false) {
       output.writeBool(3, isInternalUser_);
     }
+    if (ignoreUsage_ != false) {
+      output.writeBool(4, ignoreUsage_);
+    }
+    if (!getAnonUserIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, anonUserId_);
+    }
+    if (hasUserId_ != false) {
+      output.writeBool(6, hasUserId_);
+    }
     unknownFields.writeTo(output);
   }
 
-  @Override
+  @java.lang.Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -264,20 +392,31 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(3, isInternalUser_);
     }
+    if (ignoreUsage_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, ignoreUsage_);
+    }
+    if (!getAnonUserIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, anonUserId_);
+    }
+    if (hasUserId_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(6, hasUserId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @Override
-  public boolean equals(final Object obj) {
+  @java.lang.Override
+  public boolean equals(final java.lang.Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof UserInfo)) {
+    if (!(obj instanceof ai.promoted.proto.common.UserInfo)) {
       return super.equals(obj);
     }
-    UserInfo other = (UserInfo) obj;
+    ai.promoted.proto.common.UserInfo other = (ai.promoted.proto.common.UserInfo) obj;
 
     if (!getUserId()
         .equals(other.getUserId())) return false;
@@ -285,11 +424,17 @@ private static final long serialVersionUID = 0L;
         .equals(other.getLogUserId())) return false;
     if (getIsInternalUser()
         != other.getIsInternalUser()) return false;
+    if (getIgnoreUsage()
+        != other.getIgnoreUsage()) return false;
+    if (!getAnonUserId()
+        .equals(other.getAnonUserId())) return false;
+    if (getHasUserId()
+        != other.getHasUserId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -303,74 +448,82 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + IS_INTERNAL_USER_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsInternalUser());
+    hash = (37 * hash) + IGNORE_USAGE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIgnoreUsage());
+    hash = (37 * hash) + ANON_USER_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getAnonUserId().hashCode();
+    hash = (37 * hash) + HAS_USER_ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getHasUserId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static UserInfo parseFrom(byte[] data)
+  public static ai.promoted.proto.common.UserInfo parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static UserInfo parseFrom(java.io.InputStream input)
+  public static ai.promoted.proto.common.UserInfo parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static UserInfo parseDelimitedFrom(java.io.InputStream input)
+  public static ai.promoted.proto.common.UserInfo parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static UserInfo parseDelimitedFrom(
+  public static ai.promoted.proto.common.UserInfo parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static UserInfo parseFrom(
+  public static ai.promoted.proto.common.UserInfo parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -378,30 +531,34 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @Override
+  @java.lang.Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(UserInfo prototype) {
+  public static Builder newBuilder(ai.promoted.proto.common.UserInfo prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @Override
+  @java.lang.Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @Override
+  @java.lang.Override
   protected Builder newBuilderForType(
-      BuilderParent parent) {
+      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
   /**
    * <pre>
-   * Common submessage that scopes helps scope a request/log to a user.
-   * Next ID = 4.
+   * Common submessage that indicates the user for a record.
+   * Summary of fields:
+   * - `user_id` = the platform's auth user ID.
+   * - `anon_user_id` = the platform's anonymous user ID.
+   * - `log_user_id` = internal Promoted forgettable, longer-term user ID.
+   * Next ID = 6.
    * </pre>
    *
    * Protobuf type {@code common.UserInfo}
@@ -409,18 +566,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:common.UserInfo)
-      UserInfoOrBuilder {
+      ai.promoted.proto.common.UserInfoOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return CommonProto.internal_static_common_UserInfo_descriptor;
+      return ai.promoted.proto.common.CommonProto.internal_static_common_UserInfo_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return CommonProto.internal_static_common_UserInfo_fieldAccessorTable
+      return ai.promoted.proto.common.CommonProto.internal_static_common_UserInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              UserInfo.class, Builder.class);
+              ai.promoted.proto.common.UserInfo.class, ai.promoted.proto.common.UserInfo.Builder.class);
     }
 
     // Construct using ai.promoted.proto.common.UserInfo.newBuilder()
@@ -429,7 +586,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -438,7 +595,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @Override
+    @java.lang.Override
     public Builder clear() {
       super.clear();
       userId_ = "";
@@ -447,83 +604,92 @@ private static final long serialVersionUID = 0L;
 
       isInternalUser_ = false;
 
+      ignoreUsage_ = false;
+
+      anonUserId_ = "";
+
+      hasUserId_ = false;
+
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return CommonProto.internal_static_common_UserInfo_descriptor;
+      return ai.promoted.proto.common.CommonProto.internal_static_common_UserInfo_descriptor;
     }
 
-    @Override
-    public UserInfo getDefaultInstanceForType() {
-      return UserInfo.getDefaultInstance();
+    @java.lang.Override
+    public ai.promoted.proto.common.UserInfo getDefaultInstanceForType() {
+      return ai.promoted.proto.common.UserInfo.getDefaultInstance();
     }
 
-    @Override
-    public UserInfo build() {
-      UserInfo result = buildPartial();
+    @java.lang.Override
+    public ai.promoted.proto.common.UserInfo build() {
+      ai.promoted.proto.common.UserInfo result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @Override
-    public UserInfo buildPartial() {
-      UserInfo result = new UserInfo(this);
+    @java.lang.Override
+    public ai.promoted.proto.common.UserInfo buildPartial() {
+      ai.promoted.proto.common.UserInfo result = new ai.promoted.proto.common.UserInfo(this);
       result.userId_ = userId_;
       result.logUserId_ = logUserId_;
       result.isInternalUser_ = isInternalUser_;
+      result.ignoreUsage_ = ignoreUsage_;
+      result.anonUserId_ = anonUserId_;
+      result.hasUserId_ = hasUserId_;
       onBuilt();
       return result;
     }
 
-    @Override
+    @java.lang.Override
     public Builder clone() {
       return super.clone();
     }
-    @Override
+    @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.setField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @Override
+    @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @Override
+    @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, Object value) {
+        int index, java.lang.Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @Override
+    @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.addRepeatedField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof UserInfo) {
-        return mergeFrom((UserInfo)other);
+      if (other instanceof ai.promoted.proto.common.UserInfo) {
+        return mergeFrom((ai.promoted.proto.common.UserInfo)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(UserInfo other) {
-      if (other == UserInfo.getDefaultInstance()) return this;
+    public Builder mergeFrom(ai.promoted.proto.common.UserInfo other) {
+      if (other == ai.promoted.proto.common.UserInfo.getDefaultInstance()) return this;
       if (!other.getUserId().isEmpty()) {
         userId_ = other.userId_;
         onChanged();
@@ -535,26 +701,36 @@ private static final long serialVersionUID = 0L;
       if (other.getIsInternalUser() != false) {
         setIsInternalUser(other.getIsInternalUser());
       }
+      if (other.getIgnoreUsage() != false) {
+        setIgnoreUsage(other.getIgnoreUsage());
+      }
+      if (!other.getAnonUserId().isEmpty()) {
+        anonUserId_ = other.anonUserId_;
+        onChanged();
+      }
+      if (other.getHasUserId() != false) {
+        setHasUserId(other.getHasUserId());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      UserInfo parsedMessage = null;
+      ai.promoted.proto.common.UserInfo parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (UserInfo) e.getUnfinishedMessage();
+        parsedMessage = (ai.promoted.proto.common.UserInfo) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -564,32 +740,36 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object userId_ = "";
+    private java.lang.Object userId_ = "";
     /**
      * <pre>
-     * Optional.  The Platform's actual user ID.
-     * This field will be cleared from our transaction logs.
+     * Optional.  The platform's authenticated user ID.
+     * This field will be cleared in our long-term transaction logs to
+     * make it easier to forget `user_id`s.
+     * Internally, this field gets mapped over to `log_user_id`.
      * </pre>
      *
      * <code>string user_id = 1;</code>
      * @return The userId.
      */
-    public String getUserId() {
-      Object ref = userId_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         userId_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
      * <pre>
-     * Optional.  The Platform's actual user ID.
-     * This field will be cleared from our transaction logs.
+     * Optional.  The platform's authenticated user ID.
+     * This field will be cleared in our long-term transaction logs to
+     * make it easier to forget `user_id`s.
+     * Internally, this field gets mapped over to `log_user_id`.
      * </pre>
      *
      * <code>string user_id = 1;</code>
@@ -597,11 +777,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getUserIdBytes() {
-      Object ref = userId_;
+      java.lang.Object ref = userId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         userId_ = b;
         return b;
       } else {
@@ -610,8 +790,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  The Platform's actual user ID.
-     * This field will be cleared from our transaction logs.
+     * Optional.  The platform's authenticated user ID.
+     * This field will be cleared in our long-term transaction logs to
+     * make it easier to forget `user_id`s.
+     * Internally, this field gets mapped over to `log_user_id`.
      * </pre>
      *
      * <code>string user_id = 1;</code>
@@ -619,7 +801,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setUserId(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -630,8 +812,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  The Platform's actual user ID.
-     * This field will be cleared from our transaction logs.
+     * Optional.  The platform's authenticated user ID.
+     * This field will be cleared in our long-term transaction logs to
+     * make it easier to forget `user_id`s.
+     * Internally, this field gets mapped over to `log_user_id`.
      * </pre>
      *
      * <code>string user_id = 1;</code>
@@ -645,8 +829,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  The Platform's actual user ID.
-     * This field will be cleared from our transaction logs.
+     * Optional.  The platform's authenticated user ID.
+     * This field will be cleared in our long-term transaction logs to
+     * make it easier to forget `user_id`s.
+     * Internally, this field gets mapped over to `log_user_id`.
      * </pre>
      *
      * <code>string user_id = 1;</code>
@@ -665,38 +851,42 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object logUserId_ = "";
+    private java.lang.Object logUserId_ = "";
     /**
      * <pre>
-     * Optional.  This is a user UUID that is different from user_id and
-     * can quickly be disassociated from the actual user ID.  This is useful:
-     * 1. in case the user wants to be forgotten.
-     * 2. logging unauthenticated users.
-     * The user UUID is in a different ID space than user_id.
+     * Internal.  Optional.  The `log_user_id` is another type of user ID.
+     * It's different than the `anon_user_id` and auth `user_id`.
+     * The goal is to have a user ID that lives longer than
+     * anon_user_id but different from the auth `user_id` so we can
+     * decouple our long-term logs in case the user wants to be forgotten.
+     * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+     * Most of Promoted's internal systems use `log_user_id`.
      * </pre>
      *
      * <code>string log_user_id = 2;</code>
      * @return The logUserId.
      */
-    public String getLogUserId() {
-      Object ref = logUserId_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getLogUserId() {
+      java.lang.Object ref = logUserId_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         logUserId_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
      * <pre>
-     * Optional.  This is a user UUID that is different from user_id and
-     * can quickly be disassociated from the actual user ID.  This is useful:
-     * 1. in case the user wants to be forgotten.
-     * 2. logging unauthenticated users.
-     * The user UUID is in a different ID space than user_id.
+     * Internal.  Optional.  The `log_user_id` is another type of user ID.
+     * It's different than the `anon_user_id` and auth `user_id`.
+     * The goal is to have a user ID that lives longer than
+     * anon_user_id but different from the auth `user_id` so we can
+     * decouple our long-term logs in case the user wants to be forgotten.
+     * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+     * Most of Promoted's internal systems use `log_user_id`.
      * </pre>
      *
      * <code>string log_user_id = 2;</code>
@@ -704,11 +894,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getLogUserIdBytes() {
-      Object ref = logUserId_;
+      java.lang.Object ref = logUserId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         logUserId_ = b;
         return b;
       } else {
@@ -717,11 +907,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  This is a user UUID that is different from user_id and
-     * can quickly be disassociated from the actual user ID.  This is useful:
-     * 1. in case the user wants to be forgotten.
-     * 2. logging unauthenticated users.
-     * The user UUID is in a different ID space than user_id.
+     * Internal.  Optional.  The `log_user_id` is another type of user ID.
+     * It's different than the `anon_user_id` and auth `user_id`.
+     * The goal is to have a user ID that lives longer than
+     * anon_user_id but different from the auth `user_id` so we can
+     * decouple our long-term logs in case the user wants to be forgotten.
+     * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+     * Most of Promoted's internal systems use `log_user_id`.
      * </pre>
      *
      * <code>string log_user_id = 2;</code>
@@ -729,7 +921,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setLogUserId(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -740,11 +932,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  This is a user UUID that is different from user_id and
-     * can quickly be disassociated from the actual user ID.  This is useful:
-     * 1. in case the user wants to be forgotten.
-     * 2. logging unauthenticated users.
-     * The user UUID is in a different ID space than user_id.
+     * Internal.  Optional.  The `log_user_id` is another type of user ID.
+     * It's different than the `anon_user_id` and auth `user_id`.
+     * The goal is to have a user ID that lives longer than
+     * anon_user_id but different from the auth `user_id` so we can
+     * decouple our long-term logs in case the user wants to be forgotten.
+     * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+     * Most of Promoted's internal systems use `log_user_id`.
      * </pre>
      *
      * <code>string log_user_id = 2;</code>
@@ -758,11 +952,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Optional.  This is a user UUID that is different from user_id and
-     * can quickly be disassociated from the actual user ID.  This is useful:
-     * 1. in case the user wants to be forgotten.
-     * 2. logging unauthenticated users.
-     * The user UUID is in a different ID space than user_id.
+     * Internal.  Optional.  The `log_user_id` is another type of user ID.
+     * It's different than the `anon_user_id` and auth `user_id`.
+     * The goal is to have a user ID that lives longer than
+     * anon_user_id but different from the auth `user_id` so we can
+     * decouple our long-term logs in case the user wants to be forgotten.
+     * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+     * Most of Promoted's internal systems use `log_user_id`.
      * </pre>
      *
      * <code>string log_user_id = 2;</code>
@@ -791,7 +987,7 @@ private static final long serialVersionUID = 0L;
      * <code>bool is_internal_user = 3;</code>
      * @return The isInternalUser.
      */
-    @Override
+    @java.lang.Override
     public boolean getIsInternalUser() {
       return isInternalUser_;
     }
@@ -826,13 +1022,232 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    @Override
+
+    private boolean ignoreUsage_ ;
+    /**
+     * <pre>
+     * Optional, defaults to false.  Can be used to suppress traffic.
+     * One use case is to use this field when debugging specific customer
+     * experiences by overriding the log_user_id.
+     * </pre>
+     *
+     * <code>bool ignore_usage = 4;</code>
+     * @return The ignoreUsage.
+     */
+    @java.lang.Override
+    public boolean getIgnoreUsage() {
+      return ignoreUsage_;
+    }
+    /**
+     * <pre>
+     * Optional, defaults to false.  Can be used to suppress traffic.
+     * One use case is to use this field when debugging specific customer
+     * experiences by overriding the log_user_id.
+     * </pre>
+     *
+     * <code>bool ignore_usage = 4;</code>
+     * @param value The ignoreUsage to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIgnoreUsage(boolean value) {
+      
+      ignoreUsage_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional, defaults to false.  Can be used to suppress traffic.
+     * One use case is to use this field when debugging specific customer
+     * experiences by overriding the log_user_id.
+     * </pre>
+     *
+     * <code>bool ignore_usage = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearIgnoreUsage() {
+      
+      ignoreUsage_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object anonUserId_ = "";
+    /**
+     * <pre>
+     * Optional vs Required is complicated.  The platform's anonymous user ID.
+     * Currently, the field is optional.  Clients need to migrate from setting
+     * `log_user_id` to setting the `anon_user_id` field.
+     * After the migration, we'll temporarily treat anon_user_id as required.
+     * Then we staff another project to not require anon_user_id if user_id is
+     * specified.  This is useful when there are delayed conversion events.
+     * </pre>
+     *
+     * <code>string anon_user_id = 5;</code>
+     * @return The anonUserId.
+     */
+    public java.lang.String getAnonUserId() {
+      java.lang.Object ref = anonUserId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        anonUserId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional vs Required is complicated.  The platform's anonymous user ID.
+     * Currently, the field is optional.  Clients need to migrate from setting
+     * `log_user_id` to setting the `anon_user_id` field.
+     * After the migration, we'll temporarily treat anon_user_id as required.
+     * Then we staff another project to not require anon_user_id if user_id is
+     * specified.  This is useful when there are delayed conversion events.
+     * </pre>
+     *
+     * <code>string anon_user_id = 5;</code>
+     * @return The bytes for anonUserId.
+     */
+    public com.google.protobuf.ByteString
+        getAnonUserIdBytes() {
+      java.lang.Object ref = anonUserId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        anonUserId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional vs Required is complicated.  The platform's anonymous user ID.
+     * Currently, the field is optional.  Clients need to migrate from setting
+     * `log_user_id` to setting the `anon_user_id` field.
+     * After the migration, we'll temporarily treat anon_user_id as required.
+     * Then we staff another project to not require anon_user_id if user_id is
+     * specified.  This is useful when there are delayed conversion events.
+     * </pre>
+     *
+     * <code>string anon_user_id = 5;</code>
+     * @param value The anonUserId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAnonUserId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      anonUserId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional vs Required is complicated.  The platform's anonymous user ID.
+     * Currently, the field is optional.  Clients need to migrate from setting
+     * `log_user_id` to setting the `anon_user_id` field.
+     * After the migration, we'll temporarily treat anon_user_id as required.
+     * Then we staff another project to not require anon_user_id if user_id is
+     * specified.  This is useful when there are delayed conversion events.
+     * </pre>
+     *
+     * <code>string anon_user_id = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAnonUserId() {
+      
+      anonUserId_ = getDefaultInstance().getAnonUserId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional vs Required is complicated.  The platform's anonymous user ID.
+     * Currently, the field is optional.  Clients need to migrate from setting
+     * `log_user_id` to setting the `anon_user_id` field.
+     * After the migration, we'll temporarily treat anon_user_id as required.
+     * Then we staff another project to not require anon_user_id if user_id is
+     * specified.  This is useful when there are delayed conversion events.
+     * </pre>
+     *
+     * <code>string anon_user_id = 5;</code>
+     * @param value The bytes for anonUserId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAnonUserIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      anonUserId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private boolean hasUserId_ ;
+    /**
+     * <pre>
+     * Read-only for most of the system.  This is an extra indicator that
+     * Promoted sets when scrubbing user_id.  This indicates that
+     * the log_user_id is logged in.
+     * </pre>
+     *
+     * <code>bool has_user_id = 6;</code>
+     * @return The hasUserId.
+     */
+    @java.lang.Override
+    public boolean getHasUserId() {
+      return hasUserId_;
+    }
+    /**
+     * <pre>
+     * Read-only for most of the system.  This is an extra indicator that
+     * Promoted sets when scrubbing user_id.  This indicates that
+     * the log_user_id is logged in.
+     * </pre>
+     *
+     * <code>bool has_user_id = 6;</code>
+     * @param value The hasUserId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHasUserId(boolean value) {
+      
+      hasUserId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Read-only for most of the system.  This is an extra indicator that
+     * Promoted sets when scrubbing user_id.  This indicates that
+     * the log_user_id is logged in.
+     * </pre>
+     *
+     * <code>bool has_user_id = 6;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearHasUserId() {
+      
+      hasUserId_ = false;
+      onChanged();
+      return this;
+    }
+    @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @Override
+    @java.lang.Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -843,18 +1258,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:common.UserInfo)
-  private static final UserInfo DEFAULT_INSTANCE;
+  private static final ai.promoted.proto.common.UserInfo DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new UserInfo();
+    DEFAULT_INSTANCE = new ai.promoted.proto.common.UserInfo();
   }
 
-  public static UserInfo getDefaultInstance() {
+  public static ai.promoted.proto.common.UserInfo getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<UserInfo>
       PARSER = new com.google.protobuf.AbstractParser<UserInfo>() {
-    @Override
+    @java.lang.Override
     public UserInfo parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -867,13 +1282,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @Override
+  @java.lang.Override
   public com.google.protobuf.Parser<UserInfo> getParserForType() {
     return PARSER;
   }
 
-  @Override
-  public UserInfo getDefaultInstanceForType() {
+  @java.lang.Override
+  public ai.promoted.proto.common.UserInfo getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

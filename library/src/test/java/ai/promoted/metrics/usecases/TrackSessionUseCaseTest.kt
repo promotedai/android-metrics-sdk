@@ -58,7 +58,7 @@ class TrackSessionUseCaseTest {
     }
 
     @Test
-    fun `User ID and logUserId are updated if user ID has changed`() {
+    fun `User ID and anonUserId are updated if user ID has changed`() {
         // When a session is started with a new user ID
         val newUserId = "${System.currentTimeMillis()}"
         useCase.startSession(newUserId)

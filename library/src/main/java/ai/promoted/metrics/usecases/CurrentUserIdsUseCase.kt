@@ -3,7 +3,7 @@ package ai.promoted.metrics.usecases
 import ai.promoted.platform.KeyValueStorage
 
 private const val KEY_USER_ID = "ai.promoted.user_id"
-private const val KEY_LOG_USER_ID = "ai.promoted.log_user_id"
+private const val KEY_ANON_USER_ID = "ai.promoted.anon_user_id"
 
 /**
  * Represents the dual use-case of both reading and writing the current value of the user IDs.
@@ -29,15 +29,15 @@ internal class CurrentUserIdsUseCase(
             else -> lastUsedUserId
         }
 
-    private var _lastUsedLogUserId: String? = null
-    val currentLogUserId: String
-        get() = when (val lastUsedLogUserId = _lastUsedLogUserId) {
+    private var _lastUsedAnonUserId: String? = null
+    val currentAnonUserId: String
+        get() = when (val lastUsedAnonUserId = _lastUsedAnonUserId) {
             null -> {
-                val lastStoredLogUserId = keyValueStorage.get(KEY_LOG_USER_ID, "")
-                _lastUsedLogUserId = lastStoredLogUserId
-                lastStoredLogUserId
+                val lastStoredAnonUserId = keyValueStorage.get(KEY_ANON_USER_ID, "")
+                _lastUsedAnonUserId = lastStoredAnonUserId
+                lastStoredAnonUserId
             }
-            else -> lastUsedLogUserId
+            else -> lastUsedAnonUserId
         }
 
     fun updateUserId(userId: String) {
@@ -45,8 +45,8 @@ internal class CurrentUserIdsUseCase(
         keyValueStorage.set(KEY_USER_ID, userId)
     }
 
-    fun updateLogUserId(logUserId: String) {
-        _lastUsedLogUserId = logUserId
-        keyValueStorage.set(KEY_LOG_USER_ID, logUserId)
+    fun updateAnonUserId(anonUserId: String) {
+        _lastUsedAnonUserId = anonUserId
+        keyValueStorage.set(KEY_ANON_USER_ID, anonUserId)
     }
 }
