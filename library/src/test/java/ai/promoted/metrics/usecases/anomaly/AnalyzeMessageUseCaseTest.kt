@@ -40,7 +40,7 @@ internal class AnalyzeMessageUseCaseTest {
         useCase.analyzeMessage(badLogRequest)
 
         // Then the anomaly handler was invoked
-        verify { mockAnomalyHandler.handle(AnomalyType.MissingLogUserIdInLogRequest) }
+        verify { mockAnomalyHandler.handle(AnomalyType.MissingAnonUserIdInLogRequest) }
     }
 
     @Test
@@ -48,7 +48,7 @@ internal class AnalyzeMessageUseCaseTest {
         // Given a good LogRequest
         val goodLogRequest = LogRequest.newBuilder().apply {
             userInfo = UserInfo.newBuilder().apply {
-                logUserId = "test"
+                anonUserId = "test"
             }.build()
         }.build()
 
@@ -150,7 +150,7 @@ internal class AnalyzeMessageUseCaseTest {
         useCase.analyzeMessage(badUser)
 
         // Then the anomaly handler was invoked
-        verify { mockAnomalyHandler.handle(AnomalyType.MissingLogUserIdInUserMessage) }
+        verify { mockAnomalyHandler.handle(AnomalyType.MissingAnonUserIdInUserMessage) }
     }
 
     @Test
@@ -158,7 +158,7 @@ internal class AnalyzeMessageUseCaseTest {
         // Given a good User
         val goodUser = User.newBuilder().apply {
             userInfo = UserInfo.newBuilder().apply {
-                logUserId = "test"
+                anonUserId = "test"
             }.build()
         }.build()
 

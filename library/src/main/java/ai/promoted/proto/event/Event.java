@@ -35,6 +35,16 @@ public final class Event {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_event_CohortMembership_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_SessionProfile_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_SessionProfile_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_Session_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_Session_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_event_WebPageView_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -55,6 +65,11 @@ public final class Event {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_event_AutoView_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_IndexPath_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_IndexPath_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_event_Impression_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -69,6 +84,31 @@ public final class Event {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_event_Action_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_Cart_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_Cart_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_CartContent_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_CartContent_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_Attribution_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_Attribution_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_LatestImpressions_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_LatestImpressions_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_event_LatestImpression_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_event_LatestImpression_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_event_IOSError_descriptor;
   static final 
@@ -112,269 +152,373 @@ public final class Event {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    String[] descriptorData = {
+    java.lang.String[] descriptorData = {
       "\n\027proto/event/event.proto\022\005event\032\031proto/" +
       "common/common.proto\032\035proto/delivery/deli" +
-      "very.proto\"\264\001\n\021JoinedIdentifiers\022\023\n\013plat" +
-      "form_id\030\001 \001(\004\022\017\n\007user_id\030\002 \001(\t\022\023\n\013log_us" +
-      "er_id\030\003 \001(\t\022\022\n\nsession_id\030\004 \001(\t\022\017\n\007view_" +
-      "id\030\005 \001(\t\022\022\n\nrequest_id\030\006 \001(\t\022\024\n\014insertio" +
-      "n_id\030\007 \001(\t\022\025\n\rimpression_id\030\010 \001(\t\"\267\003\n\025Id" +
-      "entifierProvenances\0227\n\022user_id_provenanc" +
-      "e\030\001 \001(\0162\033.event.IdentifierProvenance\022:\n\025" +
-      "session_id_provenance\030\002 \001(\0162\033.event.Iden" +
-      "tifierProvenance\0227\n\022view_id_provenance\030\003" +
-      " \001(\0162\033.event.IdentifierProvenance\022=\n\030imp" +
-      "ression_id_provenance\030\004 \001(\0162\033.event.Iden" +
-      "tifierProvenance\0229\n\024action_id_provenance" +
-      "\030\005 \001(\0162\033.event.IdentifierProvenance\022:\n\025c" +
-      "ontent_id_provenance\030\006 \001(\0162\033.event.Ident" +
-      "ifierProvenance\022:\n\025request_id_provenance" +
-      "\030\007 \001(\0162\033.event.IdentifierProvenance\"\267\001\n\004" +
-      "User\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002" +
-      " \001(\0132\020.common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016" +
-      ".common.Timing\022\'\n\013client_info\030\004 \001(\0132\022.co" +
-      "mmon.ClientInfo\022&\n\nproperties\030\006 \001(\0132\022.co" +
-      "mmon.PropertiesJ\004\010\005\020\006\"\222\002\n\020CohortMembersh" +
-      "ip\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001" +
-      "(\0132\020.common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.c" +
-      "ommon.Timing\022\'\n\013client_info\030\004 \001(\0132\022.comm" +
-      "on.ClientInfo\022\025\n\rmembership_id\030\006 \001(\t\022\021\n\t" +
-      "cohort_id\030\010 \001(\t\022\035\n\003arm\030\t \001(\0162\020.event.Coh" +
-      "ortArm\022&\n\nproperties\030\n \001(\0132\022.common.Prop" +
-      "ertiesJ\004\010\005\020\006J\004\010\007\020\010\"W\n\013WebPageView\022\013\n\003url" +
-      "\030\001 \001(\t\022\020\n\010referrer\030\003 \001(\t\022#\n\rdocument_siz" +
-      "e\030\004 \001(\0132\014.common.SizeJ\004\010\002\020\003\"\025\n\rAppScreen" +
-      "ViewJ\004\010\001\020\002\"\236\004\n\004View\022\023\n\013platform_id\030\001 \001(\004" +
-      "\022#\n\tuser_info\030\002 \001(\0132\020.common.UserInfo\022\036\n" +
-      "\006timing\030\003 \001(\0132\016.common.Timing\022\'\n\013client_" +
-      "info\030\004 \001(\0132\022.common.ClientInfo\022\017\n\007view_i" +
-      "d\030\006 \001(\t\022\022\n\nsession_id\030\007 \001(\t\022\014\n\004name\030\010 \001(" +
-      "\t\022#\n\010use_case\030\t \001(\0162\021.delivery.UseCase\022\024" +
-      "\n\014search_query\030\n \001(\t\022&\n\nproperties\030\013 \001(\013" +
-      "2\022.common.Properties\022\036\n\006locale\030\020 \001(\0132\016.c" +
+      "very.proto\032\036proto/delivery/execution.pro" +
+      "to\"\340\001\n\021JoinedIdentifiers\022\023\n\013platform_id\030" +
+      "\001 \001(\004\022\017\n\007user_id\030\002 \001(\t\022\023\n\013log_user_id\030\003 " +
+      "\001(\t\022\024\n\014anon_user_id\030\n \001(\t\022\022\n\nsession_id\030" +
+      "\004 \001(\t\022\017\n\007view_id\030\005 \001(\t\022\024\n\014auto_view_id\030\t" +
+      " \001(\t\022\022\n\nrequest_id\030\006 \001(\t\022\024\n\014insertion_id" +
+      "\030\007 \001(\t\022\025\n\rimpression_id\030\010 \001(\t\"\360\004\n\025Identi" +
+      "fierProvenances\0227\n\022user_id_provenance\030\001 " +
+      "\001(\0162\033.event.IdentifierProvenance\022;\n\026log_" +
+      "user_id_provenance\030\t \001(\0162\033.event.Identif" +
+      "ierProvenance\022:\n\025session_id_provenance\030\002" +
+      " \001(\0162\033.event.IdentifierProvenance\0227\n\022vie" +
+      "w_id_provenance\030\003 \001(\0162\033.event.Identifier" +
+      "Provenance\022<\n\027auto_view_id_provenance\030\010 " +
+      "\001(\0162\033.event.IdentifierProvenance\022<\n\027inse" +
+      "rtion_id_provenance\030\n \001(\0162\033.event.Identi" +
+      "fierProvenance\022=\n\030impression_id_provenan" +
+      "ce\030\004 \001(\0162\033.event.IdentifierProvenance\0229\n" +
+      "\024action_id_provenance\030\005 \001(\0162\033.event.Iden" +
+      "tifierProvenance\022:\n\025content_id_provenanc" +
+      "e\030\006 \001(\0162\033.event.IdentifierProvenance\022:\n\025" +
+      "request_id_provenance\030\007 \001(\0162\033.event.Iden" +
+      "tifierProvenance\"\355\001\n\004User\022\023\n\013platform_id" +
+      "\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020.common.UserI" +
+      "nfo\022\036\n\006timing\030\003 \001(\0132\016.common.Timing\022\'\n\013c" +
+      "lient_info\030\004 \001(\0132\022.common.ClientInfo\0224\n\016" +
+      "id_provenances\030\007 \001(\0132\034.event.IdentifierP" +
+      "rovenances\022&\n\nproperties\030\006 \001(\0132\022.common." +
+      "PropertiesJ\004\010\005\020\006\"\222\002\n\020CohortMembership\022\023\n" +
+      "\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020." +
+      "common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.common" +
+      ".Timing\022\'\n\013client_info\030\004 \001(\0132\022.common.Cl" +
+      "ientInfo\022\025\n\rmembership_id\030\006 \001(\t\022\021\n\tcohor" +
+      "t_id\030\010 \001(\t\022\035\n\003arm\030\t \001(\0162\020.event.CohortAr" +
+      "m\022&\n\nproperties\030\n \001(\0132\022.common.Propertie" +
+      "sJ\004\010\005\020\006J\004\010\007\020\010\"\371\001\n\016SessionProfile\022\023\n\013plat" +
+      "form_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020.commo" +
+      "n.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.common.Timi" +
+      "ng\022\'\n\013client_info\030\004 \001(\0132\022.common.ClientI" +
+      "nfo\022\022\n\nsession_id\030\006 \001(\t\022\"\n\010location\030\007 \001(" +
+      "\0132\020.common.Location\022&\n\nproperties\030\010 \001(\0132" +
+      "\022.common.PropertiesJ\004\010\005\020\006\"\216\002\n\007Session\022\023\n" +
+      "\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020." +
+      "common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.common" +
+      ".Timing\022\'\n\013client_info\030\004 \001(\0132\022.common.Cl" +
+      "ientInfo\022\022\n\nsession_id\030\006 \001(\t\022\032\n\022start_ep" +
+      "och_millis\030\007 \001(\004\022\"\n\032exclusive_end_epoch_" +
+      "millis\030\010 \001(\004\022&\n\nproperties\030\t \001(\0132\022.commo" +
+      "n.PropertiesJ\004\010\005\020\006\"w\n\013WebPageView\022\013\n\003url" +
+      "\030\001 \001(\t\022$\n\007browser\030\002 \001(\0132\017.common.Browser" +
+      "B\002\030\001\022\020\n\010referrer\030\003 \001(\t\022#\n\rdocument_size\030" +
+      "\004 \001(\0132\014.common.Size\"\037\n\rAppScreenView\022\016\n\006" +
+      "unused\030\001 \001(\010\"\234\005\n\004View\022\023\n\013platform_id\030\001 \001" +
+      "(\004\022#\n\tuser_info\030\002 \001(\0132\020.common.UserInfo\022" +
+      "\036\n\006timing\030\003 \001(\0132\016.common.Timing\022\'\n\013clien" +
+      "t_info\030\004 \001(\0132\022.common.ClientInfo\022\017\n\007view" +
+      "_id\030\006 \001(\t\022\024\n\014auto_view_id\030\021 \001(\t\022\022\n\nsessi" +
+      "on_id\030\007 \001(\t\022\022\n\ncontent_id\030\023 \001(\t\022\014\n\004name\030" +
+      "\010 \001(\t\022#\n\010use_case\030\t \001(\0162\021.delivery.UseCa" +
+      "se\022\024\n\014search_query\030\n \001(\t\022&\n\nproperties\030\013" +
+      " \001(\0132\022.common.Properties\022\"\n\006device\030\014 \001(\013" +
+      "2\016.common.DeviceB\002\030\001\022\036\n\006locale\030\020 \001(\0132\016.c" +
       "ommon.Locale\022\'\n\tview_type\030\r \001(\0162\024.event." +
       "View.ViewType\022+\n\rweb_page_view\030\016 \001(\0132\022.e" +
       "vent.WebPageViewH\000\022/\n\017app_screen_view\030\017 " +
-      "\001(\0132\024.event.AppScreenViewH\000\"?\n\010ViewType\022" +
-      "\025\n\021UNKNOWN_VIEW_TYPE\020\000\022\014\n\010WEB_PAGE\020\001\022\016\n\n" +
-      "APP_SCREEN\020\002B\t\n\007ui_typeJ\004\010\005\020\006J\004\010\014\020\r\"\241\003\n\010" +
-      "AutoView\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_in" +
-      "fo\030\002 \001(\0132\020.common.UserInfo\022\036\n\006timing\030\003 \001" +
-      "(\0132\016.common.Timing\022\'\n\013client_info\030\004 \001(\0132" +
-      "\022.common.ClientInfo\022\024\n\014auto_view_id\030\006 \001(" +
-      "\t\022\022\n\nsession_id\030\007 \001(\t\022\014\n\004name\030\010 \001(\t\022#\n\010u" +
-      "se_case\030\t \001(\0162\021.delivery.UseCase\022&\n\nprop" +
-      "erties\030\n \001(\0132\022.common.Properties\022\036\n\006loca" +
-      "le\030\013 \001(\0132\016.common.Locale\022+\n\rweb_page_vie" +
-      "w\030\014 \001(\0132\022.event.WebPageViewH\000\022/\n\017app_scr" +
-      "een_view\030\r \001(\0132\024.event.AppScreenViewH\000B\t" +
-      "\n\007ui_typeJ\004\010\005\020\006\"\237\003\n\nImpression\022\023\n\013platfo" +
-      "rm_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020.common." +
-      "UserInfo\022\036\n\006timing\030\003 \001(\0132\016.common.Timing" +
-      "\022\'\n\013client_info\030\004 \001(\0132\022.common.ClientInf" +
-      "o\022\025\n\rimpression_id\030\006 \001(\t\022\024\n\014insertion_id" +
-      "\030\007 \001(\t\022\022\n\nrequest_id\030\010 \001(\t\022\017\n\007view_id\030\n " +
-      "\001(\t\022\024\n\014auto_view_id\030\017 \001(\t\022\022\n\nsession_id\030" +
-      "\t \001(\t\022\022\n\ncontent_id\030\014 \001(\t\0220\n\013source_type" +
-      "\030\r \001(\0162\033.event.ImpressionSourceType\022\036\n\026h" +
-      "as_superimposed_views\030\016 \001(\010\022&\n\npropertie" +
-      "s\030\013 \001(\0132\022.common.PropertiesJ\004\010\005\020\006\"$\n\016Nav" +
-      "igateAction\022\022\n\ntarget_url\030\001 \001(\t\"\260\004\n\006Acti" +
-      "on\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001" +
+      "\001(\0132\024.event.AppScreenViewH\000\0224\n\016id_proven" +
+      "ances\030\022 \001(\0132\034.event.IdentifierProvenance" +
+      "s\"?\n\010ViewType\022\025\n\021UNKNOWN_VIEW_TYPE\020\000\022\014\n\010" +
+      "WEB_PAGE\020\001\022\016\n\nAPP_SCREEN\020\002B\t\n\007ui_typeJ\004\010" +
+      "\005\020\006\"\350\003\n\010AutoView\022\023\n\013platform_id\030\001 \001(\004\022#\n" +
+      "\tuser_info\030\002 \001(\0132\020.common.UserInfo\022\036\n\006ti" +
+      "ming\030\003 \001(\0132\016.common.Timing\022\'\n\013client_inf" +
+      "o\030\004 \001(\0132\022.common.ClientInfo\022\024\n\014auto_view" +
+      "_id\030\006 \001(\t\022\017\n\007view_id\030\016 \001(\t\022\022\n\nsession_id" +
+      "\030\007 \001(\t\022\014\n\004name\030\010 \001(\t\022#\n\010use_case\030\t \001(\0162\021" +
+      ".delivery.UseCase\022&\n\nproperties\030\n \001(\0132\022." +
+      "common.Properties\022\036\n\006locale\030\013 \001(\0132\016.comm" +
+      "on.Locale\022+\n\rweb_page_view\030\014 \001(\0132\022.event" +
+      ".WebPageViewH\000\022/\n\017app_screen_view\030\r \001(\0132" +
+      "\024.event.AppScreenViewH\000\0224\n\016id_provenance" +
+      "s\030\017 \001(\0132\034.event.IdentifierProvenancesB\t\n" +
+      "\007ui_typeJ\004\010\005\020\006\"\032\n\tIndexPath\022\r\n\005index\030\001 \003" +
+      "(\005\"\200\004\n\nImpression\022\023\n\013platform_id\030\001 \001(\004\022#" +
+      "\n\tuser_info\030\002 \001(\0132\020.common.UserInfo\022\036\n\006t" +
+      "iming\030\003 \001(\0132\016.common.Timing\022\'\n\013client_in" +
+      "fo\030\004 \001(\0132\022.common.ClientInfo\022\025\n\rimpressi" +
+      "on_id\030\006 \001(\t\022\024\n\014insertion_id\030\007 \001(\t\022\022\n\nreq" +
+      "uest_id\030\010 \001(\t\022\017\n\007view_id\030\n \001(\t\022\024\n\014auto_v" +
+      "iew_id\030\017 \001(\t\022\022\n\nsession_id\030\t \001(\t\022\022\n\ncont" +
+      "ent_id\030\014 \001(\t\0220\n\013source_type\030\r \001(\0162\033.even" +
+      "t.ImpressionSourceType\022\036\n\026has_superimpos" +
+      "ed_views\030\016 \001(\010\022)\n\017client_position\030\020 \001(\0132" +
+      "\020.event.IndexPath\0224\n\016id_provenances\030\021 \001(" +
+      "\0132\034.event.IdentifierProvenances\022&\n\nprope" +
+      "rties\030\013 \001(\0132\022.common.PropertiesJ\004\010\005\020\006\"$\n" +
+      "\016NavigateAction\022\022\n\ntarget_url\030\001 \001(\t\"\250\006\n\006" +
+      "Action\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info" +
+      "\030\002 \001(\0132\020.common.UserInfo\022\036\n\006timing\030\003 \001(\013" +
+      "2\016.common.Timing\022\'\n\013client_info\030\004 \001(\0132\022." +
+      "common.ClientInfo\022\021\n\taction_id\030\006 \001(\t\022\025\n\r" +
+      "impression_id\030\007 \001(\t\022\024\n\014insertion_id\030\010 \001(" +
+      "\t\022\022\n\nrequest_id\030\t \001(\t\022\017\n\007view_id\030\013 \001(\t\022\024" +
+      "\n\014auto_view_id\030\027 \001(\t\022\022\n\nsession_id\030\n \001(\t" +
+      "\022\022\n\ncontent_id\030\025 \001(\t\022\014\n\004name\030\014 \001(\t\022&\n\013ac" +
+      "tion_type\030\016 \001(\0162\021.event.ActionType\022\032\n\022cu" +
+      "stom_action_type\030\017 \001(\t\022\022\n\nelement_id\030\021 \001" +
+      "(\t\0220\n\017navigate_action\030\022 \001(\0132\025.event.Navi" +
+      "gateActionH\000\022\036\n\026has_superimposed_views\030\026" +
+      " \001(\010\022)\n\017client_position\030\030 \001(\0132\020.event.In" +
+      "dexPath\0224\n\016id_provenances\030\031 \001(\0132\034.event." +
+      "IdentifierProvenances\022&\n\nproperties\030\024 \001(" +
+      "\0132\022.common.Properties\022\036\n\006device\030\032 \001(\0132\016." +
+      "common.Device\0224\n\023single_cart_content\030\033 \001" +
+      "(\0132\022.event.CartContentH\001\210\001\001\022\036\n\004cart\030\034 \001(" +
+      "\0132\013.event.CartH\002\210\001\001B\010\n\006actionB\026\n\024_single" +
+      "_cart_contentB\007\n\005_cartJ\004\010\005\020\006J\004\010\r\020\016J\004\010\020\020\021" +
+      "J\004\010\023\020\024\",\n\004Cart\022$\n\010contents\030\001 \003(\0132\022.event" +
+      ".CartContent\"Z\n\013CartContent\022\022\n\ncontent_i" +
+      "d\030\001 \001(\t\022\020\n\010quantity\030\002 \001(\003\022%\n\016price_per_u" +
+      "nit\030\003 \001(\0132\r.common.Money\"6\n\013Attribution\022" +
+      "\020\n\010model_id\030\001 \001(\004\022\025\n\rcredit_millis\030\002 \001(\005" +
+      "\"@\n\021LatestImpressions\022+\n\nimpression\030\001 \003(" +
+      "\0132\027.event.LatestImpression\"\221\001\n\020LatestImp" +
+      "ression\022\025\n\rimpression_id\030\001 \001(\t\022\022\n\nconten" +
+      "t_id\030\002 \001(\t\022\034\n\024client_log_timestamp\030\003 \001(\004" +
+      "\022\033\n\023event_api_timestamp\030\004 \001(\004\022\027\n\017event_t" +
+      "imestamp\030\005 \001(\004\"S\n\010IOSError\022\014\n\004code\030\001 \001(\005" +
+      "\022\016\n\006domain\030\002 \001(\t\022\023\n\013description\030\003 \001(\t\022\024\n" +
+      "\014batch_number\030\004 \001(\005\"I\n\014ErrorHistory\022#\n\ni" +
+      "os_errors\030\001 \003(\0132\017.event.IOSError\022\024\n\014tota" +
+      "l_errors\030\002 \001(\005\"\352\001\n\025AncestorIdHistoryItem" +
+      "\022\023\n\013ancestor_id\030\001 \001(\t\022!\n\nuser_event\030\002 \001(" +
+      "\0132\013.event.UserH\000\022$\n\032session_id_from_user" +
+      "_event\030\003 \001(\tH\000\022!\n\nview_event\030\004 \001(\0132\013.eve" +
+      "nt.ViewH\000\022*\n\017auto_view_event\030\006 \001(\0132\017.eve" +
+      "nt.AutoViewH\000\022\024\n\014batch_number\030\005 \001(\005B\016\n\014l" +
+      "ogged_event\"\203\003\n\021AncestorIdHistory\0229\n\023log" +
+      "_user_id_history\030\001 \003(\0132\034.event.AncestorI" +
+      "dHistoryItem\022!\n\031total_log_user_ids_logge" +
+      "d\030\002 \001(\005\0228\n\022session_id_history\030\003 \003(\0132\034.ev" +
+      "ent.AncestorIdHistoryItem\022 \n\030total_sessi" +
+      "on_ids_logged\030\004 \001(\005\0225\n\017view_id_history\030\005" +
+      " \003(\0132\034.event.AncestorIdHistoryItem\022\035\n\025to" +
+      "tal_view_ids_logged\030\006 \001(\005\022:\n\024auto_view_i" +
+      "d_history\030\007 \003(\0132\034.event.AncestorIdHistor" +
+      "yItem\022\"\n\032total_auto_view_ids_logged\030\010 \001(" +
+      "\005\"\256\002\n\021MobileDiagnostics\022\031\n\021device_identi" +
+      "fier\030\001 \001(\t\022\032\n\016client_version\030\002 \001(\tB\002\030\001\022$" +
+      "\n\030promoted_library_version\030\003 \001(\tB\002\030\001\022\031\n\021" +
+      "batches_attempted\030\004 \001(\005\022!\n\031batches_sent_" +
+      "successfully\030\005 \001(\005\022\033\n\023batches_with_error" +
+      "s\030\006 \001(\005\022*\n\rerror_history\030\007 \001(\0132\023.event.E" +
+      "rrorHistory\0225\n\023ancestor_id_history\030\010 \001(\013" +
+      "2\030.event.AncestorIdHistory\"\337\001\n\013Diagnosti" +
+      "cs\022\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001" +
       "(\0132\020.common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.c" +
       "ommon.Timing\022\'\n\013client_info\030\004 \001(\0132\022.comm" +
-      "on.ClientInfo\022\021\n\taction_id\030\006 \001(\t\022\025\n\rimpr" +
-      "ession_id\030\007 \001(\t\022\024\n\014insertion_id\030\010 \001(\t\022\022\n" +
-      "\nrequest_id\030\t \001(\t\022\017\n\007view_id\030\013 \001(\t\022\024\n\014au" +
-      "to_view_id\030\027 \001(\t\022\022\n\nsession_id\030\n \001(\t\022\022\n\n" +
-      "content_id\030\025 \001(\t\022\014\n\004name\030\014 \001(\t\022&\n\013action" +
-      "_type\030\016 \001(\0162\021.event.ActionType\022\032\n\022custom" +
-      "_action_type\030\017 \001(\t\022\022\n\nelement_id\030\021 \001(\t\0220" +
-      "\n\017navigate_action\030\022 \001(\0132\025.event.Navigate" +
-      "ActionH\000\022\036\n\026has_superimposed_views\030\026 \001(\010" +
-      "\022&\n\nproperties\030\024 \001(\0132\022.common.Properties" +
-      "B\010\n\006actionJ\004\010\005\020\006J\004\010\r\020\016J\004\010\020\020\021J\004\010\023\020\024\"S\n\010IO" +
-      "SError\022\014\n\004code\030\001 \001(\005\022\016\n\006domain\030\002 \001(\t\022\023\n\013" +
-      "description\030\003 \001(\t\022\024\n\014batch_number\030\004 \001(\005\"" +
-      "I\n\014ErrorHistory\022#\n\nios_errors\030\001 \003(\0132\017.ev" +
-      "ent.IOSError\022\024\n\014total_errors\030\002 \001(\005\"\352\001\n\025A" +
-      "ncestorIdHistoryItem\022\023\n\013ancestor_id\030\001 \001(" +
-      "\t\022!\n\nuser_event\030\002 \001(\0132\013.event.UserH\000\022$\n\032" +
-      "session_id_from_user_event\030\003 \001(\tH\000\022!\n\nvi" +
-      "ew_event\030\004 \001(\0132\013.event.ViewH\000\022*\n\017auto_vi" +
-      "ew_event\030\006 \001(\0132\017.event.AutoViewH\000\022\024\n\014bat" +
-      "ch_number\030\005 \001(\005B\016\n\014logged_event\"\203\003\n\021Ance" +
-      "storIdHistory\0229\n\023log_user_id_history\030\001 \003" +
-      "(\0132\034.event.AncestorIdHistoryItem\022!\n\031tota" +
-      "l_log_user_ids_logged\030\002 \001(\005\0228\n\022session_i" +
-      "d_history\030\003 \003(\0132\034.event.AncestorIdHistor" +
-      "yItem\022 \n\030total_session_ids_logged\030\004 \001(\005\022" +
-      "5\n\017view_id_history\030\005 \003(\0132\034.event.Ancesto" +
-      "rIdHistoryItem\022\035\n\025total_view_ids_logged\030" +
-      "\006 \001(\005\022:\n\024auto_view_id_history\030\007 \003(\0132\034.ev" +
-      "ent.AncestorIdHistoryItem\022\"\n\032total_auto_" +
-      "view_ids_logged\030\010 \001(\005\"\246\002\n\021MobileDiagnost" +
-      "ics\022\031\n\021device_identifier\030\001 \001(\t\022\026\n\016client" +
-      "_version\030\002 \001(\t\022 \n\030promoted_library_versi" +
-      "on\030\003 \001(\t\022\031\n\021batches_attempted\030\004 \001(\005\022!\n\031b" +
-      "atches_sent_successfully\030\005 \001(\005\022\033\n\023batche" +
-      "s_with_errors\030\006 \001(\005\022*\n\rerror_history\030\007 \001" +
-      "(\0132\023.event.ErrorHistory\0225\n\023ancestor_id_h" +
-      "istory\030\010 \001(\0132\030.event.AncestorIdHistory\"\337" +
-      "\001\n\013Diagnostics\022\023\n\013platform_id\030\001 \001(\004\022#\n\tu" +
-      "ser_info\030\002 \001(\0132\020.common.UserInfo\022\036\n\006timi" +
-      "ng\030\003 \001(\0132\016.common.Timing\022\'\n\013client_info\030" +
-      "\004 \001(\0132\022.common.ClientInfo\0226\n\022mobile_diag" +
-      "nostics\030\005 \001(\0132\030.event.MobileDiagnosticsH" +
-      "\000B\025\n\023diagnostics_message\"\250\004\n\nLogRequest\022" +
-      "\023\n\013platform_id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132" +
-      "\020.common.UserInfo\022\036\n\006timing\030\003 \001(\0132\016.comm" +
-      "on.Timing\022\'\n\013client_info\030\004 \001(\0132\022.common." +
-      "ClientInfo\022\036\n\006device\030\030 \001(\0132\016.common.Devi" +
-      "ce\022\031\n\004user\030\007 \003(\0132\013.event.User\0222\n\021cohort_" +
-      "membership\030\010 \003(\0132\027.event.CohortMembershi" +
-      "p\022\031\n\004view\030\013 \003(\0132\013.event.View\022\"\n\tauto_vie" +
-      "w\030\031 \003(\0132\017.event.AutoView\022\"\n\007request\030\014 \003(" +
-      "\0132\021.delivery.Request\022&\n\tinsertion\030\r \003(\0132" +
-      "\023.delivery.Insertion\022%\n\nimpression\030\016 \003(\013" +
-      "2\021.event.Impression\022\035\n\006action\030\017 \003(\0132\r.ev" +
-      "ent.Action\022\'\n\013diagnostics\030\027 \003(\0132\022.event." +
-      "DiagnosticsJ\004\010\005\020\006J\004\010\006\020\007J\004\010\t\020\nJ\004\010\n\020\013J\004\010\020\020" +
-      "\021J\004\010\021\020\022J\004\010\022\020\023J\004\010\023\020\027*c\n\024IdentifierProvena" +
-      "nce\022\013\n\007UNKNOWN\020\000\022\010\n\004NULL\020\001\022\t\n\005EMPTY\020\002\022\021\n" +
-      "\rAUTOGENERATED\020\003\022\026\n\022PLATFORM_SPECIFIED\020\004" +
-      "*j\n\tCohortArm\022\021\n\rUNKNOWN_GROUP\020\000\022\013\n\007CONT" +
-      "ROL\020\001\022\r\n\tTREATMENT\020\002\022\016\n\nTREATMENT1\020\003\022\016\n\n" +
-      "TREATMENT2\020\004\022\016\n\nTREATMENT3\020\005*\\\n\024Impressi" +
-      "onSourceType\022\"\n\036UNKNOWN_IMPRESSION_SOURC" +
-      "E_TYPE\020\000\022\014\n\010DELIVERY\020\001\022\022\n\016CLIENT_BACKEND" +
-      "\020\002*\237\002\n\nActionType\022\027\n\023UNKNOWN_ACTION_TYPE" +
-      "\020\000\022\026\n\022CUSTOM_ACTION_TYPE\020\001\022\014\n\010NAVIGATE\020\002" +
-      "\022\017\n\013ADD_TO_CART\020\004\022\024\n\020REMOVE_FROM_CART\020\n\022" +
-      "\014\n\010CHECKOUT\020\010\022\014\n\010PURCHASE\020\003\022\t\n\005SHARE\020\005\022\010" +
-      "\n\004LIKE\020\006\022\n\n\006UNLIKE\020\t\022\013\n\007COMMENT\020\007\022\016\n\nMAK" +
-      "E_OFFER\020\013\022\020\n\014ASK_QUESTION\020\014\022\023\n\017ANSWER_QU" +
-      "ESTION\020\r\022\024\n\020COMPLETE_SIGN_IN\020\016\022\024\n\020COMPLE" +
-      "TE_SIGN_UP\020\017B\"\n\027ai.promoted.proto.eventB" +
-      "\005EventP\001b\006proto3"
+      "on.ClientInfo\0226\n\022mobile_diagnostics\030\005 \001(" +
+      "\0132\030.event.MobileDiagnosticsH\000B\025\n\023diagnos" +
+      "tics_message\"\224\005\n\nLogRequest\022\023\n\013platform_" +
+      "id\030\001 \001(\004\022#\n\tuser_info\030\002 \001(\0132\020.common.Use" +
+      "rInfo\022\036\n\006timing\030\003 \001(\0132\016.common.Timing\022\'\n" +
+      "\013client_info\030\004 \001(\0132\022.common.ClientInfo\022\036" +
+      "\n\006device\030\030 \001(\0132\016.common.Device\022\031\n\004user\030\007" +
+      " \003(\0132\013.event.User\0222\n\021cohort_membership\030\010" +
+      " \003(\0132\027.event.CohortMembership\022.\n\017session" +
+      "_profile\030\t \003(\0132\025.event.SessionProfile\022\037\n" +
+      "\007session\030\n \003(\0132\016.event.Session\022\031\n\004view\030\013" +
+      " \003(\0132\013.event.View\022\"\n\tauto_view\030\031 \003(\0132\017.e" +
+      "vent.AutoView\022\"\n\007request\030\014 \003(\0132\021.deliver" +
+      "y.Request\022&\n\tinsertion\030\r \003(\0132\023.delivery." +
+      "Insertion\022%\n\nimpression\030\016 \003(\0132\021.event.Im" +
+      "pression\022\035\n\006action\030\017 \003(\0132\r.event.Action\022" +
+      "+\n\014delivery_log\030\022 \003(\0132\025.delivery.Deliver" +
+      "yLog\022\'\n\013diagnostics\030\027 \003(\0132\022.event.Diagno" +
+      "sticsJ\004\010\005\020\006J\004\010\006\020\007J\004\010\020\020\021J\004\010\021\020\022J\004\010\023\020\027*c\n\024I" +
+      "dentifierProvenance\022\013\n\007UNKNOWN\020\000\022\010\n\004NULL" +
+      "\020\001\022\t\n\005EMPTY\020\002\022\021\n\rAUTOGENERATED\020\003\022\026\n\022PLAT" +
+      "FORM_SPECIFIED\020\004*j\n\tCohortArm\022\021\n\rUNKNOWN" +
+      "_GROUP\020\000\022\013\n\007CONTROL\020\001\022\r\n\tTREATMENT\020\002\022\016\n\n" +
+      "TREATMENT1\020\003\022\016\n\nTREATMENT2\020\004\022\016\n\nTREATMEN" +
+      "T3\020\005*\\\n\024ImpressionSourceType\022\"\n\036UNKNOWN_" +
+      "IMPRESSION_SOURCE_TYPE\020\000\022\014\n\010DELIVERY\020\001\022\022" +
+      "\n\016CLIENT_BACKEND\020\002*\213\003\n\nActionType\022\027\n\023UNK" +
+      "NOWN_ACTION_TYPE\020\000\022\026\n\022CUSTOM_ACTION_TYPE" +
+      "\020\001\022\014\n\010NAVIGATE\020\002\022\017\n\013ADD_TO_CART\020\004\022\024\n\020REM" +
+      "OVE_FROM_CART\020\n\022\014\n\010CHECKOUT\020\010\022\014\n\010PURCHAS" +
+      "E\020\003\022\t\n\005SHARE\020\005\022\010\n\004LIKE\020\006\022\n\n\006UNLIKE\020\t\022\013\n\007" +
+      "COMMENT\020\007\022\016\n\nMAKE_OFFER\020\013\022\020\n\014ASK_QUESTIO" +
+      "N\020\014\022\023\n\017ANSWER_QUESTION\020\r\022\024\n\020COMPLETE_SIG" +
+      "N_IN\020\016\022\024\n\020COMPLETE_SIGN_UP\020\017\022\014\n\010BOOKMARK" +
+      "\020\020\022\023\n\017REMOVE_BOOKMARK\020\021\022\017\n\013ADD_TO_LIST\020\022" +
+      "\022\024\n\020REMOVE_FROM_LIST\020\023\022\n\n\006FOLLOW\020\024\022\014\n\010UN" +
+      "FOLLOW\020\025\"\006\010\377\001\020\377\001Bb\n\027ai.promoted.proto.ev" +
+      "entB\005EventP\001Z>github.com/promotedai/sche" +
+      "ma-internal/generated/go/proto/eventb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           ai.promoted.proto.common.CommonProto.getDescriptor(),
           ai.promoted.proto.delivery.Delivery.getDescriptor(),
+          ai.promoted.proto.delivery.DeliveryExecutionLog.getDescriptor(),
         });
     internal_static_event_JoinedIdentifiers_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_event_JoinedIdentifiers_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_JoinedIdentifiers_descriptor,
-        new String[] { "PlatformId", "UserId", "LogUserId", "SessionId", "ViewId", "RequestId", "InsertionId", "ImpressionId", });
+        new java.lang.String[] { "PlatformId", "UserId", "LogUserId", "AnonUserId", "SessionId", "ViewId", "AutoViewId", "RequestId", "InsertionId", "ImpressionId", });
     internal_static_event_IdentifierProvenances_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_event_IdentifierProvenances_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_IdentifierProvenances_descriptor,
-        new String[] { "UserIdProvenance", "SessionIdProvenance", "ViewIdProvenance", "ImpressionIdProvenance", "ActionIdProvenance", "ContentIdProvenance", "RequestIdProvenance", });
+        new java.lang.String[] { "UserIdProvenance", "LogUserIdProvenance", "SessionIdProvenance", "ViewIdProvenance", "AutoViewIdProvenance", "InsertionIdProvenance", "ImpressionIdProvenance", "ActionIdProvenance", "ContentIdProvenance", "RequestIdProvenance", });
     internal_static_event_User_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_event_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_User_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "Properties", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "IdProvenances", "Properties", });
     internal_static_event_CohortMembership_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_event_CohortMembership_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_CohortMembership_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "MembershipId", "CohortId", "Arm", "Properties", });
-    internal_static_event_WebPageView_descriptor =
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "MembershipId", "CohortId", "Arm", "Properties", });
+    internal_static_event_SessionProfile_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_event_SessionProfile_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_SessionProfile_descriptor,
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "SessionId", "Location", "Properties", });
+    internal_static_event_Session_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_event_Session_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_Session_descriptor,
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "SessionId", "StartEpochMillis", "ExclusiveEndEpochMillis", "Properties", });
+    internal_static_event_WebPageView_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_event_WebPageView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_WebPageView_descriptor,
-        new String[] { "Url", "Referrer", "DocumentSize", });
+        new java.lang.String[] { "Url", "Browser", "Referrer", "DocumentSize", });
     internal_static_event_AppScreenView_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_event_AppScreenView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_AppScreenView_descriptor,
-        new String[] { });
+        new java.lang.String[] { "Unused", });
     internal_static_event_View_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_event_View_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_View_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ViewId", "SessionId", "Name", "UseCase", "SearchQuery", "Properties", "Locale", "ViewType", "WebPageView", "AppScreenView", "UiType", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ViewId", "AutoViewId", "SessionId", "ContentId", "Name", "UseCase", "SearchQuery", "Properties", "Device", "Locale", "ViewType", "WebPageView", "AppScreenView", "IdProvenances", "UiType", });
     internal_static_event_AutoView_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_event_AutoView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_AutoView_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "AutoViewId", "SessionId", "Name", "UseCase", "Properties", "Locale", "WebPageView", "AppScreenView", "UiType", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "AutoViewId", "ViewId", "SessionId", "Name", "UseCase", "Properties", "Locale", "WebPageView", "AppScreenView", "IdProvenances", "UiType", });
+    internal_static_event_IndexPath_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_event_IndexPath_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_IndexPath_descriptor,
+        new java.lang.String[] { "Index", });
     internal_static_event_Impression_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_event_Impression_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_Impression_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ImpressionId", "InsertionId", "RequestId", "ViewId", "AutoViewId", "SessionId", "ContentId", "SourceType", "HasSuperimposedViews", "Properties", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ImpressionId", "InsertionId", "RequestId", "ViewId", "AutoViewId", "SessionId", "ContentId", "SourceType", "HasSuperimposedViews", "ClientPosition", "IdProvenances", "Properties", });
     internal_static_event_NavigateAction_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_event_NavigateAction_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_NavigateAction_descriptor,
-        new String[] { "TargetUrl", });
+        new java.lang.String[] { "TargetUrl", });
     internal_static_event_Action_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_event_Action_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_Action_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ActionId", "ImpressionId", "InsertionId", "RequestId", "ViewId", "AutoViewId", "SessionId", "ContentId", "Name", "ActionType", "CustomActionType", "ElementId", "NavigateAction", "HasSuperimposedViews", "Properties", "Action", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "ActionId", "ImpressionId", "InsertionId", "RequestId", "ViewId", "AutoViewId", "SessionId", "ContentId", "Name", "ActionType", "CustomActionType", "ElementId", "NavigateAction", "HasSuperimposedViews", "ClientPosition", "IdProvenances", "Properties", "Device", "SingleCartContent", "Cart", "Action", "SingleCartContent", "Cart", });
+    internal_static_event_Cart_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_event_Cart_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_Cart_descriptor,
+        new java.lang.String[] { "Contents", });
+    internal_static_event_CartContent_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_event_CartContent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_CartContent_descriptor,
+        new java.lang.String[] { "ContentId", "Quantity", "PricePerUnit", });
+    internal_static_event_Attribution_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_event_Attribution_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_Attribution_descriptor,
+        new java.lang.String[] { "ModelId", "CreditMillis", });
+    internal_static_event_LatestImpressions_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_event_LatestImpressions_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_LatestImpressions_descriptor,
+        new java.lang.String[] { "Impression", });
+    internal_static_event_LatestImpression_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_event_LatestImpression_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_event_LatestImpression_descriptor,
+        new java.lang.String[] { "ImpressionId", "ContentId", "ClientLogTimestamp", "EventApiTimestamp", "EventTimestamp", });
     internal_static_event_IOSError_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_event_IOSError_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_IOSError_descriptor,
-        new String[] { "Code", "Domain", "Description", "BatchNumber", });
+        new java.lang.String[] { "Code", "Domain", "Description", "BatchNumber", });
     internal_static_event_ErrorHistory_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_event_ErrorHistory_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_ErrorHistory_descriptor,
-        new String[] { "IosErrors", "TotalErrors", });
+        new java.lang.String[] { "IosErrors", "TotalErrors", });
     internal_static_event_AncestorIdHistoryItem_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_event_AncestorIdHistoryItem_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_AncestorIdHistoryItem_descriptor,
-        new String[] { "AncestorId", "UserEvent", "SessionIdFromUserEvent", "ViewEvent", "AutoViewEvent", "BatchNumber", "LoggedEvent", });
+        new java.lang.String[] { "AncestorId", "UserEvent", "SessionIdFromUserEvent", "ViewEvent", "AutoViewEvent", "BatchNumber", "LoggedEvent", });
     internal_static_event_AncestorIdHistory_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_event_AncestorIdHistory_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_AncestorIdHistory_descriptor,
-        new String[] { "LogUserIdHistory", "TotalLogUserIdsLogged", "SessionIdHistory", "TotalSessionIdsLogged", "ViewIdHistory", "TotalViewIdsLogged", "AutoViewIdHistory", "TotalAutoViewIdsLogged", });
+        new java.lang.String[] { "LogUserIdHistory", "TotalLogUserIdsLogged", "SessionIdHistory", "TotalSessionIdsLogged", "ViewIdHistory", "TotalViewIdsLogged", "AutoViewIdHistory", "TotalAutoViewIdsLogged", });
     internal_static_event_MobileDiagnostics_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_event_MobileDiagnostics_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_MobileDiagnostics_descriptor,
-        new String[] { "DeviceIdentifier", "ClientVersion", "PromotedLibraryVersion", "BatchesAttempted", "BatchesSentSuccessfully", "BatchesWithErrors", "ErrorHistory", "AncestorIdHistory", });
+        new java.lang.String[] { "DeviceIdentifier", "ClientVersion", "PromotedLibraryVersion", "BatchesAttempted", "BatchesSentSuccessfully", "BatchesWithErrors", "ErrorHistory", "AncestorIdHistory", });
     internal_static_event_Diagnostics_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_event_Diagnostics_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_Diagnostics_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "MobileDiagnostics", "DiagnosticsMessage", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "MobileDiagnostics", "DiagnosticsMessage", });
     internal_static_event_LogRequest_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_event_LogRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_event_LogRequest_descriptor,
-        new String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "Device", "User", "CohortMembership", "View", "AutoView", "Request", "Insertion", "Impression", "Action", "Diagnostics", });
+        new java.lang.String[] { "PlatformId", "UserInfo", "Timing", "ClientInfo", "Device", "User", "CohortMembership", "SessionProfile", "Session", "View", "AutoView", "Request", "Insertion", "Impression", "Action", "DeliveryLog", "Diagnostics", });
     ai.promoted.proto.common.CommonProto.getDescriptor();
     ai.promoted.proto.delivery.Delivery.getDescriptor();
+    ai.promoted.proto.delivery.DeliveryExecutionLog.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

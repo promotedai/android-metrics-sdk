@@ -9,18 +9,22 @@ public interface UserInfoOrBuilder extends
 
   /**
    * <pre>
-   * Optional.  The Platform's actual user ID.
-   * This field will be cleared from our transaction logs.
+   * Optional.  The platform's authenticated user ID.
+   * This field will be cleared in our long-term transaction logs to
+   * make it easier to forget `user_id`s.
+   * Internally, this field gets mapped over to `log_user_id`.
    * </pre>
    *
    * <code>string user_id = 1;</code>
    * @return The userId.
    */
-  String getUserId();
+  java.lang.String getUserId();
   /**
    * <pre>
-   * Optional.  The Platform's actual user ID.
-   * This field will be cleared from our transaction logs.
+   * Optional.  The platform's authenticated user ID.
+   * This field will be cleared in our long-term transaction logs to
+   * make it easier to forget `user_id`s.
+   * Internally, this field gets mapped over to `log_user_id`.
    * </pre>
    *
    * <code>string user_id = 1;</code>
@@ -31,24 +35,28 @@ public interface UserInfoOrBuilder extends
 
   /**
    * <pre>
-   * Optional.  This is a user UUID that is different from user_id and
-   * can quickly be disassociated from the actual user ID.  This is useful:
-   * 1. in case the user wants to be forgotten.
-   * 2. logging unauthenticated users.
-   * The user UUID is in a different ID space than user_id.
+   * Internal.  Optional.  The `log_user_id` is another type of user ID.
+   * It's different than the `anon_user_id` and auth `user_id`.
+   * The goal is to have a user ID that lives longer than
+   * anon_user_id but different from the auth `user_id` so we can
+   * decouple our long-term logs in case the user wants to be forgotten.
+   * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+   * Most of Promoted's internal systems use `log_user_id`.
    * </pre>
    *
    * <code>string log_user_id = 2;</code>
    * @return The logUserId.
    */
-  String getLogUserId();
+  java.lang.String getLogUserId();
   /**
    * <pre>
-   * Optional.  This is a user UUID that is different from user_id and
-   * can quickly be disassociated from the actual user ID.  This is useful:
-   * 1. in case the user wants to be forgotten.
-   * 2. logging unauthenticated users.
-   * The user UUID is in a different ID space than user_id.
+   * Internal.  Optional.  The `log_user_id` is another type of user ID.
+   * It's different than the `anon_user_id` and auth `user_id`.
+   * The goal is to have a user ID that lives longer than
+   * anon_user_id but different from the auth `user_id` so we can
+   * decouple our long-term logs in case the user wants to be forgotten.
+   * Multiple `anon_user_id`s can be mapped to the same `log_user_id`.
+   * Most of Promoted's internal systems use `log_user_id`.
    * </pre>
    *
    * <code>string log_user_id = 2;</code>
@@ -67,4 +75,58 @@ public interface UserInfoOrBuilder extends
    * @return The isInternalUser.
    */
   boolean getIsInternalUser();
+
+  /**
+   * <pre>
+   * Optional, defaults to false.  Can be used to suppress traffic.
+   * One use case is to use this field when debugging specific customer
+   * experiences by overriding the log_user_id.
+   * </pre>
+   *
+   * <code>bool ignore_usage = 4;</code>
+   * @return The ignoreUsage.
+   */
+  boolean getIgnoreUsage();
+
+  /**
+   * <pre>
+   * Optional vs Required is complicated.  The platform's anonymous user ID.
+   * Currently, the field is optional.  Clients need to migrate from setting
+   * `log_user_id` to setting the `anon_user_id` field.
+   * After the migration, we'll temporarily treat anon_user_id as required.
+   * Then we staff another project to not require anon_user_id if user_id is
+   * specified.  This is useful when there are delayed conversion events.
+   * </pre>
+   *
+   * <code>string anon_user_id = 5;</code>
+   * @return The anonUserId.
+   */
+  java.lang.String getAnonUserId();
+  /**
+   * <pre>
+   * Optional vs Required is complicated.  The platform's anonymous user ID.
+   * Currently, the field is optional.  Clients need to migrate from setting
+   * `log_user_id` to setting the `anon_user_id` field.
+   * After the migration, we'll temporarily treat anon_user_id as required.
+   * Then we staff another project to not require anon_user_id if user_id is
+   * specified.  This is useful when there are delayed conversion events.
+   * </pre>
+   *
+   * <code>string anon_user_id = 5;</code>
+   * @return The bytes for anonUserId.
+   */
+  com.google.protobuf.ByteString
+      getAnonUserIdBytes();
+
+  /**
+   * <pre>
+   * Read-only for most of the system.  This is an extra indicator that
+   * Promoted sets when scrubbing user_id.  This indicates that
+   * the log_user_id is logged in.
+   * </pre>
+   *
+   * <code>bool has_user_id = 6;</code>
+   * @return The hasUserId.
+   */
+  boolean getHasUserId();
 }

@@ -19,7 +19,7 @@ class TrackUserUseCaseTest {
         every { newId(any()) } returns "mock-generated-id"
     }
     private val mockCurrentUserIdsUseCase: CurrentUserIdsUseCase = mockkRelaxedUnit {
-        every { currentLogUserId } returns ""
+        every { currentAnonUserId } returns ""
         every { currentUserId } returns ""
     }
     private val mockMetricsLogger: MetricsLogger = mockkRelaxedUnit()
@@ -34,7 +34,7 @@ class TrackUserUseCaseTest {
     @Test
     fun `Should log user when new user ID set`() {
         // Given no IDs set
-        every { mockCurrentUserIdsUseCase.currentLogUserId } returns ""
+        every { mockCurrentUserIdsUseCase.currentAnonUserId } returns ""
         every { mockCurrentUserIdsUseCase.currentUserId } returns ""
 
         // When set user ID
@@ -48,7 +48,7 @@ class TrackUserUseCaseTest {
                 assertThat(userMessage.userInfo, notNullValue())
                 val userInfoMessage = userMessage.userInfo!!
                 assertThat(userInfoMessage.userId, equalTo("test-id"))
-                assertThat(userInfoMessage.logUserId, equalTo("mock-generated-id"))
+                assertThat(userInfoMessage.anonUserId, equalTo("mock-generated-id"))
             })
         }
     }
@@ -56,7 +56,7 @@ class TrackUserUseCaseTest {
     @Test
     fun `Should not log user when existing user ID set`() {
         // Given a current user ID has already been set
-        every { mockCurrentUserIdsUseCase.currentLogUserId } returns ""
+        every { mockCurrentUserIdsUseCase.currentAnonUserId } returns ""
         every { mockCurrentUserIdsUseCase.currentUserId } returns "test-id"
 
         // When set user ID
@@ -67,9 +67,9 @@ class TrackUserUseCaseTest {
     }
 
     @Test
-    fun `Should not log user when logUserId is overridden with blank value`() {
-        // When override logUserId
-        useCase.overrideLogUserId(mockMetricsLogger, logUserId = "")
+    fun `Should not log user when anonUserId is overridden with blank value`() {
+        // When override anonUserId
+        useCase.overrideAnonUserId(mockMetricsLogger, anonUserId = "")
 
         // Then log user is not called
         verify(exactly = 0) { mockMetricsLogger.enqueueMessage(any<User>()) }

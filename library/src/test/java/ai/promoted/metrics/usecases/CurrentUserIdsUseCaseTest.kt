@@ -6,7 +6,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 private const val KEY_USER_ID = "ai.promoted.user_id"
-private const val KEY_LOG_USER_ID = "ai.promoted.log_user_id"
+private const val KEY_ANON_USER_ID = "ai.promoted.anon_user_id"
 
 class CurrentUserIdsUseCaseTest {
     private val dummyDiskStorage = object : KeyValueStorage {
@@ -36,12 +36,12 @@ class CurrentUserIdsUseCaseTest {
 
     @Test
     fun `Log user ID is updated in memory & stored to disk`() {
-        assertThat(useCase.currentLogUserId, equalTo(""))
-        assertThat(dummyDiskStorage.get(KEY_LOG_USER_ID, ""), equalTo(""))
+        assertThat(useCase.currentAnonUserId, equalTo(""))
+        assertThat(dummyDiskStorage.get(KEY_ANON_USER_ID, ""), equalTo(""))
 
-        useCase.updateLogUserId("test")
+        useCase.updateAnonUserId("test")
 
-        assertThat(useCase.currentLogUserId, equalTo("test"))
-        assertThat(dummyDiskStorage.get(KEY_LOG_USER_ID, ""), equalTo("test"))
+        assertThat(useCase.currentAnonUserId, equalTo("test"))
+        assertThat(dummyDiskStorage.get(KEY_ANON_USER_ID, ""), equalTo("test"))
     }
 }

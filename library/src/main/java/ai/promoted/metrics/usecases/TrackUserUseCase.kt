@@ -12,7 +12,7 @@ internal class TrackUserUseCase(
     private val currentUserIdsUseCase: CurrentUserIdsUseCase,
     private val xray: Xray
 ) {
-    private val logUserAncestorId = AncestorId(idGenerator)
+    private val anonUserAncestorId = AncestorId(idGenerator)
 
     val currentOrNullUserId: String?
         get() {
@@ -20,19 +20,19 @@ internal class TrackUserUseCase(
             return currentUserId.ifEmpty { null }
         }
 
-    val currentLogUserId: String
-        get() = currentUserIdsUseCase.currentLogUserId
+    val currentAnonUserId: String
+        get() = currentUserIdsUseCase.currentAnonUserId
 
-    val currentOrPendingLogUserId: String
+    val currentOrPendingAnonUserId: String
         get() {
-            val currentLogUserId = this.currentLogUserId
-            return currentLogUserId.ifEmpty { logUserAncestorId.currentOrPendingValue }
+            val currentAnonUserId = this.currentAnonUserId
+            return currentAnonUserId.ifEmpty { anonUserAncestorId.currentOrPendingValue }
         }
 
-    val currentOrNullLogUserId: String?
+    val currentOrNullAnonUserId: String?
         get() {
-            val currentLogUserId = this.currentLogUserId
-            return currentLogUserId.ifEmpty { null }
+            val currentAnonUserId = this.currentAnonUserId
+            return currentAnonUserId.ifEmpty { null }
         }
 
     fun setUserId(logger: MetricsLogger, userId: String) = xray.monitored {
@@ -41,24 +41,24 @@ internal class TrackUserUseCase(
         if (currentUserIdsUseCase.currentUserId != userId) {
             currentUserIdsUseCase.updateUserId(userId)
 
-            // Now that a new user ID exists, a new logUserId needs to be generated & then stored
-            logUserAncestorId.advance()
-            currentUserIdsUseCase.updateLogUserId(logUserAncestorId.currentValue)
+            // Now that a new user ID exists, a new anonUserId needs to be generated & then stored
+            anonUserAncestorId.advance()
+            currentUserIdsUseCase.updateAnonUserId(anonUserAncestorId.currentValue)
 
-            logUser(logger, userId, logUserAncestorId.currentValue)
+            logUser(logger, userId, anonUserAncestorId.currentValue)
         }
     }
 
-    fun overrideLogUserId(logger: MetricsLogger, logUserId: String) = xray.monitored {
+    fun overrideAnonUserId(logger: MetricsLogger, anonUserId: String) = xray.monitored {
         currentUserIdsUseCase.updateUserId("")
-        currentUserIdsUseCase.updateLogUserId(logUserId)
-        logUser(logger, "", logUserId)
+        currentUserIdsUseCase.updateAnonUserId(anonUserId)
+        logUser(logger, "", anonUserId)
     }
 
-    private fun logUser(logger: MetricsLogger, userId: String, logUserId: String) {
+    private fun logUser(logger: MetricsLogger, userId: String, anonUserId: String) {
         // No need to logUser if there are no IDs
-        if (userId.isBlank() && logUserId.isBlank()) return
+        if (userId.isBlank() && anonUserId.isBlank()) return
 
-        logger.enqueueMessage(createUserMessage(clock, userId, logUserId))
+        logger.enqueueMessage(createUserMessage(clock, userId, anonUserId))
     }
 }

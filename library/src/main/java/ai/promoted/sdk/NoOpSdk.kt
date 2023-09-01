@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 @Suppress("TooManyFunctions", "EmptyFunctionBlock")
 internal class NoOpSdk : PromotedAiSdk {
-    override var logUserId: String = ""
+    override var anonUserId: String = ""
     override var sessionId: String = ""
 
     override fun startSession(userId: String) {}

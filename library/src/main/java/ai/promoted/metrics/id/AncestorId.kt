@@ -1,7 +1,7 @@
 package ai.promoted.metrics.id
 
 /**
- * Represents any of the top-level "ancestor" IDs (i.e. session ID, view ID, logUserID) which
+ * Represents any of the top-level "ancestor" IDs (i.e. session ID, view ID, anonUserID) which
  * can either be explicitly set by the library user, or implicitly set by calling [advance].
  */
 internal class AncestorId(

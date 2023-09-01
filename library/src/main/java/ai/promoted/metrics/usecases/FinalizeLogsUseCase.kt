@@ -70,7 +70,7 @@ internal class FinalizeLogsUseCase(
         logRequestBuilder.clientInfo = createClientInfo()
         logRequestBuilder.userInfo = createUserInfoMessage(
             userId = trackUserUseCase.currentOrNullUserId,
-            logUserId = trackUserUseCase.currentOrNullLogUserId
+            anonUserId = trackUserUseCase.currentOrNullAnonUserId
         )
         logRequestBuilder.device = deviceMessage
         logMessages.forEach { logRequestBuilder.addMessage(it) }

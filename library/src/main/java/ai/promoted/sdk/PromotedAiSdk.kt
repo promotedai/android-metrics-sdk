@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 @Suppress("TooManyFunctions")
 internal interface PromotedAiSdk {
-    var logUserId: String
+    var anonUserId: String
     var sessionId: String
 
     fun startSession(userId: String = "")

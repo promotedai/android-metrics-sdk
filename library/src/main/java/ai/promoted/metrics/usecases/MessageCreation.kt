@@ -44,11 +44,11 @@ internal fun createTimingMessage(time: Long) =
         .setClientLogTimestamp(time)
         .build()
 
-internal fun createUserMessage(clock: Clock, userId: String, logUserId: String) =
+internal fun createUserMessage(clock: Clock, userId: String, anonUserId: String) =
     User
         .newBuilder()
         .setTiming(createTimingMessage(clock))
-        .setUserInfo(createUserInfoMessage(userId, logUserId))
+        .setUserInfo(createUserInfoMessage(userId, anonUserId))
         .build()
 
 internal fun createDeviceMessage(deviceInfoProvider: DeviceInfoProvider): Device {
@@ -197,12 +197,12 @@ internal fun createPropertiesMessage(properties: Message?): Properties? {
 }
 
 // TODO - when Kotlin 1.5 comes out, use inline/value classes to ensure type-safety
-internal fun createUserInfoMessage(userId: String?, logUserId: String?) =
+internal fun createUserInfoMessage(userId: String?, anonUserId: String?) =
     UserInfo
         .newBuilder()
         .apply {
             userId?.let { setUserId(it) }
-            logUserId?.let { setLogUserId(it) }
+            anonUserId?.let { setAnonUserId(it) }
         }
         .build()
 

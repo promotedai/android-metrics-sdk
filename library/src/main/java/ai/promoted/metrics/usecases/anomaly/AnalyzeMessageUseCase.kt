@@ -27,8 +27,8 @@ internal class AnalyzeMessageUseCase(
     }
 
     private fun analyzeLogRequest(logRequest: LogRequest) {
-        if (logRequest.userInfo?.logUserId.isNullOrBlank()) {
-            anomalyHandler.handle(AnomalyType.MissingLogUserIdInLogRequest)
+        if (logRequest.userInfo?.anonUserId.isNullOrBlank()) {
+            anomalyHandler.handle(AnomalyType.MissingAnonUserIdInLogRequest)
         }
     }
 
@@ -54,8 +54,8 @@ internal class AnalyzeMessageUseCase(
     }
 
     private fun analyzeUser(user: User) {
-        if (user.userInfo?.logUserId.isNullOrBlank()) {
-            anomalyHandler.handle(AnomalyType.MissingLogUserIdInUserMessage)
+        if (user.userInfo?.anonUserId.isNullOrBlank()) {
+            anomalyHandler.handle(AnomalyType.MissingAnonUserIdInUserMessage)
         }
     }
 }
